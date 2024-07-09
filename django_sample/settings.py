@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+Import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+AUTH_USER_MODEL = 'courses.User'
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,13 +33,17 @@ ALLOWED_HOSTS = ['139-162-254-40.ip.linodeusercontent.com', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'courses.apps.CoursesConfig',
+	'embed_video',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -128,3 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)).strip('ifounder')
