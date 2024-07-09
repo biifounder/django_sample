@@ -134,7 +134,7 @@ STATIC_URL = '/var/www/django_app/django_sample/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'courses/static/')
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
