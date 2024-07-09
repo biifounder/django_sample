@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses.apps.CoursesConfig',
-	'embed_video',
+    'embed_video',
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
