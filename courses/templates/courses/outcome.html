@@ -45,12 +45,12 @@
       <h1>
         {% if teacher %}
           <span>  
-            <a style="width:30px; font-size:1px" title="حذف" href="{% url 'delete' k=object.k %}"><img style="width:30px" src="{% static 'courses/delete.svg' %}"></a>
-            <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'update' k=object.k %}"><img style="width:30px" src="{% static 'courses/edit.svg' %}"></a>
+            <a style="width:30px; font-size:1px" title="حذف" href="{% url 'delete' k=object.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
+            <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'update' k=object.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
           </span>  
         {% endif %}
 
-        <a style="width:30px; font-size:1px" title="{{para}} {{parent}}" href="{% url 'open' k=p %}"><img style="width:30px" src="{% static 'courses/up.svg' %}">
+        <a style="width:30px; font-size:1px" title="{{para}} {{parent}}" href="{% url 'open' k=p %}"><img style="width:30px" src="{% static 'admin/img/up.svg' %}">
         </a>              
         {{object.name}}        
       </div>        
@@ -95,11 +95,11 @@
         {% endif %}
 
         <div style="text-align:right">         
-          <a style="width:30px; font-size:1px" title="حذف" href="{% url 'delete' k=q.q.k %}"><img style="width:30px" src="{% static 'courses/delete.svg' %}"></a>
-          <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'update' k=q.q.k %}"><img style="width:30px" src="{% static 'courses/edit.svg' %}"></a>
-          <a style="width:30px; font-size:1px" title="نسخ" href="{% url 'dublicate' k=q.q.k %}"><img style="width:30px" src="{% static 'courses/duplicate.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="حذف" href="{% url 'delete' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'update' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="نسخ" href="{% url 'dublicate' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/duplicate.svg' %}"></a>
           {% if q.q.y %}               
-            {% if q.q.video %}<a style="width:30px; font-size:1px" target="blank" title="شرح فيديو" href="{{q.q.video}}"><img style="width:30px" src="{% static 'courses/video.svg' %}"></a>{% endif %}
+            {% if q.q.video %}<a style="width:30px; font-size:1px" target="blank" title="شرح فيديو" href="{{q.q.video}}"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"></a>{% endif %}
             ({{q.q.level}}) 
           {% endif %} 
           <br>

@@ -38,13 +38,13 @@
       <div style="text-align:center;">   
         <h1 style="font-size:50px; color:rgb(46, 0, 253)">      
           {% if teacher %}
-            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=k %}"><img style="width:30px" src="{% static 'courses/delete.svg' %}"></a>            
-            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=k %}"><img style="width:30px" src="{% static 'courses/edit.svg' %}"></a>
+            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
           {% endif %}
           {% if teacher and b == 'y' %}
-            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'home' %}"><img style="width:30px" src="{% static 'courses/up.svg' %}"></a>
+            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'home' %}"><img style="width:30px" src="{% static 'admin/img/up.svg' %}"></a>
           {% elif not b == 'y'  %}
-            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'open' k=p %}"><img style="width:30px" src="{% static 'courses/up.svg' %}"></a>
+            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'open' k=p %}"><img style="width:30px" src="{% static 'admin/img/up.svg' %}"></a>
           {% endif %}
           {{ara}}: {{name}} 
           
