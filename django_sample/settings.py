@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['139-162-254-40.ip.linodeusercontent.com', 'localhost','127.0.0
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
