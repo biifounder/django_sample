@@ -27,13 +27,13 @@ SECRET_KEY = "gsok)b&w87t=n@b5bdi8373s0#!hxv@^8(oh_9t8eo@hn!$0*f"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['139-162-254-40.ip.linodeusercontent.com', 'localhost']
+ALLOWED_HOSTS = ['139-162-254-40.ip.linodeusercontent.com', 'localhost','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -90,6 +90,13 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -132,7 +139,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)).strip('ifounder')
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)).strip('django_sample')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

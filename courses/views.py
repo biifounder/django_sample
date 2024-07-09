@@ -283,9 +283,9 @@ def eqeval(num):
             power = num.split('^')[1]            
             num = num.replace(power,'{'+power+'}')    
     if un : 
-        un = '\ '.join(un.split())
+        un = '\\ '.join(un.split())
         num += '\ \mathrm{'+un+'}'
-    num = '\( ' + num + ' \)'
+    num = '\\( ' + num + ' \\)'
     return num
 
 
@@ -315,11 +315,11 @@ def Create(request, p):
                 object, _ = Mod[c].objects.get_or_create(name=name, p=parent, y=parent.y)  
                 yname = parent.y.name  
                 if c == 'q':
-                    if '\(' in name : 
+                    if '\\(' in name : 
                         object.name = object.name.replace('*','\\times')
                     if request.POST.get('hint'): 
                         hint = request.POST.get('hint') 
-                        if '\(' in hint : 
+                        if '\\(' in hint : 
                             hint = hint.replace('*','\\times')
                         object.hint = hint 
                     if request.POST.get('options'): 
@@ -385,7 +385,7 @@ def Dublicate(request, k):
     if request.method == 'POST':    
         if request.POST.get('name') : 
             name = request.POST.get('name')  
-            if '\(' in name : 
+            if '\\(' in name : 
                 name = name.replace('*','\\times')      
         object = QDubl.objects.create(name=name, p=parent)
         object.k = 'd'+str(object.id)
@@ -435,13 +435,13 @@ def Update(request, k):
                 if hint == 'None' or hint == '.': 
                     object.hint = None
                 else: 
-                    if '\(' in hint : 
+                    if '\\(' in hint : 
                         hint = hint.replace('*','\\times')
                     object.hint = hint
         if b in ['d','q']:
             if request.POST.get('options'): 
                 unpack(object, request.POST.get('options')) 
-            if '\(' in object.name : 
+            if '\\(' in object.name : 
                 object.name = object.name.replace('*','\\times')
         # elif b == 'o' and request.POST.get('content'): 
         #     object.content = request.POST.get('content') 
