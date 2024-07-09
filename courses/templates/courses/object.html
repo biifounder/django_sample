@@ -1,0 +1,154 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <title>{{name}}</title>  
+  <style>
+    .hide {
+            display: none;
+        }
+  </style>
+</head>
+
+<body>  
+  {{k}}
+  <div class="container">
+    {% if auth %}   
+      <div style="font-size:30px">               
+        {% if percent < 50 %}
+          <span style="color:black">% {{percent}} ضعيف</span>
+        {% elif percent < 70 %}
+          <span style="color:red">% {{percent}} متوسط</span>
+        {% elif percent < 80 %}
+          <span style="color:green">% {{percent}} جيد</span>
+        {% elif percent < 90 %}
+          <span style="color:blue">% {{percent}} جيد جدا</span>
+        {% elif percent < 101 %}
+          <span style="color:rgb(176, 0, 176)">% {{percent}} ممتاز</span>   
+        {% endif %} 
+        {% if b == 'y' %}
+          <span>   &nbsp &nbsp &nbsp  أنت في المركز ({{user_rank}})</span>  
+        {% endif %}  
+      </div>  
+    {% else %}
+      <span style="font-size:30px">% 0 ضعيف</span>
+    {% endif %} 
+    <div class="box">
+      <div style="text-align:center;">   
+        <h1 style="font-size:50px; color:rgb(46, 0, 253)">      
+          {% if teacher %}
+            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=k %}"><img style="width:30px" src="{% static 'courses/delete.svg' %}"></a>            
+            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=k %}"><img style="width:30px" src="{% static 'courses/edit.svg' %}"></a>
+          {% endif %}
+          {% if teacher and b == 'y' %}
+            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'home' %}"><img style="width:30px" src="{% static 'courses/up.svg' %}"></a>
+          {% elif not b == 'y'  %}
+            <a style="width:30px; font-size:1px;" title="{{para}} {{parent}}" href="{% url 'open' k=p %}"><img style="width:30px" src="{% static 'courses/up.svg' %}"></a>
+          {% endif %}
+          {{ara}}: {{name}} 
+          
+        </h1>
+      </div>           
+    </div>    
+    <div class="container">  
+    {% if not b == 'y' %}
+        <button style="color:rgb(8, 0, 255); width:48%" onclick='window.location.href="{% url 'practice' k=k %}"'>تدريب</button> 
+      {% if auth %}
+        <button style="color:rgb(8, 0, 255); width:48%" onclick='
+            if (confirm("إذا تم عرض الامتحان ولم تكمله حتى تقوم بإرسال النتيجة ستحتسب درجتك صفرا. اضغط ok إذا كنت تريد الاستمرار.")=== true){
+              window.location.href="{% url 'assessment' k=k %}" }'>تقييم</button>     
+      {% else %}
+        <button style="color:rgb(8, 0, 255); width:48%"  onclick="mustLogin()">تقييم</button>
+      {% endif %}   
+    {% endif %}
+    </div>
+  
+    {% if b == 's'%}  
+    <div class="container"> 
+      <button style="color:red" onclick="showweaknesses()"> نقاط ضعفك في {{name}}</button>
+    </div> 
+      <div class="box hide" id="weaknesses" style="max-height:200px; background-color: rgb(240, 240, 240); overflow:auto; border:0px solid #414141;">
+        {% if auth and weaknesses  %}   
+          {% for weak in weaknesses %}
+            <button style="font-size:17px; width:70%" onclick='window.location.href="{% url 'open' k=weak.wk %}"'>{{weak.percent}}% - {{weak.name}}</a> <br>
+          {% endfor %}
+        {% elif auth %}
+          <h2 style="color:rgb(119, 0, 255)">تهـــانينا</h2>
+          <p style="color:rgb(119, 0, 255)">لا يوجد لديك نقاط ضعف في  {{name}}</p>      
+        {% endif %}  
+      </div>  
+    {% endif %}    
+
+    {% if b == 'y' %}
+      <div class="container"> 
+        <button style="color:rgb(99, 22, 242)" onclick="showoutstanding()"> لوحة التميز للصف ال{{name}}</button> 
+      </div>
+      <div class="box hide" id="outstanding" style="color:rgb(99, 22, 242); max-height:200px; background-color: rgb(240, 240, 240); overflow:auto; text-align:right; border:1px solid #414141;">
+        {% for out in outstandings %}
+          <p> <span>{{out.rank}}% - {{out.name}}</span> 
+            <span style="font-size:15px; color:black"> مدرسة {{out.school}} - ولاية {{out.prov}} - محافظة {{out.gov}}</span></p>
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <h1 style="color:rgb(46, 0, 253);">{{contents}}</h1>
+
+    <div class="container">
+      {% if children %}
+        {% for child in children %} 
+            <button onclick='window.location.href="{% url 'open' k=child.c.k %}"'>
+              <div style="font-size:25px; float:right"">{{child.c.name}}</div>
+              <div style="font-size:20px; float:left">
+              {% if child.percent < 50 %}
+                <span style="color:black">% {{child.percent}} ضعيف</span>
+              {% elif child.percent < 70 %}
+                <span style="color:red">% {{child.percent}} متوسط</span>
+              {% elif child.percent < 80 %}
+                <span style="color:green">% {{child.percent}} جيد</span>
+              {% elif child.percent < 90 %}
+                <span style="color:blue">% {{child.percent}} جيد جدا</span>
+              {% elif child.percent < 101 %}
+                <span style="color:rgb(176, 0, 176)">% {{child.percent}} ممتاز</span>   
+              {% endif %} 
+            </div>
+          </button>
+        {% endfor %}   
+      {% else %} 
+          <p>لم تتم إضافة {{contents}} بعد</p>
+      {% endif %}
+    </div>
+    
+    {% if teacher %}      
+      <div class="container">
+        <br><hr>
+        <button style="background-color:#dfdfdf" onclick='window.location.href="{% url 'create' p=k %}"'>إضافة {{cara}}</button>
+      </div>
+    {% endif %}
+
+  </div>
+</body>
+<script>
+  function mustLogin() {
+    alert("الاختبار والتقييم والتوجيه ميزات غير متاحة في الإصدار التجريبي");
+  }
+
+  let Weaknesses = document.getElementById("weaknesses"); 
+  let auth = '{{auth}}';   
+  function showweaknesses(){    
+    if (auth === '0'){
+      alert('تحديد نقاط الضعف في المادة خاصية غير متاحة في الإصدار التجريبي')      
+    } else {
+      Weaknesses.classList.toggle('hide');      
+    };    
+  }
+
+  let Outstanding = document.getElementById("outstanding"); 
+  function showoutstanding(){    
+    Outstanding.classList.toggle('hide');        
+  }
+</script>
+
+
+{% endblock %}
