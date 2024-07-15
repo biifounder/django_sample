@@ -620,36 +620,38 @@ def updateScores(request, test):
     user = request.user
     submitted = request.POST.get('submitted')
     submitted = submitted.split(',')
-    sL = len(submitted)
-    questions = request.session['questions']
-    if len(questions) == sL: 
-        for j in range(sL): 
-            question = Question.objects.get(k=questions[j]['k'])   
-            newEval = QEval.objects.get(k=question, user=user)
-            newEval.flag = int(submitted[j])
-            newEval.save()
-        return 0, 0, 0
-    else: 
-        real_score = 0
-        for j in range(0, sL, 2): 
-            i = int(j/2)
-            question = Question.objects.get(k=questions[i]['k'])   
-            newEval = QEval.objects.get(k=question, user=user)
-            flag = int(submitted[j+1])
-            newEval.flag = flag
-            if test: 
-                questions[i]['flag'] =  flag
-            if submitted[j]: 
-                questions[i]['choice'] = submitted[j]  
-                if questions[i]['choice'] == questions[i]['correct'] :
-                    newEval.score = 1
-                    if test and question.op2:
-                        real_score += 1
-                else: 
-                    newEval.score = -1
-            newEval.save()        
-        if test:
-            return real_score, questions, 1 
+    if submitted != ['']: 
+        sL = len(submitted)    
+        questions = request.session['questions']
+        if len(questions) == sL: 
+            for j in range(sL): 
+                question = Question.objects.get(k=questions[j]['k'])   
+                newEval = QEval.objects.get(k=question, user=user)
+                newEval.flag = int(submitted[j])
+                newEval.save()
+            return 0, 0, 0
+        else: 
+            real_score = 0
+            for j in range(0, sL, 2): 
+                i = int(j/2)
+                question = Question.objects.get(k=questions[i]['k'])   
+                newEval = QEval.objects.get(k=question, user=user)
+                flag = int(submitted[j+1])
+                newEval.flag = flag
+                if test: 
+                    questions[i]['flag'] =  flag
+                if submitted[j]: 
+                    questions[i]['choice'] = submitted[j]  
+                    if questions[i]['choice'] == questions[i]['correct'] :
+                        newEval.score = 1
+                        if test and question.op2:
+                            real_score += 1
+                    else: 
+                        newEval.score = -1
+                newEval.save()        
+            if test:
+                return real_score, questions, 1 
+    return 0, 0, 0
 
 
 def Practice(request, k):    
