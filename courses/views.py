@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.core.files.storage import FileSystemStorage
 import os, shutil
 from django.conf import settings
+from math import sqrt, tan, sin, cos, pi
 
 
 
@@ -502,7 +503,7 @@ def Delete(request, k):
         return redirect('open', p)
     return render(request, 'courses/delete.html')
 
-
+ 
 
 #_________________________________________________________________________________________
 
