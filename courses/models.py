@@ -97,10 +97,10 @@ class OutcomeEval(models.Model):
 
 class Question(models.Model):
     name = models.TextField(null=True)
-    op1 = models.CharField(max_length=200,null=True)
-    op2 = models.CharField(max_length=200,null=True)
-    op3 = models.CharField(max_length=200,null=True)
-    op4 = models.CharField(max_length=200,null=True)
+    op1 = models.CharField(max_length=10000,null=True)
+    op2 = models.CharField(max_length=10000,null=True)
+    op3 = models.CharField(max_length=10000,null=True)
+    op4 = models.CharField(max_length=10000,null=True)
     options = models.TextField(null=True) 
     hint = models.TextField(null=True)   
     level = models.CharField(max_length=400,null=True) 
@@ -123,10 +123,10 @@ class QEval(models.Model):
 
 class QDubl(models.Model):
     name = models.TextField(null=True)
-    op1 = models.CharField(max_length=200,null=True)
-    op2 = models.CharField(max_length=200,null=True)
-    op3 = models.CharField(max_length=200,null=True)
-    op4 = models.CharField(max_length=200,null=True)
+    op1 = models.CharField(max_length=10000,null=True)
+    op2 = models.CharField(max_length=10000,null=True)
+    op3 = models.CharField(max_length=10000,null=True)
+    op4 = models.CharField(max_length=10000,null=True)
     options = models.TextField(null=True) 
     file = models.FileField(null=True)
     ansimg = models.FileField(null=True)
