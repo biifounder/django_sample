@@ -261,7 +261,7 @@ def uploadFile(request, object, html_name):
     if html_name == 'ansimg': 
         object.ansimg = fs.url(file).replace('media/', location) 
 
-
+import re
 def eqeval(num):
     num_split = num.strip('=').split('=')    
     if len(num_split) == 1 : 
@@ -284,8 +284,7 @@ def eqeval(num):
             power = num.split('^')[1]            
             num = num.replace(power,'{'+power+'}')    
     if un : 
-        un = '\\ '.join(un.split())
-        num += '\ \mathrm{'+un+'}'
+        num += un
     num = '\\( ' + num + ' \\)'
     return num
 
