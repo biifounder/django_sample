@@ -6,3 +6,5 @@ db.sqlite3
 db.sqlite3
 django_sample/settings.py
 django_sample/__pycache__/settings.cpython-312.pyc
+django_sample/__pycache__/settings.cpython-312.pyc
+/django_sample

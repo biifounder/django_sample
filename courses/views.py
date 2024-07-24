@@ -272,7 +272,7 @@ def eqeval(num):
         un = num_split[1]
     num = num.replace('^','**')
     num = float(eval(num))
-    if abs(num) < 0.001 or num > 1000: 
+    if abs(num) < 0.001 or abs(num) > 1000: 
         num = "{:.1e}".format(num)
     elif len(str(num)) > 3:
         num = float("{:.2g}".format(num))       
