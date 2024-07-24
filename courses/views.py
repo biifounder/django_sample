@@ -11,9 +11,25 @@ import os, shutil
 from django.conf import settings
 from math import sqrt, tan, sin, cos, pi
 
+def after_load ():
+    for year in Year.objects.all(): 
+        me = User.objects.get(year='0')
+        users = [ u for u in User.objects.filter(year=year.name)] + [me]
+        for user in users : 
+            print(user)
+            YearEval.objects.get_or_create(k=year, user=user)    
+            for subject in  Subject.objects.filter(p=year):      
+                SubjectEval.objects.get_or_create(k=subject, user=user)
+            for unit in Unit.objects.filter(y=year): 
+                UnitEval.objects.get_or_create(k=unit, user=user)
+            for lesson in Lesson.objects.filter(y=year): 
+                LessonEval.objects.get_or_create(k=lesson, user=user)
+            for outcome in Outcome.objects.filter(y=year): 
+                OutcomeEval.objects.get_or_create(k=outcome, user=user)
+            for question in Question.objects.filter(y=year): 
+                QEval.objects.get_or_create(k=question, user=user)
 
-
-
+after_load()
 
 def auth(request):
     return request.user.is_authenticated
@@ -348,7 +364,7 @@ def Create(request, p):
         object.save()
         MEval[c].objects.create(k=object, user=User.objects.get(email='biifounder@gmail.com')) 
         for user in User.objects.filter(year=yname):                
-            MEval[c].objects.create(k=object, user=user)        
+            MEval[c].objects.create(k=object, user=user)  
         return redirect('open', p)
     else: 
         context = {'teacher':is_teacher(request), 'c':c, 'ara':ara[c]}     
