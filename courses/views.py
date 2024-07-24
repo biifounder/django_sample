@@ -29,8 +29,6 @@ def after_load ():
             for question in Question.objects.filter(y=year): 
                 QEval.objects.get_or_create(k=question, user=user)
 
-after_load()
-
 def auth(request):
     return request.user.is_authenticated
 
@@ -81,6 +79,7 @@ def addAdmin(request):
             AddUser(request, year)
 
 def HomePage(request):  
+    #after_load()
     #deleteAll()
     # AddUser(request,Year.objects.get(name='10'))     
     if request.method == 'POST':   
