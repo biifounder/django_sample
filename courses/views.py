@@ -26,7 +26,7 @@ def is_teacher(request):
 
 def deleteAll():
     for Mod in [QDubl, QEval, Question, OutcomeEval, Outcome, LessonEval, Lesson, 
-                UnitEval, Unit] : 
+                UnitEval, Unit, SubjectEval, Subject, YearEval, Year] : 
         Mod.objects.all().delete()
 
 #======================================================================================================
@@ -65,7 +65,7 @@ def addAdmin(request):
             AddUser(request, year)
 
 def HomePage(request):  
-    # deleteAll()
+    #deleteAll()
     # AddUser(request,Year.objects.get(name='10'))     
     if request.method == 'POST':   
         if "visitor" in request.POST:            
