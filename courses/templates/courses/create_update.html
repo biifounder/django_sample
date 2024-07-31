@@ -31,6 +31,9 @@
 
         {% if not object %}
           {% if c == 'q' %}
+            <select required style="width:30%"  name="source" id="qsource"><option value="">مصدر السؤال</option></select> 
+              <select required style="width:30%"  name="kind" id="qkind"><option value="">نوع السؤال</option></select> 
+              <select required style="width:30%"  name="level" id="qlevel"><option value="">مستوى السؤال</option></select> <br>
             رأس السؤال <br><textarea required type="textarea" rows="6" cols="100" name="name" ></textarea> <br>         
           {% else %}
             اسم ال{{ara}} <br><input required type="text" name="name"><br>
@@ -43,14 +46,14 @@
               التوجيهات <br> <textarea type="textarea" rows="6" cols="100" name="hint" ></textarea>
             {% endif %}
               <br>رابط الفيديو <br><input type="text" name="video" >
-            {% if c == 'q' %}
-              <select required style="width:30%"  name="source" id="qsource"><option value="">مصدر السؤال</option></select> 
-              <select required style="width:30%"  name="kind" id="qkind"><option value="">نوع السؤال</option></select> 
-              <select required style="width:30%"  name="level" id="qlevel"><option value="">مستوى السؤال</option></select> 
-            {% endif %}
           {% endif %}
 
         {% else %}
+          {% if c == 'q' %}
+            <select style="width:30%" name="source" id="qsource"><option value="{{object.source}}">{{object.source}}</option></select>      
+            <select style="width:30%" name="kind" id="qkind"><option value="{{object.kind}}">{{object.kind}}</option></select>   
+            <select style="width:30%" name="level" id="qlevel"><option value="{{object.level}}">{{object.level}}</option></select> 
+          {% endif %}
           {% if c == 'q' or c == 'd' %}
             رأس السؤال <br><textarea required type="textarea" rows="6" cols="100" name="name" >{{object.name}}</textarea> <hr> 
           {% else %}
@@ -88,11 +91,6 @@
           {% endif %}
           {% if c == 'o' or c == 'q' %}
             <br>رابط الفيديو <br><input type="text" value='{{object.video}}' name="video" >
-          {% endif %}
-          {% if c == 'q' %}
-            <select style="width:30%" name="source" id="qsource"><option value="{{object.source}}">{{object.source}}</option></select>      
-            <select style="width:30%" name="kind" id="qkind"><option value="{{object.kind}}">{{object.kind}}</option></select>   
-            <select style="width:30%" name="level" id="qlevel"><option value="{{object.level}}">{{object.level}}</option></select> 
           {% endif %}
         {% endif %}
   

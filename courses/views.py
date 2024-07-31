@@ -10,40 +10,53 @@ from django.core.files.storage import FileSystemStorage
 import os, shutil
 from django.conf import settings
 from math import sqrt, tan, sin, cos, pi
+import json
 
-def after_load ():
+
+#######################   Dangerous Zone  ###########################
+# to create user Evals for the newly added instances in the local
+def create_user_evals ():
     for year in Year.objects.all(): 
         me = User.objects.get(year='0')
         users = [ u for u in User.objects.filter(year=year.name)] + [me]
-        for user in users : 
-            print(user)
-            YearEval.objects.get_or_create(k=year, user=user)    
-            for subject in  Subject.objects.filter(p=year):      
-                SubjectEval.objects.get_or_create(k=subject, user=user)
+        for user in users :    
+            if not YearEval.objects.filter(k=year, user=user):          
+                YearEval.objects.create(k=year, user=user)    
+            for subject in  Subject.objects.filter(p=year):    
+                if not SubjectEval.objects.filter(k=subject, user=user): 
+                    SubjectEval.objects.create(k=subject, user=user)
             for unit in Unit.objects.filter(y=year): 
-                UnitEval.objects.get_or_create(k=unit, user=user)
+                if not UnitEval.objects.filter(k=unit, user=user) : 
+                    UnitEval.objects.create(k=unit, user=user)
             for lesson in Lesson.objects.filter(y=year): 
-                LessonEval.objects.get_or_create(k=lesson, user=user)
+                if not LessonEval.objects.filter(k=lesson, user=user) : 
+                    LessonEval.objects.create(k=lesson, user=user)
             for outcome in Outcome.objects.filter(y=year): 
-                OutcomeEval.objects.get_or_create(k=outcome, user=user)
+                if not OutcomeEval.objects.filter(k=outcome, user=user):
+                    OutcomeEval.objects.create(k=outcome, user=user)
             for question in Question.objects.filter(y=year): 
-                QEval.objects.get_or_create(k=question, user=user)
+                print()
+                if not QEval.objects.filter(k=question, user=user):
+                    QEval.objects.create(k=question, user=user)
+#create_user_evals ()
 
+def deleteAll():
+    for Mod in [QDubl, QEval, Question, OutcomeEval, Outcome, LessonEval, Lesson, 
+                UnitEval, Unit, SubjectEval, Subject, YearEval, Year, User] : 
+        Mod.objects.all().delete()
+#deleteAll()
+
+
+#======================================================================================================
 def auth(request):
     return request.user.is_authenticated
 
 def is_teacher(request): 
     if auth(request) :   
-        if request.user.email in  ['biifounder@gmail.com','bahaaismailres@gmail.com'] : 
+        if request.user.email in  ['biifounder@gmail.com'] : 
             return request.user.username 
     return False
 
-def deleteAll():
-    for Mod in [QDubl, QEval, Question, OutcomeEval, Outcome, LessonEval, Lesson, 
-                UnitEval, Unit, SubjectEval, Subject, YearEval, Year] : 
-        Mod.objects.all().delete()
-
-#======================================================================================================
 def EmailSender(email_subject, message,receiver_emails):
         send_mail(
         email_subject,
@@ -78,10 +91,7 @@ def addAdmin(request):
         if not YearEval.objects.filter(k=year): 
             AddUser(request, year)
 
-def HomePage(request):  
-    #after_load()
-    #deleteAll()
-    # AddUser(request,Year.objects.get(name='10'))     
+def HomePage(request):       
     if request.method == 'POST':   
         if "visitor" in request.POST:            
             y = request.POST.get('year') 
@@ -177,15 +187,16 @@ def Object(request, k):
                   '9':'تاسع', '10':'عاشر', '11':'حادي عشر', '12':'ثاني عشر'}
             context['name'] = nD[object.name]
             outstandings = []  
-            ordered = YearEval.objects.filter(k=object).order_by('-percent')            
-            ordered = ordered[:5]
-            for ord in ordered: 
+            ordered = YearEval.objects.filter(k=object).order_by('-percent')      
+            ordered_percents = [ord.percent for ord in ordered]      
+            rank5 = ordered_percents[4]
+            rank5 = len([ord for ord in ordered_percents if ord >= rank5])
+            for ord in ordered[:rank5]: 
                 out = ord.user
                 outstandings += [{'rank':ord.percent,'name': out.name, 'school':out.school, 'prov': out.prov, 'gov': out.gov, 'percent':ord.percent}]
-            context['outstandings'] = outstandings            
-            if user:
-                ordered = [ord.percent for ord in ordered]
-                context['user_rank'] = ordered.index(user_eval)+1
+            context['outstandings'] = outstandings                  
+            if user:               
+                context['user_rank'] = ordered_percents.index(user_eval)+1
         else : 
             context['p']= object.p.k
             context['parent'] = object.p.name
