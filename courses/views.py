@@ -15,30 +15,6 @@ import json
 
 #######################   Dangerous Zone  ###########################
 # to create user Evals for the newly added instances in the local
-def create_user_evals ():
-    for year in Year.objects.all(): 
-        me = User.objects.get(year='0')
-        users = [ u for u in User.objects.filter(year=year.name)] + [me]
-        for user in users :    
-            if not YearEval.objects.filter(k=year, user=user):          
-                YearEval.objects.create(k=year, user=user)    
-            for subject in  Subject.objects.filter(p=year):    
-                if not SubjectEval.objects.filter(k=subject, user=user): 
-                    SubjectEval.objects.create(k=subject, user=user)
-            for unit in Unit.objects.filter(y=year): 
-                if not UnitEval.objects.filter(k=unit, user=user) : 
-                    UnitEval.objects.create(k=unit, user=user)
-            for lesson in Lesson.objects.filter(y=year): 
-                if not LessonEval.objects.filter(k=lesson, user=user) : 
-                    LessonEval.objects.create(k=lesson, user=user)
-            for outcome in Outcome.objects.filter(y=year): 
-                if not OutcomeEval.objects.filter(k=outcome, user=user):
-                    OutcomeEval.objects.create(k=outcome, user=user)
-            for question in Question.objects.filter(y=year): 
-                print()
-                if not QEval.objects.filter(k=question, user=user):
-                    QEval.objects.create(k=question, user=user)
-#create_user_evals ()
 
 def deleteAll():
     for Mod in [QDubl, QEval, Question, OutcomeEval, Outcome, LessonEval, Lesson, 
@@ -46,7 +22,54 @@ def deleteAll():
         Mod.objects.all().delete()
 #deleteAll()
 
+# make sure that all users in a year have the same number of qevals 
+def all_users_evals(): 
+    tot = 0
+    for year in Year.objects.all(): 
+        print()
+        print('\n', year.name, '____________')
+        for Eval in [YearEval, SubjectEval, UnitEval, LessonEval, OutcomeEval, QEval]: 
+            print()
+            allevals = 0 
+            users = User.objects.filter(year=year.name)
+            for user in users:             
+                vals = [v for v in Eval.objects.filter(user=user)]
+                print(len(vals), user.email)
+                allevals += len(vals) 
+            
+            if len(users) and allevals/len(users) != len(vals): 
+                print(Eval)
+            tot += len(vals)
+    print(tot)
+all_users_evals()
 
+def add_clean(object, Eval, user):    
+    if not Eval.objects.filter(k=object, user=user): 
+        Eval.objects.create(k=object, user=user)  
+    uevals = Eval.objects.filter(k=object, user=user) 
+    if len(uevals) > 1 : 
+        print(object , uevals, user.email , '_________________________') 
+    for ueval in uevals[1:]: 
+        ueval.delete()
+
+def add_and_clean_Evals(): 
+    for year in Year.objects.all(): 
+        me = User.objects.get(year='0')
+        users = [ u for u in User.objects.filter(year=year.name)] + [me]
+        print(len(users))
+        for user in users :   
+            add_clean(year, YearEval, user)           
+            for subject in  Subject.objects.filter(p=year):    
+                add_clean(subject, SubjectEval, user)
+            for unit in Unit.objects.filter(y=year): 
+                add_clean(unit, UnitEval, user)
+            for lesson in Lesson.objects.filter(y=year): 
+                add_clean(lesson, LessonEval, user)
+            for outcome in Outcome.objects.filter(y=year): 
+                add_clean(outcome, OutcomeEval, user)
+            for question in Question.objects.filter(y=year): 
+                add_clean(question, QEval, user)
+# add_and_clean_Evals()
 #======================================================================================================
 def auth(request):
     return request.user.is_authenticated
@@ -188,8 +211,14 @@ def Object(request, k):
             context['name'] = nD[object.name]
             outstandings = []  
             ordered = YearEval.objects.filter(k=object).order_by('-percent')      
-            ordered_percents = [ord.percent for ord in ordered]      
-            rank5 = ordered_percents[4]
+            ordered_percents = [ord.percent for ord in ordered]   
+            if len(ordered_percents)  > 4:  
+                rank5 = ordered_percents[4]
+            else: 
+                if ordered_percents : 
+                    rank5 = min(ordered_percents)
+                else: 
+                    rank5 = 0
             rank5 = len([ord for ord in ordered_percents if ord >= rank5])
             for ord in ordered[:rank5]: 
                 out = ord.user
@@ -203,7 +232,7 @@ def Object(request, k):
             if b == 's' and user: 
                 weaknesses = [] 
                 for outcome in Outcome.objects.filter(s=object):
-                    opercent = OutcomeEval.objects.get(k=outcome, user=user).score 
+                    opercent = OutcomeEval.objects.get(k=outcome, user=user).percent 
                     if opercent < 70: 
                         weaknesses += [[opercent, outcome.k, outcome.name]] 
                 weaknesses = sorted(weaknesses)
@@ -559,7 +588,7 @@ def MakeQuestions(request, k, purpose):
     questionL = gatherQuestions(k)    
     auth = request.user.is_authenticated
     if auth:    
-        user = request.user    
+        user = request.user  
         questionL = [[q, QEval.objects.get(k=q, user=user)] for q in questionL]        
         if purpose == 'pract':             
             questions = []            
