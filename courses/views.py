@@ -41,7 +41,7 @@ def all_users_evals():
                 print(Eval)
             tot += len(vals)
     print(tot)
-all_users_evals()
+#all_users_evals()
 
 def add_clean(object, Eval, user):    
     if not Eval.objects.filter(k=object, user=user): 
