@@ -26,29 +26,25 @@ def deleteAll():
 def all_users_evals(): 
     tot = 0
     for year in Year.objects.all(): 
-        print()
-        print('\n', year.name, '____________')
         for Eval in [YearEval, SubjectEval, UnitEval, LessonEval, OutcomeEval, QEval]: 
-            print()
             allevals = 0 
             users = User.objects.filter(year=year.name)
             for user in users:             
                 vals = [v for v in Eval.objects.filter(user=user)]
-                print(len(vals), user.email)
                 allevals += len(vals) 
             
-            if len(users) and allevals/len(users) != len(vals): 
-                print(Eval)
+            # if len(users) and allevals/len(users) != len(vals): 
+            #     print(Eval)
             tot += len(vals)
-    print(tot)
+    # print(tot)
 #all_users_evals()
 
 def add_clean(object, Eval, user):    
     if not Eval.objects.filter(k=object, user=user): 
         Eval.objects.create(k=object, user=user)  
     uevals = Eval.objects.filter(k=object, user=user) 
-    if len(uevals) > 1 : 
-        print(object , uevals, user.email , '_________________________') 
+    # if len(uevals) > 1 : 
+    #     print(object , uevals, user.email , '_________________________') 
     for ueval in uevals[1:]: 
         ueval.delete()
 
@@ -56,7 +52,7 @@ def add_and_clean_Evals():
     for year in Year.objects.all(): 
         me = User.objects.get(year='0')
         users = [ u for u in User.objects.filter(year=year.name)] + [me]
-        print(len(users))
+        # print(len(users))
         for user in users :   
             add_clean(year, YearEval, user)           
             for subject in  Subject.objects.filter(p=year):    
@@ -606,7 +602,6 @@ def user_questions(request, outc_qs, purpose):
             outc_qs = pract_order(outc_qs)            
         else :
             outc_qs = assessment_order(outc_qs)
-        print(outc_qs)
     else: 
         outc_qs = [outc_qs[0]]
     return outc_qs

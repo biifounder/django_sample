@@ -8,3 +8,7 @@ django_sample/settings.py
 django_sample/__pycache__/settings.cpython-312.pyc
 django_sample/__pycache__/settings.cpython-312.pyc
 /django_sample
+backup_eval.json
+backup_local.json
+backup_server.json
+courses/backup_server.json
