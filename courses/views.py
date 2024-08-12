@@ -69,7 +69,7 @@ def add_and_clean_Evals():
                 add_clean(outcome, OutcomeEval, user)
             for question in Question.objects.filter(y=year): 
                 add_clean(question, QEval, user)
-# add_and_clean_Evals()
+add_and_clean_Evals()
 #======================================================================================================
 def auth(request):
     return request.user.is_authenticated
@@ -561,13 +561,62 @@ def Delete(request, k):
 
 #_________________________________________________________________________________________
 
+def pract_order(outc_qs): 
+    questions = []            
+    for f in [1,0]: 
+        for l in ['1','2','3']: 
+            for r in ['exam','book','other']:
+                questions += [L for L in outc_qs if L[0].source==r and L[0].level==l and L[1].flag==f and L[1].score==-1] 
+    for f in [1,0]: 
+        for s in [0,1]:
+            for l in ['1','2','3']: 
+                for r in ['exam','book','other']:
+                    questions += [L for L in outc_qs if L[0].source==r and  L[0].level==l and L[1].flag==f and L[1].score==s]
+    return questions 
 
-def gatherQuestions(k): 
+def assessment_order(outc_qs): 
+    nqs = len(outc_qs)  
+    n = int(nqs/3)     
+    l1, l2 = [],[] 
+    for L in outc_qs:
+        q = L[0] 
+        if q.level == '1': 
+            l1 += [L]
+        elif q.level == '2': 
+            l2 += [L]                 
+    def split_for_test(l):
+        t0, t1 = [],[]
+        for L in l: 
+            if L[1].score != 1: 
+                t0 += [L]
+            else: 
+                t1 += [L] 
+        return t0 + t1
+    shuffle(l1)
+    shuffle(l2)
+    questions = split_for_test(l1)[:n]+split_for_test(l2)[n:nqs]
+    return questions
+
+def user_questions(request, outc_qs, purpose): 
+    auth = request.user.is_authenticated
+    if auth:    
+        user = request.user  
+        outc_qs = [[q, QEval.objects.get(k=q, user=user)] for q in outc_qs]        
+        if purpose == 'pract':     
+            outc_qs = pract_order(outc_qs)            
+        else :
+            outc_qs = assessment_order(outc_qs)
+        print(outc_qs)
+    else: 
+        outc_qs = [outc_qs[0]]
+    return outc_qs
+
+def gatherQuestions(request, k, purpose): 
     b = k[0]
     object = Mod[b].objects.get(k=k)    
     questions = [] 
     if b == 'o': 
-        questions = [q for q in Question.objects.filter(p=object)] 
+        outcomes = [object] 
     else:         
         if b == 'l':
             outcomes = [o for o in Outcome.objects.filter(p=object)] 
@@ -576,55 +625,19 @@ def gatherQuestions(k):
                 outcomes = [o for o in Outcome.objects.filter(u=object)] 
             elif b == 's' : 
                 outcomes = [o for o in Outcome.objects.filter(s=object)] 
-        nqsD = {'l':5, 'u':3, 's':1}
-        nq = nqsD[b]
-        for outc in outcomes: 
-            outc_qs = [q for q in Question.objects.filter(p=outc)]
-            shuffle(outc_qs) 
-            questions += outc_qs[:nq]             
+    nqsD = {'o':10000, 'l':5, 'u':3, 's':1}
+    nq = nqsD[b]
+    for outc in outcomes: 
+        outc_qs = [q for q in Question.objects.filter(p=outc)]
+        outc_qs = user_questions(request, outc_qs, purpose) 
+        shuffle(outc_qs) 
+        questions += outc_qs[:nq]             
     return questions
 
-def MakeQuestions(request, k, purpose): 
-    questionL = gatherQuestions(k)    
-    auth = request.user.is_authenticated
-    if auth:    
-        user = request.user  
-        questionL = [[q, QEval.objects.get(k=q, user=user)] for q in questionL]        
-        if purpose == 'pract':             
-            questions = []            
-            for f in [1,0]: 
-                for l in ['1','2','3']: 
-                    for r in ['exam','book','other']:
-                        questions += [L for L in questionL if L[0].source==r and L[0].level==l and L[1].flag==f and L[1].score==-1] 
-            for f in [1,0]: 
-                for s in [0,1]:
-                    for l in ['1','2','3']: 
-                        for r in ['exam','book','other']:
-                            questions += [L for L in questionL if L[0].source==r and  L[0].level==l and L[1].flag==f and L[1].score==s]
-        else :
-            nqs = len(questionL)  
-            n = int(nqs/3)     
-            l1, l2 = [],[] 
-            for L in questionL:
-                q = L[0] 
-                if q.level == '1': 
-                    l1 += [L]
-                elif q.level == '2': 
-                    l2 += [L]                 
-            def split_for_test(l):
-                t0, t1 = [],[]
-                for L in l: 
-                    if L[1].score != 1: 
-                        t0 += [L]
-                    else: 
-                        t1 += [L] 
-                return t0 + t1
-            shuffle(l1)
-            shuffle(l2)
-            questions = split_for_test(l1)[:n]+split_for_test(l2)[n:nqs] 
-    else: 
-        questions = questionL[:3]
 
+def MakeQuestions(request, k, purpose): 
+    auth = request.user.is_authenticated
+    questions = gatherQuestions(request, k, purpose)    
     JQuestions = []
     fullMark = 0 
     for que in questions:        
@@ -723,9 +736,6 @@ def Practice(request, k):
                    'questions':questions, 'purpose':'pract', 'auth':request.user.is_authenticated}    
     return render (request,'courses/practice.html', context)
 
-
-
-dnqs = {'s':2, 'u':2, 'l':2, 'o':2}
 def updatePercent(user,k):     
     def calcPercent(user, k) :   
         b = k[0]   
@@ -745,7 +755,9 @@ def updatePercent(user,k):
                 midpercent = sum(midpercents)/len(midpercents)
             percent = 0.4*midpercent+0.6*percent
         if freq  == 1 : 
-            percent = min(percent, 85)
+            percent = min(percent, 80) 
+        elif freq  == 2 : 
+            percent = min(percent, 90)       
         Eval.percent = int(round(percent))
         Eval.save()
         return object.p.k 
