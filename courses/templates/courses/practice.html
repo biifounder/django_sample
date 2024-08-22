@@ -127,14 +127,14 @@
 
   if (purpose === 'pract'){
     qSource = document.getElementById('qsource');
-      for(var s of ['أسئلة كتاب الطالب وكتاب النشاط','أسئلة امتحانات سابقة','أسئلة إثرائية',]){
+      for(var s of ['أسئلة وزارية','أسئلة الامتحانات','أسئلة إثرائية',]){
         qSource.options[qSource.options.length] = new Option(s, s)
       }
     
     qSource.addEventListener('change', qSelected); 
 
     qKind = document.getElementById('qkind');
-      for(var s of ['الأسئلة الموضوعية','أسئلة الفهم', 'مسأئل', 'تمثيلات بيانية', 'مقارنات', 'إثباتات']){
+      for(var s of ['أسئلة المعرفة','أسئلة الفهم', 'مسائل', 'تمثيلات بيانية', 'مقارنات', 'إثباتات']){
         qKind.options[qKind.options.length] = new Option(s, s)
       }
     qKind.addEventListener('change', qSelected); 
@@ -147,14 +147,14 @@
 
     function qSelected() {
       let qsourceMap = {
-        book:'أسئلة كتاب الطالب وكتاب النشاط',
-        exam:'أسئلة امتحانات سابقة',
+        book:'أسئلة وزارية',
+        exam:'أسئلة الامتحانات',
         other:'أسئلة إثرائية'
       }
       let qkindMap = {
-        know:'الأسئلة المعرفية',
+        know:'أسئلة المعرفة',
         understand:'أسئلة الفهم',
-        problem:'مسأئل',
+        problem:'مسائل',
         graph:'تمثيلات بيانية',
         compare:'مقارنات',
         proove:'إثباتات'
@@ -220,7 +220,13 @@
       let hint_DIV = document.createElement("div");  
       hint_DIV.classList.add("hint", "hide"); 
       hint_DIV.style.textAlign = "right";
-      hint_DIV.innerHTML = `<p style="color:blue; font-size:20px" >توجيهات الحل:</p>`;
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >توجيهات أو خطوات الحل لنفس السؤال أو سؤال مشابه:</p>`;
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >السؤال:</p>`;
+      hint_DIV.innerHTML += `<p style="font-size:20px" >${i.q_question}</p>`;
+      if (i.q_img) {
+        hint_DIV.innerHTML += `<div style="text-align:center"><img style="width:300px" src="${i.q_img}"><div/>`
+      }    
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >التوجيهات أو خطوات الحل :</p>`;      
       for (h of i.hint){
         hint_DIV.innerHTML += String.raw`<p>${h}</p>`;
       }
@@ -362,7 +368,7 @@
         
       }
     } else {
-      alert('لا توجد أسئلة بالمواصفات المخصصة')
+      alert('لا توجد أسئلة بالمواصفات المخصصة في الوقت الحالي')
       quizContainer.innerHTML = ""; 
     }         
   }

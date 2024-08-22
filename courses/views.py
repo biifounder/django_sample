@@ -65,7 +65,7 @@ def add_and_clean_Evals():
                 add_clean(outcome, OutcomeEval, user)
             for question in Question.objects.filter(y=year): 
                 add_clean(question, QEval, user)
-add_and_clean_Evals()
+# add_and_clean_Evals()
 #======================================================================================================
 def auth(request):
     return request.user.is_authenticated
@@ -117,7 +117,7 @@ def HomePage(request):
             year = Year.objects.get(name=y)
             return redirect('open', year.k)     
             
-        elif "register" in request.POST:          
+        if "register" in request.POST:          
             form = MyUserCreationForm(request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
@@ -570,9 +570,7 @@ def pract_order(outc_qs):
                     questions += [L for L in outc_qs if L[0].source==r and  L[0].level==l and L[1].flag==f and L[1].score==s]
     return questions 
 
-def assessment_order(outc_qs): 
-    nqs = len(outc_qs)  
-    n = int(nqs/3)     
+def assessment_order(outc_qs):  
     l1, l2 = [],[] 
     for L in outc_qs:
         q = L[0] 
@@ -590,7 +588,7 @@ def assessment_order(outc_qs):
         return t0 + t1
     shuffle(l1)
     shuffle(l2)
-    questions = split_for_test(l1)[:n]+split_for_test(l2)[n:nqs]
+    questions = split_for_test(l1)+split_for_test(l2)
     return questions
 
 def user_questions(request, outc_qs, purpose): 
@@ -620,12 +618,14 @@ def gatherQuestions(request, k, purpose):
                 outcomes = [o for o in Outcome.objects.filter(u=object)] 
             elif b == 's' : 
                 outcomes = [o for o in Outcome.objects.filter(s=object)] 
-    nqsD = {'o':10000, 'l':5, 'u':3, 's':1}
+    nqsD = {'o':10000, 'l':10, 'u':5, 's':2}
+    if purpose == 'test': 
+        nqsD = {'o':10000, 'l':5, 'u':2, 's':1}
     nq = nqsD[b]
     for outc in outcomes: 
         outc_qs = [q for q in Question.objects.filter(p=outc)]
         outc_qs = user_questions(request, outc_qs, purpose) 
-        shuffle(outc_qs) 
+        # shuffle(outc_qs) 
         questions += outc_qs[:nq]             
     return questions
 
@@ -647,14 +647,15 @@ def MakeQuestions(request, k, purpose):
             q, a = que , que      
         d = {'k':q.k, 'file':'', 'ansimg':'', 'video':'', 'hint':'',
                 'choice':'', 'delay':0, 'flagged':'', 
-                'flag':flag, 'score':score, 'source':q.source, 'kind':q.kind} 
-        
+                'flag':flag, 'score':score, 'source':q.source, 'kind':q.kind, 
+                'q_question':q.name, 'q_img':''} 
+        if q.file: 
+            d['q_img'] = q.file.name      
         d['question'] = a.name
         if a.file: 
             d['file'] = a.file.name
         if a.ansimg: 
-            d['ansimg'] = a.file.name
-
+            d['ansimg'] = a.ansimg.name
         if q.hint: 
             d['hint'] = [h for h in q.hint.split('..')]
         if q.video: 
@@ -734,7 +735,7 @@ def Practice(request, k):
 def updatePercent(user,k):     
     def calcPercent(user, k) :   
         b = k[0]   
-        [Obj, Modeval] = table[b][2:4] 
+        Obj, Modeval = Mod[b], MEval[b]
         object = Obj.objects.get(k=k)
         Eval = Modeval.objects.get(k=object, user=user)      
         score, total, freq, percent = Eval.score, Eval.total, Eval.freq, 0   
@@ -742,17 +743,19 @@ def updatePercent(user,k):
             percent = 100*round(score/total,2)+1
         if b in ['s','u','l']: 
             c = csymbol[b]
-            [midObj, midEval] = table[c][2:4]   
-            midevals = [midEval.objects.get(k=m, user=user) for m in midObj.objects.filter(p=object)] 
-            midpercents = [meval.percent for meval in midevals]
-            midpercent = 0 
-            if midpercents:                 
-                midpercent = sum(midpercents)/len(midpercents)
+            midObj, midEval = Mod[c], MEval[c]  
+            g = csymbol[c] 
+            submidObj = Mod[g]
+            midevals = [midEval.objects.get(k=midobj, user=user) for midobj in midObj.objects.filter(p=object)] 
+            n_all_s = len([submidobj for midobj in midObj.objects.filter(p=object) for submidobj in submidObj.objects.filter(p=midobj)])
+            weights = [len(submidObj.objects.filter(p=midobj))/n_all_s for midobj in midObj.objects.filter(p=object)] 
+            midpercents = [midevals[i].percent*weights[i] for i in range(len(weights))]
+            midpercent = sum(midpercents)
             percent = 0.4*midpercent+0.6*percent
-        if freq  == 1 : 
-            percent = min(percent, 80) 
-        elif freq  == 2 : 
-            percent = min(percent, 90)       
+        if freq  == 1 :
+            percent = min(percent, 70) 
+        elif freq > 2 :
+            percent = min(100, percent + freq) 
         Eval.percent = int(round(percent))
         Eval.save()
         return object.p.k 
@@ -778,6 +781,7 @@ def Assessment(request, k):
         real_score, questions, result = updateScores(request, 'test')    
         if result:      
             objectEval.score += int(real_score)  
+            objectEval.freq += 1
             objectEval.save()
             updatePercent(user,k)
             context = {'k':k, 'name':object.name, 'ara':ara[b], 'questions':dumps(questions), 'purpose':'result'}
@@ -786,8 +790,7 @@ def Assessment(request, k):
             return redirect('open', k)   
     else:                                 
         questions, fullMark = MakeQuestions(request, k, 'test')              
-        objectEval.total += fullMark
-        objectEval.freq += 1
+        objectEval.total += fullMark        
         objectEval.save()        
         updatePercent(user,k)         
         context = {'name':object.name, 'k':k, 'ara':ara[b],  'questions':questions, 'purpose':'test'}      
