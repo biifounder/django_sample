@@ -65,6 +65,7 @@ def add_and_clean_Evals():
                 add_clean(outcome, OutcomeEval, user)
             for question in Question.objects.filter(y=year): 
                 add_clean(question, QEval, user)
+    print('DONE ___________________________')
 # add_and_clean_Evals()
 #======================================================================================================
 def auth(request):
