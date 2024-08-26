@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import *
 from django.contrib.auth import views as auth_views
+from . import admin_views
 
 urlpatterns = [
     path("", views.HomePage, name='home'),
@@ -19,14 +20,16 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordChangeDoneView.as_view(
             template_name='courses/password_reset_complete.html'), 
             name='password_reset_complete'), 
-        
+
     path("open/<str:k>/", views.Object, name='open'),
-    path("create/<str:p>/", views.Create, name='create'),
-    path("update/<str:k>/", views.Update, name='update'),
-    path("delete/<str:k>/", views.Delete, name='delete'),
-    path("dublicate/<str:k>/", views.Dublicate, name='dublicate'),
-    path("adduser/<str:k>", views.AddUser, name='adduser'),
     path("practice/<str:k>/", views.Practice, name='practice'),
     path("assessment/<str:k>/", views.Assessment, name='assessment'),
-    path("result/<str:k>/", views.Result, name='result'),
+    path("result/<str:k>/", views.Result, name='result'),        
+    
+    path("create/<str:p>/", admin_views.Create, name='create'),
+    path("update/<str:k>/", admin_views.Update, name='update'),
+    path("delete/<str:k>/", admin_views.Delete, name='delete'),
+    path("dublicate/<str:k>/", admin_views.Dublicate, name='dublicate'),
+    path("adduser/<str:k>", admin_views.AddUser, name='adduser'),
+    
 ]

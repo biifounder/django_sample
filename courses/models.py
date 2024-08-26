@@ -46,6 +46,7 @@ class Unit(models.Model):
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Subject, on_delete=models.CASCADE) 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
+    w = models.FloatField(default=0)  
     
 class UnitEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -63,6 +64,7 @@ class Lesson(models.Model):
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Unit, on_delete=models.CASCADE) 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
+    w = models.FloatField(default=0) 
 
 class LessonEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -84,6 +86,7 @@ class Outcome(models.Model):
     u = models.ForeignKey(Unit, on_delete=models.CASCADE, default='') 
     s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
     y = models.ForeignKey(Year, on_delete=models.CASCADE, default='')  
+    w = models.FloatField(default=0) 
 
 class OutcomeEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
