@@ -8,9 +8,11 @@ from django.core.mail import send_mail
 from django.core.files.storage import FileSystemStorage
 import os, shutil
 from django.conf import settings
-from .views import updatePercent, is_teacher
+from .views import updatePercent, is_teacher, AddUser
 from django.contrib.admin.views.decorators import staff_member_required
-
+import re
+from random import random, uniform, shuffle
+from math import sqrt
 
 
 #######################   Dangerous Zone  ###########################
@@ -53,20 +55,7 @@ def add_and_clean_Evals():
 
 
 
-def AddUser(request,year):  
-    user=request.user  
-    YearEval.objects.create(k=year, user=user)    
-    for subject in  Subject.objects.filter(p=year):      
-        SubjectEval.objects.create(k=subject, user=user)
-    for unit in Unit.objects.filter(y=year): 
-        UnitEval.objects.create(k=unit, user=user)
-    for lesson in Lesson.objects.filter(y=year): 
-        LessonEval.objects.create(k=lesson, user=user)
-    for outcome in Outcome.objects.filter(y=year): 
-        OutcomeEval.objects.create(k=outcome, user=user)
-    for question in Question.objects.filter(y=year): 
-        QEval.objects.create(k=question, user=user)
-    return redirect('open', year.k)
+
 
 def updateUsers(Eval, k, p, y):  
     for user in User.objects.filter(y=y): 
@@ -420,7 +409,12 @@ def update_weights_and_percents():
         users = [ u for u in User.objects.filter(year=year.name)] + [me]
         for user in users :  
             for outcome in Outcome.objects.filter(y=year): 
+                eval = OutcomeEval.objects.get(user=user, k=outcome)
+                if eval.score > 0: 
+                    eval.score = eval.score - 1
+                    eval.save()
                 updatePercent(user,outcome.k)
+                
     print('All Weights and Percents are Updated ______________')
 
 
@@ -446,3 +440,11 @@ def update_weights_and_percents():
 #deleteAll()
 # add_and_clean_Evals()
 # update_weights_and_percents()
+
+
+
+
+
+
+
+

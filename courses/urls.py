@@ -3,6 +3,8 @@ from . import views
 from .views import *
 from django.contrib.auth import views as auth_views
 from . import admin_views
+from . import admin_calc
+
 
 urlpatterns = [
     path("", views.HomePage, name='home'),
@@ -24,12 +26,15 @@ urlpatterns = [
     path("open/<str:k>/", views.Object, name='open'),
     path("practice/<str:k>/", views.Practice, name='practice'),
     path("assessment/<str:k>/", views.Assessment, name='assessment'),
-    path("result/<str:k>/", views.Result, name='result'),        
-    
-    path("create/<str:p>/", views.Create, name='create'),
-    path("update/<str:k>/", views.Update, name='update'),
-    path("delete/<str:k>/", views.Delete, name='delete'),
-    path("dublicate/<str:k>/", views.Dublicate, name='dublicate'),
+    path("result/<str:k>/", views.Result, name='result'), 
     path("adduser/<str:k>", views.AddUser, name='adduser'),
+
+    path("create/<str:p>/", admin_views.Create, name='create'),
+    path("update/<str:k>/", admin_views.Update, name='update'),
+    path("delete/<str:k>/", admin_views.Delete, name='delete'),
+    path("dublicate/<str:k>/", admin_views.Dublicate, name='dublicate'),
+    
+
+    path("solve/", admin_calc.Solve, name='solve'),    
     
 ]

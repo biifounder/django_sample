@@ -52,7 +52,9 @@
                     <button onclick='window.location.href="{% url 'open' k=i.k %}"'>{{i.name}}</button>
                 {% endfor %}            
                 <br><br><hr>
-                <button onclick='window.location.href="{% url 'create' p='home' %}"'>أضف صفا دراسيا</button>                
+                <button onclick='window.location.href="{% url 'create' p='home' %}"'>أضف صفا دراسيا</button> 
+                <br><br><hr>
+                <button onclick='window.location.href="{% url 'solve' %}"'>تشفير المعادلات</button> 
             {% endif %}
         {% else %}    
             <p>"وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ"</p>

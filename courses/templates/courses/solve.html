@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <title>تشفير الصيغ الرياضية</title>
+  <style>
+        body {
+            font-family: 'Amiri', serif;      
+            text-align:center;  
+            background-color:rgb(244, 244, 244);  
+        }
+
+        .container, .box {
+            text-align:center;
+            max-width: 40rem;   
+            min-width: 30rem;   
+            margin: auto;             
+            align-items: center;
+        }
+
+        .box {
+            border: 2px solid #898888;    
+            border-radius: 0.5em;         
+            background-color:#d4d4d4;
+        }
+
+        button, a:link, a:visited {
+            font-size: 25px;
+            color:#000000;
+            background: transparent;
+            border: 1px solid #cacaca;
+            border-radius: 0.5em;   
+            display: inline-block;            
+            width: 95%;
+            margin: 0.2rem;
+            padding-right: 1em;        
+            padding-left: 1em;        
+            font-family: 'Amiri', serif;       
+            text-decoration: none;
+            cursor:pointer; 
+            box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+        }
+
+        button:hover, a:hover {
+            background-color:rgb(202, 202, 202);
+            border: 1px solid #696969;
+        }    
+
+        .hide {
+            display: none;
+        }
+
+  </style>
+  <head>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+
+  </head>
+    
+    <h1 style="color:black"> تشفير الصيغ الرياضية </h1>
+
+    <div class="box">
+        <form action="" method="POST">
+            {% csrf_token %} 
+            {% if py_values %}
+                معطيات <br><textarea type="textarea" rows="3" cols="70" name="py_values" >{{py_values}}</textarea> <br>                
+            {% else %}
+                معطيات<br><textarea type="textarea" rows="3" cols="70" name="py_values" ></textarea> <br> 
+            {% endif %}
+
+            {% if py_forms %}
+                الصيغ <br><textarea type="textarea" rows="3" cols="70" name="py_forms" >{{py_forms}}</textarea> <br>  
+                {% if tex_forms %}
+                    <textarea class="box hide" type="textarea" rows="3" cols="65" id="forms_copy">{{tex_forms}}</textarea>
+                    {% for tex in tex_forms %}
+                        {{tex}}
+                    {% endfor %}                
+                {% endif %}                
+            {% else %}
+            الصيغ<br><textarea type="textarea" rows="3" cols="70" name="py_forms" ></textarea> <br> 
+            {% endif %}
+            <br>       
+            <button style="width:7rem" type="submit" name='optfs'>حسابات</button>   
+            <button style="width:7rem" type="submit" name='optrs'>خيارات</button> 
+            <button style="width:7rem" type="submit" name='steps'>خطوات</button>     
+            <button style="width:7rem" type="submit" name='exps'>صيغ</button> 
+            <button style="width:30rem" onclick="toCopy('values_copy')">نسخ الصيغ المشفرة إلى الحافظة</button><br>   
+            المساحة أدناه مخصصة لتحرير الصيغ المشفرة        
+            {% if clipboard %}  
+                <br><textarea type="textarea" rows="6" cols="70" name="clipboard" >{{clipboard}}</textarea> <br> 
+            {% else %}
+                <br><textarea type="textarea" rows="30" cols="70" name="clipboard" ></textarea> <br> 
+            {% endif %}
+        </form>
+    </div><br> 
+
+    <script>
+        function toCopy() {
+            event.preventDefault(); 
+            const ToCopy = document.getElementById("forms_copy").value.replace(/\\\\/g, '\\').replace("['","").replace("']","").replace(/'/g,"").replace(/,/g,"");
+            navigator.clipboard.writeText(ToCopy).then();
+        }
+
+    </script>
+  </html>
+
