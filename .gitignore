@@ -12,3 +12,5 @@ backup_eval.json
 backup_local.json
 backup_server.json
 courses/backup_server.json
+courses/migrations/0003_lesson_w_outcome_w_unit_w.py
+/courses/migrations
