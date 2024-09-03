@@ -263,6 +263,11 @@ def Dublicate(request, k):
         object.k = 'd'+str(object.id)
         if request.POST.get('options'): 
             unpack(object, request.POST.get('options')) 
+        if request.POST.get('hint'): 
+            hint = request.POST.get('hint') 
+            if '\\(' in hint : 
+                hint = hint.replace('*','\\times')
+            object.hint = hint 
         if 'file' in request.FILES or request.POST.get('removefile') : 
             object.file = None
             cleanFiles(parent.p)    
@@ -301,7 +306,7 @@ def Update(request, k):
             p = object.p.k         
         if request.POST.get('name') : 
             object.name = request.POST.get('name')   
-        if b == 'q':
+        if b == 'q' or b == 'd':
             if request.POST.get('hint'): 
                 hint = request.POST.get('hint')                
                 if hint == 'None' or hint == '.': 
@@ -411,7 +416,7 @@ def update_weights_and_percents():
             for outcome in Outcome.objects.filter(y=year): 
                 eval = OutcomeEval.objects.get(user=user, k=outcome)
                 if eval.score > 0: 
-                    eval.score = eval.score - 1
+                    # eval.score = eval.score - 1
                     eval.save()
                 updatePercent(user,outcome.k)
                 

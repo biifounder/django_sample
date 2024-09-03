@@ -83,12 +83,13 @@
             {% else %}
               <input style="width:30%" type="file" name="ansimg"> &nbsp &nbsp &nbsp لا يوجد ملف مرفق 
             {% endif %} 
-            <hr>                        
+            <hr>    
+            التوجيهات <br><textarea type="textarea" rows="6" cols="100" name="hint" >{{object.hint}}</textarea>                    
           {% endif %}
 
-          {% if c == 'q' %}
-            التوجيهات <br><textarea type="textarea" rows="6" cols="100" name="hint" >{{object.hint}}</textarea>
-          {% endif %}
+          
+          
+          
           {% if c == 'o' or c == 'q' %}
             <br>رابط الفيديو <br><input type="text" value='{{object.video}}' name="video" >
           {% endif %}

@@ -133,6 +133,7 @@ class QDubl(models.Model):
     options = models.TextField(null=True) 
     file = models.FileField(null=True)
     ansimg = models.FileField(null=True)
+    hint = models.TextField(null=True)   
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Question, on_delete=models.CASCADE) 
     

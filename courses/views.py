@@ -174,7 +174,10 @@ def Object(request, k):
                     qD['hint'] = [n for n in question.hint.split('..')]  
                 questions += [qD]   
                 for d in QDubl.objects.filter(p=question): 
-                    questions += [{'q':d, 'name':[n for n in d.name.split('..')]}] 
+                    tmp = {'q':d, 'name':[n for n in d.name.split('..')]}
+                    if d.hint and d.hint != None: 
+                        tmp['hint'] = [n for n in d.hint.split('..')]  
+                    questions += [tmp] 
             context['questions'] = questions
             return render (request,'courses/outcome.html', context)    
         else:
@@ -393,7 +396,7 @@ def updatePercent(user,k):
             percent = min(percent, 90)
         elif freq > 3 :
             percent = min(100, percent + 2) 
-        Eval.percent = int(round(percent))
+        Eval.percent = min(int(round(percent)), 100)
         Eval.save()
         return object.p.k 
     while k[0] in ['o','l','u','s'] :   
