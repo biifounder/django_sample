@@ -170,12 +170,12 @@ def Object(request, k):
             questions = []
             for question in Question.objects.filter(p=object) :   
                 qD = {'q':question, 'name':[n for n in question.name.split('..')]}
-                if question.hint: 
+                if question.hint : 
                     qD['hint'] = [n for n in question.hint.split('..')]  
                 questions += [qD]   
                 for d in QDubl.objects.filter(p=question): 
                     tmp = {'q':d, 'name':[n for n in d.name.split('..')]}
-                    if d.hint and d.hint != None: 
+                    if d.hint and d.hint != None and d.hint != '00' and d.hint != 'None': 
                         tmp['hint'] = [n for n in d.hint.split('..')]  
                     questions += [tmp] 
             context['questions'] = questions
@@ -387,14 +387,14 @@ def updatePercent(user,k):
             midObj, midEval = Mod[c], MEval[c]  
             midpercents = [midEval.objects.get(k=midobj, user=user).percent*midobj.w for midobj in midObj.objects.filter(p=object)]
             midpercent = 0 
-            if len(midpercents) : 
-                midpercent = sum(midpercents)/len(midpercents)
+            midpercent = sum(midpercents)
+            # if len(midpercents) : 
+            #     midpercent = sum(midpercents)/len(midpercents)
+            
             percent = 0.4*midpercent+0.6*percent
         if freq  == 1 :
             percent = min(percent, 70) 
-        elif freq == 2 : 
-            percent = min(percent, 90)
-        elif freq > 3 :
+        elif freq > 2 :
             percent = min(100, percent + 2) 
         Eval.percent = min(int(round(percent)), 100)
         Eval.save()

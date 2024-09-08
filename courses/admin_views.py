@@ -415,37 +415,16 @@ def update_weights_and_percents():
         for user in users :  
             for outcome in Outcome.objects.filter(y=year): 
                 eval = OutcomeEval.objects.get(user=user, k=outcome)
-                if eval.score > 0: 
-                    # eval.score = eval.score - 1
-                    eval.save()
-                updatePercent(user,outcome.k)
-                
+                # if eval.score > 0: 
+                #     eval.score = eval.score - 1
+                #     eval.save()
+                updatePercent(user,outcome.k)                
     print('All Weights and Percents are Updated ______________')
 
 
 
-
-
-''' these lines ar to follow percent calculations '''
-# user = User.objects.get(email='koshgamer509@gmial.com')
-# for u in SubjectEval.objects.filter(user = user) : 
-#     print('subjec = ',  u.percent , u.freq)
-# print('units ---------')
-# for u in UnitEval.objects.filter(user = user) :  
-#     print(u.percent , u.freq)
-# print('lessons ---------')
-# for u in LessonEval.objects.filter(user = user) :  
-#     print(u.percent , u.freq)
-# print('outcomes ---------')
-# for u in OutcomeEval.objects.filter(user = user) :  
-#     print(u.percent , u.freq)
-
-
-
-#deleteAll()
+# deleteAll()
 # add_and_clean_Evals()
 # update_weights_and_percents()
-
-
 
 

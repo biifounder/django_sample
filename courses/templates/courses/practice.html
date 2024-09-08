@@ -90,7 +90,8 @@
         <p style="text-align:right">يتم عرض عدد محدود من الأسئلة في النسخة التجريبية</p>
       {% endif %}
     {% elif purpose == 'test' %}
-      <p style="color:blue; font-size:30">تقييم في: {{name}}</p>
+      <p style="color:blue; font-size:30px">تقييم في: {{name}}</p>
+      <p style="color:rgb(247, 0, 0); font-size:15px">لا تنس ضغط زر إرسال الإجابات أسفل الصفحة حتى لا تحتسب درجتك صفرا</p>
     {% else %}
       <p style="color:blue; font-size:30">نتيجة التقييم في: {{name}}</p>
     {% endif %}
@@ -108,9 +109,9 @@
       <input type="hidden" name="submitted" id="submitted">     
       <hr>      
       {% if purpose == 'test' %}
-        <button class="submit" type="submit" id="submit" onclick="JavaScript:return Done()">إرسال</button>        
+        <button style="background-color:rgb(134, 134, 134); " class="submit" type="submit" id="submit" onclick="JavaScript:return Done()">إرسال الإجابات</button>        
       {% else %}
-        <button class="submit" style="width:90%; background-color:rgb(167, 167, 167)" type="submit" onclick="Done()">انتهيت</button>        
+        <button class="submit" style="width:90%; background-color:rgb(167, 167, 167)" type="submit" onclick="Done()">احفظ إجاباتي في السجل</button>        
       {% endif %}
     </form>
   </div>
