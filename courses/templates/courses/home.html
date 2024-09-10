@@ -67,7 +67,7 @@
                   <span id="alertLogEmail" class="hide" style="color:red;">هذا البريد اإلإليكتروني غير مسجل لدينا</span><br> 
                   <input required type="password" placeholder="كلمة السر" id="password" name="pass"><br>                  
                   <button style="width:10rem" type="submit" id="login" name='login'>ادخل</button><hr>
-                  <a style="width:10rem" href="{% url 'password_reset' %}" >نسيت كلمة السر؟</a>          
+                  <!-- <a style="width:10rem" href="{% url 'password_reset' %}" >نسيت كلمة السر؟</a>           -->
                 </form>
             </div>
 
@@ -80,7 +80,7 @@
                 </form>
             </div>
 
-            <button style="color:black" onclick="newMember()">مشترك جديد (مجانا لفترة محدودة)</button>
+            <button style="color:black" onclick="newMember()">مشترك جديد</button>
             <div class="box hide" id="newmember">              
               <form class="form" action="" method="POST">
                 {% csrf_token %}
