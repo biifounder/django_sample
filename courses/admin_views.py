@@ -425,5 +425,5 @@ def update_weights_and_percents():
 
 # deleteAll()
 # add_and_clean_Evals()
-update_weights_and_percents()
+# update_weights_and_percents()
 
