@@ -128,7 +128,7 @@
 
   if (purpose === 'pract'){
     qSource = document.getElementById('qsource');
-      for(var s of ['أسئلة وزارية','أسئلة الامتحانات','أسئلة إثرائية',]){
+      for(var s of ['أسئلة وزارية وامتحانية','أسئلة إثرائية',]){
         qSource.options[qSource.options.length] = new Option(s, s)
       }
     
@@ -148,8 +148,8 @@
 
     function qSelected() {
       let qsourceMap = {
-        book:'أسئلة وزارية',
-        exam:'أسئلة الامتحانات',
+        book:'أسئلة وزارية وامتحانية',
+        exam:'أسئلة وزارية وامتحانية',
         other:'أسئلة إثرائية'
       }
       let qkindMap = {
