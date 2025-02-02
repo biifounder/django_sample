@@ -6,14 +6,7 @@ from .forms import *
 from json import dumps
 from random import shuffle
 from django.core.mail import send_mail
-from django.core.files.storage import FileSystemStorage
-import os, shutil
-from django.conf import settings
-from math import sqrt, tan, sin, cos, pi
-import json
 
-
-from django.contrib.admin.views.decorators import staff_member_required
 
 #======================================================================================================
 def auth(request):
@@ -49,14 +42,14 @@ def AddUser(request,year):
         OutcomeEval.objects.create(k=outcome, user=user)
     for question in Question.objects.filter(y=year): 
         QEval.objects.create(k=question, user=user)
-    return redirect('open', year.k)
+    return redirect('year', year.k)
 
 def HomePage(request):       
     if request.method == 'POST':   
         if "visitor" in request.POST:            
             y = request.POST.get('year') 
             year = Year.objects.get(name=y)
-            return redirect('open', year.k)     
+            return redirect('year', year.k)     
             
         if "register" in request.POST:          
             form = MyUserCreationForm(request.POST)
@@ -99,7 +92,7 @@ def HomePage(request):
         else:             
             context = {'teacher':is_teacher(request)}        
             y = User.objects.get(email=request.user).year
-            return redirect('open', Year.objects.get(name=y).k)
+            return redirect('year', Year.objects.get(name=y).k)
 
 
 @login_required(login_url='login')
@@ -108,113 +101,111 @@ def Logout(request):
     return redirect('home')
 
 
-Mod = {'y':Year, 's':Subject, 'u':Unit, 'l':Lesson, 'o':Outcome, 'q':Question, 'd':QDubl}
-MEval = {'y':YearEval, 's':SubjectEval, 'u':UnitEval, 'l':LessonEval, 'o':OutcomeEval, 'q':QEval}
-csymbol = {'h':'y', 'y':'s', 's':'u', 'u':'l', 'l':'o', 'o':'q', 'q':'d'}
-psymbol = {'h':'h', 'y':'h', 's':'y', 'u':'s', 'l':'u', 'o':'l', 'q':'o', 'd':'q'}
-ara = {'h':'الصفحة الرئيسية', 'y':'صف', 's':'مادة', 'u':'وحدة', 'l':'درس', 'o':'هدف', 'q':'سؤال', 'd':'سؤال'}
-contents = {'h':'الصفوف الدراسية', 'y':'المواد الدراسية', 's':'وحدات المادة', 'u':'دروس الوحدة', 'l':'الأهداف التعليمية'}
+def YearPage(request, k): 
+    user = 0
+    if request.user.is_authenticated : 
+        user = request.user  
+    nD = {'5':'خامس', '6':'سادس', '7':'سابع', '8':'ثامن', 
+                '9':'تاسع', '10':'عاشر', '11':'حادي عشر', '12':'ثاني عشر'}
+    year = Year.objects.get(k=k)
+    ypercent = 0
+    if user :   
+        ypercent = YearEval.objects.get(user=user, k=year).percent 
+    subjects = []
+    for subject in Subject.objects.filter(p=year): 
+        spercent = 0 
+        if user :
+            spercent = SubjectEval.objects.get(user=user, k=subject).percent  
+        subjects += [{'name':subject.name, 'k':subject.k, 'spercent':spercent}]
 
 
-def Object(request, k):    
-    b = k[0]      
-    if b == 'h': 
-        return redirect('home')
-    else:   
-        c,p = csymbol[b], psymbol[b]     
+    outstandings = []  
+    ordered = YearEval.objects.filter(k=year).order_by('-percent')      
+    ordered_percents = [ord.percent for ord in ordered]   
+    if len(ordered_percents)  > 4:  
+        rank5 = ordered_percents[4]
+    else: 
+        if ordered_percents : 
+            rank5 = min(ordered_percents)
+        else: 
+            rank5 = 0
+    rank5 = len([ord for ord in ordered_percents if ord >= rank5])
+    for ord in ordered[:rank5]: 
+        out = ord.user
+        outstandings += [{'rank':ord.percent,'name': out.name, 'school':out.school, 'prov': out.prov, 'gov': out.gov, 'percent':ord.percent}]
+    if user:               
+        user_rank = ordered_percents.index(ypercent)+1
+
+
+    context = {'teacher': is_teacher(request), 'year':year, 'yname':nD[year.name] , 'ypercent':ypercent, 'subjects':subjects, 
+               'outstandings':outstandings, 'user_rank':user_rank}
+    return render (request,'courses/year.html', context)
+
+def SubjectPage(request, k): 
+    if request.method == 'POST':         
+        selectedlessons = request.POST.get('selectedlessons').split(',')
+        purpose = selectedlessons[-1]
+        request.session['selectedlessons'] = selectedlessons[:-1]
+        if purpose == 'pract' :  
+            return redirect('practice', k)
+        elif purpose == 'test' :
+            return redirect('assessment', k)
+        else: 
+            return redirect('subject', k)
+    else: 
         user = 0
         if request.user.is_authenticated : 
-            user = request.user    
-            Eval = MEval[b]   
-        object = Mod[b].objects.get(k=k)
-        context = {'teacher': is_teacher(request),'auth':user, 'object':object, 'k':k, 'b':b, 
-                   'name':object.name, 'ara':ara[b], 'para':ara[p], 'cara':ara[c]}     
-        if user: 
-            user_eval = Eval.objects.get(k=object, user=user).percent  
-            context['percent'] = user_eval     
-        if b == 'y': 
-            nD = {'5':'خامس', '6':'سادس', '7':'سابع', '8':'ثامن', 
-                  '9':'تاسع', '10':'عاشر', '11':'حادي عشر', '12':'ثاني عشر'}
-            context['name'] = nD[object.name]
-            outstandings = []  
-            ordered = YearEval.objects.filter(k=object).order_by('-percent')      
-            ordered_percents = [ord.percent for ord in ordered]   
-            if len(ordered_percents)  > 4:  
-                rank5 = ordered_percents[4]
-            else: 
-                if ordered_percents : 
-                    rank5 = min(ordered_percents)
-                else: 
-                    rank5 = 0
-            rank5 = len([ord for ord in ordered_percents if ord >= rank5])
-            for ord in ordered[:rank5]: 
-                out = ord.user
-                outstandings += [{'rank':ord.percent,'name': out.name, 'school':out.school, 'prov': out.prov, 'gov': out.gov, 'percent':ord.percent}]
-            context['outstandings'] = outstandings                  
-            if user:               
-                context['user_rank'] = ordered_percents.index(user_eval)+1
-        else : 
-            context['p']= object.p.k
-            context['parent'] = object.p.name
-            if b == 's' and user: 
-                weaknesses = [] 
-                for outcome in Outcome.objects.filter(s=object):
-                    opercent = OutcomeEval.objects.get(k=outcome, user=user).percent 
-                    if opercent < 70: 
-                        weaknesses += [[opercent, outcome.k, outcome.name]] 
-                weaknesses = sorted(weaknesses)
-                weaknesses = [{'percent':w[0], 'wk':w[1], 'name':w[2]} for w in weaknesses]
-                context['weaknesses'] = weaknesses        
-        if b == 'o':   
-            # context['content'] = dumps([n for n in object.content.split('..')]) 
-            questions = []
-            for question in Question.objects.filter(p=object) :   
-                qD = {'q':question, 'name':[n for n in question.name.split('..')]}
-                if question.hint : 
-                    qD['hint'] = [n for n in question.hint.split('..')]  
-                questions += [qD]   
-                for d in QDubl.objects.filter(p=question): 
-                    tmp = {'q':d, 'name':[n for n in d.name.split('..')]}
-                    if d.hint and d.hint != None and d.hint != '00' and d.hint != 'None': 
-                        tmp['hint'] = [n for n in d.hint.split('..')]  
-                    questions += [tmp] 
-            context['questions'] = questions
-            return render (request,'courses/outcome.html', context)    
-        else:
-            context['contents'] = contents[b] 
-            children = []  
-            for child in Mod[c].objects.filter(p=object): 
-                cpercent = 0 
-                if user: 
-                    cpercent = MEval[c].objects.get(k=child, user=user).percent                    
-                children += [{'c':child, 'percent':cpercent}]                       
-            context['children'] = children
-            return render (request,'courses/object.html', context)
+            user = request.user  
+        subject = Subject.objects.get(k=k)
+        spercent = 0 
+        if user :
+            spercent = SubjectEval.objects.get(user=user, k=subject).percent  
+        units, weaknesses = [], []
+        for unit in Unit.objects.filter(p=subject):   
+            upercent = 0 
+            if user :
+                upercent = UnitEval.objects.get(user=user, k=unit).percent       
+            lessons = []
+            for lesson in Lesson.objects.filter(p=unit): 
+                lpercent = 0 
+                if user :
+                    lpercent = LessonEval.objects.get(user=user, k=lesson).percent
+                    if lpercent < 70: 
+                        weaknesses += [[lpercent, lesson.name, unit.name]] 
+                lessons += [{'title':lesson.name, 'file':lesson.file.name, 'video':lesson.video, 'lpercent':lpercent, 'k':lesson.k}]
+            units += [{'title':unit.name, 'upercent': upercent, 'lessons':lessons, 'k':unit.k,}]
+        weaknesses = sorted(weaknesses)
+        weaknesses = [{'percent':w[0], 'l':w[1], 'u':w[2]} for w in weaknesses]
+        context = {'teacher': is_teacher(request), 'auth':request.user.is_authenticated, 'k':subject.k, 'sname':subject.name, 'spercent':spercent, 
+                'units':dumps(units), 'weaknesses':weaknesses}
+        return render (request,'courses/subject.html', context)
 
 #_________________________________________________________________________________________
 
-def pract_order(outc_qs): 
+def pract_order(lesson_qs): 
     questions = []            
     for f in [1,0]: 
         for l in ['1','2','3']: 
             for r in ['exam','book','other']:
-                questions += [L for L in outc_qs if L[0].source==r and L[0].level==l and L[1].flag==f and L[1].score==-1] 
+                questions += [L for L in lesson_qs if L[0].source==r and L[0].level==l and L[1].flag==f and L[1].score==-1] 
     for f in [1,0]: 
         for s in [0,1]:
             for l in ['1','2','3']: 
                 for r in ['exam','book','other']:
-                    questions += [L for L in outc_qs if L[0].source==r and  L[0].level==l and L[1].flag==f and L[1].score==s]
+                    questions += [L for L in lesson_qs if L[0].source==r and  L[0].level==l and L[1].flag==f and L[1].score==s]
     return questions 
 
 
-def assessment_order(outc_qs):  
-    l1, l2 = [],[] 
-    for L in outc_qs:
+def assessment_order(lesson_qs):     
+    l1, l2, l3 = [],[],[] 
+    for L in lesson_qs:
         q = L[0] 
         if q.level == '1': 
             l1 += [L]
         elif q.level == '2': 
-            l2 += [L]                 
+            l2 += [L] 
+        else : 
+            l3 += [L] 
     def split_for_test(l):
         t0, t1 = [],[]
         for L in l: 
@@ -225,53 +216,79 @@ def assessment_order(outc_qs):
         return t0 + t1
     shuffle(l1)
     shuffle(l2)
-    questions = split_for_test(l1)+split_for_test(l2)
+    shuffle(l3)
+    questions = split_for_test(l2)+split_for_test(l1)+split_for_test(l3)
     return questions
 
 
-def user_questions(request, outc_qs, purpose): 
+def updatePercents(lessons , user): 
+    lessons = [Lesson.objects.get(k=k) for k in lessons]
+    for lesson in lessons : 
+        Eval = LessonEval.objects.get(k=lesson, user=user)
+        if Eval.total > 0: 
+            Eval.percent = int(round(Eval.score/Eval.total*100))
+            Eval.save()
+    
+        percent = 0 
+        for l in Lesson.objects.filter(p=lesson.p): 
+            percent += LessonEval.objects.get(k=l, user=user).percent*l.w 
+        Eval = UnitEval.objects.get(k=l.p, user=user)
+        Eval.percent = int(round(percent))
+        Eval.save()
+
+        percent = 0 
+        for unit in Unit.objects.filter(p=lesson.s): 
+            percent += UnitEval.objects.get(k=unit, user=user).percent*unit.w 
+        Eval = SubjectEval.objects.get(k=lesson.s, user=user)
+        Eval.percent = int(round(percent))
+        Eval.save()
+
+        percent = 0 
+        subjects = Subject.objects.filter(p=lesson.y)
+        for subject in subjects: 
+            percent += SubjectEval.objects.get(k=subject, user=user).percent
+        percent = percent/len(subjects)
+        Eval = YearEval.objects.get(k=lesson.y, user=user)
+        Eval.percent = int(round(percent))
+        Eval.save() 
+
+def user_questions(request, lesson_qs, purpose): 
     auth = request.user.is_authenticated
     if auth:    
-        user = request.user  
-        outc_qs = [[q, QEval.objects.get(k=q, user=user)] for q in outc_qs]        
+        user = request.user        
+        lesson_qs = [[q, QEval.objects.get(k=q, user=user)] for q in lesson_qs]             
         if purpose == 'pract':     
-            outc_qs = pract_order(outc_qs)            
+            lesson_qs = pract_order(lesson_qs)            
         else :
-            outc_qs = assessment_order(outc_qs)
+            lesson_qs = assessment_order(lesson_qs)
     else: 
-        outc_qs = [outc_qs[0]]
-    return outc_qs
+        lesson_qs = lesson_qs[0]
+    return lesson_qs
 
 
-def gatherQuestions(request, k, purpose): 
-    b = k[0]
-    object = Mod[b].objects.get(k=k)    
+def gatherQuestions(request, lessons, purpose): 
+    lessons = [Lesson.objects.get(k=k) for k in lessons]
+    nlessons = len(lessons)
+    wts = [len(Question.objects.filter(p=lesson)) for lesson in lessons]
+    wtot = sum(wts)
+    wts = [round(w/wtot,3) for w in wts]
+    nqtot = min(2*nlessons+3, 100)
     questions = [] 
-    if b == 'o': 
-        outcomes = [object] 
-    else:         
-        if b == 'l':
-            outcomes = [o for o in Outcome.objects.filter(p=object)] 
-        else: 
-            if b == 'u' : 
-                outcomes = [o for o in Outcome.objects.filter(u=object)] 
-            elif b == 's' : 
-                outcomes = [o for o in Outcome.objects.filter(s=object)] 
-    nqsD = {'o':10000, 'l':10, 'u':5, 's':2}
-    if purpose == 'test': 
-        nqsD = {'o':10000, 'l':5, 'u':2, 's':1}
-    nq = nqsD[b]
-    for outc in outcomes: 
-        outc_qs = [q for q in Question.objects.filter(p=outc)]
-        outc_qs = user_questions(request, outc_qs, purpose) 
-        # shuffle(outc_qs) 
-        questions += outc_qs[:nq]             
+    for i in range(nlessons): 
+        lesson = lessons[i]       
+        lesson_qs = [q for q in Question.objects.filter(p=lesson)]
+        lesson_qs = user_questions(request, lesson_qs, purpose) 
+        if purpose == 'test': 
+            quota = int(wts[i]/wtot*nqtot)
+            nqs = max(quota,1)
+            lesson_qs = lesson_qs[:nqs]
+        questions += lesson_qs          
     return questions
 
 
-def MakeQuestions(request, k, purpose): 
+def MakeQuestions(request, lessons, purpose): 
     auth = request.user.is_authenticated
-    questions = gatherQuestions(request, k, purpose)    
+    questions = gatherQuestions(request, lessons, purpose)    
     JQuestions = []
     fullMark = 0 
     for que in questions:        
@@ -306,74 +323,72 @@ def MakeQuestions(request, k, purpose):
             shuffle(options)
             d['correct'] = str(options.index(a.op1)) 
             d['options'] = options   
-            fullMark += 1                         
+            fullMark += 1  
+            if purpose == 'test':  
+                Eval = LessonEval.objects.get(k=q.p, user=request.user) 
+                Eval.total += 1
+                Eval.save()                       
         else: 
             d['answer'] = a.op1            
             d['options'] = ['1','0']
             d['correct'] = '0' 
         JQuestions += [d] 
     request.session['questions'] = JQuestions 
-    if purpose == 'test':
-        return dumps(JQuestions), fullMark
-    else: 
-        return dumps(JQuestions)
+    return dumps(JQuestions)
 
 
-def updateScores(request, test): 
+def updateQScores(request, test): 
     user = request.user
     submitted = request.POST.get('submitted')
     submitted = submitted.split(',')
     if submitted != ['']: 
         sL = len(submitted)    
         questions = request.session['questions']
-        if len(questions) == sL: 
+        if len(questions) == sL:     # i.e. came from result display page which (may) contain flags only
             for j in range(sL): 
                 question = Question.objects.get(k=questions[j]['k'])   
-                newEval = QEval.objects.get(k=question, user=user)
-                newEval.flag = int(submitted[j])
-                newEval.save()
-            return 0, 0, 0
-        else: 
-            real_score = 0
+                qEval = QEval.objects.get(k=question, user=user)
+                qEval.flag = int(submitted[j])
+                qEval.save()
+        else:                        # i.e. came from pract and test which contains choices and flags 
             for j in range(0, sL, 2): 
                 i = int(j/2)
                 question = Question.objects.get(k=questions[i]['k'])   
-                newEval = QEval.objects.get(k=question, user=user)
+                qEval = QEval.objects.get(k=question, user=user)
                 flag = int(submitted[j+1])
-                newEval.flag = flag
+                qEval.flag = flag
                 if test: 
                     questions[i]['flag'] =  flag
                 if submitted[j]: 
-                    questions[i]['choice'] = submitted[j]  
+                    questions[i]['choice'] = submitted[j] 
                     if questions[i]['choice'] == questions[i]['correct'] :
-                        newEval.score = 1
+                        qEval.score = 1                        
                         if test and question.op2:
-                            real_score += 1
+                            Eval = LessonEval.objects.get(k=question.p, user=user) 
+                            Eval.score += 1
+                            Eval.save()
+                            print(question.p, '----------------------')
                     else: 
-                        newEval.score = -1
-                newEval.save()        
+                        qEval.score = -1
+                qEval.save()     
             if test:
-                return real_score, questions, 1 
-    return 0, 0, 0
+                return questions, 1 
+    return 0,0
 
 
 def Practice(request, k):    
     if request.POST: 
         if request.user.is_authenticated:  
-            updateScores(request, 0)             
-        return redirect('open', k)    
+            updateQScores(request, 0)             
+        return redirect('subject', k)    
     else: 
-        b=k[0]
-        object = Mod[b].objects.get(k=k) 
-        questions  = MakeQuestions(request, k, 'pract')   
+        selectedlessons = request.session['selectedlessons']        
+        questions  = MakeQuestions(request, selectedlessons, 'pract')   
         if not questions : 
             HttpResponse('لم يتم إعداد أسئلة بعد لهذا المحتوى')
-        context = {'name':object.name, 'k':k, 'ara':ara[b], 
-                   'questions':questions, 'purpose':'pract', 'auth':request.user.is_authenticated}    
+        context = {'k':k, 'questions':questions, 'purpose':'pract', 'auth':request.user.is_authenticated}    
     return render (request,'courses/practice.html', context)
 
-
-def updatePercent(user,k):     
     def calcPercent(user, k) :   
         b = k[0]   
         Obj, Modeval = Mod[b], MEval[b]
@@ -411,29 +426,21 @@ def updatePercent(user,k):
         Eval.percent = int(round(subEval)) 
         Eval.save()
 
-
 def Assessment(request, k):      
-    user = request.user
-    b = k[0]
-    object = Mod[b].objects.get(k=k)  
-    objectEval = MEval[b].objects.get(k=object, user=user)
     if request.POST:  
-        real_score, questions, result = updateScores(request, 'test')    
-        if result:      
-            objectEval.score += int(real_score)  
-            objectEval.freq += 1
-            objectEval.save()
-            updatePercent(user,k)
-            context = {'k':k, 'name':object.name, 'ara':ara[b], 'questions':dumps(questions), 'purpose':'result'}
+        questions, result = updateQScores(request, 1)    
+        if result:  
+            selectedlessons = request.session['selectedlessons']
+            updatePercents(selectedlessons , request.user)       
+            context = {'k':k, 'questions':dumps(questions), 'purpose':'result'}
             return render (request,'courses/practice.html', context)
         else:
-            return redirect('open', k)   
-    else:                                 
-        questions, fullMark = MakeQuestions(request, k, 'test')              
-        objectEval.total += fullMark        
-        objectEval.save()        
-        updatePercent(user,k)         
-        context = {'name':object.name, 'k':k, 'ara':ara[b],  'questions':questions, 'purpose':'test'}      
+            return redirect('subject', k)   
+    else:   
+        selectedlessons = request.session['selectedlessons']        
+        questions  = MakeQuestions(request, selectedlessons, 'test')       
+        updatePercents(selectedlessons , request.user)                        
+        context = {'k':k, 'questions':questions, 'purpose':'test', 'auth':request.user.is_authenticated}      
         return render (request,'courses/practice.html', context)
 
 

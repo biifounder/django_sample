@@ -85,15 +85,15 @@
 <body>
   <div class = container>
     {% if purpose == 'pract' %}  
-      <p style="color:blue; font-size:30">تدريب على {{ara}}: {{name}}</p>
+      <p style="color:blue; font-size:30">تدريب</p>
       {% if not auth %}
         <p style="text-align:right">يتم عرض عدد محدود من الأسئلة في النسخة التجريبية</p>
       {% endif %}
     {% elif purpose == 'test' %}
-      <p style="color:blue; font-size:30px">تقييم في: {{name}}</p>
+      <p style="color:blue; font-size:30px">تقييم</p>
       <p style="color:rgb(247, 0, 0); font-size:15px">لا تنس ضغط زر إرسال الإجابات أسفل الصفحة حتى لا تحتسب درجتك صفرا</p>
     {% else %}
-      <p style="color:blue; font-size:30">نتيجة التقييم في: {{name}}</p>
+      <p style="color:blue; font-size:30">نتيجة الاختبار</p>
     {% endif %}
     {% if purpose == 'pract' %}  
       <div class="box">
@@ -402,6 +402,8 @@
     submitted.value = output
     return (true);
   }
+
+
   
 </script>
 </html>

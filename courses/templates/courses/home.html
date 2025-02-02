@@ -49,12 +49,13 @@
         {% if request.user.is_authenticated %}
             {% if teacher %}
                 {% for i in years %}
-                    <button onclick='window.location.href="{% url 'open' k=i.k %}"'>{{i.name}}</button>
+                    <button onclick='window.location.href="{% url 'year' k=i.k %}"'>{{i.name}}</button>
                 {% endfor %}            
                 <br><br><hr>
-                <button onclick='window.location.href="{% url 'create' p='home' %}"'>أضف صفا دراسيا</button> 
+                <button onclick='window.location.href="{% url 'ycreate' p='home' %}"'>أضف صفا دراسيا</button> 
                 <br><br><hr>
                 <button onclick='window.location.href="{% url 'solve' %}"'>تشفير المعادلات</button> 
+
             {% endif %}
         {% else %}    
             <p>"وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ"</p>
@@ -80,7 +81,7 @@
                 </form>
             </div>
 
-            <button style="color:black" onclick="newMember()">مشترك جديد</button>
+            <button style="color:black" onclick="newMember()">مشترك جديد (مجانا)</button>
             <div class="box hide" id="newmember">              
               <form class="form" action="" method="POST">
                 {% csrf_token %}
@@ -102,10 +103,11 @@
               </form>                      
             </div>
 
-            <button onclick="window.open('https://drive.google.com/drive/folders/176foHPbbXAH79PMQ5_m5D5q7mvvIOcBX?usp=sharing', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
+            <button onclick="window.open('#', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
+            <p style="color:red">سيتم تفعيل هذا الرابط قريبا</p>
 
 
-            <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe> 
+            <!-- <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe>  -->
 
             <!-- <button style="color:black" onclick="enquiryHere()">للاستفسار</button> -->
             <div class="box hide" id=enquiry>

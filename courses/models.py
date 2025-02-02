@@ -35,10 +35,7 @@ class Subject(models.Model):
 class SubjectEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     k = models.ForeignKey(Subject, on_delete=models.CASCADE) 
-    score = models.PositiveSmallIntegerField(default=0) 
-    total = models.PositiveSmallIntegerField(default=0) 
     percent = models.PositiveSmallIntegerField(default=0) 
-    freq = models.PositiveSmallIntegerField(default=0)  
 
 #_______________________________________________________________________________
 class Unit(models.Model):
@@ -51,10 +48,8 @@ class Unit(models.Model):
 class UnitEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     k = models.ForeignKey(Unit, on_delete=models.CASCADE) 
-    score = models.PositiveSmallIntegerField(default=0) 
-    total = models.PositiveSmallIntegerField(default=0) 
     percent = models.PositiveSmallIntegerField(default=0) 
-    freq = models.PositiveSmallIntegerField(default=0)  
+
     
 
 
@@ -63,8 +58,14 @@ class Lesson(models.Model):
     name = models.CharField(max_length=400)    
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Unit, on_delete=models.CASCADE) 
+    s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
     w = models.FloatField(default=0) 
+    content = models.CharField(max_length=10000, default='_')
+    file = models.FileField(null=True)
+    location = models.CharField(max_length=400,null=True)  
+    video = EmbedVideoField(null=True)
+    
 
 class LessonEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -72,29 +73,7 @@ class LessonEval(models.Model):
     score = models.PositiveSmallIntegerField(default=0) 
     total = models.PositiveSmallIntegerField(default=0) 
     percent = models.PositiveSmallIntegerField(default=0) 
-    freq = models.PositiveSmallIntegerField(default=0)  
 
-#_______________________________________________________________________________
-class Outcome(models.Model):
-    name = models.CharField(max_length=400)
-    content = models.CharField(max_length=10000, default='_')
-    file = models.FileField(null=True)
-    location = models.CharField(max_length=400,null=True)  
-    video = EmbedVideoField(null=True)
-    k = models.CharField(max_length=400, default='1')
-    p = models.ForeignKey(Lesson, on_delete=models.CASCADE) 
-    u = models.ForeignKey(Unit, on_delete=models.CASCADE, default='') 
-    s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
-    y = models.ForeignKey(Year, on_delete=models.CASCADE, default='')  
-    w = models.FloatField(default=0) 
-
-class OutcomeEval(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE) 
-    k = models.ForeignKey(Outcome, on_delete=models.CASCADE) 
-    score = models.PositiveSmallIntegerField(default=0) 
-    total = models.PositiveSmallIntegerField(default=0) 
-    percent = models.PositiveSmallIntegerField(default=0) 
-    freq = models.PositiveSmallIntegerField(default=0)  
 
 #_______________________________________________________________________________
 
@@ -113,7 +92,7 @@ class Question(models.Model):
     source = models.CharField(max_length=400,default='other') 
     kind =  models.CharField(max_length=400,default='understand')  
     k = models.CharField(max_length=400, default='1')
-    p = models.ForeignKey(Outcome, on_delete=models.CASCADE) 
+    p = models.ForeignKey(Lesson, on_delete=models.CASCADE) 
     y = models.ForeignKey(Year, on_delete=models.CASCADE, default='') 
     
     
@@ -136,4 +115,6 @@ class QDubl(models.Model):
     hint = models.TextField(null=True)   
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Question, on_delete=models.CASCADE) 
-    
+
+
+

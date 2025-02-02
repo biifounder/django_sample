@@ -1,0 +1,109 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block content %}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <title>{{head}}</title> 
+    <h1>قائمة الأسئلة في درس {{head}}</h1>
+    <a style="color: white;background-color:#000000; width:400px" href="{% url 'subject' k=s %}">عودة للمادة</a>
+
+    <style>
+      body {
+            background-color:white;  
+        }
+      .box {
+          background-color:rgb(243, 243, 243); 
+        }
+
+      p {
+        font-size: 20px;
+        }     
+
+      .hide {
+            display: none;
+        } 
+    </style>
+  </head>  
+    <div class="container">
+
+      <div style="text-align:center;">
+        <a style="background-color:#d8d8d8; width:400px" href="{% url 'qcreate' p=k %}">إضافة سؤال</a>
+      </div>
+      <br>
+
+
+      {% for q in questions %}
+        {% if q.q.y %} 
+        <div style="text-align:center;">
+          <a style="background-color:#d8d8d8; width:400px" href="{% url 'qcreate' p=p %}">إضافة سؤال</a>
+        </div>
+        {% endif %}
+
+        <div style="text-align:right">         
+          <a style="width:30px; font-size:1px" title="حذف" href="{% url 'qdelete' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'qupdate' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="نسخ" href="{% url 'dublicate' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/duplicate.svg' %}"></a>
+          {% if q.q.y %}               
+            {% if q.q.video %}<a style="width:30px; font-size:1px" target="blank" title="شرح فيديو" href="{{q.q.video}}"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"></a>{% endif %}
+            ({{q.q.level}}) 
+          {% endif %} 
+          <br>
+          <div style="padding-right:1rem; font-size:20px; color:red"> 
+            {% for n in q.name %}                              
+              {{n}} <br>
+            {% endfor %}
+          </div>
+          
+          {% if q.q.file %}<div style="text-align:center"><img style="width:60%;" src="{{ q.q.file }}"></div>{% endif %} 
+
+          <div style="padding-right: 1rem;"> 
+            {% if q.q.op2 %}
+              1. {{q.q.op1}} <br>
+              {% if q.q.op2 %} 2. {{q.q.op2}} <br>{% endif %}  
+              {% if q.q.op3 %} 3. {{q.q.op3}} <br>{% endif %}    
+              {% if q.q.op4 %} 4. {{q.q.op4}} <br>{% endif %}  
+            {% else %}
+              {{q.q.op1}}
+            {% endif %}
+
+            {% if q.q.ansimg %}<div style="text-align:center"><img style="width:60%;" src="{{ q.q.ansimg }}"></div>{% endif %} 
+
+          </div>          
+          {% if q.hint %}
+            <div style="color:rgb(1, 1, 185); font-size:20px">توجيهات الحل:</div> 
+            <div style="padding-right: 1rem;">
+              {% for h in q.hint %}      
+                {% if '!' in h %}
+                  <span style="color:blue">{{h}}</span>  <br>
+                {% else %}
+                  {{h}} <br>
+                {% endif %}                      
+                
+              {% endfor %}                
+            </div> 
+          {% endif %} 
+        </div>  
+        <hr>
+      {% endfor %}
+    </div>
+
+
+
+  <script>
+    let watchvideo = document.getElementById("watchvideo"); 
+    function watchVideo() { 
+        watchvideo.classList.toggle('hide');
+    }
+
+    function mustLogin() {
+      alert("الاختبار والتقييم والتوجيه ميزات غير متاحة في الإصدار التجريبي");
+    }
+  </script>
+
+{% endblock %}
+
+
+
