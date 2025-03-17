@@ -18,8 +18,8 @@ def add_clean(object, Eval, user):
     if not Eval.objects.filter(k=object, user=user): 
         Eval.objects.create(k=object, user=user)  
     uevals = Eval.objects.filter(k=object, user=user) 
-    # if len(uevals) > 1 : 
-    #     print(object , uevals, user.email , '_________________________') 
+    if len(uevals) > 1 : 
+        print(object , uevals, user.email , '_________________________') 
     for ueval in uevals[1:]: 
         ueval.delete()
 

@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html>
-    <title>المؤسس التفاعلي</title>
+    <title>المؤسس</title>
  
     <style>
         .box {
@@ -49,16 +49,20 @@
         {% if request.user.is_authenticated %}
             {% if teacher %}
                 {% for i in years %}
-                    <button onclick='window.location.href="{% url 'open' k=i.k %}"'>{{i.name}}</button>
+                    <button onclick='window.location.href="{% url 'year' k=i.k %}"'>{{i.name}}</button>
                 {% endfor %}            
                 <br><br><hr>
-                <button onclick='window.location.href="{% url 'create' p='home' %}"'>أضف صفا دراسيا</button> 
+                <button onclick='window.location.href="{% url 'ycreate' p='home' %}"'>أضف صفا دراسيا</button> 
                 <br><br><hr>
                 <button onclick='window.location.href="{% url 'solve' %}"'>تشفير المعادلات</button> 
+
             {% endif %}
         {% else %}    
-            <p>"وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ"</p>
+            <p style="font-size:25px">وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ</p>
             <img style="width:150px" src="{% static 'admin/img/logo.svg' %}"><br>
+            <span style="font-size:25px"> موقع المؤسس </span><br>
+            <p style="font-size:20px">الامتحان بين يديك، والتميز نصب عينيك </p>
+             
             <button style="color:black" onclick="currentMember()">دخول المشتركين</button>
             <div class="box hide" id="currentmember">
                 <form class="form" action="" method="POST">
@@ -80,7 +84,7 @@
                 </form>
             </div>
 
-            <button style="color:black" onclick="newMember()">مشترك جديد</button>
+            <button style="color:black" onclick="newMember()">مشترك جديد (مجانا)</button>
             <div class="box hide" id="newmember">              
               <form class="form" action="" method="POST">
                 {% csrf_token %}
@@ -101,12 +105,6 @@
                 <button style="width:10rem" type="submit" id="register" name="register">اشترك</button>                
               </form>                      
             </div>
-
-            <button onclick="window.open('https://drive.google.com/drive/folders/1ycgwqx6d0wLXWb7PXYY7K3EH629_6uDb?usp=sharing', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
-
-
-            <!-- <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe>  -->
-
             <button style="color:black" onclick="aboutiFounder()">عن الموقع</button>
             <div class="box hide" id="about">
                 <h1>هنا تجد</h1>
@@ -121,21 +119,12 @@
                 <p>كل تلك الأسئلة مجاب عنها </p> 
                 <p>مع توضيح فكرة السؤال وطريقة الحل إن لزم الأمر</p>
             </div> <br>
+            
 
-            <!-- <button style="color:black" onclick="enquiryHere()">للاستفسار</button> -->
-            <div class="box hide" id=enquiry>
-                <form class="form" action="" method="POST">
-                  {% csrf_token %}       
-          
-                  <input id="enqEmail"  required name="email" type="email" placeholder="البريد الاليكتروني"/><br>
-                  <span id="invalidEnqEmail" class="hide" style="color:red;">بريد إليكتروني غير صالح</span>   
-                  <textarea required rows="6" cols="30"  placeholder="اكتب استفسارك هنا" name="message"></textarea>
-                  <button style="width:10rem" type="submit" name='enquirey' id="enquirey">أرسل</button>
-                </form>
-            </div>
+            <!-- <button onclick="window.open('https://drive.google.com/drive/folders/176foHPbbXAH79PMQ5_m5D5q7mvvIOcBX?usp=sharing', '_blank')">الحصص المسجلة والملخصات الكاملة</button> -->
+            <!-- <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe>  -->
+
         {% endif %}
-
-        
         
         
         
@@ -170,38 +159,26 @@
         let Try = document.getElementById("try");
         let NewMember = document.getElementById("newmember");
         let CurrentMember = document.getElementById("currentmember"); 
-        let EnquiryHere = document.getElementById("enquiry");
         let AboutiFounder = document.getElementById("about");
 
 
         function currentMember() { 
             Try.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
-            CurrentMember.classList.toggle('hide');
             AboutiFounder.classList.add('hide');
+            CurrentMember.classList.toggle('hide');
         }
         function trySite() { 
             CurrentMember.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
-            Try.classList.toggle('hide');
             AboutiFounder.classList.add('hide');
+            Try.classList.toggle('hide');
         }
         function newMember() { 
             CurrentMember.classList.add('hide');
             Try.classList.add('hide');
-            EnquiryHere.classList.add('hide');
+            AboutiFounder.classList.add('hide');
             NewMember.classList.toggle('hide');
-            AboutiFounder.classList.add('hide');
-        }
-
-        function enquiryHere() { 
-            CurrentMember.classList.add('hide');
-            Try.classList.add('hide');
-            NewMember.classList.add('hide');
-            EnquiryHere.classList.toggle('hide');
-            AboutiFounder.classList.add('hide');
         }
 
         function aboutiFounder() { 
