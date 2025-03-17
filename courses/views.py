@@ -6,7 +6,7 @@ from .forms import *
 from json import dumps
 from random import shuffle
 from django.core.mail import send_mail
-
+from math import log
 
 #======================================================================================================
 def auth(request):
@@ -38,8 +38,6 @@ def AddUser(request,year):
         UnitEval.objects.create(k=unit, user=user)
     for lesson in Lesson.objects.filter(y=year): 
         LessonEval.objects.create(k=lesson, user=user)
-    for outcome in Outcome.objects.filter(y=year): 
-        OutcomeEval.objects.create(k=outcome, user=user)
     for question in Question.objects.filter(y=year): 
         QEval.objects.create(k=question, user=user)
     return redirect('year', year.k)
@@ -171,11 +169,11 @@ def SubjectPage(request, k):
                 if user :
                     lpercent = LessonEval.objects.get(user=user, k=lesson).percent
                     if lpercent < 70: 
-                        weaknesses += [[lpercent, lesson.name, unit.name]] 
+                        weaknesses += [[lesson.k, lpercent, lesson.name, unit.name]] 
                 lessons += [{'title':lesson.name, 'file':lesson.file.name, 'video':lesson.video, 'lpercent':lpercent, 'k':lesson.k}]
             units += [{'title':unit.name, 'upercent': upercent, 'lessons':lessons, 'k':unit.k,}]
         weaknesses = sorted(weaknesses)
-        weaknesses = [{'percent':w[0], 'l':w[1], 'u':w[2]} for w in weaknesses]
+        weaknesses = [{'percent':w[1], 'l':w[2], 'u':w[3]} for w in weaknesses]
         context = {'teacher': is_teacher(request), 'auth':request.user.is_authenticated, 'k':subject.k, 'sname':subject.name, 'spercent':spercent, 
                 'units':dumps(units), 'weaknesses':weaknesses}
         return render (request,'courses/subject.html', context)
@@ -223,34 +221,42 @@ def assessment_order(lesson_qs):
 
 def updatePercents(lessons , user): 
     lessons = [Lesson.objects.get(k=k) for k in lessons]
+    units = [] 
     for lesson in lessons : 
         Eval = LessonEval.objects.get(k=lesson, user=user)
         if Eval.total > 0: 
             Eval.percent = int(round(Eval.score/Eval.total*100))
             Eval.save()
+            if not lesson.p in units : 
+                units += [lesson.p] 
+    for unit in units : 
+        percent = 0 
+        for lesson in Lesson.objects.filter(p=unit): 
+            percent += LessonEval.objects.get(k=lesson, user=user).percent*lesson.w 
+        Eval = UnitEval.objects.get(k=unit, user=user)
+        Eval.percent = int(round(percent,0))
+        Eval.save()
+
+    units = Unit.objects.filter(p=lesson.s)
+    percent = 0 
+    for unit in units : 
+        percent += UnitEval.objects.get(k=unit, user=user).percent*unit.w 
+    Eval =SubjectEval.objects.get(k=lesson.s, user=user)
+    Eval.percent = int(round(percent,0))
+    Eval.save()
+
+    subjects = Subject.objects.filter(p=lesson.y)
+    percent = 0 
+    for subject in subjects: 
+        percent += SubjectEval.objects.get(k=subject, user=user).percent
+    Eval = YearEval.objects.get(k=lesson.y, user=user)
+    Eval.percent = int(round(percent/len(subjects),0))
+    Eval.save()
     
-        percent = 0 
-        for l in Lesson.objects.filter(p=lesson.p): 
-            percent += LessonEval.objects.get(k=l, user=user).percent*l.w 
-        Eval = UnitEval.objects.get(k=l.p, user=user)
-        Eval.percent = int(round(percent))
-        Eval.save()
 
-        percent = 0 
-        for unit in Unit.objects.filter(p=lesson.s): 
-            percent += UnitEval.objects.get(k=unit, user=user).percent*unit.w 
-        Eval = SubjectEval.objects.get(k=lesson.s, user=user)
-        Eval.percent = int(round(percent))
-        Eval.save()
 
-        percent = 0 
-        subjects = Subject.objects.filter(p=lesson.y)
-        for subject in subjects: 
-            percent += SubjectEval.objects.get(k=subject, user=user).percent
-        percent = percent/len(subjects)
-        Eval = YearEval.objects.get(k=lesson.y, user=user)
-        Eval.percent = int(round(percent))
-        Eval.save() 
+    
+        
 
 def user_questions(request, lesson_qs, purpose): 
     auth = request.user.is_authenticated
@@ -272,14 +278,15 @@ def gatherQuestions(request, lessons, purpose):
     wts = [len(Question.objects.filter(p=lesson)) for lesson in lessons]
     wtot = sum(wts)
     wts = [round(w/wtot,3) for w in wts]
-    nqtot = min(2*nlessons+3, 100)
+    nqtot = min(5+40*log(nlessons,50), 50)
     questions = [] 
     for i in range(nlessons): 
         lesson = lessons[i]       
         lesson_qs = [q for q in Question.objects.filter(p=lesson)]
         lesson_qs = user_questions(request, lesson_qs, purpose) 
         if purpose == 'test': 
-            quota = int(wts[i]/wtot*nqtot)
+            print ()
+            quota = int(wts[i]*nqtot)
             nqs = max(quota,1)
             lesson_qs = lesson_qs[:nqs]
         questions += lesson_qs          
@@ -367,14 +374,12 @@ def updateQScores(request, test):
                             Eval = LessonEval.objects.get(k=question.p, user=user) 
                             Eval.score += 1
                             Eval.save()
-                            print(question.p, '----------------------')
                     else: 
                         qEval.score = -1
                 qEval.save()     
             if test:
                 return questions, 1 
     return 0,0
-
 
 def Practice(request, k):    
     if request.POST: 

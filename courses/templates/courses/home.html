@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html>
-    <title>المؤسس التفاعلي</title>
+    <title>المؤسس</title>
  
     <style>
         .box {
@@ -58,8 +58,11 @@
 
             {% endif %}
         {% else %}    
-            <p>"وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ"</p>
+            <p style="font-size:25px">وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ</p>
             <img style="width:150px" src="{% static 'admin/img/logo.svg' %}"><br>
+            <span style="font-size:50px"> موقع المؤسس </span><br>
+            <p style="font-size:20px">الامتحان بين يديك</p>
+             
             <button style="color:black" onclick="currentMember()">دخول المشتركين</button>
             <div class="box hide" id="currentmember">
                 <form class="form" action="" method="POST">
@@ -103,26 +106,25 @@
               </form>                      
             </div>
 
-            <button onclick="window.open('#', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
-            <p style="color:red">سيتم تفعيل هذا الرابط قريبا</p>
-
-
+            <button onclick="window.open('https://drive.google.com/drive/folders/1ycgwqx6d0wLXWb7PXYY7K3EH629_6uDb?usp=drive_link', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
             <!-- <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe>  -->
 
-            <!-- <button style="color:black" onclick="enquiryHere()">للاستفسار</button> -->
-            <div class="box hide" id=enquiry>
-                <form class="form" action="" method="POST">
-                  {% csrf_token %}       
-          
-                  <input id="enqEmail"  required name="email" type="email" placeholder="البريد الاليكتروني"/><br>
-                  <span id="invalidEnqEmail" class="hide" style="color:red;">بريد إليكتروني غير صالح</span>   
-                  <textarea required rows="6" cols="30"  placeholder="اكتب استفسارك هنا" name="message"></textarea>
-                  <button style="width:10rem" type="submit" name='enquirey' id="enquirey">أرسل</button>
-                </form>
-            </div>
-        {% endif %}
+            <button style="color:black" onclick="aboutiFounder()">عن الموقع</button>
+            <div class="box hide" id="about">
+                <h1>هنا تجد</h1>
+                <p>تدريبات هدفها تحديد نقاط ضعفك وتقويتها</p>
+                <p>واختبارات لتحديد مستواك في كل درس</p>
+                <p>فيديو شرح مبسط لكل درس، مع التركيز على أهم النقاط</p>
+                <p>مذكرة فيها ملخص لكل درس</p>
+                <p>جميع أسئلة الامتحانات الرسمية موزعة على الدروس</p>
+                <p>جميع أسئلة الامتحانات التجريبية موزعة على الدروس</p>
+                <p>جميع أسئلة كتاب الطالب وكتاب النشاط</p>
+                <p>أسئلة إثرائية على كل درس</p>
+                <p>كل تلك الأسئلة مجاب عنها </p> 
+                <p>مع توضيح فكرة السؤال وطريقة الحل إن لزم الأمر</p>
+            </div> <br>
 
-        
+        {% endif %}
         
         
         
@@ -157,33 +159,33 @@
         let Try = document.getElementById("try");
         let NewMember = document.getElementById("newmember");
         let CurrentMember = document.getElementById("currentmember"); 
-        let EnquiryHere = document.getElementById("enquiry");
+        let AboutiFounder = document.getElementById("about");
 
 
         function currentMember() { 
             Try.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
+            AboutiFounder.classList.add('hide');
             CurrentMember.classList.toggle('hide');
         }
         function trySite() { 
             CurrentMember.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
+            AboutiFounder.classList.add('hide');
             Try.classList.toggle('hide');
         }
         function newMember() { 
             CurrentMember.classList.add('hide');
             Try.classList.add('hide');
-            EnquiryHere.classList.add('hide');
+            AboutiFounder.classList.add('hide');
             NewMember.classList.toggle('hide');
         }
 
-        function enquiryHere() { 
+        function aboutiFounder() { 
             CurrentMember.classList.add('hide');
             Try.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.toggle('hide');
+            AboutiFounder.classList.toggle('hide');
         }
         
         function checker(userOption) {             

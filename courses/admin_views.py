@@ -65,7 +65,8 @@ def update_weights_and_percents():
         users = [ u for u in User.objects.filter(year=year.name)] + [me]
         for user in users : 
             lessons = [lesson.k for lesson in Lesson.objects.filter(y=year)] 
-            # for lesson in lessons: 
+            # for k in lessons: 
+            #     lesson = Lesson.objects.get(k=k)
             #     eval = LessonEval.objects.get(user=user, k=lesson)
             #     if eval.score > 0: 
             #         eval.score = eval.score - 1

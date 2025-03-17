@@ -42,7 +42,7 @@
             {% endif %}
           {% endif %}
           {% if c == 'q' or c == 'd' %}
-            رأس السؤال <br><textarea required type="textarea" rows="6" cols="100" name="name" >{{object.name}}</textarea> <hr> 
+            رأس السؤال <br><textarea required type="textarea" rows="4" cols="100" name="name" >{{object.name}}</textarea> <hr> 
           {% else %}
             الاسم <br><input type="text" value="{{object.name}}" name="name"> <hr> 
           {% endif %}   
@@ -59,7 +59,7 @@
           {% endif %}  
           
           {% if c == 'q' or c == 'd'  %}
-            الخيارات <br><textarea type="textarea" rows="6" cols="100" name="options" >{{object.options}}</textarea>  <hr>        
+            الخيارات <br><textarea type="textarea" rows="4" cols="100" name="options" >{{object.options}}</textarea>  <hr>        
 
             {% if object.ansimg %} 
               صورة إجابة &nbsp  <input style="width:30%" type="file" id="ansimg" name="ansimg">
@@ -69,7 +69,7 @@
               <input style="width:30%" type="file" name="ansimg"> &nbsp &nbsp &nbsp لا يوجد ملف مرفق 
             {% endif %} 
             <hr>    
-            التوجيهات <br><textarea type="textarea" rows="6" cols="100" name="hint" >{{object.hint}}</textarea>                    
+            التوجيهات <br><textarea type="textarea" rows="4" cols="100" name="hint" >{{object.hint}}</textarea>                    
           {% endif %}
 
           
