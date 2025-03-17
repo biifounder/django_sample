@@ -37,8 +37,7 @@
     </div>          
 
     <div class="container"> 
-      <button style="color:rgb(99, 22, 242)" onclick="showoutstanding()">لوحة التميز</button> 
-      <button style="color:rgb(0, 8, 255)" onclick="window.open('https://drive.google.com/drive/folders/1ycgwqx6d0wLXWb7PXYY7K3EH629_6uDb?usp=drive_link', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
+      <button style="color:rgb(99, 22, 242)" onclick="showoutstanding()">لوحة التميز</button>       
     </div>
     <div class="box hide" id="outstanding" style="width:80%; padding-right:0.5rem; color:rgb(99, 22, 242); max-height:200px; background-color: rgb(240, 240, 240); overflow:auto; text-align:right; border:1px solid #414141;">
       {% for out in outstandings %}
@@ -47,6 +46,8 @@
         </p>
       {% endfor %}
     </div>
+
+    <button style="color:rgb(0, 8, 255)" onclick="window.open('https://drive.google.com/drive/folders/1ycgwqx6d0wLXWb7PXYY7K3EH629_6uDb?usp=drive_link', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
 
 
     
