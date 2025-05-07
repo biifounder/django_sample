@@ -41,25 +41,6 @@ def add_and_clean_Evals():
     print('All Evals are clean ___________________________')
 
 def update_weights_and_percents(): 
-    for subject in Subject.objects.all(): 
-        units, unit_nqs, utot = Unit.objects.filter(p=subject), [], 0
-        for unit in units: 
-            lessons = Lesson.objects.filter(p=unit) 
-            less_nqs = [len(Question.objects.filter(p=lesson)) for lesson in lessons]
-            tot = sum(less_nqs)
-            if tot : 
-                for i in range(len(lessons)): 
-                    lesson = lessons[i]
-                    lesson.w = round(less_nqs[i]/tot,3)  
-                    lesson.save() 
-            unit_nqs += [tot] 
-            utot += tot
-        if utot:
-            for i in range(len(units)): 
-                unit = units[i]
-                unit.w = round(unit_nqs[i]/utot,3)  
-                unit.save()   
-
     for year in Year.objects.all(): 
         me = User.objects.get(year='0')
         users = [ u for u in User.objects.filter(year=year.name)] + [me]
@@ -77,10 +58,31 @@ def update_weights_and_percents():
 
 
 
+import json
+with open('eval.json', 'r') as file:
+    data = json.load(file)
+    print(data[-1])
 
+def loadscores(): # from datafile which contains QEval/ after loading the new users 
+    for d in data : 
+        if d['model'] == 'courses.qeval': 
+            for v in QEval.objects.all() :                
+                if str(v.k.id) == str(d['fields']['k']) and str(v.user) == str(User.objects.get(id=d['fields']['user']).email):
+                    if d['fields']['score'] != v.pscore: 
+                        v.pscore = d['fields']['score']
+                        if d['fields']['score'] > 0 : 
+                            v.tscore = d['fields']['score']
+                        v.save() 
+                    if d['fields']['flag'] != v.flag: 
+                        v.pscore = d['fields']['score']
+                        v.save() 
+            print('________________________________________')
 #=======================================================================================================
 
 
 # deleteAll()
 # add_and_clean_Evals()
 # update_weights_and_percents()
+
+# loadscores()
+

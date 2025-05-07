@@ -46,7 +46,7 @@
           {% else %}
             الاسم <br><input type="text" value="{{object.name}}" name="name"> <hr> 
           {% endif %}   
-          {% if c == 'd' or c == 'q' or c == 'l' %}
+          {% if c == 'd' or c == 'q' %}
             {% if object.file %} 
               تحميل ملف &nbsp  <input style="width:30%" type="file" id="file" name="file">
               &nbsp &nbsp &nbsp <img style="width:15%;" src="{{ object.file }}"><br>
@@ -70,11 +70,6 @@
             {% endif %} 
             <hr>    
             التوجيهات <br><textarea type="textarea" rows="4" cols="100" name="hint" >{{object.hint}}</textarea>                    
-          {% endif %}
-
-          
-          {% if c == 'l' or c == 'q' %}
-            <br>رابط الفيديو <br><input type="text" value='{{object.video}}' name="video" >
           {% endif %}
         {% endif %}
   

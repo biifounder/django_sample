@@ -176,7 +176,7 @@ def Qcreate(request , p):
         name = request.POST.get('name') 
         parent = Lesson.objects.get(k=p) 
         y = parent.y     
-        object, _ = Question.objects.get_or_create(name=name, p=parent, y=y)  
+        object, _ = Question.objects.get_or_create(name=name, p=parent, u=parent.p, s=parent.p.p, y=y)  
         Create(request, object, QEval, 'q', y.name)
         return redirect('qlist', p)
     else: 

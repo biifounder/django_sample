@@ -223,11 +223,13 @@
       hint_DIV.classList.add("hint", "hide"); 
       hint_DIV.style.textAlign = "right";
       hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >توجيهات أو خطوات الحل لنفس السؤال أو سؤال مشابه:</p>`;
-      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >السؤال:</p>`;
+      hint_DIV.innerHTML += `<p style="color:red; font-size:20px" >السؤال:</p>`;
       hint_DIV.innerHTML += `<p style="font-size:20px" >${i.q_question}</p>`;
       if (i.q_img) {
         hint_DIV.innerHTML += `<div style="text-align:center"><img style="width:300px" src="${i.q_img}"><div/>`
-      }    
+      } 
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >الإجابة:</p>`;
+      hint_DIV.innerHTML += `<p style="font-size:20px" >${i.q_op1}</p>`;   
       hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >التوجيهات أو خطوات الحل :</p>`;      
       for (h of i.hint){
         hint_DIV.innerHTML += String.raw`<p>${h}</p>`;

@@ -159,32 +159,18 @@
           </div>
         </form>
       </div>
-
-      <div class="container"> 
-        <button style="color:red" onclick="showweaknesses()">عرض نقاط ضعفك في هذه المادة</button>
-      </div> 
-      <div class="box hide" id="weaknesses" style="max-height:200px; width:70%; text-align:right; padding-right:0.5rem; background-color: rgb(240, 240, 240); overflow:auto; border:0px solid #414141;">
-        {% if auth and weaknesses  %}   
-          {% for weak in weaknesses %}
-            {{weak.percent}}% - درس {{weak.l}} - وحدة {{weak.u}} <br>
-          {% endfor %}
-        {% elif auth %}
-          <h2 style="color:rgb(119, 0, 255)">تهـــانينا</h2>
-          <p style="color:rgb(119, 0, 255)">لا يوجد لديك نقاط ضعف في هذه المادة</p>      
-        {% endif %}  
-      </div> 
       <hr>
-      
-
-      {% if teacher %}      
-        <button style="background-color:#dfdfdf" onclick='window.location.href="{% url 'ucreate' p=k %}"'>إضافة وحدة </button>
-        <br><hr>
-      {% endif %}
 
       {% if units %}
+      <h1>المحتويات</h1>
           <div id="contentcontainer"></div>
       {% else %} 
         <p>لم تتم إضافة محتويات بعد لهذه المادة</p>
+      {% endif %}
+
+      {% if teacher %}            
+        <button style="background-color:#d3d2d2" onclick='window.location.href="{% url 'ucreate' p=k %}"'>إضافة وحدة </button>
+        <br><br>
       {% endif %}
 
     </div>
@@ -197,7 +183,6 @@
     let contentContainer = document.getElementById("contentcontainer");
     let Units = document.getElementsByClassName("unit"); 
     let Lessons = document.getElementsByClassName("lesson"); 
-    let LessonList = document.getElementsByClassName("lessonlist"); 
     let Contents = document.getElementsByClassName("content"); 
     let Videos = document.getElementsByClassName("video"); 
     var color = 'black' 
@@ -219,98 +204,43 @@
         i += 1; 
         [color , grade] = colorGrade (unit.upercent)
         let div = document.createElement("div");
-        div.innerHTML = `<button class='unit' style="width:100%;" onclick="showLessons(${i})">
-          <div style="font-size:30px; float:right"">
+        div.innerHTML = `<p class='unit' style="width:100%;">
+            <div style="font-size:25px; float:right; background-color:#dfdfdf">        
             {% if teacher %}
               <a style="width:30px; font-size:1px;" title="حذف" href="/udelete/${unit.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
               <a style="width:30px; font-size:1px;" title="تعديل" href="/uupdate/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
             {% endif %}
-
-            ${unit.title}</div>
-          <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>` ;  
+            [<span style="color:${color}">% ${unit.upercent} ${grade}</span>] &nbsp;&nbsp;&nbsp; ${unit.title}</div><br></p>
+          ` ;  
         let lesson_DIV = document.createElement("div");  
-        lesson_DIV.classList.add("lessonlist", "hide", style="width:90%;" , value=i); 
-        lesson_DIV.innerHTML = `{% if teacher %}
-                                <button style="background-color:#dfdfdf; width:70%" onclick='window.location.href="/lcreate/${unit.k}"'>إضافة درس </button>
-                                {% endif %}`;
+        lesson_DIV.classList.add("lessonlist", style="width:90%;" , value=i);        
+        lesson_DIV.innerHTML = ``; 
         for (let lesson of unit.lessons){ 
             j += 1;   
             [color , grade] = colorGrade (lesson.lpercent)            
-            lesson_DIV.innerHTML += `<button class="lesson" style="width:90%;" onclick="showContent(${j})">
-              <div style="font-size:25px; float:right"">
+            lesson_DIV.innerHTML += `<p class="lesson" style="width:90%;">
+              <div style="font-size:20px; float:right"">
                 {% if teacher %}
                   <a style="width:30px; font-size:1px;" title="حذف" href="/ldelete/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
                   <a style="width:30px; font-size:1px;" title="تعديل" href="/lupdate/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>                  
                   <a style="width:30px; font-size:1px;" title="الأسئلة" href="/qlist/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/qlist.svg' %}"></a>      
                 {% endif %}            
-              ${lesson.title}</div>
-              <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>` ;  
-            if (lesson.video){
-              lesson_DIV.innerHTML += `<iframe class="video hide" style="width:85%; height:360px" src="${lesson.video}" allowfullscreen></iframe> `;
-            } else {
-              lesson_DIV.innerHTML += `<p class="video"></p>`;
-            }
-            if (lesson.file){
-              lesson_DIV.innerHTML += `<iframe class="content hide" style="width:85%; height:690px" src="${lesson.file}"></iframe>`;
-            } else {
-              lesson_DIV.innerHTML += `<p class="content"></p>`;
-            }
-            
-            
+              [<span style="color:${color}"; float:left>% ${lesson.lpercent} ${grade}</span>] &nbsp;&nbsp; ${lesson.title}</div><br></p>` ;    
         }
         div.appendChild(lesson_DIV); 
+        div.innerHTML += `{% if teacher %}
+                            <button style="background-color:#dfdfdf; width:50%" onclick='window.location.href="/lcreate/${unit.k}"'>إضافة درس </button>
+                          {% endif %}`;
+        div.innerHTML += `<hr>`;
+        
         contentContainer.appendChild(div);
-    }
-
-
-
-
-    function showLessons(i) { 
-        for(var k=0; k < Units.length; k++){            
-            if (k != i) {  
-                Units[k].classList.remove('selected')     
-                LessonList[k].classList.add('hide')     
-            }                                                
-        }    
-        for(var k=0; k < Lessons.length; k++){    
-            Lessons[k].classList.remove('selected')  
-            Videos[k].classList.add('hide')            
-            Contents[k].classList.add('hide')     
-        } 
-        Units[i].classList.toggle('selected')     
-        LessonList[i].classList.toggle('hide') 
+        
     }
 
 
     function mustLogin() {
       alert("الاختبار والتقييم والتوجيه ميزات غير متاحة في الإصدار التجريبي");
-    }
-
-    let Weaknesses = document.getElementById("weaknesses"); 
-    let auth = '{{auth}}';   
-    function showweaknesses(){    
-      if (auth === '0'){
-        alert('تحديد نقاط الضعف في المادة خاصية غير متاحة في الإصدار التجريبي')      
-      } else {
-        Weaknesses.classList.toggle('hide');      
-      };    
-    }
-    
-
-    function showContent(j) { 
-        for(var k=0; k < Contents.length; k++){    
-            if (k != j){
-                Lessons[k].classList.remove('selected')
-                Videos[k].classList.add('hide')
-                Contents[k].classList.add('hide')
-                
-            }
-        }
-        Lessons[j].classList.toggle('selected')   
-        Videos[j].classList.toggle('hide')
-        Contents[j].classList.toggle('hide')
-        
-    }
+    }  
 
     const lessons = units.flatMap(unit => unit.lessons);
 

@@ -70,8 +70,6 @@ class Lesson(models.Model):
 class LessonEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     k = models.ForeignKey(Lesson, on_delete=models.CASCADE) 
-    score = models.PositiveSmallIntegerField(default=0) 
-    total = models.PositiveSmallIntegerField(default=0) 
     percent = models.PositiveSmallIntegerField(default=0) 
 
 
@@ -93,13 +91,16 @@ class Question(models.Model):
     kind =  models.CharField(max_length=400,default='understand')  
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Lesson, on_delete=models.CASCADE) 
+    u = models.ForeignKey(Unit, on_delete=models.CASCADE, default='') 
+    s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='')    
     y = models.ForeignKey(Year, on_delete=models.CASCADE, default='') 
     
     
 class QEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     k = models.ForeignKey(Question, on_delete=models.CASCADE) 
-    score = models.SmallIntegerField(default=0) 
+    pscore = models.SmallIntegerField(default=0) 
+    tscore = models.SmallIntegerField(default=0) 
     flag =  models.PositiveSmallIntegerField(default=0) 
 
 
