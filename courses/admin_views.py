@@ -58,12 +58,13 @@ def update_weights_and_percents():
 
 
 
-import json
-with open('eval.json', 'r') as file:
-    data = json.load(file)
-    print(data[-1])
+
 
 def loadscores(): # from datafile which contains QEval/ after loading the new users 
+    import json
+    with open('eval.json', 'r') as file:
+        data = json.load(file)
+        print(data[-1])
     for d in data : 
         if d['model'] == 'courses.qeval': 
             for v in QEval.objects.all() :                
