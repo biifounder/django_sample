@@ -59,8 +59,6 @@ class Lesson(models.Model):
     p = models.ForeignKey(Unit, on_delete=models.CASCADE) 
     s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
-    file = models.CharField(max_length=400, null=True)
-    file_url = models.CharField(max_length=400, null=True)
     video = EmbedVideoField(null=True)
     
 
