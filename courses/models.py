@@ -17,7 +17,7 @@ class User(AbstractUser):
 
 #_______________________________________________________________________________
 class Year(models.Model):   
-    name = models.CharField(max_length=400)    
+    head = models.CharField(max_length=400)    
     k = models.CharField(max_length=400, default='1')        
 
 class YearEval(models.Model):
@@ -28,7 +28,7 @@ class YearEval(models.Model):
    
 #_______________________________________________________________________________
 class Subject(models.Model):
-    name = models.CharField(max_length=400)    
+    head = models.CharField(max_length=400)    
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Year, on_delete=models.CASCADE) 
     
@@ -39,11 +39,12 @@ class SubjectEval(models.Model):
 
 #_______________________________________________________________________________
 class Unit(models.Model):
-    name = models.CharField(max_length=400)   
+    head = models.CharField(max_length=400)   
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Subject, on_delete=models.CASCADE) 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
-    w = models.FloatField(default=0)  
+    file = models.CharField(max_length=400, null=True)
+    file_url = models.CharField(max_length=400, null=True)
     
 class UnitEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -51,19 +52,15 @@ class UnitEval(models.Model):
     percent = models.PositiveSmallIntegerField(default=0) 
 
     
-
-
 #_______________________________________________________________________________
 class Lesson(models.Model):
-    name = models.CharField(max_length=400)    
+    head = models.CharField(max_length=400)    
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Unit, on_delete=models.CASCADE) 
     s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
-    w = models.FloatField(default=0) 
-    content = models.CharField(max_length=10000, default='_')
-    file = models.FileField(null=True)
-    location = models.CharField(max_length=400,null=True)  
+    file = models.CharField(max_length=400, null=True)
+    file_url = models.CharField(max_length=400, null=True)
     video = EmbedVideoField(null=True)
     
 
@@ -76,7 +73,7 @@ class LessonEval(models.Model):
 #_______________________________________________________________________________
 
 class Question(models.Model):
-    name = models.TextField(null=True)
+    head = models.TextField(null=True)
     op1 = models.CharField(max_length=10000,null=True)
     op2 = models.CharField(max_length=10000,null=True)
     op3 = models.CharField(max_length=10000,null=True)
@@ -84,8 +81,10 @@ class Question(models.Model):
     options = models.TextField(null=True) 
     hint = models.TextField(null=True)   
     level = models.CharField(max_length=400,null=True) 
-    file = models.FileField(null=True)
-    ansimg = models.FileField(null=True)
+    file = models.CharField(max_length=400,null=True)
+    file_url = models.CharField(max_length=400, null=True)
+    ansimg = models.CharField(max_length=400,null=True)
+    ansimg_url = models.CharField(max_length=400, null=True)
     video = EmbedVideoField(null=True)
     source = models.CharField(max_length=400,default='other') 
     kind =  models.CharField(max_length=400,default='understand')  
@@ -105,14 +104,16 @@ class QEval(models.Model):
 
 
 class QDubl(models.Model):
-    name = models.TextField(null=True)
+    head = models.TextField(null=True)
     op1 = models.CharField(max_length=10000,null=True)
     op2 = models.CharField(max_length=10000,null=True)
     op3 = models.CharField(max_length=10000,null=True)
     op4 = models.CharField(max_length=10000,null=True)
     options = models.TextField(null=True) 
-    file = models.FileField(null=True)
-    ansimg = models.FileField(null=True)
+    file = models.CharField(max_length=400, null=True)
+    file_url = models.CharField(max_length=400, null=True)
+    ansimg = models.CharField(max_length=400,null=True)
+    ansimg_url = models.CharField(max_length=400, null=True)
     hint = models.TextField(null=True)   
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Question, on_delete=models.CASCADE) 

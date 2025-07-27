@@ -1,0 +1,293 @@
+<html>
+
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+        body {
+            font-family: 'Amiri', serif;      
+            text-align:center;  
+            background-color:rgb(244, 244, 244);  
+        }
+
+        .container, .box {
+            text-align:center;
+            max-width: 40rem;   
+            min-width: 30rem;   
+            margin: auto;             
+            align-items: center;
+        }
+
+        .box {
+            border: 2px solid #898888;    
+            border-radius: 0.5em;         
+            background-color:#ebe9e9;
+        }
+
+        button, a:link, a:visited {
+            font-size: 25px;
+            color:#000000;
+            background: transparent;
+            border: 1px solid #cacaca;
+            border-radius: 0.5em;   
+            display: inline-block;            
+            width: 19%;
+            margin: 0.2rem;
+            padding-right: 1em;        
+            padding-left: 1em;        
+            font-family: 'Amiri', serif;       
+            text-decoration: none;
+            cursor:pointer; 
+            box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+        }
+
+        button:hover, a:hover {
+            background-color:rgb(202, 202, 202);
+            border: 1px solid #696969;
+        }    
+
+        .hide {
+            display: none;
+        }
+
+  </style>
+
+
+</head>
+
+<body>
+    
+    <div class = 'box'>
+        <p>تشفير الصيغ وحل المعادلات</p>
+        <textarea type="textarea" rows="10" cols="70" name="" id="input"></textarea>
+        <button onclick="QU()">وحدات</button>
+        <button onclick="Expression()">صيغة</button>
+        <button onclick="Driv()">اشتقاق</button>
+        <button onclick="Steps()">الحل</button>        
+        <div id="disp"></div>        
+        <textarea type="textarea" rows="15" cols="70" name="" id="output"></textarea>
+    </div>
+</body>
+
+
+<script>
+    function exptex(text) {
+        text = text.replace(/([\-+]?\d*\.?\d+)[eE]([\-+]?\d+)/g, '$1 \\times 10^{$2}');
+        text = text.replace(/\^(-?\d+)/g, '^{\$1}');
+        return text;
+    }
+
+    function matchunit(text) {
+        text = text.trim();
+        let pattern = /^([\d\.\*\s\^eE\+\-\/\(\)]+)\s*([a-zA-Z\\/\*\^\-\d\s]*)$/;
+        let match = text.match(pattern);
+        if (!match) return [text, ''];
+        let q = match[1].trim();
+        let u = match[2].trim();
+        return [q, u];
+    }
+
+    function qutex(text) {
+        let [q, u] = matchunit(text);
+        q = exptex(q);
+        u = exptex(u);
+        return '\\( ' + q + ' \\ \\mathrm{' + u + '} \\)';
+    }
+
+    function pytex(formula) {
+        // converts python formula to tex formula in the same line
+        formula = formula.replace(/sqrt/g, '\\sqrt')
+                        .replace(/3\.14/g, 'pi')
+                        .replace(/\*/g, ' \\times ')
+                        .replace(/pi/g, '\\pi')
+                        .replace(/phi/g, '\\phi')
+                        .replace(/rho/g, '\\rho')
+                        .replace(/ohm/g, '\\Omega')
+                        .replace(/del/g, '\\Delta')
+                        .replace(/pm/g, '\\pm')
+                        .replace(/circ/g, '\\circ')
+                        .replace(/%/g, '\\%')
+                        .replace(/\\mathrm\{%\}/g, '\\%');
+
+        let forms = formula.split('=');
+        forms.forEach(function(form) {
+            if (form.includes('/')) {
+                let newForm = '\\dfrac{' + form.replace('/', '}{').trim() + '}';
+                formula = formula.replace(form, newForm);
+            }
+        });
+
+        formula = '\\( ' + formula + ' \\)';
+        return formula;
+    }
+
+
+    function steptex(formula) {
+        let newFormula = pytex(formula);
+        newFormula = newFormula.replace(/\\\(/g, '\\[')
+                                .replace(/\\\)/g, '\\]')
+                                .replace(/\\dfrac/g, '\\frac');
+        return newFormula;
+    }
+
+
+
+    function modify_num(num) {
+        let mod;
+        for (let i = 1; i < 10; i++) {
+            mod = Number(num.toFixed(i));
+            if (mod !== 0) {
+                mod = Number(num.toFixed(i + 1));
+                break;
+            }
+        }
+        if (mod > 100 || Number.isInteger(mod)) {
+            mod = parseInt(mod);
+        }
+        return mod;
+    }
+
+    function Display(disps){
+        for (let disp of disps){ 
+            let Disp = document.getElementById("disp");
+            let div = document.createElement("div");
+            div.innerHTML += `${disp}` 
+            Disp.appendChild(div);
+            MathJax.typesetPromise([Disp]);
+        }
+    }
+
+        
+
+    function Solve(given = {}, steps = []) {    
+        let allsteps = [];
+        let unit = '';
+        let out;        
+        for (let formula of steps) {
+            let forms = formula.trim().split('=');
+            forms = forms.map(f => f.trim());
+            if (formula.includes('rep')) {
+                let i = forms.indexOf('rep') - 1;
+                let form = forms[i];
+                for (let f of form) {
+                    if (given[f] !== undefined) {
+                        form = form.replace(f, given[f]);
+                    }
+                }
+                formula = formula.replace('rep', form);
+            }
+            if (formula.includes('val')) {    
+                let form = forms[forms.length - 2];
+                if (forms[forms.length - 1].trim().length > 3) {
+                    unit = forms[forms.length - 1].replace('val', '').trim();
+                }
+                out = eval(form);
+                out = modify_num(out);
+                formula = formula.replace('val', String(out)).replace(unit, '');
+            formula = steptex(formula).replace(/\\\]/g, '\\ \\mathrm{' + unit + '}\\]');
+            allsteps.push(formula);
+            given[forms[0]] = String(out);
+            }
+        }
+        Display(allsteps)        
+        return [allsteps, out, unit];
+    }
+
+    function Steps(input) {
+        let question = document.getElementById('input').value;
+        let steps = question.split('..');   
+        let given = {} ;  
+        if (steps.length > 1) {
+            question = steps[0];
+            steps = steps.slice(1).map(s => s.trim());
+            let vnus = Array.from(question.matchAll(/\{(.*?)\}/g), m => m[1]);
+            for (let vnu of vnus) {
+                let [v, nu] = vnu.split('=');
+                v = v.trim();
+                let [n, u] = matchunit(nu);
+                given[v.replace(')', '').replace('(', '')] = n.trim();
+                let q = qutex(nu);
+                question = question.replace(vnu, q).replace('[', '(').replace(']', ')');
+            }            
+        } else {
+            steps = steps.map(s => s.trim());
+        }
+        let [allsteps, out, unit] = Solve(given, steps);
+
+        
+        let outs = [out];
+        let nums = Object.values(given).map(Number);
+        op2 = modify_num(nums[0] * nums[1])
+        if (op2 !== out) {
+            outs.push(op2);
+            }
+        if (nums[0] !== 0) {
+            op3 = modify_num(nums[1] / nums[0]);
+            if (op3 !== out & op3 != op2){
+                outs.push(op3);
+            }
+        }
+        if (nums[1] !== 0) {
+            op4 = modify_num(nums[0] / nums[1]);
+            if (op4 !== out & op4 != op3 & op4 != op2){
+                outs.push(op4);
+            }
+        }
+        if (outs.length < 4){
+            outs.push(modify_num(out * Math.floor(Math.random() * 4 + 2)));
+        } 
+        if (outs.length < 4){
+            outs.push(modify_num(out * Math.random() * 0.5 + 0.25));
+        }
+
+        outs = outs.map(out => pytex(String(out)).replace(/\\\)/g, '\\ \\mathrm{' + unit + '}\\) ..'));
+
+        result = [question].concat('\n').concat(allsteps).concat('\n').concat(outs)
+        document.getElementById('output').value = result.join('\n');
+        return [question].concat(allsteps).concat(outs);
+    }
+
+
+    function Expression(input) {
+        let formula = document.getElementById('input').value;
+        let steps = formula.trim().split('..');
+        let allsteps = [];
+        for (let step of steps) {
+            form = pytex(step.trim())
+            allsteps.push(form);
+        }
+        document.getElementById('output').value = allsteps.join('\n');
+        Display(allsteps)
+    }
+
+    function Driv(){
+        let formula = document.getElementById('input').value;
+        let steps = formula.trim().split('..');
+        let allsteps = [];
+        for (let step of steps) {
+            form = steptex(step.trim())
+            allsteps.push(form);
+        }
+        document.getElementById('output').value = allsteps.join('\n');
+        Display(allsteps)
+    }
+
+    function QU (input) {
+        let formula = document.getElementById('input').value;
+        let qus = formula.trim().split('..');
+        let allqus = [];
+        for (let qu of qus) {
+            qux = qutex(qu.trim())
+            allqus.push(qux);        
+        }
+        document.getElementById('output').value = allqus.join('\n');
+        Display(allqus)
+    }
+
+
+ 
+
+
+</script>
+
+</html>

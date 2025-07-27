@@ -19,16 +19,6 @@ def is_teacher(request):
             return request.user.username 
     return False
 
-
-def EmailSender(email_subject, message,receiver_emails):
-        send_mail(
-        email_subject,
-        message,
-        'biifounder@gmail.com',
-        receiver_emails,
-        fail_silently=False,
-        )
-
 def AddUser(request,year):  
     user=request.user  
     YearEval.objects.create(k=year, user=user)    
@@ -46,7 +36,7 @@ def HomePage(request):
     if request.method == 'POST':   
         if "visitor" in request.POST:            
             y = request.POST.get('year') 
-            year = Year.objects.get(name=y)
+            year = Year.objects.get(head=y)
             return redirect('year', year.k)     
             
         if "register" in request.POST:          
@@ -61,7 +51,7 @@ def HomePage(request):
                 user.school = request.POST.get('school')                
                 user.save()  
                 login(request, user)
-                year = Year.objects.get(name=user.year)  
+                year = Year.objects.get(head=user.year)  
                 AddUser(request, year)                
                 return redirect('home')  
             else: 
@@ -75,12 +65,6 @@ def HomePage(request):
                 return redirect('home')
             else:
                 return HttpResponse ("كلمة السر خطأ")
-        elif 'enquirey' in request.POST:
-            email=request.POST.get('email')
-            email_subject = 'from ' + email
-            message = request.POST.get('message')
-            EmailSender(email_subject, message, ['bahaaismailres@gmail.com'])
-            return HttpResponse ("نشكركم على التواصل معنا وسوف يتم الرد على استفساركم في أقرب وقت ممكن إن شاء الله")   
     else:   
         if is_teacher(request) or not request.user.is_authenticated:             
             form = MyUserCreationForm()  
@@ -90,7 +74,7 @@ def HomePage(request):
         else:             
             context = {'teacher':is_teacher(request)}        
             y = User.objects.get(email=request.user).year
-            return redirect('year', Year.objects.get(name=y).k)
+            return redirect('year', Year.objects.get(head=y).k)
 
 
 @login_required(login_url='login')
@@ -114,8 +98,7 @@ def YearPage(request, k):
         spercent = 0 
         if user :
             spercent = SubjectEval.objects.get(user=user, k=subject).percent  
-        subjects += [{'name':subject.name, 'k':subject.k, 'spercent':spercent}]
-
+        subjects += [{'head':subject.head, 'k':subject.k, 'spercent':spercent}]
 
     outstandings = []  
     ordered = YearEval.objects.filter(k=year).order_by('-percent')      
@@ -134,8 +117,7 @@ def YearPage(request, k):
     if user:               
         user_rank = ordered_percents.index(ypercent)+1
 
-
-    context = {'teacher': is_teacher(request), 'year':year, 'yname':nD[year.name] , 'ypercent':ypercent, 'subjects':subjects, 
+    context = {'teacher': is_teacher(request), 'year':year, 'yhead':nD[year.head] , 'ypercent':ypercent, 'subjects':subjects, 
                'outstandings':outstandings, 'user_rank':user_rank}
     return render (request,'courses/year.html', context)
 
@@ -168,9 +150,9 @@ def SubjectPage(request, k):
                 lpercent = 0 
                 if user :
                     lpercent = LessonEval.objects.get(user=user, k=lesson).percent
-                lessons += [{'title':lesson.name, 'file':lesson.file.name, 'lpercent':lpercent, 'k':lesson.k}]
-            units += [{'title':unit.name, 'upercent': upercent, 'lessons':lessons, 'k':unit.k,}]
-        context = {'teacher': is_teacher(request), 'auth':request.user.is_authenticated, 'k':subject.k, 'sname':subject.name, 'spercent':spercent, 
+                lessons += [{'title':lesson.head, 'video':lesson.video, 'lpercent':lpercent, 'k':lesson.k}]
+            units += [{'title':unit.head, 'file_url':unit.file_url, 'upercent': upercent, 'lessons':lessons, 'k':unit.k,}]
+        context = {'teacher': is_teacher(request), 'auth':request.user.is_authenticated, 'k':subject.k, 'shead':subject.head, 'spercent':spercent, 
                 'units':dumps(units)}
         return render (request,'courses/subject.html', context)
 
@@ -260,21 +242,22 @@ def user_questions(request, lesson_qs, purpose):
 
 def gatherQuestions(request, lessons, purpose): 
     lessons = [Lesson.objects.get(k=k) for k in lessons]
-    nlessons = len(lessons)
-    wts = [len(Question.objects.filter(p=lesson)) for lesson in lessons]
-    wtot = sum(wts)
-    wts = [round(w/wtot,3) for w in wts]
-    nqtot = min(10+40*log(nlessons,50), 50)
+    nlessons = len(lessons)    
     questions = [] 
     for i in range(nlessons): 
         lesson = lessons[i]       
         lesson_qs = [q for q in Question.objects.filter(p=lesson)]
         lesson_qs = user_questions(request, lesson_qs, purpose) 
         if purpose == 'test': 
+            wts = [len(Question.objects.filter(p=lesson)) for lesson in lessons]
+            wtot = sum(wts)
+            wts = [round(w/wtot,3) for w in wts]
+            nqtot = min(10+40*log(nlessons,50), 50)
             quota = int(wts[i]*nqtot)
             nqs = max(quota,1)
             lesson_qs = lesson_qs[:nqs]
         questions += lesson_qs    
+    print(len(questions), '----------------------------')
     return questions
 
 
@@ -294,19 +277,18 @@ def MakeQuestions(request, lessons, purpose):
             a = ds[0]   
         else : 
             q, a = que , que      
-        d = {'k':q.k, 'file':'', 'ansimg':'', 'hint':'',
+        d = {'k':q.k, 'file':'', 'ansimg':'', 'hint':'', 'video':'',
                 'choice':'', 'delay':0, 'flagged':'', 
-                'flag':flag, 'score':score, 'source':q.source, 'kind':q.kind, 
-                'q_question':q.name, 'q_img':'', 'q_op1':q.op1} 
-        if q.file: 
-            d['q_img'] = q.file.name      
-        d['question'] = a.name
+                'flag':flag, 'score':score, 'source':q.source, 'kind':q.kind}     
+        d['question'] = a.head
         if a.file: 
-            d['file'] = a.file.name
+            d['file'] = a.file_url
         if a.ansimg: 
-            d['ansimg'] = a.ansimg.name
-        if q.hint: 
-            d['hint'] = [h for h in q.hint.split('..')]
+            d['ansimg'] = a.ansimg_url
+        if a.hint: 
+            d['hint'] = [h for h in a.hint.split('..')]
+        if q.video: 
+            d['video'] = q.video
         if a.op2:            
             options = [a.op1, a.op2]
             if a.op3: options+=[a.op3]
@@ -395,11 +377,6 @@ def Assessment(request, k):
         updatePercents(selectedlessons , request.user)                        
         context = {'k':k, 'questions':questions, 'purpose':'test', 'auth':request.user.is_authenticated}      
         return render (request,'courses/practice.html', context)
-
-
-def Result(request): 
-    return render (request,'courses/practice.html')
-
 
 
 ######################################################################

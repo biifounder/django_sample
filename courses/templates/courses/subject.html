@@ -73,6 +73,42 @@
             font-size: 18px;
             color: #333;
         }
+          .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+      position: relative;
+      margin: 5% auto;
+      width: 80%;
+      height: 80%;
+      background: #fff;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+    iframe {
+      border: none;
+    }
+    #fileFrame {
+      flex: 1 1 100%;
+    }
 
   </style>
 </head>
@@ -81,10 +117,10 @@
   <div class="container">
       <div style="font-size:50px; color:blue; float:center">      
         {% if teacher %}
-            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'sdelete' k=k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
-            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'supdate' k=k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
+            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
         {% endif %}        
-        {{sname}}
+        {{shead}}
       </div>
       <div style="font-size:30px; float:center">
         {% if spercent < 50 %}
@@ -102,12 +138,8 @@
 
       <!-- buttons with pop-up -->
       <div class="container"> 
-        <button style="width:48%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>
-        {% if auth %}            
-          <button style="width:48%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
-        {% else %}
-          <button style="width:48%"  onclick="mustLogin()">اختبار</button>
-        {% endif %}
+        <button style="width:48%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
+        <button style="width:48%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
       </div>
       <div class="overlay" id="overlay1" onclick="closePopup('popup1', 'overlay1')"></div>
       <div class="overlay" id="overlay2" onclick="closePopup('popup2', 'overlay2')"></div>
@@ -162,14 +194,14 @@
       <hr>
 
       {% if units %}
-      <h1>المحتويات</h1>
-          <div id="contentcontainer"></div>
+        <h1>المحتويات</h1>
+        <div id="contentcontainer"></div>
       {% else %} 
         <p>لم تتم إضافة محتويات بعد لهذه المادة</p>
       {% endif %}
 
       {% if teacher %}            
-        <button style="background-color:#d3d2d2" onclick='window.location.href="{% url 'ucreate' p=k %}"'>إضافة وحدة </button>
+        <button style="background-color:#d3d2d2" onclick='window.location.href="{% url 'create' p=k %}"'>إضافة وحدة </button>
         <br><br>
       {% endif %}
 
@@ -204,43 +236,49 @@
         i += 1; 
         [color , grade] = colorGrade (unit.upercent)
         let div = document.createElement("div");
-        div.innerHTML = `<p class='unit' style="width:100%;">
-            <div style="font-size:25px; float:right; background-color:#dfdfdf">        
+        div.innerHTML = `<button class='unit' style="width:100%; float@right" onclick="openModal('${unit.file_url}')">          
+          <div style="font-size:30px; float:right"">
             {% if teacher %}
-              <a style="width:30px; font-size:1px;" title="حذف" href="/udelete/${unit.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
-              <a style="width:30px; font-size:1px;" title="تعديل" href="/uupdate/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
+              <a style="width:30px; font-size:1px;" title="حذف" href="/delete/${unit.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+              <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
             {% endif %}
-            [<span style="color:${color}">% ${unit.upercent} ${grade}</span>] &nbsp;&nbsp;&nbsp; ${unit.title}</div><br></p>
-          ` ;  
+            ${unit.title}</div>
+          <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>` ;  
         let lesson_DIV = document.createElement("div");  
         lesson_DIV.classList.add("lessonlist", style="width:90%;" , value=i);        
         lesson_DIV.innerHTML = ``; 
         for (let lesson of unit.lessons){ 
             j += 1;   
-            [color , grade] = colorGrade (lesson.lpercent)            
-            lesson_DIV.innerHTML += `<p class="lesson" style="width:90%;">
-              <div style="font-size:20px; float:right"">
+            [color , grade] = colorGrade (lesson.lpercent) 
+            lesson_DIV.innerHTML += `
+            <div style="font-size:25px; float:right"">
                 {% if teacher %}
-                  <a style="width:30px; font-size:1px;" title="حذف" href="/ldelete/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
-                  <a style="width:30px; font-size:1px;" title="تعديل" href="/lupdate/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>                  
+                  <a style="width:30px; font-size:1px;" title="حذف" href="/delete/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+                  <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>                  
                   <a style="width:30px; font-size:1px;" title="الأسئلة" href="/qlist/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/qlist.svg' %}"></a>      
                 {% endif %}            
-              [<span style="color:${color}"; float:left>% ${lesson.lpercent} ${grade}</span>] &nbsp;&nbsp; ${lesson.title}</div><br></p>` ;    
+              </div>
+            <button class="lesson" style="width:75%; float:right" 
+              onclick="openModal('${lesson.video}')">
+              <div style="font-size:25px; float:right">          
+                ${lesson.title}</div>
+              <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
+              <div id="combinedModal" class="modal">
+                <div class="modal-content">
+                  <span class="close" onclick="closeModal()">&times;</span>
+                  <iframe id="fileFrame" src="" allowfullscreen></iframe>
+                </div>
+              </div>` ; 
         }
         div.appendChild(lesson_DIV); 
         div.innerHTML += `{% if teacher %}
-                            <button style="background-color:#dfdfdf; width:50%" onclick='window.location.href="/lcreate/${unit.k}"'>إضافة درس </button>
+                            <button style="background-color:#dfdfdf; width:50%" onclick='window.location.href="/create/${unit.k}"'>إضافة درس </button>
                           {% endif %}`;
-        div.innerHTML += `<hr>`;
         
         contentContainer.appendChild(div);
         
     }
 
-
-    function mustLogin() {
-      alert("الاختبار والتقييم والتوجيه ميزات غير متاحة في الإصدار التجريبي");
-    }  
 
     const lessons = units.flatMap(unit => unit.lessons);
 
@@ -304,6 +342,25 @@
     }
 
     document.addEventListener("DOMContentLoaded", populateDropdowns);
+
+    function openModal(fileUrl) {
+    document.getElementById('fileFrame').src = fileUrl;
+    document.getElementById('combinedModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('combinedModal').style.display = 'none';
+    document.getElementById('fileFrame').src = '';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('combinedModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+
+
   
 </script>
 

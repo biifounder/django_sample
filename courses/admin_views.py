@@ -26,7 +26,7 @@ def add_clean(object, Eval, user):
 def add_and_clean_Evals(): 
     for year in Year.objects.all(): 
         me = User.objects.get(year='0')
-        users = [ u for u in User.objects.filter(year=year.name)] + [me]
+        users = [ u for u in User.objects.filter(year=year.head)] + [me]
         # print(len(users))
         for user in users :   
             add_clean(year, YearEval, user)           
@@ -86,4 +86,5 @@ def loadscores(): # from datafile which contains QEval/ after loading the new us
 # update_weights_and_percents()
 
 # loadscores()
+
 

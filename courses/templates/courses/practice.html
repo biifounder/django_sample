@@ -129,7 +129,7 @@
 
   if (purpose === 'pract'){
     qSource = document.getElementById('qsource');
-      for(var s of ['أسئلة وزارية وامتحانية','أسئلة إثرائية',]){
+      for(var s of ['أسئلة كتب الوزارة' , 'أسئلة الامتحانات الرسمية' ,'أسئلة إثرائية وامتحانات تجريبية',]){
         qSource.options[qSource.options.length] = new Option(s, s)
       }
     
@@ -149,9 +149,9 @@
 
     function qSelected() {
       let qsourceMap = {
-        book:'أسئلة وزارية وامتحانية',
-        exam:'أسئلة وزارية وامتحانية',
-        other:'أسئلة إثرائية'
+        book:'أسئلة كتب الوزارة',
+        exam:'أسئلة الامتحانات الرسمية',
+        other:'أسئلة إثرائية وامتحانات تجريبية'
       }
       let qkindMap = {
         know:'أسئلة المعرفة',
@@ -202,7 +202,7 @@
       if (purpose === 'pract'){
         
       }          
-      question_DIV.innerHTML = `<button class='flag' style="width:50px; float:right; height:50px" title="حجز للعرض لاحقا" value=${j} onclick="flagQues(this)">س${j+1}</button>`+i.question;
+      question_DIV.innerHTML = `<button class='flag' style="width:60px; float:right; height:50px" title="حجز للعرض لاحقا" value=${j} onclick="flagQues(this)">${j+1}</button>`+i.question;
       if (i.file) {
         question_DIV.innerHTML += `<div style="text-align:center"><img style="width:300px" src="${i.file}"><div/>`
       }
@@ -222,20 +222,12 @@
       let hint_DIV = document.createElement("div");  
       hint_DIV.classList.add("hint", "hide"); 
       hint_DIV.style.textAlign = "right";
-      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >توجيهات أو خطوات الحل لنفس السؤال أو سؤال مشابه:</p>`;
-      hint_DIV.innerHTML += `<p style="color:red; font-size:20px" >السؤال:</p>`;
-      hint_DIV.innerHTML += `<p style="font-size:20px" >${i.q_question}</p>`;
-      if (i.q_img) {
-        hint_DIV.innerHTML += `<div style="text-align:center"><img style="width:300px" src="${i.q_img}"><div/>`
-      } 
-      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >الإجابة:</p>`;
-      hint_DIV.innerHTML += `<p style="font-size:20px" >${i.q_op1}</p>`;   
-      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >التوجيهات أو خطوات الحل :</p>`;      
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >إرشادات (أو خطوات الحل):</p>`;
       for (h of i.hint){
         hint_DIV.innerHTML += String.raw`<p>${h}</p>`;
       }
       div.appendChild(hint_DIV); 
-      div.innerHTML += `<button class="video hide" style="width:50%; font-size:20px" onclick="watchVideo(${j})">شاهد هذا المقطع لمزيد من التوضيح</button>`;
+      div.innerHTML += `<button class="video hide" style="width:50%; font-size:20px" onclick="watchVideo(${j})"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"> شاهد هذا المقطع لمزيد من التوضيح</button>`;
       div.innerHTML += `<div class="play hide"><iframe width="680px" height="393px" src="${i.video}" allowfullscreen ></iframe></div>`
       quizContainer.appendChild(div); 
     }  
@@ -346,6 +338,7 @@
             answers[j].classList.remove("hide"); 
             ansimgs[j].classList.remove("hide");
             hints[j].classList.remove("hide");
+            videos[j].classList.remove("hide");
           }          
           options.forEach((element) => {
             element.disabled = true; 

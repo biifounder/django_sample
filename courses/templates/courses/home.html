@@ -49,19 +49,17 @@
         {% if request.user.is_authenticated %}
             {% if teacher %}
                 {% for i in years %}
-                    <button onclick='window.location.href="{% url 'year' k=i.k %}"'>{{i.name}}</button>
+                    <button onclick='window.location.href="{% url 'year' k=i.k %}"'>{{i.head}}</button>
                 {% endfor %}            
                 <br><br><hr>
-                <button onclick='window.location.href="{% url 'ycreate' p='home' %}"'>أضف صفا دراسيا</button> 
-                <br><br><hr>
-                <button onclick='window.location.href="{% url 'solve' %}"'>تشفير المعادلات</button> 
+                <button onclick='window.location.href="{% url 'create' p='home' %}"'>أضف صفا دراسيا</button> 
+                
             {% endif %}
         {% else %}    
             <p>"وَمَا تَوْفِيقِي إِلَّا بِاللهِ، عَلَيْهِ تَوَكَّلْتُ، وَإِلَيْهِ أَنِيبُ"</p>
             <img style="width:150px" src="{% static 'admin/img/logo.svg' %}"><br>
             <span style="font-size:25px"> موقع المؤسس </span><br>
             <p style="font-size:20px">الامتحان بين يديك</p>
-            <p style="font-size:20px; color:red">لم تتم إضافة امتحانات 2024 نظرا لضيق الوقت</p>
             <button style="color:black" onclick="currentMember()">دخول المشتركين</button>
             <div class="box hide" id="currentmember">
                 <form class="form" action="" method="POST">
@@ -70,16 +68,6 @@
                   <span id="alertLogEmail" class="hide" style="color:red;">هذا البريد اإلإليكتروني غير مسجل لدينا</span><br> 
                   <input required type="password" placeholder="كلمة السر" id="password" name="pass"><br>                  
                   <button style="width:10rem" type="submit" id="login" name='login'>ادخل</button><hr>
-                  <!-- <a style="width:10rem" href="{% url 'password_reset' %}" >نسيت كلمة السر؟</a>           -->
-                </form>
-            </div>
-
-            <!-- <button style="color:black" onclick="trySite()">جرب الموقع</button> -->
-            <div class="box hide" id="try">                
-                <form class="form" action="" method="POST">
-                  {% csrf_token %}     
-                  <select required name="year" id="year-visitor"><option value="">الصف الدراسي</option></select>          
-                  <button style="width:10rem" type="submit" name='visitor'>ادخل</button>
                 </form>
             </div>
 
@@ -87,15 +75,15 @@
             <div class="box hide" id="newmember">              
               <form class="form" action="" method="POST">
                 {% csrf_token %}
-                <input required type="text" placeholder='اسم الطالب ثلاثي ويفضل باللغة العربية' name="name" id="name"><br>
+                <input required type="text" style="width:70%" placeholder='اسم الطالب ثلاثي ويفضل باللغة العربية' name="name" id="name">
+                <select required style="width:20%" name="year" id="year"><option value="">الصف</option></select><br>
                 <span id="alertName" class="hide" style="color:red;">يجب أن تكتب اسمك ثلاثيا</span>  
                 <input required name="email" type="email" id="regEmail" placeholder="البريد الاليكتروني"/><br>    
                 <span id="invalidEmail" class="hide" style="color:red;">بريد إليكتروني غير صالح</span>   
                 <span id="dublEmail" class="hide" style="color:red;">هذا البريد الإليكتروني مسجل لدينا، أدخل غيره</span>   
-                <select required style="width:13%" name="year" id="year"><option value="">الصف</option></select>
-                <select required style="width:20%" name="gov" id="gov"><option value="">المحافظة</option></select>
-                <select required style="width:20%" name="prov" id="prov"><option value="">الولاية</option></select>
-                <select required style="width:35%" name="school" id="school"><option value="">المدرسة</option></select>
+                <select required style="width:22%" name="gov" id="gov"><option value="">المحافظة</option></select>
+                <select required style="width:24%" name="prov" id="prov"><option value="">الولاية</option></select>
+                <select required style="width:42%" name="school" id="school"><option value="">المدرسة</option></select>
                 {% for field in form %}           
                   {{field}}
                 {% endfor %}   
@@ -105,7 +93,7 @@
               </form>                      
             </div>
 
-            <button onclick="window.open('https://drive.google.com/drive/folders/1ycgwqx6d0wLXWb7PXYY7K3EH629_6uDb?usp=sharing', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
+            <button onclick="window.open('https://drive.google.com/drive/folders/176foHPbbXAH79PMQ5_m5D5q7mvvIOcBX?usp=sharing', '_blank')">الحصص المسجلة والملخصات الكاملة</button>
 
 
             <!-- <iframe width="100%" height="360px"  src="https://www.youtube.com/embed/D04sPTHfLgs?si=mrjP58YjJGQn1VAx" allowfullscreen ></iframe>  -->
@@ -124,18 +112,6 @@
                 <p>كل تلك الأسئلة مجاب عنها </p> 
                 <p>مع توضيح فكرة السؤال وطريقة الحل إن لزم الأمر</p>
             </div> <br>
-
-            <!-- <button style="color:black" onclick="enquiryHere()">للاستفسار</button> -->
-            <div class="box hide" id=enquiry>
-                <form class="form" action="" method="POST">
-                  {% csrf_token %}       
-          
-                  <input id="enqEmail"  required name="email" type="email" placeholder="البريد الاليكتروني"/><br>
-                  <span id="invalidEnqEmail" class="hide" style="color:red;">بريد إليكتروني غير صالح</span>   
-                  <textarea required rows="6" cols="30"  placeholder="اكتب استفسارك هنا" name="message"></textarea>
-                  <button style="width:10rem" type="submit" name='enquirey' id="enquirey">أرسل</button>
-                </form>
-            </div>
         {% endif %}
 
         
@@ -167,49 +143,27 @@
         let alertPassword = document.getElementById('alertPassword');        
         let register = document.getElementById("register");
         let login = document.getElementById("login");
-        let enquirey = document.getElementById("enquirey");
         let checkedSubjects = [];  
 
-        let Try = document.getElementById("try");
         let NewMember = document.getElementById("newmember");
         let CurrentMember = document.getElementById("currentmember"); 
-        let EnquiryHere = document.getElementById("enquiry");
         let AboutiFounder = document.getElementById("about");
 
 
         function currentMember() { 
-            Try.classList.add('hide');
             NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
             CurrentMember.classList.toggle('hide');
             AboutiFounder.classList.add('hide');
         }
-        function trySite() { 
-            CurrentMember.classList.add('hide');
-            NewMember.classList.add('hide');
-            EnquiryHere.classList.add('hide');
-            Try.classList.toggle('hide');
-            AboutiFounder.classList.add('hide');
-        }
+
         function newMember() { 
             CurrentMember.classList.add('hide');
-            Try.classList.add('hide');
-            EnquiryHere.classList.add('hide');
             NewMember.classList.toggle('hide');
-            AboutiFounder.classList.add('hide');
-        }
-
-        function enquiryHere() { 
-            CurrentMember.classList.add('hide');
-            Try.classList.add('hide');
-            NewMember.classList.add('hide');
-            EnquiryHere.classList.toggle('hide');
             AboutiFounder.classList.add('hide');
         }
 
         function aboutiFounder() { 
             CurrentMember.classList.add('hide');
-            Try.classList.add('hide');
             NewMember.classList.add('hide');
             AboutiFounder.classList.toggle('hide');
         }
@@ -235,23 +189,6 @@
             } else {
                 logEmail.classList.remove('error'); 
                 alertLogEmail.classList.add('hide');
-            }
-            if (errors === 1){
-                alert('صحح المدخلات المحددة باللون الأحمر');
-                event.preventDefault();                
-            }
-        });
-
-        enquirey.addEventListener("click", function(event){
-            var errors = 0; 
-            const regex = /^[a-z0-9_]+@[a-z]{3,}\.[a-z\.]{3,}$/;
-            if (!regex.test(enqEmail.value)){
-                enqEmail.classList.add('error');
-                invalidEnqEmail.classList.remove('hide');
-                errors = 1;
-            } else {
-                enqEmail.classList.remove('error');
-                invalidenqEmail.classList.add('hide');
             }
             if (errors === 1){
                 alert('صحح المدخلات المحددة باللون الأحمر');
@@ -326,7 +263,6 @@
 
       window.onload = function(){
         const selectyear = document.getElementById('year'),
-            selectyearVisitor = document.getElementById('year-visitor'),
             selectgov = document.getElementById('gov'),
             selectprov = document.getElementById('prov'),
             selectschool = document.getElementById('school'),
@@ -334,10 +270,6 @@
 
             for(var y of [9,10]){
                 selectyear.options[selectyear.options.length] = new Option(y, y)
-            }
-
-            for(var y of [9,10]){
-                selectyearVisitor.options[selectyearVisitor.options.length] = new Option(y, y)
             }
 
 

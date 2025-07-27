@@ -5,8 +5,8 @@ from.models import *
 from .models import  User
 
 class MyUserCreationForm(UserCreationForm):
-    password1 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'id':'password1', 'placeholder': 'كلمة المرور'}))
-    password2 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'id':'password2','placeholder': 'تأكيد كلمة المرور'}))
+    password1 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'id':'password1', 'placeholder': 'كلمة المرور', 'style': 'width:45%'}))
+    password2 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'id':'password2','placeholder': 'تأكيد كلمة المرور', 'style': 'width:45%'}))
 
     class Meta:
         model = User
