@@ -86,7 +86,7 @@
             {% if object %}
               <textarea type="textarea" rows="4" cols="100" name="options">{{object.options}}</textarea><br>
             {% else %}
-              <textarea type="textarea" rows="4" cols="100" name="options" placeholder="الإجابة أو الخيارات"></textarea><br>
+              <textarea required type="textarea" rows="4" cols="100" name="options" placeholder="الإجابة أو الخيارات"></textarea><br>
             {% endif %} 
 
             {% if object.hint %}

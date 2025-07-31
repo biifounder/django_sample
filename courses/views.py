@@ -257,7 +257,6 @@ def gatherQuestions(request, lessons, purpose):
             nqs = max(quota,1)
             lesson_qs = lesson_qs[:nqs]
         questions += lesson_qs    
-    print(len(questions), '----------------------------')
     return questions
 
 
