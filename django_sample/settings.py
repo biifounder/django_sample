@@ -79,8 +79,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_sample.wsgi.application'
 
-i
-Database
+# i
+# Database
 https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
