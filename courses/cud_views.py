@@ -48,16 +48,17 @@ def info_fileds(request, object, i):
         if not os.path.exists(location):
             os.makedirs(location) 
 
-    if i in ['d','q', 'l','u']:
+    if i in ['d','q','u']:
         if object.file:  
-            if i == 'u': 
-                object.file_url = '/media/'+object.k+'/'+object.file+'.pdf'
+            if i == 'd': 
+                object.file_url = '/media/'+object.p.u.k+'/'+object.file+'.png'
             elif i == 'q': 
                 object.file_url = '/media/'+object.u.k+'/'+object.file+'.png'
-            elif i == 'd': 
-                object.file_url = '/media/'+object.p.u.k+'/'+object.file+'.png'
-        else: 
-            object.file_url = None
+            else: 
+                object.file_url = '/media/'+object.k+'/'+object.file+'.pdf'
+            
+            
+
 
     if i in ['d','q']:
         if object.ansimg:

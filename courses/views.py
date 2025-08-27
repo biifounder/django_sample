@@ -7,6 +7,7 @@ from json import dumps
 from random import shuffle
 from django.core.mail import send_mail
 from math import log
+from live.models import ZQuestion
 
 #======================================================================================================
 def auth(request):
@@ -377,6 +378,29 @@ def Assessment(request, k):
         context = {'k':k, 'questions':questions, 'purpose':'test', 'auth':request.user.is_authenticated}      
         return render (request,'courses/practice.html', context)
 
+
+
+def Interactive(request, k): 
+    lesson = Lesson.objects.get(k=k)
+    questions = []
+    for question in ZQuestion.objects.filter(p=lesson) :   
+        q = {'k':question.k, 'question':[n for n in question.head.split('..')]}
+        q['correctAnswer'] = question.op1
+        options = [question.op1, question.op2]
+        if question.op3: 
+            options += [question.op3]           
+        if question.op4:
+            options += [question.op4] 
+        shuffle(options)
+        q['options'] = options
+        if question.file_url:                       
+            q['imageUrl'] = question.file_url      
+        q['time'] = question.time  
+        q['time_limit'] = question.time_limit
+        questions += [q]  
+    questions = dumps(questions)
+    context = {'teacher': is_teacher(request), 'questions':questions, 'k':k, 's':lesson.p.p.k , 'head':lesson.head, 'video': lesson.video}
+    return render (request,'courses/interactive.html', context)
 
 ######################################################################
 

@@ -1,0 +1,253 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>صفحة الطالب</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .container { background-color: #f7f7f7; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #question-display { min-height: 100px; border: 1px solid #ccc; padding: 20px; text-align: center; border-radius: 4px; background-color: #fff; font-size: 1.2em; font-weight: bold; }
+        .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .option-btn {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: black;
+            font-size: 1em;
+            width: 95%;
+            min-height: 40px; 
+            padding-right: 1.2em;
+            padding-left: 1.2em;
+            text-align: center;
+            background: transparent;
+            border: 1px solid #25252b;
+            border-radius: 0.3em;
+        }
+        .option-btn:hover { background-color: #9d9db6; }
+        .option-btn:disabled { cursor: not-allowed; }
+
+        .correct {
+            background-color: #e7f6d5;
+            border-color: #689f38;
+        }
+
+        .incorrect {
+            background-color: #ffdde0;
+            border-color: #d32f2f;
+        }
+
+        .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        .question-text { color: #ef4444; } /* New style for red text */
+        
+        /* New timer and message styles */
+        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; text-align: center; }
+        #timer-message { margin-top: 10px; color: #0207a3; text-align: center; font-size:20px ; font-family: 'Amiri', serif;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>قياس استيعاب الطالب في درس: {{lesson.head}}</h1>
+        <p style="font-size: 25px; color:rgb(89, 46, 231)">مرحبا <span id="student-name-display"></span></p>
+
+        <div id="question-display">
+            <p>سيعرض السؤال هنا</p>
+            <p>استمع الآن للشرح وعد عندما يطلب منك المعلم حل السؤال </p>
+        </div>
+        
+        <div id="options-container" class="options-container">
+            <!-- Options will be rendered here dynamically -->
+        </div>
+
+        <div id="timer-display"></div>
+        <div id="timer-message"></div>
+
+        <p class="mt-4">درجتك: <span id="student-score">0</span>   &nbsp;&nbsp;&nbsp;      أنت في المركز: <span id="student-rank">-</span></p>
+    </div>
+
+    <script>
+        // for the local
+        // const quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+
+        // for the server
+        const roomName = document.getElementById('room-name').textContent;
+        const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com/live';  // Replace with your server address';
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/${roomName}/`);
+
+        const questionDisplay = document.getElementById('question-display');
+        const optionsContainer = document.getElementById('options-container');
+        const studentScoreSpan = document.getElementById('student-score');
+        const studentRankSpan = document.getElementById('student-rank');
+        const studentNameDisplay = document.getElementById('student-name-display');
+        const timerDisplay = document.getElementById('timer-display');
+        const timerMessage = document.getElementById('timer-message');
+        
+        let timerInterval;
+        let timeLeft;
+        let currentQuestionData = null;
+
+        function startTimer() {
+            // Clear any existing timer to prevent multiple timers running at once.
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            timerDisplay.textContent = `${timeLeft}s`;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                    timerMessage.textContent = "استمع الآن للشرح وعد عندما يعرض المعلم السؤال التالي";
+                    
+                    if (currentQuestionData) {
+                        const correctAnswer = currentQuestionData.correct_answer;
+                        document.querySelectorAll('.option-btn').forEach(btn => {
+                            if (btn.textContent === correctAnswer) {
+                                btn.classList.add('correct');
+                            }
+                        });
+                    }
+                }
+            }, 1000);
+        }
+
+        quizSocket.onopen = function() {
+            console.log('Student socket opened');
+            let studentName = sessionStorage.getItem('studentName');
+            if (!studentName) {
+                studentName = prompt("Please enter your name:");
+                if (studentName) {
+                    sessionStorage.setItem('studentName', studentName);
+                }
+            }
+            if (studentName) {
+                // Display the student's name on the page
+                studentNameDisplay.textContent = studentName;
+                quizSocket.send(JSON.stringify({
+                    'type': 'student_join',
+                    'content': studentName
+                }));
+            }
+        };
+
+        quizSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log("Received message:", data);
+
+            if (data.type === 'question') {
+                currentQuestionData = data.content;
+                
+                // Clear any previous timer before starting a new one
+                clearInterval(timerInterval);
+                timerMessage.textContent = "";
+                timeLeft = currentQuestionData.time_limit;
+
+                // Clear the current question content and options
+                questionDisplay.innerHTML = '';
+                optionsContainer.innerHTML = '';
+                
+                // Display the question text
+                const questionText = document.createElement('p');
+                questionText.textContent = currentQuestionData.question_text;
+                questionText.classList.add('question-text');
+                questionDisplay.appendChild(questionText);
+
+                // Check and display question image if available
+                if (currentQuestionData.image_url) {
+                    const img = document.createElement('img');
+                    img.src = currentQuestionData.image_url;
+                    img.alt = "Question Image";
+                    img.className = "question-image";
+                    img.onerror = function() {
+                        console.error("Failed to load image at:", this.src);
+                        this.alt = "Image not found.";
+                        this.outerHTML = "<p>Image not found.</p>";
+                    };
+                    questionDisplay.appendChild(img);
+                }
+                
+                // Create and add option buttons
+                currentQuestionData.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn';
+                    button.textContent = option;
+                    button.addEventListener('click', () => {
+                        // Send the answer to the server for scoring
+                        quizSocket.send(JSON.stringify({
+                            'type': 'student_answer',
+                            'content': option
+                        }));
+                        
+                        // Disable all buttons to prevent double-clicking
+                        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                        clearInterval(timerInterval);
+                        timerMessage.textContent = "تم إرسال إجابتك";
+
+                        // Highlight the selected answer and the correct answer
+                        const correctAnswer = currentQuestionData.correct_answer;
+                        if (option === correctAnswer) {
+                            button.classList.add('correct');
+                        } else {
+                            button.classList.add('incorrect');
+                            // Find and highlight the correct answer
+                            document.querySelectorAll('.option-btn').forEach(btn => {
+                                if (btn.textContent === correctAnswer) {
+                                    btn.classList.add('correct');
+                                }
+                            });
+                        }
+                    });
+                    optionsContainer.appendChild(button);
+                });
+
+                startTimer();
+
+            } else if (data.type === 'update_score') {
+                const scores = data.content;
+                const myName = sessionStorage.getItem('studentName');
+                if (myName) {
+                    const myUserScore = Object.values(scores).find(student => student.name === myName);
+                    if (myUserScore) {
+                        studentScoreSpan.textContent = myUserScore.score;
+
+                        const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
+                        let rank = 1;
+                        let lastScore = -1;
+                        
+                        for (let i = 0; i < sortedStudents.length; i++) {
+                            const student = sortedStudents[i];
+                            if (student.score < lastScore) {
+                                rank = i + 1;
+                            }
+                            if (student.name === myName) {
+                                studentRankSpan.textContent = rank;
+                                break;
+                            }
+                            lastScore = student.score;
+                        }
+                    }
+                }
+            } else if (data.type === 'timer_pause') {
+                // Clear the timer and update the timeLeft
+                clearInterval(timerInterval);
+                timeLeft = data.content;
+            } else if (data.type === 'timer_resume') {
+                // Resume the timer by calling startTimer with the current timeLeft
+                startTimer();
+            } else if (data.type === 'quiz_end') {
+                questionDisplay.innerHTML = `<p>${data.content}</p>`;
+                optionsContainer.innerHTML = '';
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "";
+                timerMessage.textContent = "انتهت الاسئلة!";
+            }
+        };
+
+        quizSocket.onclose = function() {
+            console.error('Student socket closed unexpectedly');
+        };
+    </script>
+</body>
+{% endblock %}

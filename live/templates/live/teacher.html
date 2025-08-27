@@ -1,0 +1,264 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>حصة تفاعلية</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .container { background-color: #f7f7f7; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #question-counter { font-size: 1.2em; font-weight: bold; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        .correct-answer { color: #22c55e; font-weight: bold; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        
+        /* New timer and message styles */
+        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حصة تفاعلية في درس: {{lesson.head}}</h1>
+        <p style="color:red;" id="question-text-display"></p>
+        <div id="image-display"></div>
+        <div id="options-display"></div>
+        <div id="timer-display"></div>
+
+        <p><span id="question-counter">0</span> / <span id="total-questions"></span></p>
+
+        <button id="next-question-button" style="width:30%;">السؤال الاول</button>
+        <button id="pause-resume-button" style="display: none; width:30%">انتظر</button>
+
+        <h1>الدرجات</h1>
+        <table id="score-table" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>المركز</th>
+                    <th>اسم الطالب</th>
+                    <th>الدرجة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Scores will be rendered here dynamically -->
+            </tbody>
+        </table>
+        
+        <button id="export-scores-button" style="background-color: rgb(189, 189, 189); width:40%">حفظ الدرجات</button>
+    </div>
+
+    <script>
+        let questions = JSON.parse("{{questions|escapejs}}");  
+
+        // for the local
+        // const quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+
+        // for the server
+        const roomName = document.getElementById('room-name').textContent;
+        const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com/live';  // Replace with your server address';
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/${roomName}/`);
+
+        const nextQuestionButton = document.getElementById('next-question-button');
+        const pauseResumeButton = document.getElementById('pause-resume-button');
+        const exportScoresButton = document.getElementById('export-scores-button');
+        const questionTextDisplay = document.getElementById('question-text-display');
+        const optionsDisplay = document.getElementById('options-display');
+        const imageDisplay = document.getElementById('image-display');
+        const questionCounter = document.getElementById('question-counter');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const scoreTableBody = document.querySelector('#score-table tbody');
+        
+        const timerDisplay = document.getElementById('timer-display');
+        
+        let currentQuestionIndex = 0;
+        let timerInterval;
+        let timeLeft = 0; // Tracks the remaining time
+        let isTimerRunning = false;
+        
+        totalQuestionsSpan.textContent = questions.length;
+
+        quizSocket.onopen = function() {
+            console.log('Teacher socket opened');
+        };
+
+        quizSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log("Received message:", data);
+
+            if (data.type === 'update_score' || data.type === 'student_joined') {
+                updateScoreTable(data.content);
+            }
+        };
+
+        quizSocket.onclose = function() {
+            console.error('Teacher socket closed unexpectedly');
+        };
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startTimer(timeLimit) {
+            isTimerRunning = true;
+            timeLeft = timeLimit;
+            timerDisplay.textContent = `${timeLeft}s`;
+            pauseResumeButton.style.display = 'inline-block';
+            pauseResumeButton.textContent = 'انتظر';
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    handleTimeout(questions[currentQuestionIndex - 1]);
+                }
+            }, 1000);
+        }
+
+        function handleTimeout(question) {
+            pauseResumeButton.style.display = 'none';
+            nextQuestionButton.disabled = false;
+            // Highlight the correct answer in green for the teacher
+            const options = optionsDisplay.querySelectorAll('div');
+            options.forEach(optionDiv => {
+                if (optionDiv.textContent === question.correct_answer) {
+                    optionDiv.style.backgroundColor = '#d1fae5'; // A light green background
+                    optionDiv.style.padding = '5px';
+                    optionDiv.style.borderRadius = '4px';
+                }
+            });
+        }
+        
+        // --- New Timer Control Functionality ---
+        pauseResumeButton.addEventListener('click', function() {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                pauseResumeButton.textContent = 'استمر';
+            } else {
+                startTimer(timeLeft);
+                isTimerRunning = true;
+                pauseResumeButton.textContent = 'انتظر';
+            }
+        });
+
+        nextQuestionButton.addEventListener('click', function() {
+            // Clear any existing timer
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                
+                const shuffledOptions = shuffleArray([...currentQuestion.options]);
+                
+                const questionToSend = {
+                    ...currentQuestion,
+                    options: shuffledOptions
+                };
+
+                // Send the question to all students
+                quizSocket.send(JSON.stringify({
+                    'type': 'new_question',
+                    'content': questionToSend
+                }));
+                
+                questionTextDisplay.textContent = currentQuestion.question_text;
+
+                let optionsHtml = '';
+                shuffledOptions.forEach(option => {
+                    if (option === currentQuestion.correct_answer) {
+                        optionsHtml += `<div class="correct-answer">${option}</div>`;
+                    } else {
+                        optionsHtml += `<div>${option}</div>`;
+                    }
+                });
+                optionsDisplay.innerHTML = optionsHtml;
+                
+                if (currentQuestion.image_url) {
+                    imageDisplay.innerHTML = `<img src="${currentQuestion.image_url}" alt="Question Image" class="question-image">`;
+                } else {
+                    imageDisplay.innerHTML = '';
+                }
+
+                // Start the countdown timer for this question
+                startTimer(currentQuestion.time_limit);
+                
+                currentQuestionIndex++;
+                questionCounter.textContent = currentQuestionIndex;
+                nextQuestionButton.textContent = "السؤال التالي";
+
+            } else {
+                // End of the quiz
+                nextQuestionButton.disabled = true;
+                pauseResumeButton.style.display = 'none';
+                questionTextDisplay.textContent = "انتهى الدرس!";
+                optionsDisplay.textContent = "";
+                imageDisplay.innerHTML = "";
+                timerDisplay.textContent = "";
+                quizSocket.send(JSON.stringify({ 'type': 'quiz_end' }));
+            }
+        });
+        
+        function updateScoreTable(scores) {
+            const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
+            const totalQuestions = totalQuestionsSpan.textContent;
+
+            scoreTableBody.innerHTML = '';
+            
+            let rank = 1;
+            let lastScore = -1;
+
+            sortedStudents.forEach((student, index) => {
+                if (student.score < lastScore) {
+                    rank = index + 1;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${rank}</td>
+                    <td>${student.name}</td>
+                    <td>${student.score} / ${totalQuestions}</td>
+                `;
+                scoreTableBody.appendChild(row);
+                lastScore = student.score;
+            });
+        }
+
+        exportScoresButton.addEventListener('click', function() {
+            exportScoresToCsv();
+        });
+
+        function exportScoresToCsv() {
+            const tableRows = scoreTableBody.querySelectorAll('tr');
+            let csvContent = "Rank,Student,Score\n";
+
+            tableRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowData = Array.from(cells).map(cell => cell.textContent);
+                csvContent += rowData.join(',') + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "quiz_results.csv");
+            link.style.display = "none";
+            document.body.appendChild(link);
+            
+            link.click();
+            
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+{% endblock %}

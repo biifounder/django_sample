@@ -43,7 +43,7 @@
               <select required style="width:30%"  name="level" id="qlevel"><option value="">مستوى السؤال</option></select> <br>
               <textarea required type="textarea" rows="4" cols="100" name="head" placeholder="رأس السؤال" ></textarea> <br> 
             {% endif %}
-          {% elif c == 'd' %}             
+          {% elif c == 'd' or c == 'z' %}             
             {% if object %}
               <textarea type="textarea" rows="4" cols="100" name="head" >{{object.head}}</textarea><br>                    
             {% else %}
@@ -57,7 +57,7 @@
             {% endif %}
           {% endif %}
 
-          {% if c == 'd' or c == 'q' %}                      
+          {% if c == 'd' or c == 'q' or c == 'z' %}                      
             <div>
                 {% if object.file %}
                   صورة سؤال <input style="width:15%; " type="text" name="file" value="{{object.file}}">
@@ -65,12 +65,23 @@
                 {% else %}
                   صورة سؤال <input style="width: 15%;" type="text" name="file">
                 {% endif %}
+                {% if c == 'z' %}   
+                  {% if object.time %}
+                    التوقيت <input style="width: 15%;" type="text" name="time" value="{{object.time}}">
+                    المدة <input style="width: 15%;" type="text" name="time_limit" value="{{object.time_limit}}">
+                  {% else %}
+                    التوقيت <input style="width: 15%;" type="text" name="time" placeholder="1:00">
+                    المدة <input style="width: 15%;" type="text" name="time_limit" placeholder="30">
+                  {% endif %}
+                {% endif %}
            
-                {% if object.ansimg %}
-                  صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg" value="{{object.ansimg}}">
-                  <img style="width: 10%;" src="{{ object.ansimg_url }}">
-                {% else %}
-                  صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg">
+                {% if c == 'd' or c == 'q' %}
+                  {% if object.ansimg %}
+                    صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg" value="{{object.ansimg}}">
+                    <img style="width: 10%;" src="{{ object.ansimg_url }}">
+                  {% else %}
+                    صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg">
+                  {% endif %}
                 {% endif %}
             </div>  
 
@@ -82,18 +93,21 @@
             {% endif %} 
           {% endif %}
 
-          {% if c == 'd' or c == 'q' %}
+          {% if c == 'd' or c == 'q' or c == 'z' %}
             {% if object %}
               <textarea type="textarea" rows="4" cols="100" name="options">{{object.options}}</textarea><br>
             {% else %}
               <textarea required type="textarea" rows="4" cols="100" name="options" placeholder="الإجابة أو الخيارات"></textarea><br>
             {% endif %} 
 
-            {% if object.hint %}
-              <textarea type="textarea" rows="4" cols="100" name="hint">{{object.hint}}</textarea><br>   
-            {% else %}
-              <textarea type="textarea" rows="4" cols="100" name="hint" placeholder="التوجيهات"></textarea> <br>
+            {% if c == 'd' or c == 'q' %}
+              {% if object.hint %}
+                <textarea type="textarea" rows="4" cols="100" name="hint">{{object.hint}}</textarea><br>   
+              {% else %}
+                <textarea type="textarea" rows="4" cols="100" name="hint" placeholder="التوجيهات"></textarea> <br>
+              {% endif %}
             {% endif %}
+
           {% endif %}
 
           {% if c == 'q' or c == 'l' %}
@@ -113,17 +127,20 @@
   </name>
 
   <script>
-      qSource = document.getElementById('qsource');
-      for(var s of ['book','exam','other']){
-        qSource.options[qSource.options.length] = new Option(s, s)
-      }
-      qKind = document.getElementById('qkind');
-      for(var s of ['know', 'understand', 'problem', 'graph', 'compare', 'proof']){
-        qKind.options[qKind.options.length] = new Option(s, s)
-      }
-      qLevel = document.getElementById('qlevel');
-      for(var s of ['1','2','3']){
-        qLevel.options[qLevel.options.length] = new Option(s, s)
+      var c = '{{c}}';
+      if (c == 'q' ) {
+        qSource = document.getElementById('qsource');
+        for(var s of ['book','exam','other']){
+          qSource.options[qSource.options.length] = new Option(s, s)
+        }
+        qKind = document.getElementById('qkind');
+        for(var s of ['know', 'understand', 'problem', 'graph', 'compare', 'proof']){
+          qKind.options[qKind.options.length] = new Option(s, s)
+        }
+        qLevel = document.getElementById('qlevel');
+        for(var s of ['1','2','3']){
+          qLevel.options[qLevel.options.length] = new Option(s, s)
+        }
       }
    </script>
 </html>

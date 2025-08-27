@@ -33,14 +33,18 @@ ALLOWED_HOSTS = ['139-162-254-40.ip.linodeusercontent.com', 'localhost','127.0.0
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'daphne',
+    'live.apps.LiveConfig',
+    'courses.apps.CoursesConfig',
+    'embed_video',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'courses.apps.CoursesConfig',
-    'embed_video',
+    'django.contrib.staticfiles',    
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -75,28 +79,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_sample.wsgi.application'
 
-# i
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'django',
-#         'USER': 'django',
-#         'PASSWORD': 'dfSirVBUZSTJx9XdZCuqGiwoolJMERcg2DZURwvzVS1AI',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
+i
+Database
+https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': 'dfSirVBUZSTJx9XdZCuqGiwoolJMERcg2DZURwvzVS1AI',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -135,8 +139,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # If you have a local static folder
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')     # for the server
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # If you have a local static folder
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')     # for the server
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -149,3 +153,12 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)).strip('django_sample')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+# live session settings
+ASGI_APPLICATION = 'django_sample.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
