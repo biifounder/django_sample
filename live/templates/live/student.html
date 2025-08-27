@@ -67,9 +67,10 @@
 
     <script>
         let quizSocket;
-        if (window.location.host === '127.0.0.1:8000') {
+        if (window.location.protocol === 'http:' && window.location.host.includes('127.0.0.1')) {
             quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
         } else {
+            const roomName = document.getElementById('room-name').textContent;
             const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
             const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
             quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
