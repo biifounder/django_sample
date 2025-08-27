@@ -30,7 +30,7 @@ python manage.py loaddata eval.json
 add_and_clean_Evals()
 update_weights_and_percents()
 
-python manage.py dumpdata --indent 2 > localandserver.json
+python manage.py dumpdata --exclude auth.permission --exclude contenttypes > localandserver.json
 
 
 secure settings.py 
