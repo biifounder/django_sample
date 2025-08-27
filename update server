@@ -15,8 +15,8 @@ _____________
 on the server:
 '''''''''''''
 
-python manage.py dumpdata > server.json
-python manage.py dumpdata courses.User courses.YearEval courses.SubjectEval courses.UnitEval courses.LessonEval courses.QEval> eval.json
+python manage.py dumpdata --indent 2 > server.json
+python manage.py dumpdata courses.User courses.YearEval courses.SubjectEval courses.UnitEval courses.LessonEval courses.QEval --indent 2 > eval.json
 
 
 _____________
@@ -30,7 +30,7 @@ python manage.py loaddata eval.json
 add_and_clean_Evals()
 update_weights_and_percents()
 
-python manage.py dumpdata > localandserver.json
+python manage.py dumpdata --indent 2 > localandserver.json
 
 
 secure settings.py 
