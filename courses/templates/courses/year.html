@@ -11,7 +11,7 @@
   </style>
 </head>
 
-<body>  
+<body>    
 
   <div class="container">
     <div style="font-size:50px; color:blue; float:center">      
@@ -21,20 +21,22 @@
       {% endif %}        
       الصف ال{{yhead}}
     </div>
-    <div style="font-size:30px; float:center">
-      {% if ypercent < 50 %}
-        <span style="color:black">% {{ypercent}} ضعيف</span>
-      {% elif ypercent < 70 %}
-        <span style="color:red">% {{ypercent}} متوسط</span>
-      {% elif ypercent < 80 %}
-        <span style="color:green">% {{ypercent}} جيد</span>
-      {% elif ypercent < 90 %}
-        <span style="color:blue">% {{ypercent}} جيد جدا</span>
-      {% elif ypercent < 101 %}
-        <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
-      {% endif %}  
-      <span>   &nbsp &nbsp &nbsp  أنت في المركز {{user_rank}}</span>  
-    </div>          
+    {% if year.head == '9' %}
+      <div style="font-size:30px; float:center">
+        {% if ypercent < 50 %}
+          <span style="color:black">% {{ypercent}} ضعيف</span>
+        {% elif ypercent < 70 %}
+          <span style="color:red">% {{ypercent}} متوسط</span>
+        {% elif ypercent < 80 %}
+          <span style="color:green">% {{ypercent}} جيد</span>
+        {% elif ypercent < 90 %}
+          <span style="color:blue">% {{ypercent}} جيد جدا</span>
+        {% elif ypercent < 101 %}
+          <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
+        {% endif %}  
+        <span>   &nbsp &nbsp &nbsp  أنت في المركز {{user_rank}}</span>  
+      </div>     
+    {% endif %}     
 
     <div class="container"> 
       <button style="color:rgb(99, 22, 242)" onclick="showoutstanding()">لوحة التميز</button>       
@@ -58,19 +60,21 @@
               <div style="font-size:35px; float:right"">
                 {{subject.head}}
               </div>
-              <div style="font-size:25px; float:left">
-                {% if subject.spercent < 50 %}
-                  <span style="color:black">% {{subject.spercent}} ضعيف</span>
-                {% elif subject.spercent < 70 %}
-                  <span style="color:red">% {{subject.spercent}} متوسط</span>
-                {% elif subject.spercent < 80 %}
-                  <span style="color:green">% {{subject.spercent}} جيد</span>
-                {% elif subject.spercent < 90 %}
-                  <span style="color:blue">% {{subject.spercent}} جيد جدا</span>
-                {% elif subject.spercent < 101 %}
-                  <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
-                {% endif %}    
-              </div>
+              {% if year.head == '9' %}
+                <div style="font-size:25px; float:left">
+                  {% if subject.spercent < 50 %}
+                    <span style="color:black">% {{subject.spercent}} ضعيف</span>
+                  {% elif subject.spercent < 70 %}
+                    <span style="color:red">% {{subject.spercent}} متوسط</span>
+                  {% elif subject.spercent < 80 %}
+                    <span style="color:green">% {{subject.spercent}} جيد</span>
+                  {% elif subject.spercent < 90 %}
+                    <span style="color:blue">% {{subject.spercent}} جيد جدا</span>
+                  {% elif subject.spercent < 101 %}
+                    <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
+                  {% endif %}    
+                </div>
+              {% endif %}
           </button>
         {% endfor %}   
     {% else %} 

@@ -35,7 +35,7 @@
         <div style="text-align:right">         
           <a style="width:30px; font-size:1px" title="حذف" href="{% url 'zdelete' k=q.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
           <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'zupdate' k=q.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
-          {{q.time_limit}}
+          مدة عرضه {{q.time_limit}} - يظهر عند {{q.time}}
           <div style="padding-right:1rem; font-size:20px; color:red"> 
             {% for n in q.head %}                              
               {{n}} <br>

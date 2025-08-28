@@ -109,7 +109,7 @@ def Zlist(request, k):
     lesson = Lesson.objects.get(k=k)
     questions = []
     for question in ZQuestion.objects.filter(p=lesson) :   
-        q = {'k':question.k, 'head':[n for n in question.head.split('..')], 'time_limit': question.time_limit}
+        q = {'k':question.k, 'head':[n for n in question.head.split('..')], 'time':question.time , 'time_limit': question.time_limit}
         if '__' in question.op1 : 
             q['op1'] = [n for n in question.op1.split('__')]  
         else: 

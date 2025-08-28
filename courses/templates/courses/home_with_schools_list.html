@@ -81,6 +81,9 @@
                 <input required name="email" type="email" id="regEmail" placeholder="البريد الاليكتروني"/><br>    
                 <span id="invalidEmail" class="hide" style="color:red;">بريد إليكتروني غير صالح</span>   
                 <span id="dublEmail" class="hide" style="color:red;">هذا البريد الإليكتروني مسجل لدينا، أدخل غيره</span>   
+                <select required style="width:22%" name="gov" id="gov"><option value="">المحافظة</option></select>
+                <select required style="width:24%" name="prov" id="prov"><option value="">الولاية</option></select>
+                <select required style="width:42%" name="school" id="school"><option value="">المدرسة</option></select>
                 {% for field in form %}           
                   {{field}}
                 {% endfor %}   
@@ -132,6 +135,9 @@
         let subjContainer = document.getElementById("subjContainer");
         let selectedSubjects = document.getElementById("selectedSubjects");
         let alertSubjects = document.getElementById('alertSubjects')
+        let gov = document.getElementById('gov');
+        let prov = document.getElementById('prov');
+        let school = document.getElementById('school'); 
         let password1 = document.getElementById('password1');
         let password2 = document.getElementById('password2');        
         let alertPassword = document.getElementById('alertPassword');        
@@ -192,7 +198,7 @@
 
         register.addEventListener("click", function(event){
             var errors = 0; 
-            for (e of [stName, regEmail, year, password1, password2]){
+            for (e of [stName, regEmail, year, gov, prov, school, password1, password2]){
                 if (!e.value) {
                     e.classList.add('error');
                     errors = 1;
@@ -257,12 +263,18 @@
 
       window.onload = function(){
         const selectyear = document.getElementById('year'),
+            selectgov = document.getElementById('gov'),
+            selectprov = document.getElementById('prov'),
+            selectschool = document.getElementById('school'),
             selects = document.querySelectorAll('select')
 
-            for(var y of [9, 10, 11, 12]){
+            for(var y of [9,10]){
                 selectyear.options[selectyear.options.length] = new Option(y, y)
             }
 
+
+            selectprov.disabled = true
+            selectschool.disabled = true
             selects.forEach(select => {
                 if(select.disabled == true){
                     select.style.cursor = "auto"
@@ -271,6 +283,42 @@
                     select.style.cursor = "pointer"
                 }
             })
+            for(var gov in gps){
+                selectgov.options[selectgov.options.length] = new Option(gov, gov)
+            }
+
+            selectgov.onchange = (e) =>{                
+                selectprov.disabled = false
+                selectschool.disabled = true
+                selects.forEach(select => {
+                    if(select.disabled == true){
+                        select.style.cursor = "auto"
+                    } else{
+                        select.style.cursor = "pointer"
+                    }
+                })
+                selectprov.length = 1
+                selectschool.length = 1
+                for(let prov in gps[e.target.value]){
+                    selectprov.options[selectprov.options.length] = new Option(prov, prov)
+                }
+            }
+
+            selectprov.onchange = (e) =>{
+                selectschool.disabled = false
+
+                selects.forEach(select => {
+                    if(select.disabled == true){
+                        select.style.cursor = "auto"
+                    } else{
+                        select.style.cursor = "pointer"
+                    }
+                })
+                selectschool.length = 1
+                for(let school of gps[selectgov.value][e.target.value]){
+                    selectschool.options[selectschool.options.length] = new Option(school, school)
+                }
+            }
       }
 
 

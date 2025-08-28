@@ -154,7 +154,7 @@ def SubjectPage(request, k):
                 lessons += [{'title':lesson.head, 'video':lesson.video, 'lpercent':lpercent, 'k':lesson.k}]
             units += [{'title':unit.head, 'file_url':unit.file_url, 'upercent': upercent, 'lessons':lessons, 'k':unit.k,}]
         context = {'teacher': is_teacher(request), 'auth':request.user.is_authenticated, 'k':subject.k, 'shead':subject.head, 'spercent':spercent, 
-                'units':dumps(units)}
+                'units':dumps(units), 'year':subject.p.head}
         return render (request,'courses/subject.html', context)
 
 #_________________________________________________________________________________________

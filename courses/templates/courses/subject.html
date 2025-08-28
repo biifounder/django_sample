@@ -122,75 +122,78 @@
         {% endif %}        
         {{shead}}
       </div>      
-      <div style="font-size:30px; float:center">
-        {% if spercent < 50 %}
-          <span style="color:black">% {{spercent}} ضعيف</span>
-        {% elif spercent < 70 %}
-          <span style="color:red">% {{spercent}} متوسط</span>
-        {% elif spercent < 80 %}
-          <span style="color:green">% {{spercent}} جيد</span>
-        {% elif spercent < 90 %}
-          <span style="color:blue">% {{spercent}} جيد جدا</span>
-        {% elif spercent < 101 %}
-          <span style="color:rgb(150, 0, 150)">% {{spercent}} ممتاز</span>   
-        {% endif %}    
-      </div>      
+      {% if year == '9' %}
+        <div style="font-size:30px; float:center">
+          {% if spercent < 50 %}
+            <span style="color:black">% {{spercent}} ضعيف</span>
+          {% elif spercent < 70 %}
+            <span style="color:red">% {{spercent}} متوسط</span>
+          {% elif spercent < 80 %}
+            <span style="color:green">% {{spercent}} جيد</span>
+          {% elif spercent < 90 %}
+            <span style="color:blue">% {{spercent}} جيد جدا</span>
+          {% elif spercent < 101 %}
+            <span style="color:rgb(150, 0, 150)">% {{spercent}} ممتاز</span>   
+          {% endif %}    
+        </div>  
 
-      <!-- buttons with pop-up -->
-      <div class="container"> 
-        <button style="width:48%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
-        <button style="width:48%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
-      </div>
-      <div class="overlay" id="overlay1" onclick="closePopup('popup1', 'overlay1')"></div>
-      <div class="overlay" id="overlay2" onclick="closePopup('popup2', 'overlay2')"></div>
-
-      <!-- First Popup with two dropdown lists -->
-      <div class="popup" id="popup1">
-        <h3 style="color:blue">اختر الدروس التي تريد التدريب فيها</h3> 
-        للتدريب على درس واحد: اختر نفس الدرس في القائمتين     
-        <div class="dropdown-container">
-            <select id="dropdown1-1" onchange="filterSecondDropdown('dropdown1-1', 'dropdown1-2')">
-                <option value="">ابتداء من</option>
-            </select>
-            <select id="dropdown1-2">
-                <option value="">إلى</option>
-            </select>
+        <!-- buttons with pop-up -->
+        <div class="container"> 
+          <button style="width:48%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
+          <button style="width:48%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
         </div>
+        <div class="overlay" id="overlay1" onclick="closePopup('popup1', 'overlay1')"></div>
+        <div class="overlay" id="overlay2" onclick="closePopup('popup2', 'overlay2')"></div>
 
-        <form action="" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="selectedlessons" id="selectedlessons1">
-          <div class="popup-buttons">              
-              <button onclick="approveSelection('dropdown1-1', 'dropdown1-2', 'selected-option-display1', 'popup1', 'overlay1', 'selectedlessons1', 'pract')">استمرار</button>
-              <button onclick="closePopup('popup1', 'overlay1')">إلغاء</button>
-          </div>          
-        </form>
-
-
-      </div>
-
-      <!-- Second Popup with two dropdown lists -->
-      <div class="popup" id="popup2">
-        <h3 style="color:blue">اختر الدروس التي تريد الاختبار فيها</h3>
-        للاختبار في درس واحد: اختر نفس الدرس في القائمتين 
-        <div class="dropdown-container">
-            <select id="dropdown2-1" onchange="filterSecondDropdown('dropdown2-1', 'dropdown2-2')">
-                <option value="">ابتداء من</option>
-            </select>
-            <select id="dropdown2-2">
-                <option value="">إلى</option>
-            </select>
-        </div>
-        <p style="color:red">إذا تم عرض الامتحان ولم تكمله حتى تقوم بإرسال النتيجة ستحتسب درجتك صفرا.</p>
-        <form action="" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="selectedlessons" id="selectedlessons2">
-          <div class="popup-buttons">
-              <button onclick="approveSelection('dropdown2-1', 'dropdown2-2', 'selected-option-display2', 'popup2', 'overlay2', 'selectedlessons2', 'test')">تأكيد</button>
-              <button onclick="closePopup('popup2', 'overlay2')">تراجع</button>            
+        <!-- First Popup with two dropdown lists -->
+        <div class="popup" id="popup1">
+          <h3 style="color:blue">اختر الدروس التي تريد التدريب فيها</h3> 
+          للتدريب على درس واحد: اختر نفس الدرس في القائمتين     
+          <div class="dropdown-container">
+              <select id="dropdown1-1" onchange="filterSecondDropdown('dropdown1-1', 'dropdown1-2')">
+                  <option value="">ابتداء من</option>
+              </select>
+              <select id="dropdown1-2">
+                  <option value="">إلى</option>
+              </select>
           </div>
-        </form>
-      </div>
+
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="selectedlessons" id="selectedlessons1">
+            <div class="popup-buttons">              
+                <button onclick="approveSelection('dropdown1-1', 'dropdown1-2', 'selected-option-display1', 'popup1', 'overlay1', 'selectedlessons1', 'pract')">استمرار</button>
+                <button onclick="closePopup('popup1', 'overlay1')">إلغاء</button>
+            </div>          
+          </form>
+          
+
+
+        </div>
+
+        <!-- Second Popup with two dropdown lists -->
+        <div class="popup" id="popup2">
+          <h3 style="color:blue">اختر الدروس التي تريد الاختبار فيها</h3>
+          للاختبار في درس واحد: اختر نفس الدرس في القائمتين 
+          <div class="dropdown-container">
+              <select id="dropdown2-1" onchange="filterSecondDropdown('dropdown2-1', 'dropdown2-2')">
+                  <option value="">ابتداء من</option>
+              </select>
+              <select id="dropdown2-2">
+                  <option value="">إلى</option>
+              </select>
+          </div>
+          <p style="color:red">إذا تم عرض الامتحان ولم تكمله حتى تقوم بإرسال النتيجة ستحتسب درجتك صفرا.</p>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="selectedlessons" id="selectedlessons2">
+            <div class="popup-buttons">
+                <button onclick="approveSelection('dropdown2-1', 'dropdown2-2', 'selected-option-display2', 'popup2', 'overlay2', 'selectedlessons2', 'test')">تأكيد</button>
+                <button onclick="closePopup('popup2', 'overlay2')">تراجع</button>            
+            </div>
+          </form>
+        </div>
+      {% endif %}
       <hr>
       {% if units %}
         <h1>المحتويات</h1>
@@ -242,7 +245,9 @@
               <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
             {% endif %}
             ${unit.title}</div>
-          <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>
+          {% if year == '9' %}
+            <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>
+          {% endif %}
           <div id="combinedModal" class="modal">
             <div class="modal-content">
               <span class="close" onclick="closeModal()">&times;</span>
@@ -268,9 +273,10 @@
             <button class="lesson" style="width:75%; float:right" 
               onclick='window.location.href="/interactive/${lesson.k}"'>
               
-              <div style="font-size:25px; float:right">          
-                ${lesson.title}</div>
-              <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
+              <div style="font-size:25px; float:right">${lesson.title}</div>
+              {% if year == '9' %}
+                <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
+              {% endif %}
               ` ; 
         }
         div.appendChild(lesson_DIV); 
