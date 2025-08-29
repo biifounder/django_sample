@@ -4,6 +4,7 @@
 {% block content %}
 <head>
     <title>صفحة الطالب</title>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
     <style>
         body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
         .container { background-color: #f7f7f7; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -243,6 +244,7 @@
                 timerDisplay.textContent = "";
                 timerMessage.textContent = "انتهت الاسئلة!";
             }
+            MathJax.typeset();
         };
 
         quizSocket.onclose = function() {
