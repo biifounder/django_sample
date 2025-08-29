@@ -597,8 +597,8 @@
   "model": "courses.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$600000$Hlavm8ISPyBdLcytdPoV2A$jNk2Rni5Pxzc5FxCmAcplphPI9sTFzMnVgHV3gLRbxI=",
-    "last_login": "2025-08-28T14:59:34.670Z",
+    "password": "pbkdf2_sha256$600000$cpj5RzBuxc5HkFfu7jfFPN$tWn5t5AvA7wPFFZAO22bwwKMKOtAvuiTduDVcRreER0=",
+    "last_login": "2025-08-29T09:21:19.267Z",
     "is_superuser": true,
     "first_name": "",
     "last_name": "",
@@ -620,8 +620,8 @@
   "model": "courses.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$600000$2JyeJ9TY11SLWEhoK5Rmud$26Qb6pU63Nog5KWQwRDU9lA3endeY98SqBegCLY4ujg=",
-    "last_login": "2025-08-28T13:05:12.174Z",
+    "password": "pbkdf2_sha256$1000000$S2fQ0VcjTCtrw8VFfBzXrX$urN9NDPi/+RSI3+TqoxPH5+Lv09ThkYp8H8G31JL5qk=",
+    "last_login": "2025-07-27T12:14:59.768Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -643,17 +643,40 @@
   "model": "courses.user",
   "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$600000$FkWEOnq7RfVxlW9vFVDGpY$z4fIjd3THvbIOFOt6jlskyjkfEf7AcergBnMNGTuVeM=",
-    "last_login": "2025-08-28T13:03:30.874Z",
+    "password": "pbkdf2_sha256$720000$9Z78geUgmJdtpsPuCD7he1$zavCkmFr87+wskC08/ucqooqCij5RF+eYTwHhogVn1I=",
+    "last_login": "2025-08-28T13:41:37.775Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
     "is_staff": false,
     "is_active": true,
-    "date_joined": "2025-08-28T13:01:32.429Z",
-    "name": "مسلم أحمد ياسين",
+    "date_joined": "2025-08-28T13:41:37.463Z",
+    "name": "نورين وليد محمد",
     "username": null,
-    "email": "moslemahmedyaseen12@gmail.com",
+    "email": "edunoe95@gmail.com",
+    "year": "12",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$y7UaVPyHfPS0C3qmaVBDn7$UfX3S6XZ2cJZjQ95xfr7RftzUrS3smmRI7q5aJTk4Ow=",
+    "last_login": "2025-08-28T14:05:37.707Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-28T14:05:37.413Z",
+    "name": "إيمان طارق راشد ",
+    "username": null,
+    "email": "eman18tarek@gmail.com",
     "year": "12",
     "gov": null,
     "prov": null,
@@ -749,6 +772,15 @@
   }
 },
 {
+  "model": "courses.yeareval",
+  "pk": 7,
+  "fields": {
+    "user": 4,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
   "model": "courses.subject",
   "pk": 1,
   "fields": {
@@ -834,6 +866,15 @@
   "pk": 6,
   "fields": {
     "user": 3,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 7,
+  "fields": {
+    "user": 4,
     "k": 4,
     "percent": 0
   }
@@ -1206,6 +1247,15 @@
   "pk": 24,
   "fields": {
     "user": 3,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 25,
+  "fields": {
+    "user": 4,
     "k": 13,
     "percent": 0
   }
@@ -2471,8 +2521,8 @@
   "model": "courses.lessoneval",
   "pk": 83,
   "fields": {
-    "user": 1,
-    "k": 44,
+    "user": 4,
+    "k": 38,
     "percent": 0
   }
 },
@@ -2480,7 +2530,70 @@
   "model": "courses.lessoneval",
   "pk": 84,
   "fields": {
+    "user": 4,
+    "k": 39,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 85,
+  "fields": {
+    "user": 4,
+    "k": 40,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 86,
+  "fields": {
+    "user": 4,
+    "k": 41,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 87,
+  "fields": {
+    "user": 4,
+    "k": 42,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 88,
+  "fields": {
+    "user": 4,
+    "k": 43,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 89,
+  "fields": {
     "user": 3,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 90,
+  "fields": {
+    "user": 4,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 91,
+  "fields": {
+    "user": 1,
     "k": 44,
     "percent": 0
   }
@@ -12121,50 +12234,6 @@
 {
   "model": "courses.qeval",
   "pk": 290,
-  "fields": {
-    "user": 2,
-    "k": 147,
-    "pscore": 0,
-    "tscore": 0,
-    "flag": 0
-  }
-},
-{
-  "model": "courses.qeval",
-  "pk": 291,
-  "fields": {
-    "user": 1,
-    "k": 147,
-    "pscore": 0,
-    "tscore": 0,
-    "flag": 0
-  }
-},
-{
-  "model": "courses.qeval",
-  "pk": 292,
-  "fields": {
-    "user": 2,
-    "k": 147,
-    "pscore": 0,
-    "tscore": 0,
-    "flag": 0
-  }
-},
-{
-  "model": "courses.qeval",
-  "pk": 293,
-  "fields": {
-    "user": 1,
-    "k": 147,
-    "pscore": 0,
-    "tscore": 0,
-    "flag": 0
-  }
-},
-{
-  "model": "courses.qeval",
-  "pk": 294,
   "fields": {
     "user": 2,
     "k": 147,
@@ -22590,14 +22659,6 @@
 },
 {
   "model": "sessions.session",
-  "pk": "60e8p6ujq5w5o9hrir1shscty3wmuq1m",
-  "fields": {
-    "session_data": ".eJxVjMsOgjAQRf-la9MM6cOpS_d-A7l0BkFNSSisjP8uJCx0e885921arMvQrlXndhRzMY05_W4d8lPLDuSBcp9snsoyj53dFXvQam-T6Ot6uH8HA-qw1TEHILEk9QhRUx-RCNT0CgJ8I4EdsfN0ZuJOeVMlZBcDZYh6Mp8v7844Ag:1ure6A:t_QMSIW6MasvcFDI102sGW6KMlQHY-TxkLs44B3XS74",
-    "expire_date": "2025-09-11T14:59:34.679Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "8yem6ys8aud4agwkdbquogd5205quixp",
   "fields": {
     "session_data": ".eJxVjMsOgjAQRf-la9MM6cOpS_d-A7l0BkFNSSisjP8uJCx0e885921arMvQrlXndhRzMY05_W4d8lPLDuSBcp9snsoyj53dFXvQam-T6Ot6uH8HA-qw1TEHILEk9QhRUx-RCNT0CgJ8I4EdsfN0ZuJOeVMlZBcDZYh6Mp8v7844Ag:1uhN6I:2DH43kT3PivlHlBksK050WmJ7Cv3y-kgu6JrxaxhrUg",
@@ -22618,6 +22679,14 @@
   "fields": {
     "session_data": "e30:1uobhx:qlPaXAdQlEYsK0F4aZv4unAJC7wpP2c5pgv2EvVlALs",
     "expire_date": "2025-09-03T05:50:01.760Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qnaxegd1ct90ck61zstkbvgmm97o0ksm",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pApLYN16b5nIAMzSNVAUtqV8e7apAvd_vfefylP25r91mTxM6uL6tTpdwsUH1J2wHcqt6pjLesyB70r-qBNT5XleT3cv4NMLX9rKxgDCfa9PSM6TAMQwZgsmsEZcRCZqTfQDexMwtESjgIxcLAYgUC9P9o6N8c:1urvIN:C-tU3yXBGOKeOitxt-gVGmcAwQIkqksowZ-eej9ozHw",
+    "expire_date": "2025-09-12T09:21:19.272Z"
   }
 },
 {

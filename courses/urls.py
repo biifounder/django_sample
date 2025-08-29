@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import *
 from . import cud_views
+from . import admin_views
 
 
 urlpatterns = [

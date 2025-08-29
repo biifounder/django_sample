@@ -43,7 +43,7 @@ def add_and_clean_Evals():
 def update_weights_and_percents(): 
     for year in Year.objects.all(): 
         me = User.objects.get(year='0')
-        users = [ u for u in User.objects.filter(year=year.name)] + [me]
+        users = [ u for u in User.objects.filter(year=year.head)] + [me]
         for user in users : 
             lessons = [lesson.k for lesson in Lesson.objects.filter(y=year)] 
             # for k in lessons: 
@@ -86,5 +86,4 @@ def loadscores(): # from datafile which contains QEval/ after loading the new us
 # update_weights_and_percents()
 
 # loadscores()
-
 
