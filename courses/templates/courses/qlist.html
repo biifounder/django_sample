@@ -58,7 +58,7 @@
             {% endfor %}
           </div>
          
-          {% if q.q.file %}<div style="text-align:center"><img style="width:60%;" src="{{ q.q.file_url }}"></div>{% endif %} 
+          {% if q.q.file %}<div style="text-align:center"><img style="width:100%;" src="{{ q.q.file_url }}"></div>{% endif %} 
 
           <div style="padding-right: 1rem;"> 
             {% if q.q.op2 %}
@@ -72,7 +72,7 @@
               {% endfor %}
             {% endif %}
 
-            {% if q.q.ansimg %}<div style="text-align:center"><img style="width:60%;" src="{{ q.q.ansimg_url }}"></div>{% endif %} 
+            {% if q.q.ansimg %}<div style="text-align:center"><img style="width:100%;" src="{{ q.q.ansimg_url }}"></div>{% endif %} 
 
           </div>          
           {% if q.hint %}

@@ -204,7 +204,7 @@
       }          
       question_DIV.innerHTML = `<button class='flag' style="width:60px; float:right; height:50px" title="حجز للعرض لاحقا" value=${j} onclick="flagQues(this)">${j+1}</button>`+i.question;
       if (i.file) {
-        question_DIV.innerHTML += `<div style="text-align:center"><img style="width:300px" src="${i.file}"><div/>`
+        question_DIV.innerHTML += `<div style="text-align:center"><img style="width:100%" src="${i.file}"><div/>`
       }
       div.appendChild(question_DIV);    
       div.innerHTML += `<button class="reveal hide" style="width:50%" onclick="showAnswer(${j})">انظر الإجابة وقيم إجابتك</button>`;
@@ -218,7 +218,7 @@
         }                          
       }  
       div.innerHTML += `<div class="answer hide" style="text-align:right; padding-right: 5em;"><p>${i.answer}</p></div>
-                        <div class="ansimg hide" style="text-align:center"><img style="width:300px" src="${i.ansimg}"><div/>`
+                        <div class="ansimg hide" style="text-align:center"><img style="width:100%" src="${i.ansimg}"><div/>`
       let hint_DIV = document.createElement("div");  
       hint_DIV.classList.add("hint", "hide"); 
       hint_DIV.style.textAlign = "right";

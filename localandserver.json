@@ -3,16 +3,16 @@
   "model": "live.zquestion",
   "pk": 1,
   "fields": {
-    "head": "السؤال الأول الأول",
-    "op1": "خيار ١ ",
-    "op2": " \r\nخيار ٢ ",
-    "op3": " \r\nخيار ٣ ",
-    "op4": " \r\nخيار ٤",
-    "options": "خيار ١ .. \r\nخيار ٢ .. \r\nخيار ٣ .. \r\nخيار ٤ ",
+    "head": "أحد الأدوات التالية يستخدم لقياس الطول. ما هو؟ ",
+    "op1": " الشريط المتري ",
+    "op2": "المخبار المدرج ",
+    "op3": "الميزان ",
+    "op4": " \r\nالثرمومتر",
+    "options": " الشريط المتري ..\r\nالمخبار المدرج ..\r\nالميزان .. \r\nالثرمومتر",
     "file": null,
     "file_url": null,
-    "time": "1:00",
-    "time_limit": "5",
+    "time": "99:00",
+    "time_limit": "20",
     "k": "z1",
     "p": 1
   }
@@ -21,15 +21,15 @@
   "model": "live.zquestion",
   "pk": 3,
   "fields": {
-    "head": "السؤال الثاني",
-    "op1": "الأول ",
-    "op2": " \r\nالثاني ",
-    "op3": " \r\nالثالث ",
-    "op4": " \r\nالرابع",
-    "options": "الأول .. \r\nالثاني .. \r\nالثالث .. \r\nالرابع",
-    "file": "1",
-    "file_url": "/media/u1/1.png",
-    "time": "2:00",
+    "head": "طول الخط في الشكل التالي يساوي ـــــــــ.",
+    "op1": "\\( 9.2 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 2.8 \\ \\mathrm{cm} \\) ",
+    "op3": "\\( 12 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 6 \\ \\mathrm{cm} \\)",
+    "options": "\\( 9.2 \\ \\mathrm{cm} \\) ..\r\n\\( 2.8 \\ \\mathrm{cm} \\) ..\r\n\\( 12 \\ \\mathrm{cm} \\) ..\r\n\\( 6 \\ \\mathrm{cm} \\) ",
+    "file": "101",
+    "file_url": "/media/u1/101.png",
+    "time": "99",
     "time_limit": "30",
     "k": "z3",
     "p": 1
@@ -594,11 +594,587 @@
   }
 },
 {
+  "model": "live.zquestion",
+  "pk": 35,
+  "fields": {
+    "head": "ما هو الخطأ في قياس الطول في الشكل التالي؟ ",
+    "op1": " إحدى نهايتي السلك تقع قبل الصفر ",
+    "op2": " \r\nالسلك غير مستقيم ",
+    "op3": " \r\nالسلك لا يحاذي المسطرة ",
+    "op4": " \r\nالمسطرة مكسورة",
+    "options": " إحدى نهايتي السلك تقع قبل الصفر .. \r\nالسلك غير مستقيم .. \r\nالسلك لا يحاذي المسطرة .. \r\nالمسطرة مكسورة",
+    "file": "75",
+    "file_url": "/media/u1/75.png",
+    "time": "99",
+    "time_limit": "30",
+    "k": "z35",
+    "p": 1
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 36,
+  "fields": {
+    "head": "كان السمك الكلي لـــ 400 ورقة يساوي (\\( 3.2 \\ \\mathrm{cm} \\)) فما هو سمك الورقة الواحدة؟",
+    "op1": "\\( 0.008 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 0.008 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 0.004 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 0.004 \\ \\mathrm{mm} \\)",
+    "options": "\\( 0.008 \\ \\mathrm{cm} \\) ..\r\n\\( 0.008 \\ \\mathrm{mm} \\) ..\r\n\\( 0.004 \\ \\mathrm{cm} \\) ..\r\n\\( 0.004 \\ \\mathrm{mm} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "99",
+    "time_limit": "30",
+    "k": "z36",
+    "p": 1
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 37,
+  "fields": {
+    "head": "إذا كان السمك الكلي لـــ 9 أسلاك متماثلة يساوي  (\\( 18 \\ \\mathrm{mm} \\))، فما هو نصف قطر السلك الواحد؟",
+    "op1": "\\( 0.1 \\ \\mathrm{mm} \\) ",
+    "op2": "\\( 0.2 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 0.2 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 0.1 \\ \\mathrm{cm} \\)",
+    "options": "\\( 0.1 \\ \\mathrm{mm} \\) ..\r\n\\( 0.2 \\ \\mathrm{mm} \\) ..\r\n\\( 0.2 \\ \\mathrm{cm} \\) ..\r\n\\( 0.1 \\ \\mathrm{cm} \\) ",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "45",
+    "k": "z37",
+    "p": 1
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 38,
+  "fields": {
+    "head": "ما هي وحدة قياس الطول في النظام الدولي؟ ",
+    "op1": "\\( \\mathrm{m} \\) ",
+    "op2": "\\( \\mathrm{cm} \\) ",
+    "op3": "\\( \\mathrm{m^3} \\) ",
+    "op4": "\\( \\mathrm{cm^3} \\)",
+    "options": "\\( \\mathrm{m} \\) ..\r\n\\( \\mathrm{cm} \\) ..\r\n\\( \\mathrm{m^3} \\) ..\r\n\\( \\mathrm{cm^3} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "99",
+    "time_limit": "20",
+    "k": "z38",
+    "p": 2
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 39,
+  "fields": {
+    "head": "حول \\( 0.005 \\ \\mathrm{cm} \\) إلى وحدة المتر. ",
+    "op1": "\\( 0.00005 \\ \\mathrm{m} \\) ",
+    "op2": " \r\n\\( 0.5 \\ \\mathrm{m} \\) ",
+    "op3": " \r\n\\( 5 \\ \\mathrm{m} \\) ",
+    "op4": " \r\n\\( 0.000005 \\ \\mathrm{m} \\)",
+    "options": "\\( 0.00005 \\ \\mathrm{m} \\) .. \r\n\\( 0.5 \\ \\mathrm{m} \\) .. \r\n\\( 5 \\ \\mathrm{m} \\) .. \r\n\\( 0.000005 \\ \\mathrm{m} \\) ",
+    "file": null,
+    "file_url": null,
+    "time": "99",
+    "time_limit": "30",
+    "k": "z39",
+    "p": 2
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 40,
+  "fields": {
+    "head": "\\( 0.0044 \\ \\mathrm{km} = \\ . . .  \\ \\mathrm{m} \\)",
+    "op1": "4.4 ",
+    "op2": " \r\n44 ",
+    "op3": " \r\n0.44 ",
+    "op4": " \r",
+    "options": "4.4 .. \r\n44 .. \r\n0.44 .. \r\n",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z40",
+    "p": 2
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 41,
+  "fields": {
+    "head": "\\( 3.323\\ \\mathrm{m} = . . . \\ \\mathrm{dm}  \\)",
+    "op1": "\\(33.23  \\ \\mathrm{dm} \\) ",
+    "op2": " \r\n\\(0.3323  \\ \\mathrm{dm} \\) ",
+    "op3": " \r\n\\(332.3  \\ \\mathrm{dm} \\) ",
+    "op4": " \r\n\\(0.03323  \\ \\mathrm{dm} \\)",
+    "options": "\\(33.23  \\ \\mathrm{dm} \\) .. \r\n\\(0.3323  \\ \\mathrm{dm} \\) .. \r\n\\(332.3  \\ \\mathrm{dm} \\) .. \r\n\\(0.03323  \\ \\mathrm{dm} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z41",
+    "p": 2
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 42,
+  "fields": {
+    "head": " ما هي الوحدة اﻷنسب لقياس طول ساحل خليج عمان؟ ",
+    "op1": "km ",
+    "op2": " \r\nm ",
+    "op3": " \r\ncm ",
+    "op4": " \r\nmm",
+    "options": "km .. \r\nm .. \r\ncm .. \r\nmm ",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "20",
+    "k": "z42",
+    "p": 2
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 43,
+  "fields": {
+    "head": "ما مقدار قراءة الميكرومتر في الشكل التالي؟ ",
+    "op1": "\\( 16.75 \\ \\mathrm{mm} \\) ",
+    "op2": "\\( 41.5 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 16.25 \\ \\mathrm{mm} \\) ",
+    "op4": "\\( 41.25 \\ \\mathrm{mm} \\)",
+    "options": "\\( 16.75 \\ \\mathrm{mm} \\) ..\r\n\\( 41.5 \\ \\mathrm{mm} \\) ..\r\n\\( 16.25 \\ \\mathrm{mm} \\) ..\r\n\\( 41.25 \\ \\mathrm{mm} \\)",
+    "file": "1",
+    "file_url": "/media/u1/1.png",
+    "time": "0",
+    "time_limit": "45",
+    "k": "z43",
+    "p": 3
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 44,
+  "fields": {
+    "head": "يبين الشكل التالي ميكرومتر لقياس الأبعاد الصغيرة، ما هي القراءة الصحيحة له؟ ",
+    "op1": "\\( 1.14 \\ \\mathrm{mm} \\) ",
+    "op2": "\\( 14.1 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 11.4 \\ \\mathrm{mm} \\) ",
+    "op4": "\\( 4.11 \\ \\mathrm{mm} \\)",
+    "options": "\\( 1.14 \\ \\mathrm{mm} \\) ..\r\n\\( 14.1 \\ \\mathrm{mm} \\) ..\r\n\\( 11.4 \\ \\mathrm{mm} \\) ..\r\n\\( 4.11 \\ \\mathrm{mm} \\)",
+    "file": "24",
+    "file_url": "/media/u1/24.png",
+    "time": "0",
+    "time_limit": "45",
+    "k": "z44",
+    "p": 3
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 45,
+  "fields": {
+    "head": "حدد القياس الموضح في الرسم التخطيطي على الميكرومتر.   ",
+    "op1": "\\( 3.22 \\ \\mathrm{mm} \\) ",
+    "op2": " \r\n\\( 3.28 \\ \\mathrm{mm} \\) ",
+    "op3": " \r\n\\( 22.3 \\ \\mathrm{mm} \\) ",
+    "op4": " \r\n\\( 28.3 \\ \\mathrm{mm} \\)",
+    "options": "\\( 3.22 \\ \\mathrm{mm} \\) .. \r\n\\( 3.28 \\ \\mathrm{mm} \\) .. \r\n\\( 22.3 \\ \\mathrm{mm} \\) .. \r\n\\( 28.3 \\ \\mathrm{mm} \\)",
+    "file": "38",
+    "file_url": "/media/u1/38.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z45",
+    "p": 3
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 46,
+  "fields": {
+    "head": "يوضح الرسم التخطيطي أدناه قراءة قطر سلك. دوِّن قطر السلك مع ذكر وحدة القياس.",
+    "op1": "\\( 0.92 \\ \\mathrm{mm} \\) ",
+    "op2": "\\( 0.92 \\ \\mathrm{cm} \\) ",
+    "op3": "\\( 0.542 \\ \\mathrm{mm} \\) ",
+    "op4": "\\( 0.542 \\ \\mathrm{cm} \\)",
+    "options": "\\( 0.92 \\ \\mathrm{mm} \\) ..\r\n\\( 0.92 \\ \\mathrm{cm} \\) ..\r\n\\( 0.542 \\ \\mathrm{mm} \\) ..\r\n\\( 0.542 \\ \\mathrm{cm} \\)",
+    "file": "45",
+    "file_url": "/media/u1/45.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z46",
+    "p": 3
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 47,
+  "fields": {
+    "head": "انطلاق شرارات كهربائية عند خلع الملابس المصنوعة من اﻷلياف الصناعية مثال على",
+    "op1": "الكهرباء الساكنة ",
+    "op2": " \r\nالكهرباء التيارية ",
+    "op3": " \r\nالمجال الكهربائي ",
+    "op4": " \r\nالجهد الكهربائي",
+    "options": "الكهرباء الساكنة .. \r\nالكهرباء التيارية .. \r\nالمجال الكهربائي .. \r\nالجهد الكهربائي",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "20",
+    "k": "z47",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 48,
+  "fields": {
+    "head": "أي مما يلي ليس مثالا على الكهرباء الساكنة؟ ",
+    "op1": "توهج سلك التنجستن في المصباح الكهربائي ",
+    "op2": " \r\nشعورك بوخز عندما تلمس جسما فلزيا ",
+    "op3": " \r\nانجذاب قصاصات الورق إلى ساق بلاستيكية بعد دلكها ",
+    "op4": " \r\nوميض البرق",
+    "options": "توهج سلك التنجستن في المصباح الكهربائي .. \r\nشعورك بوخز عندما تلمس جسما فلزيا .. \r\nانجذاب قصاصات الورق إلى ساق بلاستيكية بعد دلكها .. \r\nوميض البرق",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "20",
+    "k": "z48",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 49,
+  "fields": {
+    "head": "دلكت ساق أبونايت بقطعة قماش فاكتسبت الساق شحنة سالبة. هل تتجاذب أم تتنافر مع قطعة الصوف؟  فسر السبب. ",
+    "op1": "تتجاذب - لأن قطعة الصوف اكتسبت شحنة موجبة ",
+    "op2": " \r\nتتنافر - لأن قطعة الصوف اكتسبت شحنة سالبة ",
+    "op3": " \r\nتتجاذب - لأن قطعة الصوف اكتسبت شحنة سالبة ",
+    "op4": " \r\nتتنافر - لأن قطعة الصوف اكتسبت شحنة موجبة\r",
+    "options": "تتجاذب - لأن قطعة الصوف اكتسبت شحنة موجبة .. \r\nتتنافر - لأن قطعة الصوف اكتسبت شحنة سالبة .. \r\nتتجاذب - لأن قطعة الصوف اكتسبت شحنة سالبة .. \r\nتتنافر - لأن قطعة الصوف اكتسبت شحنة موجبة\r\n",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z49",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 50,
+  "fields": {
+    "head": "أي مما يلي يحدث عندما تمشط شعرك الجاف بمشط بلاستيكي؟ ",
+    "op1": "ستتنافر كل شعرة مع الأخرى ",
+    "op2": "  \r\nستتجاذب كل شعرة مع الأخرى ",
+    "op3": " \r\nستتنافر كل شعرة مع المشط ",
+    "op4": "  \r\nستتنافر كل شعرة مع الرأس ",
+    "options": "ستتنافر كل شعرة مع الأخرى ..  \r\nستتجاذب كل شعرة مع الأخرى .. \r\nستتنافر كل شعرة مع المشط ..  \r\nستتنافر كل شعرة مع الرأس .. ",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z50",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 51,
+  "fields": {
+    "head": "أي مما يلي يفسر اكتساب قطعة الصوف شحنة موجبة بعد دلكها بساق بلاستيكية كما يتضح في الشكل (أ)؟  ",
+    "op1": "انتقلت الإلكترونات منها إلى الساق البلاستيكية ",
+    "op2": " \r\nانتقلت البروتونات من الساق البلاستيكية إليها  ",
+    "op3": " \r\nمادة الصوف عبارة عن أيونات موجبة الشحنة ",
+    "op4": " \r\nمادة الصوف جاذبة للأيونات الموجبة ",
+    "options": "انتقلت الإلكترونات منها إلى الساق البلاستيكية .. \r\nانتقلت البروتونات من الساق البلاستيكية إليها  .. \r\nمادة الصوف عبارة عن أيونات موجبة الشحنة .. \r\nمادة الصوف جاذبة للأيونات الموجبة .. \r\n",
+    "file": "1",
+    "file_url": "/media/u11/1.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z51",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 52,
+  "fields": {
+    "head": "أي مما يلي يفسر اكتساب كل من ساقي الأبونايات شحنة سالبة كما يتضح في الشكل (ب)؟  \r\n",
+    "op1": "تم دلك كل من الساقين بمادة أخرى ",
+    "op2": " \r\nتم دلك كل من الساقين بالأخرى ",
+    "op3": " \r\nلمست كل من الساقين مادة أخرى سالبة الشحنة ",
+    "op4": "  \r\nلمست كل من الساقين مادة أخرى موجبة الشحنة ",
+    "options": "تم دلك كل من الساقين بمادة أخرى .. \r\nتم دلك كل من الساقين بالأخرى .. \r\nلمست كل من الساقين مادة أخرى سالبة الشحنة ..  \r\nلمست كل من الساقين مادة أخرى موجبة الشحنة ..  ",
+    "file": "1",
+    "file_url": "/media/u11/1.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z52",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 53,
+  "fields": {
+    "head": "القوة التي تسبب انتقال الإلكترونات من جسم إلى آخر بعد دلكهما هي قوة ــــــــ. ",
+    "op1": "الاحتكاك ",
+    "op2": " \r\nالتنافر ",
+    "op3": " \r\nالتجاذب ",
+    "op4": " \r\nالجاذبية",
+    "options": "الاحتكاك .. \r\nالتنافر .. \r\nالتجاذب .. \r\nالجاذبية",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z53",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 54,
+  "fields": {
+    "head": "وُصلت كرة فلزية سالبة الشحنة بأخرى فلزية غير مشحنة بسلك من النحاس. وضح ما سوف يحدث.     ",
+    "op1": "تندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التنافر ",
+    "op2": " \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التجاذب ",
+    "op3": "تندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التنافر ",
+    "op4": " \r\nتندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التجاذب \r\n\r",
+    "options": "تندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التنافر .. \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التجاذب ..\r\nتندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التنافر .. \r\nتندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التجاذب \r\n\r\n ",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z54",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 55,
+  "fields": {
+    "head": "وُصلت كرة فلزية موجبة الشحنة بأخرى فلزية غير مشحونة بسلك من النحاس. وضح ما سوف يحدث.     \r\n",
+    "op1": "تندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التجاذب ",
+    "op2": " \r\nتندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التنافر ",
+    "op3": " \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التنافر ",
+    "op4": " \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التجاذب\r\n\r",
+    "options": "تندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التجاذب .. \r\nتندفع الإلكترونات من الكرة الأخرى إلى الكرة المشحونة بسبب قوة التنافر .. \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التنافر .. \r\nتندفع الإلكترونات من الكرة المشحونة إلى الكرة الأخرى بسبب قوة التجاذب\r\n\r\n",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z55",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 56,
+  "fields": {
+    "head": "تم تقريب أحد طرفي دبوس من جسم مشحون بشحنة موجبة فماذا سيحدث عند الطرف الآخر من الدبوس؟ ",
+    "op1": "يصبح موجب الشحنة ",
+    "op2": " \r\nيصبح سالب الشحنة ",
+    "op3": " \r\nيظل متعادلا ",
+    "op4": " \r\nيفقد أيوناته\r",
+    "options": "يصبح موجب الشحنة .. \r\nيصبح سالب الشحنة .. \r\nيظل متعادلا .. \r\nيفقد أيوناته\r\n",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z56",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 57,
+  "fields": {
+    "head": "المنطقة المحيطة بالجسم المشحون تسمى ـــــــــــ. ",
+    "op1": "المجال الكهربائي ",
+    "op2": " \r\nالتيار الكهربائي ",
+    "op3": " \r\nالجهد الكهربائي ",
+    "op4": " \r\nالكهرباء الساكنة",
+    "options": "المجال الكهربائي .. \r\nالتيار الكهربائي .. \r\nالجهد الكهربائي .. \r\nالكهرباء الساكنة",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "20",
+    "k": "z57",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 58,
+  "fields": {
+    "head": "أي مما يلي يعد من أمثلة الموصلات الكهربائية؟  ",
+    "op1": "الجرافيت ",
+    "op2": " \r\nالبلاستيك ",
+    "op3": " \r\nالخشب ",
+    "op4": " \r\nالأبونايت",
+    "options": "الجرافيت .. \r\nالبلاستيك .. \r\nالخشب .. \r\nالأبونايت",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "20",
+    "k": "z58",
+    "p": 33
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 59,
+  "fields": {
+    "head": "ما هو طول الجسم الموضح بالشكل التالي؟ ",
+    "op1": "\\( 1.0 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 1 \\ \\mathrm{cm} \\) ",
+    "op3": "\\( 1.00 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 0.1 \\ \\mathrm{cm} \\)",
+    "options": "\\( 1.0 \\ \\mathrm{cm} \\) ..\r\n\\( 1 \\ \\mathrm{cm} \\) ..\r\n\\( 1.00 \\ \\mathrm{cm} \\) ..\r\n\\( 0.1 \\ \\mathrm{cm} \\)",
+    "file": "1",
+    "file_url": "/media/u12/1.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z59",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 60,
+  "fields": {
+    "head": " ما هو طول الجسم الموضح بالشكل التالي؟ ",
+    "op1": "\\( 0.8 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 8.0 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 18 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 18 \\ \\mathrm{mm} \\)",
+    "options": "\\( 0.8 \\ \\mathrm{cm} \\) ..\r\n\\( 8.0 \\ \\mathrm{mm} \\) ..\r\n\\( 18 \\ \\mathrm{cm} \\) ..\r\n\\( 18 \\ \\mathrm{mm} \\)",
+    "file": "3",
+    "file_url": "/media/u12/3.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z60",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 61,
+  "fields": {
+    "head": "يقول ياسين أن طول الجسم الموضح بالشكل التالي هو (\\( 1.1 \\ \\mathrm{cm} \\)). هل قراءته مقبولة؟ فسر إجابتك. ",
+    "op1": "نعم - لأن المسافات بين علامات التدريج على أداة القياس المستخدمة متباعدة ",
+    "op2": "   \r\nلا - لأن أصغر تدريج لأداة القياس المستخدمة هو (\\( 0.2 \\ \\mathrm{cm} \\)) ",
+    "op3": " \r\nنعم - لأن أصغر تدريج لأداة القياس المستخدمة هي (\\( 0.1 \\ \\mathrm{cm} \\)) ",
+    "op4": " \r\nلا - لأن المسافات بين علامات التدريج متقاربة",
+    "options": "نعم - لأن المسافات بين علامات التدريج على أداة القياس المستخدمة متباعدة ..   \r\nلا - لأن أصغر تدريج لأداة القياس المستخدمة هو (\\( 0.2 \\ \\mathrm{cm} \\)) .. \r\nنعم - لأن أصغر تدريج لأداة القياس المستخدمة هي (\\( 0.1 \\ \\mathrm{cm} \\)) .. \r\nلا - لأن المسافات بين علامات التدريج متقاربة",
+    "file": "4",
+    "file_url": "/media/u12/4.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z61",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 62,
+  "fields": {
+    "head": "يقول ياسين أن طول الجسم الموضح بالشكل التالي هو (\\( 7.5 \\ \\mathrm{mm} \\)). هل قراءته مقبولة؟ فسر إجابتك. ",
+    "op1": "لا - لأن حد الدقة في الأداة المستخدمة هو (\\( 1 \\ \\mathrm{mm} \\)) ",
+    "op2": " \r\nلا - لأن المسافات بين علامات التدريج متقاربة ",
+    "op3": " \r\nنعم - لأن المسافات بين علامات التدريج متباعدة ",
+    "op4": "   \r\nنعم - - لأن حد الدقة في الأداة المستخدمة هو (\\( 0.5 \\ \\mathrm{mm} \\)) ",
+    "options": "لا - لأن حد الدقة في الأداة المستخدمة هو (\\( 1 \\ \\mathrm{mm} \\)) .. \r\nلا - لأن المسافات بين علامات التدريج متقاربة .. \r\nنعم - لأن المسافات بين علامات التدريج متباعدة ..   \r\nنعم - - لأن حد الدقة في الأداة المستخدمة هو (\\( 0.5 \\ \\mathrm{mm} \\)) .. ",
+    "file": "5",
+    "file_url": "/media/u12/5.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z62",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 63,
+  "fields": {
+    "head": "ما هي قراءة القدمة الورنية في الشكل التالي؟ ",
+    "op1": "\\( 2.545 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 2.595 \\ \\mathrm{cm} \\) ",
+    "op3": "\\( 2.95 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 2.15 \\ \\mathrm{cm} \\)",
+    "options": "\\( 2.545 \\ \\mathrm{cm} \\) ..\r\n\\( 2.595 \\ \\mathrm{cm} \\) ..\r\n\\( 2.95 \\ \\mathrm{cm} \\) ..\r\n\\( 2.15 \\ \\mathrm{cm} \\)",
+    "file": "6",
+    "file_url": "/media/u12/6.png",
+    "time": "0",
+    "time_limit": "60",
+    "k": "z63",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 64,
+  "fields": {
+    "head": " ما هي قراءة القدمة الورنية في الشكل التالي؟ ",
+    "op1": "\\( 1.06 \\ \\mathrm{cm} \\) ",
+    "op2": "\\( 1.6 \\ \\mathrm{cm} \\) ",
+    "op3": "\\( 1.03 \\ \\mathrm{cm} \\) ",
+    "op4": "\\( 1.3 \\ \\mathrm{cm} \\)",
+    "options": "\\( 1.06 \\ \\mathrm{cm} \\) ..\r\n\\( 1.6 \\ \\mathrm{cm} \\) ..\r\n\\( 1.03 \\ \\mathrm{cm} \\) ..\r\n\\( 1.3 \\ \\mathrm{cm} \\) ",
+    "file": "7",
+    "file_url": "/media/u12/7.png",
+    "time": "0",
+    "time_limit": "60",
+    "k": "z64",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 65,
+  "fields": {
+    "head": "ما هي قراءة الميكرومتر في الشكل التالي؟ ",
+    "op1": "\\( 0.92 \\ \\mathrm{mm} \\) ",
+    "op2": "\\( 1.42 \\ \\mathrm{mm} \\) ",
+    "op3": "\\( 42.5 \\ \\mathrm{mm} \\) ",
+    "op4": "\\( 43 \\ \\mathrm{mm} \\)",
+    "options": "\\( 0.92 \\ \\mathrm{mm} \\) ..\r\n\\( 1.42 \\ \\mathrm{mm} \\) ..\r\n\\( 42.5 \\ \\mathrm{mm} \\) ..\r\n\\( 43 \\ \\mathrm{mm} \\)",
+    "file": "8",
+    "file_url": "/media/u12/8.png",
+    "time": "0",
+    "time_limit": "60",
+    "k": "z65",
+    "p": 35
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 66,
+  "fields": {
+    "head": "أي التمثيلات البيانية التالية يمثل قراءات مضبوطة ولكنها غير دقيقة؟ ",
+    "op1": "ج ",
+    "op2": " \r\nأ ",
+    "op3": " \r\nب ",
+    "op4": " \r\nد",
+    "options": "ج .. \r\nأ .. \r\nب .. \r\nد",
+    "file": "9",
+    "file_url": "/media/u12/9.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z66",
+    "p": 35
+  }
+},
+{
   "model": "courses.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$600000$cpj5RzBuxc5HkFfu7jfFPN$tWn5t5AvA7wPFFZAO22bwwKMKOtAvuiTduDVcRreER0=",
-    "last_login": "2025-08-29T09:21:19.267Z",
+    "password": "pbkdf2_sha256$720000$PvvIb2Ahw8E3peruztyYdT$VxPN1od92tFN1vZTJcY7ttnFOon2snItVVXykMEkaKg=",
+    "last_login": "2025-08-29T09:32:25.825Z",
     "is_superuser": true,
     "first_name": "",
     "last_name": "",
@@ -677,6 +1253,98 @@
     "name": "إيمان طارق راشد ",
     "username": null,
     "email": "eman18tarek@gmail.com",
+    "year": "12",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$dDxLN8aI9ruUIZ25izKO4j$Zkybr9JiMuwUMK7XmhBPJplsKgp62gOxynLeBUVXiMc=",
+    "last_login": "2025-08-29T11:58:02.774Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-29T11:58:02.451Z",
+    "name": "يحيى حمدي محمد ",
+    "username": null,
+    "email": "yahyaxgamerx13@gmail.com",
+    "year": "12",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$h1JlIV3cPwqndOrsNWLdZp$qXAaBG1dScFOFJPBOV/YHygsOrQHWfH7TQd3CZTWwwQ=",
+    "last_login": "2025-08-29T19:06:19.748Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-29T19:06:19.429Z",
+    "name": "يمنى احمد سعيد",
+    "username": null,
+    "email": "yomnaahmed2062008@gmail.com",
+    "year": "12",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$MO5tLKWBj7brJ7LdlYaRKw$WOCDsZj19np2vW/NFWf4oIFx2vI+3CUbAIyZsPr0Zgg=",
+    "last_login": "2025-08-30T07:11:31.636Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-30T07:11:31.237Z",
+    "name": "محمود عبدالله الشيخ",
+    "username": null,
+    "email": "monstergames163@gmail.com",
+    "year": "12",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$lkF9tp6Oim9NYHD2GcrWze$h2IWotnkCgNmyBfddOeO2KktY1a952Ax+YvE/XSQAeI=",
+    "last_login": "2025-08-30T07:15:01.202Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-30T07:15:00.899Z",
+    "name": "مريم بنت عدنان بن سالم السعدي",
+    "username": null,
+    "email": "sawsanalfouri@gmail.com",
     "year": "12",
     "gov": null,
     "prov": null,
@@ -781,6 +1449,42 @@
   }
 },
 {
+  "model": "courses.yeareval",
+  "pk": 8,
+  "fields": {
+    "user": 5,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 9,
+  "fields": {
+    "user": 6,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 10,
+  "fields": {
+    "user": 7,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 11,
+  "fields": {
+    "user": 8,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
   "model": "courses.subject",
   "pk": 1,
   "fields": {
@@ -875,6 +1579,42 @@
   "pk": 7,
   "fields": {
     "user": 4,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 8,
+  "fields": {
+    "user": 5,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 9,
+  "fields": {
+    "user": 6,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 10,
+  "fields": {
+    "user": 7,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 11,
+  "fields": {
+    "user": 8,
     "k": 4,
     "percent": 0
   }
@@ -1256,6 +1996,42 @@
   "pk": 25,
   "fields": {
     "user": 4,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 26,
+  "fields": {
+    "user": 5,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 27,
+  "fields": {
+    "user": 6,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 28,
+  "fields": {
+    "user": 7,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 29,
+  "fields": {
+    "user": 8,
     "k": 13,
     "percent": 0
   }
@@ -2594,6 +3370,258 @@
   "pk": 91,
   "fields": {
     "user": 1,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 92,
+  "fields": {
+    "user": 5,
+    "k": 38,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 93,
+  "fields": {
+    "user": 5,
+    "k": 39,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 94,
+  "fields": {
+    "user": 5,
+    "k": 40,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 95,
+  "fields": {
+    "user": 5,
+    "k": 41,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 96,
+  "fields": {
+    "user": 5,
+    "k": 42,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 97,
+  "fields": {
+    "user": 5,
+    "k": 43,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 98,
+  "fields": {
+    "user": 5,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 99,
+  "fields": {
+    "user": 6,
+    "k": 38,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 100,
+  "fields": {
+    "user": 6,
+    "k": 39,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 101,
+  "fields": {
+    "user": 6,
+    "k": 40,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 102,
+  "fields": {
+    "user": 6,
+    "k": 41,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 103,
+  "fields": {
+    "user": 6,
+    "k": 42,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 104,
+  "fields": {
+    "user": 6,
+    "k": 43,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 105,
+  "fields": {
+    "user": 6,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 106,
+  "fields": {
+    "user": 7,
+    "k": 38,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 107,
+  "fields": {
+    "user": 7,
+    "k": 39,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 108,
+  "fields": {
+    "user": 7,
+    "k": 40,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 109,
+  "fields": {
+    "user": 7,
+    "k": 41,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 110,
+  "fields": {
+    "user": 7,
+    "k": 42,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 111,
+  "fields": {
+    "user": 7,
+    "k": 43,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 112,
+  "fields": {
+    "user": 7,
+    "k": 44,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 113,
+  "fields": {
+    "user": 8,
+    "k": 38,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 114,
+  "fields": {
+    "user": 8,
+    "k": 39,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 115,
+  "fields": {
+    "user": 8,
+    "k": 40,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 116,
+  "fields": {
+    "user": 8,
+    "k": 41,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 117,
+  "fields": {
+    "user": 8,
+    "k": 42,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 118,
+  "fields": {
+    "user": 8,
+    "k": 43,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 119,
+  "fields": {
+    "user": 8,
     "k": 44,
     "percent": 0
   }
@@ -19368,8 +20396,8 @@
     "op1": "المتر ",
     "op2": " \r\nالكيلومتر ",
     "op3": "السنتيمتر ",
-    "op4": " \r\nالديسيمتر\r\nالذراع",
-    "options": "المتر .. \r\nالكيلومتر ..\r\nالسنتيمتر .. \r\nالديسيمتر\r\nالذراع",
+    "op4": " \r\nالديسيمتر",
+    "options": "المتر .. \r\nالكيلومتر ..\r\nالسنتيمتر .. \r\nالديسيمتر",
     "file": null,
     "file_url": null,
     "ansimg": null,

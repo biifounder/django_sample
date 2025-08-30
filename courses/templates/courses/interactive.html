@@ -78,7 +78,7 @@
         .question-box {
             padding: 1.5rem;
             border-radius: 12px;
-            background-color: #1f2937;
+            background-color:rgb(244, 244, 244);  
             border: 2px solid #4b5563;
             max-width: 35rem; /* MODIFIED: Set to match the video container's width */
             width: 100%;
@@ -92,29 +92,69 @@
             transform: scale(1);
         }
 
-        .question-box img {
-            max-width: 100%;
-            max-height: 30vh;
-            object-fit: contain;
-            margin-left: auto;
-            margin-right: auto;
+        /* Styles from student.html */
+        #question-display { 
+            min-height: 100px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: black;
+        }
+        .options-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 20px; 
+        }
+        .option-btn {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: black;
+            font-size: 1em;
+            width: 95%;
+            min-height: 40px; 
+            padding-right: 1.2em;
+            padding-left: 1.2em;
+            text-align: center;
+            background: transparent;
+            border: 1px solid #25252b;
+            border-radius: 0.3em;
+        }
+        .option-btn:hover { background-color: #9d9db6; }
+        .option-btn:disabled { cursor: not-allowed; }
+
+        /* The styles below use !important to ensure they take precedence */
+        .option-btn.correct {
+            background-color: #e7f6d5 !important;
+            border-color: #689f38 !important;
         }
 
-        .option-button {
-            transition: background-color 0.2s, transform 0.1s;
+        .option-btn.incorrect {
+            background-color: #ffdde0 !important;
+            border-color: #d32f2f !important;
         }
 
-        .option-button:hover {
-            transform: translateY(-2px);
-        }
+        .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        .question-text { color: #ef4444; }
         
-        /* Specific styles for correctness highlighting */
-        .correct-answer {
-            background-color: #10B981 !important; /* Tailwind's bg-green-600 */
+        #timer-display { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: #f40000; 
+            margin: 15px 0; 
+            text-align: center; 
         }
-        
-        .incorrect-answer {
-            background-color: #EF4444 !important; /* Tailwind's bg-red-600 */
+        #timer-message { 
+            margin-top: 10px; 
+            color: #0207a3; 
+            text-align: center; 
+            font-size:20px ; 
+            font-family: 'Amiri', serif;
         }
     </style>
 </head>
@@ -132,13 +172,15 @@
             <!-- Overlay for questions -->
             <div id="question-overlay" class="overlay">
                 <div id="question-box" class="question-box">
-                    <p id="question-text" class="text-lg font-bold mb-6"></p>
-                    <img id="question-image" class="hidden w-auto h-auto mb-6 rounded-lg" alt="Question Image">
-                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div id="question-display">
+                        <p id="question-text" class="question-text"></p>
+                        <img id="question-image" class="hidden w-auto h-auto mb-6 rounded-lg" alt="Question Image">
+                    </div>
+                    <div id="options-container" class="options-container">
                         <!-- Answer buttons will be generated here by JavaScript -->
                     </div>
                     <!-- Timer element moved here, right below the choices -->
-                    <div id="countdown-timer" class="text-xl font-bold text-yellow-400 mt-6"></div>
+                    <div id="countdown-timer" class="text-xl font-bold text-red-600 mt-6"></div>
                 </div>
             </div>
         </div>
@@ -161,6 +203,7 @@
 
     // --- DOM Elements ---
     const questionOverlay = document.getElementById('question-overlay');
+    const questionDisplay = document.getElementById('question-display');
     const questionText = document.getElementById('question-text');
     const questionImage = document.getElementById('question-image');
     const optionsContainer = document.getElementById('options-container');
@@ -237,6 +280,12 @@
             const questionData = questions.find(q => convertTimeToSeconds(q.time) === currentTime);
 
             if (questionData && !questionsAnswered.has(currentTime)) {
+                // Check if the video is in fullscreen mode.
+                if (document.fullscreenElement) {
+                    // If it is, exit fullscreen before showing the question.
+                    document.exitFullscreen();
+                }
+                
                 player.pauseVideo();
                 isQuestionActive = true;
                 showQuestion(questionData);
@@ -247,20 +296,30 @@
     // --- Question & Answer Logic ---
     function showQuestion(qData) {
         questionOverlay.classList.add('overlay-active');
-        questionText.textContent = qData.question;
-        optionsContainer.innerHTML = '';
+        
+        // Clear question display
+        questionDisplay.innerHTML = '';
+
+        // Display question text
+        const questionTextElement = document.createElement('p');
+        questionTextElement.textContent = qData.question;
+        questionTextElement.classList.add('question-text');
+        questionDisplay.appendChild(questionTextElement);
         
         if (qData.imageUrl) {
-            questionImage.src = qData.imageUrl;
-            questionImage.classList.remove('hidden');
-        } else {
-            questionImage.classList.add('hidden');
+            const questionImageElement = document.createElement('img');
+            questionImageElement.src = qData.imageUrl;
+            questionImageElement.classList.add('question-image');
+            questionImageElement.alt = 'Question Image';
+            questionDisplay.appendChild(questionImageElement);
         }
 
+        optionsContainer.innerHTML = '';
+        
         qData.options.forEach(option => {
             const button = document.createElement('button');
             button.textContent = option;
-            button.className = 'option-button w-full px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-md';
+            button.className = 'option-btn';
             button.onclick = () => handleAnswer(button, option, qData.correctAnswer, convertTimeToSeconds(qData.time));
             optionsContainer.appendChild(button);
         });
@@ -290,12 +349,12 @@
         allButtons.forEach(btn => {
             if (btn.textContent === correctAnswer) {
                 correctButton = btn;
-                btn.classList.add('correct-answer', 'text-white');
+                btn.classList.add('correct');
             }
         });
 
         if (selectedOption !== correctAnswer) {
-            clickedButton.classList.add('incorrect-answer', 'text-white');
+            clickedButton.classList.add('incorrect');
         } else {
             currentScore++;
         }
@@ -322,7 +381,7 @@
         allButtons.forEach(btn => {
             if (btn.textContent === qData.correctAnswer) {
                 correctButton = btn;
-                btn.classList.add('correct-answer', 'text-white');
+                btn.classList.add('correct');
             }
         });
         
