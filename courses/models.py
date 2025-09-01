@@ -18,7 +18,10 @@ class User(AbstractUser):
 #_______________________________________________________________________________
 class Year(models.Model):   
     head = models.CharField(max_length=400)    
-    k = models.CharField(max_length=400, default='1')        
+    k = models.CharField(max_length=400, default='1')   
+    class Meta:
+        ordering = ['id']
+         
 
 class YearEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -31,6 +34,8 @@ class Subject(models.Model):
     head = models.CharField(max_length=400)    
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Year, on_delete=models.CASCADE) 
+    class Meta:
+        ordering = ['id']
     
 class SubjectEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -45,6 +50,8 @@ class Unit(models.Model):
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
     file = models.CharField(max_length=400, null=True)
     file_url = models.CharField(max_length=400, null=True)
+    class Meta:
+        ordering = ['id']
     
 class UnitEval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
@@ -60,6 +67,8 @@ class Lesson(models.Model):
     s = models.ForeignKey(Subject, on_delete=models.CASCADE, default='') 
     y = models.ForeignKey(Year, on_delete=models.CASCADE) 
     video = EmbedVideoField(null=True)
+    class Meta:
+        ordering = ['id']
     
 
 class LessonEval(models.Model):

@@ -14,3 +14,5 @@ class ZQuestion(models.Model):
     time_limit = models.CharField(max_length=400, default='30')
     k = models.CharField(max_length=400, default='1')
     p = models.ForeignKey(Lesson, on_delete=models.CASCADE) 
+    class Meta:
+        ordering = ['id']
