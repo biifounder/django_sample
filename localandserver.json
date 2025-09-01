@@ -1314,6 +1314,96 @@
   }
 },
 {
+  "model": "live.zquestion",
+  "pk": 77,
+  "fields": {
+    "head": "مركبة فضائية كتلتها (\\( 350 \\ \\mathrm{kg} \\)) تدور على مسافة (\\( 2800 \\ \\mathrm{km} \\)) فوق سطح الأرض. احسب السرعة المدارية للقمر الصناعي. .. \r\n - ثابت الجاذبية = \\( 6.67 \\times 10^{-11} \\ \\mathrm{N m^{2} kg^{-2}} \\) ..\r\n- كتلة الأرض = \\( 6.0 \\times 10^24 \\ \\mathrm{kg} \\) ..\r\n- نصف قطر الأرض = \\( 6.4 \\times 10^6 \\ \\mathrm{m} \\)\r\n",
+    "op1": "\\( 6.67 \\times 10^3 \\ \\mathrm{m s^{-1}} \\) ",
+    "op2": "\\( 1.2 \\times 10^4 \\ \\mathrm{m s^{-1}} \\) ",
+    "op3": "\\( 2 \\ \\mathrm{m s^{-1}} \\) ",
+    "op4": "\\( 1.2 \\times 10^5 \\ \\mathrm{m s^{-1}} \\)",
+    "options": "\\( 6.67 \\times 10^3 \\ \\mathrm{m s^{-1}} \\) ..\r\n\\( 1.2 \\times 10^4 \\ \\mathrm{m s^{-1}} \\) ..\r\n\\( 2 \\ \\mathrm{m s^{-1}} \\) ..\r\n\\( 1.2 \\times 10^5 \\ \\mathrm{m s^{-1}} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "5:39",
+    "time_limit": "180",
+    "k": "z77",
+    "p": 43
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 78,
+  "fields": {
+    "head": "ما المقصود بنصف القطر المداري لقمر صناعي يدور حول كوكب؟  ",
+    "op1": "بعد القمر الصناعي عن مركز الكوكب ",
+    "op2": " \r\nنصف قطر الكوكب ",
+    "op3": " \r\nنصف قطر القمر الصناعي ",
+    "op4": " \r\nارتفاع القمر الصناعي عن سطح الكوكب",
+    "options": "بعد القمر الصناعي عن مركز الكوكب .. \r\nنصف قطر الكوكب .. \r\nنصف قطر القمر الصناعي .. \r\nارتفاع القمر الصناعي عن سطح الكوكب ",
+    "file": null,
+    "file_url": null,
+    "time": "6:00",
+    "time_limit": "30",
+    "k": "z78",
+    "p": 43
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 79,
+  "fields": {
+    "head": "ما الذي يحدث عندما تقل سرعة قمر صناعي في مداره حول الأرض؟ ",
+    "op1": "ينتقل إلى مدار آخر أقرب إلى الأرض ",
+    "op2": " \r\nينتقل إلى مدار آخر أبعد عن الأرض ",
+    "op3": " \r\nيبقى في مداره ولكن بزمن دوري أكبر ",
+    "op4": " \r\nيتوقف عن الاتصال بمركز القيادة ",
+    "options": "ينتقل إلى مدار آخر أقرب إلى الأرض .. \r\nينتقل إلى مدار آخر أبعد عن الأرض .. \r\nيبقى في مداره ولكن بزمن دوري أكبر .. \r\nيتوقف عن الاتصال بمركز القيادة .. \r\n",
+    "file": null,
+    "file_url": null,
+    "time": "15:40",
+    "time_limit": "25",
+    "k": "z79",
+    "p": 43
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 80,
+  "fields": {
+    "head": "أي العبارات التالي صحيحة بالنسبة لقمر صناعي ثابت بالنسبة للأرض؟ ",
+    "op1": "سرعته الزاوية تساوي السرعة الزاوية لدوران الأرض حول محورها ",
+    "op2": " \r\nسرعته الزاوية تساوي السرعة الزاوية لدوران الأرض حول الشمس ",
+    "op3": " \r\nسرعته في مداره تساوي سرعة دوران الأرض حول محورها ",
+    "op4": " \r\nسرعته في مداره تساوي سرعة دوران الأرض حول الشمس",
+    "options": "سرعته الزاوية تساوي السرعة الزاوية لدوران الأرض حول محورها .. \r\nسرعته الزاوية تساوي السرعة الزاوية لدوران الأرض حول الشمس .. \r\nسرعته في مداره تساوي سرعة دوران الأرض حول محورها .. \r\nسرعته في مداره تساوي سرعة دوران الأرض حول الشمس",
+    "file": null,
+    "file_url": null,
+    "time": "21:00",
+    "time_limit": "30",
+    "k": "z80",
+    "p": 43
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 81,
+  "fields": {
+    "head": "قمر صناعي ثابت بالنسبة لكوكب كتلته (\\( 2.0 \\times 10^24 \\ \\mathrm{kg} \\)) ويكمل هذا الكوكب دورة واحدة كاملة حول محوره كل 2.5 يوما. احسب المسافة التي يجب أن يبعدها هذا القمر الصناعي عن مركز الكوكب.  ",
+    "op1": "\\( 5.4 \\times 10^7 \\ \\mathrm{m} \\) ",
+    "op2": " \r\n\\( 8.2 \\times 10^7 \\ \\mathrm{m} \\) ",
+    "op3": " \r\n\\( 3.5 \\times 10^7 \\ \\mathrm{m} \\) ",
+    "op4": " \r\n\\( 1.7 \\times 10^7 \\ \\mathrm{m} \\)",
+    "options": "\\( 5.4 \\times 10^7 \\ \\mathrm{m} \\) .. \r\n\\( 8.2 \\times 10^7 \\ \\mathrm{m} \\) .. \r\n\\( 3.5 \\times 10^7 \\ \\mathrm{m} \\) .. \r\n\\( 1.7 \\times 10^7 \\ \\mathrm{m} \\) ",
+    "file": null,
+    "file_url": null,
+    "time": "33:55",
+    "time_limit": "180",
+    "k": "z81",
+    "p": 43
+  }
+},
+{
   "model": "courses.user",
   "pk": 1,
   "fields": {
@@ -1797,6 +1887,75 @@
   }
 },
 {
+  "model": "courses.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$kqgKNJEig1DmdFJjNJkSKH$wUrvpiPBqKSVGdUsODgINu3ZNTR3iWcgi7naOZrepa0=",
+    "last_login": "2025-08-31T19:58:22.133Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-31T19:45:48.563Z",
+    "name": "محمد وليد محمد علي",
+    "username": null,
+    "email": "oxmo121@gmail.com",
+    "year": "9",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$HpDU6mgLj4s2oYPO7mE1i1$nGWosZ9TM8HkyM5f5tnnxwt3jjM9zd3Y6BLU+SkbnHw=",
+    "last_login": "2025-09-01T09:37:19.773Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-09-01T09:37:19.317Z",
+    "name": "محمود محمد أحمد ",
+    "username": null,
+    "email": "mahmoodsaad9000@gmail.com",
+    "year": "10",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 26,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$4HszndmueJ08vmpgA0q9nt$ftXR8Eh2PTVdfGiVJMbVeG3Ttbk7BjcjS0L/KPGN6FI=",
+    "last_login": "2025-09-01T09:58:22.157Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-09-01T09:58:21.827Z",
+    "name": "آيه محمد احمد ",
+    "username": null,
+    "email": "aya1230981@gmail.com",
+    "year": "10",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "courses.year",
   "pk": 1,
   "fields": {
@@ -2041,6 +2200,33 @@
   "fields": {
     "user": 23,
     "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 25,
+  "fields": {
+    "user": 24,
+    "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 26,
+  "fields": {
+    "user": 25,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 27,
+  "fields": {
+    "user": 26,
+    "k": 2,
     "percent": 0
   }
 },
@@ -2293,6 +2479,33 @@
   "fields": {
     "user": 23,
     "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 25,
+  "fields": {
+    "user": 24,
+    "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 26,
+  "fields": {
+    "user": 25,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 27,
+  "fields": {
+    "user": 26,
+    "k": 2,
     "percent": 0
   }
 },
@@ -3236,6 +3449,114 @@
   }
 },
 {
+  "model": "courses.uniteval",
+  "pk": 88,
+  "fields": {
+    "user": 24,
+    "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 89,
+  "fields": {
+    "user": 24,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 90,
+  "fields": {
+    "user": 24,
+    "k": 3,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 91,
+  "fields": {
+    "user": 24,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 92,
+  "fields": {
+    "user": 24,
+    "k": 5,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 93,
+  "fields": {
+    "user": 24,
+    "k": 6,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 94,
+  "fields": {
+    "user": 24,
+    "k": 7,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 95,
+  "fields": {
+    "user": 24,
+    "k": 8,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 96,
+  "fields": {
+    "user": 24,
+    "k": 9,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 97,
+  "fields": {
+    "user": 24,
+    "k": 10,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 98,
+  "fields": {
+    "user": 25,
+    "k": 11,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 99,
+  "fields": {
+    "user": 26,
+    "k": 11,
+    "percent": 0
+  }
+},
+{
   "model": "courses.lesson",
   "pk": 1,
   "fields": {
@@ -3748,7 +4069,7 @@
     "p": 13,
     "s": 4,
     "y": 4,
-    "video": null
+    "video": "tcHRr3M96l4"
   }
 },
 {
@@ -6553,6 +6874,330 @@
   "fields": {
     "user": 1,
     "k": 45,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 312,
+  "fields": {
+    "user": 24,
+    "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 313,
+  "fields": {
+    "user": 24,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 314,
+  "fields": {
+    "user": 24,
+    "k": 3,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 315,
+  "fields": {
+    "user": 24,
+    "k": 4,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 316,
+  "fields": {
+    "user": 24,
+    "k": 5,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 317,
+  "fields": {
+    "user": 24,
+    "k": 6,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 318,
+  "fields": {
+    "user": 24,
+    "k": 7,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 319,
+  "fields": {
+    "user": 24,
+    "k": 8,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 320,
+  "fields": {
+    "user": 24,
+    "k": 9,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 321,
+  "fields": {
+    "user": 24,
+    "k": 10,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 322,
+  "fields": {
+    "user": 24,
+    "k": 11,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 323,
+  "fields": {
+    "user": 24,
+    "k": 12,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 324,
+  "fields": {
+    "user": 24,
+    "k": 13,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 325,
+  "fields": {
+    "user": 24,
+    "k": 14,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 326,
+  "fields": {
+    "user": 24,
+    "k": 15,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 327,
+  "fields": {
+    "user": 24,
+    "k": 16,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 328,
+  "fields": {
+    "user": 24,
+    "k": 17,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 329,
+  "fields": {
+    "user": 24,
+    "k": 18,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 330,
+  "fields": {
+    "user": 24,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 331,
+  "fields": {
+    "user": 24,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 332,
+  "fields": {
+    "user": 24,
+    "k": 21,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 333,
+  "fields": {
+    "user": 24,
+    "k": 22,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 334,
+  "fields": {
+    "user": 24,
+    "k": 23,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 335,
+  "fields": {
+    "user": 24,
+    "k": 24,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 336,
+  "fields": {
+    "user": 24,
+    "k": 25,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 337,
+  "fields": {
+    "user": 24,
+    "k": 26,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 338,
+  "fields": {
+    "user": 24,
+    "k": 27,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 339,
+  "fields": {
+    "user": 24,
+    "k": 28,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 340,
+  "fields": {
+    "user": 24,
+    "k": 29,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 341,
+  "fields": {
+    "user": 24,
+    "k": 30,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 342,
+  "fields": {
+    "user": 24,
+    "k": 31,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 343,
+  "fields": {
+    "user": 24,
+    "k": 32,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 344,
+  "fields": {
+    "user": 25,
+    "k": 33,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 345,
+  "fields": {
+    "user": 25,
+    "k": 34,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 346,
+  "fields": {
+    "user": 26,
+    "k": 33,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 347,
+  "fields": {
+    "user": 26,
+    "k": 34,
     "percent": 0
   }
 },
@@ -32822,6 +33467,2811 @@
   }
 },
 {
+  "model": "courses.qeval",
+  "pk": 1806,
+  "fields": {
+    "user": 24,
+    "k": 6,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1807,
+  "fields": {
+    "user": 24,
+    "k": 7,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1808,
+  "fields": {
+    "user": 24,
+    "k": 15,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1809,
+  "fields": {
+    "user": 24,
+    "k": 260,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1810,
+  "fields": {
+    "user": 24,
+    "k": 23,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1811,
+  "fields": {
+    "user": 24,
+    "k": 36,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1812,
+  "fields": {
+    "user": 24,
+    "k": 57,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1813,
+  "fields": {
+    "user": 24,
+    "k": 55,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1814,
+  "fields": {
+    "user": 24,
+    "k": 63,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1815,
+  "fields": {
+    "user": 24,
+    "k": 64,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1816,
+  "fields": {
+    "user": 24,
+    "k": 66,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1817,
+  "fields": {
+    "user": 24,
+    "k": 73,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1818,
+  "fields": {
+    "user": 24,
+    "k": 76,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1819,
+  "fields": {
+    "user": 24,
+    "k": 87,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1820,
+  "fields": {
+    "user": 24,
+    "k": 111,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1821,
+  "fields": {
+    "user": 24,
+    "k": 115,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1822,
+  "fields": {
+    "user": 24,
+    "k": 119,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1823,
+  "fields": {
+    "user": 24,
+    "k": 124,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1824,
+  "fields": {
+    "user": 24,
+    "k": 128,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1825,
+  "fields": {
+    "user": 24,
+    "k": 139,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1826,
+  "fields": {
+    "user": 24,
+    "k": 1,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1827,
+  "fields": {
+    "user": 24,
+    "k": 2,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1828,
+  "fields": {
+    "user": 24,
+    "k": 3,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1829,
+  "fields": {
+    "user": 24,
+    "k": 4,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1830,
+  "fields": {
+    "user": 24,
+    "k": 261,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1831,
+  "fields": {
+    "user": 24,
+    "k": 5,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1832,
+  "fields": {
+    "user": 24,
+    "k": 8,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1833,
+  "fields": {
+    "user": 24,
+    "k": 9,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1834,
+  "fields": {
+    "user": 24,
+    "k": 10,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1835,
+  "fields": {
+    "user": 24,
+    "k": 11,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1836,
+  "fields": {
+    "user": 24,
+    "k": 12,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1837,
+  "fields": {
+    "user": 24,
+    "k": 13,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1838,
+  "fields": {
+    "user": 24,
+    "k": 14,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1839,
+  "fields": {
+    "user": 24,
+    "k": 16,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1840,
+  "fields": {
+    "user": 24,
+    "k": 17,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1841,
+  "fields": {
+    "user": 24,
+    "k": 18,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1842,
+  "fields": {
+    "user": 24,
+    "k": 19,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1843,
+  "fields": {
+    "user": 24,
+    "k": 20,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1844,
+  "fields": {
+    "user": 24,
+    "k": 21,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1845,
+  "fields": {
+    "user": 24,
+    "k": 22,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1846,
+  "fields": {
+    "user": 24,
+    "k": 24,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1847,
+  "fields": {
+    "user": 24,
+    "k": 25,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1848,
+  "fields": {
+    "user": 24,
+    "k": 26,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1849,
+  "fields": {
+    "user": 24,
+    "k": 27,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1850,
+  "fields": {
+    "user": 24,
+    "k": 28,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1851,
+  "fields": {
+    "user": 24,
+    "k": 29,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1852,
+  "fields": {
+    "user": 24,
+    "k": 30,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1853,
+  "fields": {
+    "user": 24,
+    "k": 31,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1854,
+  "fields": {
+    "user": 24,
+    "k": 32,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1855,
+  "fields": {
+    "user": 24,
+    "k": 33,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1856,
+  "fields": {
+    "user": 24,
+    "k": 34,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1857,
+  "fields": {
+    "user": 24,
+    "k": 35,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1858,
+  "fields": {
+    "user": 24,
+    "k": 37,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1859,
+  "fields": {
+    "user": 24,
+    "k": 38,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1860,
+  "fields": {
+    "user": 24,
+    "k": 39,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1861,
+  "fields": {
+    "user": 24,
+    "k": 40,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1862,
+  "fields": {
+    "user": 24,
+    "k": 41,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1863,
+  "fields": {
+    "user": 24,
+    "k": 42,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1864,
+  "fields": {
+    "user": 24,
+    "k": 43,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1865,
+  "fields": {
+    "user": 24,
+    "k": 44,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1866,
+  "fields": {
+    "user": 24,
+    "k": 155,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1867,
+  "fields": {
+    "user": 24,
+    "k": 156,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1868,
+  "fields": {
+    "user": 24,
+    "k": 45,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1869,
+  "fields": {
+    "user": 24,
+    "k": 49,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1870,
+  "fields": {
+    "user": 24,
+    "k": 50,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1871,
+  "fields": {
+    "user": 24,
+    "k": 51,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1872,
+  "fields": {
+    "user": 24,
+    "k": 52,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1873,
+  "fields": {
+    "user": 24,
+    "k": 53,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1874,
+  "fields": {
+    "user": 24,
+    "k": 54,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1875,
+  "fields": {
+    "user": 24,
+    "k": 56,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1876,
+  "fields": {
+    "user": 24,
+    "k": 58,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1877,
+  "fields": {
+    "user": 24,
+    "k": 59,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1878,
+  "fields": {
+    "user": 24,
+    "k": 60,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1879,
+  "fields": {
+    "user": 24,
+    "k": 62,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1880,
+  "fields": {
+    "user": 24,
+    "k": 65,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1881,
+  "fields": {
+    "user": 24,
+    "k": 67,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1882,
+  "fields": {
+    "user": 24,
+    "k": 68,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1883,
+  "fields": {
+    "user": 24,
+    "k": 70,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1884,
+  "fields": {
+    "user": 24,
+    "k": 71,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1885,
+  "fields": {
+    "user": 24,
+    "k": 72,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1886,
+  "fields": {
+    "user": 24,
+    "k": 74,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1887,
+  "fields": {
+    "user": 24,
+    "k": 75,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1888,
+  "fields": {
+    "user": 24,
+    "k": 77,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1889,
+  "fields": {
+    "user": 24,
+    "k": 78,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1890,
+  "fields": {
+    "user": 24,
+    "k": 79,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1891,
+  "fields": {
+    "user": 24,
+    "k": 80,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1892,
+  "fields": {
+    "user": 24,
+    "k": 81,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1893,
+  "fields": {
+    "user": 24,
+    "k": 82,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1894,
+  "fields": {
+    "user": 24,
+    "k": 83,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1895,
+  "fields": {
+    "user": 24,
+    "k": 84,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1896,
+  "fields": {
+    "user": 24,
+    "k": 85,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1897,
+  "fields": {
+    "user": 24,
+    "k": 86,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1898,
+  "fields": {
+    "user": 24,
+    "k": 88,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1899,
+  "fields": {
+    "user": 24,
+    "k": 89,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1900,
+  "fields": {
+    "user": 24,
+    "k": 92,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1901,
+  "fields": {
+    "user": 24,
+    "k": 93,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1902,
+  "fields": {
+    "user": 24,
+    "k": 94,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1903,
+  "fields": {
+    "user": 24,
+    "k": 95,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1904,
+  "fields": {
+    "user": 24,
+    "k": 96,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1905,
+  "fields": {
+    "user": 24,
+    "k": 98,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1906,
+  "fields": {
+    "user": 24,
+    "k": 99,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1907,
+  "fields": {
+    "user": 24,
+    "k": 100,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1908,
+  "fields": {
+    "user": 24,
+    "k": 101,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1909,
+  "fields": {
+    "user": 24,
+    "k": 102,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1910,
+  "fields": {
+    "user": 24,
+    "k": 103,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1911,
+  "fields": {
+    "user": 24,
+    "k": 105,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1912,
+  "fields": {
+    "user": 24,
+    "k": 106,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1913,
+  "fields": {
+    "user": 24,
+    "k": 107,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1914,
+  "fields": {
+    "user": 24,
+    "k": 109,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1915,
+  "fields": {
+    "user": 24,
+    "k": 110,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1916,
+  "fields": {
+    "user": 24,
+    "k": 112,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1917,
+  "fields": {
+    "user": 24,
+    "k": 113,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1918,
+  "fields": {
+    "user": 24,
+    "k": 114,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1919,
+  "fields": {
+    "user": 24,
+    "k": 116,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1920,
+  "fields": {
+    "user": 24,
+    "k": 117,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1921,
+  "fields": {
+    "user": 24,
+    "k": 118,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1922,
+  "fields": {
+    "user": 24,
+    "k": 120,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1923,
+  "fields": {
+    "user": 24,
+    "k": 121,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1924,
+  "fields": {
+    "user": 24,
+    "k": 122,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1925,
+  "fields": {
+    "user": 24,
+    "k": 123,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1926,
+  "fields": {
+    "user": 24,
+    "k": 125,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1927,
+  "fields": {
+    "user": 24,
+    "k": 126,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1928,
+  "fields": {
+    "user": 24,
+    "k": 127,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1929,
+  "fields": {
+    "user": 24,
+    "k": 129,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1930,
+  "fields": {
+    "user": 24,
+    "k": 130,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1931,
+  "fields": {
+    "user": 24,
+    "k": 131,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1932,
+  "fields": {
+    "user": 24,
+    "k": 132,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1933,
+  "fields": {
+    "user": 24,
+    "k": 133,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1934,
+  "fields": {
+    "user": 24,
+    "k": 134,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1935,
+  "fields": {
+    "user": 24,
+    "k": 135,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1936,
+  "fields": {
+    "user": 24,
+    "k": 136,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1937,
+  "fields": {
+    "user": 24,
+    "k": 137,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1938,
+  "fields": {
+    "user": 24,
+    "k": 138,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1939,
+  "fields": {
+    "user": 24,
+    "k": 140,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1940,
+  "fields": {
+    "user": 24,
+    "k": 141,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1941,
+  "fields": {
+    "user": 24,
+    "k": 142,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1942,
+  "fields": {
+    "user": 24,
+    "k": 144,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1943,
+  "fields": {
+    "user": 24,
+    "k": 145,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1944,
+  "fields": {
+    "user": 24,
+    "k": 147,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1945,
+  "fields": {
+    "user": 24,
+    "k": 151,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1946,
+  "fields": {
+    "user": 24,
+    "k": 153,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1947,
+  "fields": {
+    "user": 24,
+    "k": 154,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1948,
+  "fields": {
+    "user": 24,
+    "k": 160,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1949,
+  "fields": {
+    "user": 24,
+    "k": 161,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1950,
+  "fields": {
+    "user": 24,
+    "k": 148,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1951,
+  "fields": {
+    "user": 24,
+    "k": 162,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1952,
+  "fields": {
+    "user": 24,
+    "k": 164,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1953,
+  "fields": {
+    "user": 24,
+    "k": 165,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1954,
+  "fields": {
+    "user": 24,
+    "k": 166,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1955,
+  "fields": {
+    "user": 24,
+    "k": 157,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1956,
+  "fields": {
+    "user": 24,
+    "k": 167,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1957,
+  "fields": {
+    "user": 24,
+    "k": 168,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1958,
+  "fields": {
+    "user": 24,
+    "k": 169,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1959,
+  "fields": {
+    "user": 24,
+    "k": 262,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1960,
+  "fields": {
+    "user": 24,
+    "k": 170,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1961,
+  "fields": {
+    "user": 24,
+    "k": 171,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1962,
+  "fields": {
+    "user": 24,
+    "k": 172,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1963,
+  "fields": {
+    "user": 24,
+    "k": 173,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1964,
+  "fields": {
+    "user": 24,
+    "k": 174,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1965,
+  "fields": {
+    "user": 24,
+    "k": 175,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1966,
+  "fields": {
+    "user": 24,
+    "k": 176,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1967,
+  "fields": {
+    "user": 24,
+    "k": 158,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1968,
+  "fields": {
+    "user": 24,
+    "k": 177,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1969,
+  "fields": {
+    "user": 24,
+    "k": 178,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1970,
+  "fields": {
+    "user": 24,
+    "k": 179,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1971,
+  "fields": {
+    "user": 24,
+    "k": 180,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1972,
+  "fields": {
+    "user": 24,
+    "k": 181,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1973,
+  "fields": {
+    "user": 24,
+    "k": 182,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1974,
+  "fields": {
+    "user": 24,
+    "k": 183,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1975,
+  "fields": {
+    "user": 24,
+    "k": 186,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1976,
+  "fields": {
+    "user": 24,
+    "k": 159,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1977,
+  "fields": {
+    "user": 24,
+    "k": 187,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1978,
+  "fields": {
+    "user": 24,
+    "k": 188,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1979,
+  "fields": {
+    "user": 24,
+    "k": 190,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1980,
+  "fields": {
+    "user": 24,
+    "k": 192,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1981,
+  "fields": {
+    "user": 24,
+    "k": 193,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1982,
+  "fields": {
+    "user": 24,
+    "k": 194,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1983,
+  "fields": {
+    "user": 24,
+    "k": 195,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1984,
+  "fields": {
+    "user": 24,
+    "k": 263,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1985,
+  "fields": {
+    "user": 24,
+    "k": 196,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1986,
+  "fields": {
+    "user": 24,
+    "k": 198,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1987,
+  "fields": {
+    "user": 24,
+    "k": 199,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1988,
+  "fields": {
+    "user": 24,
+    "k": 200,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1989,
+  "fields": {
+    "user": 24,
+    "k": 203,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1990,
+  "fields": {
+    "user": 24,
+    "k": 204,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1991,
+  "fields": {
+    "user": 24,
+    "k": 205,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1992,
+  "fields": {
+    "user": 24,
+    "k": 206,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1993,
+  "fields": {
+    "user": 24,
+    "k": 207,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1994,
+  "fields": {
+    "user": 24,
+    "k": 209,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1995,
+  "fields": {
+    "user": 24,
+    "k": 210,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1996,
+  "fields": {
+    "user": 24,
+    "k": 211,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1997,
+  "fields": {
+    "user": 24,
+    "k": 212,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1998,
+  "fields": {
+    "user": 24,
+    "k": 213,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 1999,
+  "fields": {
+    "user": 24,
+    "k": 214,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2000,
+  "fields": {
+    "user": 24,
+    "k": 215,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2001,
+  "fields": {
+    "user": 24,
+    "k": 216,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2002,
+  "fields": {
+    "user": 24,
+    "k": 217,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2003,
+  "fields": {
+    "user": 24,
+    "k": 218,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2004,
+  "fields": {
+    "user": 24,
+    "k": 219,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2005,
+  "fields": {
+    "user": 24,
+    "k": 220,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2006,
+  "fields": {
+    "user": 24,
+    "k": 221,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2007,
+  "fields": {
+    "user": 24,
+    "k": 222,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2008,
+  "fields": {
+    "user": 24,
+    "k": 223,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2009,
+  "fields": {
+    "user": 24,
+    "k": 224,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2010,
+  "fields": {
+    "user": 24,
+    "k": 149,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2011,
+  "fields": {
+    "user": 24,
+    "k": 226,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2012,
+  "fields": {
+    "user": 24,
+    "k": 227,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2013,
+  "fields": {
+    "user": 24,
+    "k": 228,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2014,
+  "fields": {
+    "user": 24,
+    "k": 229,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2015,
+  "fields": {
+    "user": 24,
+    "k": 231,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2016,
+  "fields": {
+    "user": 24,
+    "k": 232,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2017,
+  "fields": {
+    "user": 24,
+    "k": 233,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2018,
+  "fields": {
+    "user": 24,
+    "k": 234,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2019,
+  "fields": {
+    "user": 24,
+    "k": 235,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2020,
+  "fields": {
+    "user": 24,
+    "k": 236,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2021,
+  "fields": {
+    "user": 24,
+    "k": 237,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2022,
+  "fields": {
+    "user": 24,
+    "k": 238,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2023,
+  "fields": {
+    "user": 24,
+    "k": 239,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2024,
+  "fields": {
+    "user": 24,
+    "k": 242,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2025,
+  "fields": {
+    "user": 24,
+    "k": 243,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2026,
+  "fields": {
+    "user": 24,
+    "k": 244,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2027,
+  "fields": {
+    "user": 24,
+    "k": 150,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2028,
+  "fields": {
+    "user": 24,
+    "k": 189,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2029,
+  "fields": {
+    "user": 24,
+    "k": 245,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2030,
+  "fields": {
+    "user": 24,
+    "k": 246,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2031,
+  "fields": {
+    "user": 24,
+    "k": 247,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2032,
+  "fields": {
+    "user": 24,
+    "k": 248,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2033,
+  "fields": {
+    "user": 24,
+    "k": 249,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2034,
+  "fields": {
+    "user": 24,
+    "k": 251,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2035,
+  "fields": {
+    "user": 24,
+    "k": 252,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2036,
+  "fields": {
+    "user": 24,
+    "k": 143,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2037,
+  "fields": {
+    "user": 24,
+    "k": 146,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2038,
+  "fields": {
+    "user": 24,
+    "k": 152,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2039,
+  "fields": {
+    "user": 24,
+    "k": 253,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2040,
+  "fields": {
+    "user": 24,
+    "k": 163,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2041,
+  "fields": {
+    "user": 24,
+    "k": 184,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2042,
+  "fields": {
+    "user": 24,
+    "k": 185,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2043,
+  "fields": {
+    "user": 24,
+    "k": 191,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2044,
+  "fields": {
+    "user": 24,
+    "k": 197,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2045,
+  "fields": {
+    "user": 24,
+    "k": 201,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2046,
+  "fields": {
+    "user": 24,
+    "k": 202,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2047,
+  "fields": {
+    "user": 24,
+    "k": 208,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2048,
+  "fields": {
+    "user": 24,
+    "k": 225,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2049,
+  "fields": {
+    "user": 24,
+    "k": 230,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2050,
+  "fields": {
+    "user": 24,
+    "k": 240,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2051,
+  "fields": {
+    "user": 24,
+    "k": 241,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2052,
+  "fields": {
+    "user": 24,
+    "k": 250,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2053,
+  "fields": {
+    "user": 24,
+    "k": 255,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2054,
+  "fields": {
+    "user": 24,
+    "k": 254,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2055,
+  "fields": {
+    "user": 24,
+    "k": 256,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2056,
+  "fields": {
+    "user": 24,
+    "k": 257,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2057,
+  "fields": {
+    "user": 24,
+    "k": 258,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2058,
+  "fields": {
+    "user": 24,
+    "k": 259,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2059,
+  "fields": {
+    "user": 24,
+    "k": 264,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
+  "model": "courses.qeval",
+  "pk": 2060,
+  "fields": {
+    "user": 24,
+    "k": 265,
+    "pscore": 0,
+    "tscore": 0,
+    "flag": 0
+  }
+},
+{
   "model": "courses.qdubl",
   "pk": 1,
   "fields": {
@@ -40684,14 +44134,6 @@
 },
 {
   "model": "sessions.session",
-  "pk": "dxtsifsk42rl8foj345sbcri07dwqtzc",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQRO_iGlmJ119K-pzB2rU3OIAcKU4qxN1JpBTQTDHvzbxFxG0tcWu8xCmLq-jF5bcjTE-uB8gPrPdZprmuy0TyUORJmxzmzK_b6f4dFGxlXysINlmHBKoj5ViDD84Q59FTYEDWWjPRnui0NyoQ5ABjn7yCLhgrPl_XXzdU:1usmBQ:M3MNnM2JDMSFcy_p0mytN0TWf8HxFkZuac9yJ9X_hmo",
-    "expire_date": "2025-09-14T17:49:40.876Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "m0afghyz9xx1123mx2wgxyz7ml6vyv0s",
   "fields": {
     "session_data": "e30:1uobhx:qlPaXAdQlEYsK0F4aZv4unAJC7wpP2c5pgv2EvVlALs",
@@ -40704,6 +44146,14 @@
   "fields": {
     "session_data": "e30:1uobiP:o6YYUM5zuoBdFxU-1DSUZ8fIWEKRTVClltDzFSE-0C4",
     "expire_date": "2025-09-03T05:50:29.399Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "xy4r5kp3gm4geojbuva4ke3kbbijcm86",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pAybYG6dO8ZyAwzSNVAUtqV8e7apAvd_vfef6mA25rD1mQJM6uzMur0uxHGh5Qd8B3LrepYy7rMpHdFH7Tpa2V5Xg737yBjy9-656kbje0MTyQs5J24NFgZrEvR-whCwDRFQoiJB9cDkAVEsh7diKDeH_yTOMM:1usnEn:yVrYCti_Wn8RZX93k4ez-vBcpEUq849721uI87a8KPE",
+    "expire_date": "2025-09-14T18:57:13.997Z"
   }
 }
 ]
