@@ -2,255 +2,421 @@
 {% load static %}
 
 {% block content %}
+
 <head>
-    <title>صفحة الطالب</title>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
-    <style>
-        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
-        /* .container { background-color: #f7f7f7; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); } */
-        #question-display { min-height: 100px; border: 1px solid #ccc; padding: 20px; text-align: center; border-radius: 4px; background-color: #fff; font-size: 1.2em; font-weight: bold; }
-        .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .option-btn {
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            color: black;
-            font-size: 1em;
-            width: 95%;
-            min-height: 40px; 
-            padding-right: 1.2em;
-            padding-left: 1.2em;
-            text-align: center;
-            background: transparent;
-            border: 1px solid #25252b;
-            border-radius: 0.3em;
-        }
-        .option-btn:hover { background-color: #9d9db6; }
-        .option-btn:disabled { cursor: not-allowed; }
+<title>صفحة الطالب</title>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+<style>
+body { font-family: sans-serif; max-width: 1600px; margin: auto; padding: 20px; }
+.question-content { min-height: 100px; padding: 20px; text-align: right; font-size: 1.5em; font-weight: bold; }
+.options-container { display: flex; flex-direction: column; }
+.option-btn {
+cursor: pointer;
+transition: background-color 0.3s ease;
+color: black;
+font-size: 1.2em;
+width: 100%;
+min-height: 40px;
+padding-right: 1.2em;
+padding-left: 1.2em;
+text-align: right;
+background: transparent;
+border: 1px solid #25252b;
+border-radius: 0.3em;
+margin-top: 10px;
+}
+.option-btn:first-child { margin-top: 0; }
+.option-btn:hover { background-color: #9d9db6; }
+.option-btn:disabled { cursor: not-allowed; }
 
-        /* The styles below use !important to ensure they take precedence */
-        .option-btn.correct {
-            background-color: #e7f6d5 !important;
-            border-color: #689f38 !important;
-        }
+    .option-btn.correct {
+        background-color: #e7f6d5 !important;
+        border-color: #689f38 !important;
+    }
 
-        .option-btn.incorrect {
-            background-color: #ffdde0 !important;
-            border-color: #d32f2f !important;
-        }
+    .option-btn.incorrect {
+        background-color: #ffdde0 !important;
+        border-color: #d32f2f !important;
+    }
 
-        .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
-        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
-        .question-text { color: #ef4444; } /* New style for red text */
-        
-        /* New timer and message styles */
-        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; text-align: center; }
-        #timer-message { margin-top: 10px; color: #0207a3; text-align: center; font-size:20px ; font-family: 'Amiri', serif;}
-    </style>
+    .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
+    .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+    .question-text { color: #ef4444; }
+    
+    #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; text-align: center; }
+    #timer-message { margin-top: 10px; color: #0207a3; text-align: center; font-size:20px ; font-family: 'Amiri', serif;}
+
+    .sent-message-item {
+        background-color: #f0f4f8;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-right: 4px solid #10b981;
+        position: relative;
+        direction: ltr; /* Default direction */
+        text-align: right; /* Align message to the right by default */
+    }
+
+    .sent-message-item.rtl {
+        direction: rtl;
+        border-right: none;
+        border-left: 4px solid #10b981;
+        text-align: right; /* Ensure RTL messages stay right-aligned */
+    }
+
+    .sent-message-item.ltr {
+        direction: ltr;
+        text-align: right; /* LTR messages, but still aligned right within the container */
+    }
+
+    .sent-message-text {
+        color: #4b5563;
+        font-size: 1em;
+        line-height: 1.5;
+        padding-right: 30px; /* Space for the edit icon on the left (LTR default) */
+        padding-left: 0;
+    }
+    
+    .sent-message-item.rtl .sent-message-text {
+        padding-left: 30px; /* Space for the edit icon on the right (RTL) */
+        padding-right: 0;
+    }
+    
+    .edit-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px; /* Default position for LTR messages (icon on left) */
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #4a90e2;
+        font-size: 1.5em; /* Larger icon */
+    }
+
+    .sent-message-item.rtl .edit-icon {
+        left: auto;
+        right: 10px; /* Position for RTL messages (icon on right) */
+    }
+
+    .edit-icon:hover {
+        color: #0056b3;
+    }
+
+</style>
+
 </head>
 <body>
-    <div class="container">
+<div class="container">
+<div id="login-form">
+<h1>أهلاً بك</h1>
+<p>للانضمام إلى الدرس، يرجى إدخال اسمك.</p>
+<input type="text" id="student-name-input" placeholder="ادخل اسمك هنا" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+<button id="join-button" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer;">انضم</button>
+</div>
+
+    <div id="main-content" style="display: none;">
         <h1>قياس استيعاب الطالب في درس: {{lesson.head}}</h1>
         <p style="font-size: 25px; color:rgb(89, 46, 231)">مرحبا <span id="student-name-display"></span></p>
 
-        <div id="question-display">
-            <p>سيعرض السؤال هنا</p>
-            <p>استمع الآن للشرح وعد عندما يطلب منك المعلم حل السؤال </p>
+        <div class="question-content">
+            <p id="initial-message">أنت متصل. في انتظار بدء الدرس.</p>
         </div>
         
         <div id="options-container" class="options-container">
-            <!-- Options will be rendered here dynamically -->
-        </div>
+            </div>
 
         <div id="timer-display"></div>
         <div id="timer-message"></div>
 
         <p class="mt-4">درجتك: <span id="student-score">0</span>   &nbsp;&nbsp;&nbsp;      أنت في المركز: <span id="student-rank">-</span></p>
-    </div>
 
-    <script>
-        let quizSocket;
-        if (window.location.protocol === 'http:' && window.location.host.includes('127.0.0.1')) {
-            quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
-        } else {
-            const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
-            const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-            quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
-        }
-
-        const questionDisplay = document.getElementById('question-display');
-        const optionsContainer = document.getElementById('options-container');
-        const studentScoreSpan = document.getElementById('student-score');
-        const studentRankSpan = document.getElementById('student-rank');
-        const studentNameDisplay = document.getElementById('student-name-display');
-        const timerDisplay = document.getElementById('timer-display');
-        const timerMessage = document.getElementById('timer-message');
+        <div style="margin-top: 30px;">
+            <h2>أرسل للمعلم</h2>
+            <textarea id="student-question-input" placeholder="اكتب رسالتك هنا..." style="width:100%; height:80px; padding:10px; border-radius:5px;"></textarea>
+            <button id="send-question-button" style="width:100%; padding:10px; margin-top:10px; background-color:#10b981; color:white; border-radius:5px;">أرسل</button>
+        </div>
         
-        let timerInterval;
-        let timeLeft;
-        let currentQuestionData = null;
+        <div id="messages-container" style="margin-top: 20px;">
+        </div>
 
-        function startTimer() {
-            // Clear any existing timer to prevent multiple timers running at once.
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            timerDisplay.textContent = `${timeLeft}s`;
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                timerDisplay.textContent = `${timeLeft}s`;
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-                    timerMessage.textContent = "استمع الآن للشرح وعد عندما يعرض المعلم السؤال التالي";
-                    
-                    if (currentQuestionData) {
-                        const correctAnswer = currentQuestionData.correct_answer;
-                        document.querySelectorAll('.option-btn').forEach(btn => {
-                            if (btn.textContent.trim() === correctAnswer.trim()) {
-                                btn.classList.add('correct');
-                            }
-                        });
-                    }
+    </div>
+</div>
+
+<script>
+    const storedName = sessionStorage.getItem('studentName');
+    let myName = storedName || '';
+
+    const loginForm = document.getElementById('login-form');
+    const mainContent = document.getElementById('main-content');
+    const studentNameInput = document.getElementById('student-name-input');
+    const joinButton = document.getElementById('join-button');
+    const initialMessage = document.getElementById('initial-message');
+
+    const questionContent = document.querySelector('.question-content');
+    const optionsContainer = document.getElementById('options-container');
+    const studentScoreSpan = document.getElementById('student-score');
+    const studentRankSpan = document.getElementById('student-rank');
+    const studentNameDisplay = document.getElementById('student-name-display');
+    const timerDisplay = document.getElementById('timer-display');
+    const timerMessage = document.getElementById('timer-message');
+
+    const studentQuestionInput = document.getElementById('student-question-input');
+    const sendQuestionButton = document.getElementById('send-question-button');
+    const messagesContainer = document.getElementById('messages-container');
+    
+    let quizSocket;
+    if (window.location.protocol === 'http:' && window.location.host.includes('127.0.0.1')) {
+        quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+    } else {
+        const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
+    }
+    
+    let timerInterval;
+    let timeLeft;
+    let currentQuestionData = null;
+    let lastSentMessageElement = null;
+
+    if (myName) {
+        loginForm.style.display = 'none';
+        mainContent.style.display = 'block';
+        studentNameDisplay.textContent = myName;
+    } else {
+        loginForm.style.display = 'block';
+        mainContent.style.display = 'none';
+    }
+    
+    joinButton.addEventListener('click', () => {
+        const studentName = studentNameInput.value.trim();
+        if (studentName) {
+            myName = studentName;
+            sessionStorage.setItem('studentName', myName);
+            loginForm.style.display = 'none';
+            mainContent.style.display = 'block';
+            studentNameDisplay.textContent = myName;
+
+            quizSocket.send(JSON.stringify({
+                'type': 'student_join',
+                'content': myName
+            }));
+        } else {
+            alert("Please enter your name.");
+        }
+    });
+
+    function isArabic(text) {
+        const arabicRegex = /[\u0600-\u06FF]/;
+        return arabicRegex.test(text);
+    }
+
+    function sendQuestion() {
+        const studentQuestion = studentQuestionInput.value.trim();
+        if (studentQuestion) {
+            quizSocket.send(JSON.stringify({
+                'type': 'student_question',
+                'content': {
+                    'name': myName,
+                    'question': studentQuestion
                 }
-            }, 1000);
+            }));
+            
+            displaySentMessage(studentQuestion);
+            studentQuestionInput.value = '';
+        } else {
+            alert("Please enter a question.");
+        }
+    }
+
+    function displaySentMessage(message) {
+        messagesContainer.innerHTML = '';
+        
+        const messageItem = document.createElement('div');
+        messageItem.className = 'sent-message-item';
+        
+        if (isArabic(message)) {
+            messageItem.classList.add('rtl');
+        } else {
+            messageItem.classList.add('ltr'); // Explicitly add ltr for non-Arabic messages
         }
 
-        quizSocket.onopen = function() {
-            console.log('Student socket opened');
-            let studentName = sessionStorage.getItem('studentName');
-            if (!studentName) {
-                studentName = prompt("Please enter your name:");
-                if (studentName) {
-                    sessionStorage.setItem('studentName', studentName);
-                }
-            }
-            if (studentName) {
-                // Display the student's name on the page
-                studentNameDisplay.textContent = studentName;
-                quizSocket.send(JSON.stringify({
-                    'type': 'student_join',
-                    'content': studentName
-                }));
-            }
-        };
+        messageItem.innerHTML = `
+            <span class="edit-icon">&#9998;</span>
+            <p class="sent-message-text">${message}</p>
+        `;
 
-        quizSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            console.log("Received message:", data);
+        const editIcon = messageItem.querySelector('.edit-icon');
+        editIcon.addEventListener('click', () => {
+            studentQuestionInput.value = message;
+            studentQuestionInput.focus();
+        });
 
-            if (data.type === 'question') {
-                currentQuestionData = data.content;
-                
-                // Clear any previous timer before starting a new one
+        messagesContainer.appendChild(messageItem);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    sendQuestionButton.addEventListener('click', sendQuestion);
+
+    studentQuestionInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendQuestion();
+        }
+    });
+    
+    function startTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+        timerDisplay.textContent = `${timeLeft}s`;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = `${timeLeft}s`;
+            if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                timerMessage.textContent = "";
-                timeLeft = currentQuestionData.time_limit;
-
-                // Clear the current question content and options
-                questionDisplay.innerHTML = '';
-                optionsContainer.innerHTML = '';
+                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                timerMessage.textContent = "انتهى الوقت.";
                 
-                // Display the question text
-                const questionText = document.createElement('p');
-                questionText.textContent = currentQuestionData.question_text;
-                questionText.classList.add('question-text');
-                questionDisplay.appendChild(questionText);
-
-                // Check and display question image if available
-                if (currentQuestionData.image_url) {
-                    const img = document.createElement('img');
-                    img.src = currentQuestionData.image_url;
-                    img.alt = "Question Image";
-                    img.className = "question-image";
-                    img.onerror = function() {
-                        console.error("Failed to load image at:", this.src);
-                        this.alt = "Image not found.";
-                        this.outerHTML = "<p>Image not found.</p>";
-                    };
-                    questionDisplay.appendChild(img);
-                }
-                
-                // Create and add option buttons
-                currentQuestionData.options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-btn';
-                    button.textContent = option;
-                    button.addEventListener('click', () => {
-                        // Send the answer to the server for scoring
-                        quizSocket.send(JSON.stringify({
-                            'type': 'student_answer',
-                            'content': option
-                        }));
-                        
-                        // Disable all buttons to prevent double-clicking
-                        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-                        clearInterval(timerInterval);
-                        timerMessage.textContent = "تم إرسال إجابتك. استمع الآن للشرح وعد عندما يعرض المعلم السؤال التالي";
-
-                        // Highlight the selected answer and the correct answer
-                        const correctAnswer = currentQuestionData.correct_answer;
-                        if (option.trim() === correctAnswer.trim()) {
-                            button.classList.add('correct');
-                        } else {
-                            button.classList.add('incorrect');
-                            // Find and highlight the correct answer
-                            document.querySelectorAll('.option-btn').forEach(btn => {
-                                if (btn.textContent.trim() === correctAnswer.trim()) {
-                                    btn.classList.add('correct');
-                                }
-                            });
+                if (currentQuestionData) {
+                    const correctAnswer = currentQuestionData.correct_answer;
+                    document.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.dataset.optionValue.trim() === correctAnswer.trim()) {
+                            btn.classList.add('correct');
                         }
                     });
-                    optionsContainer.appendChild(button);
-                });
+                }
+            }
+        }, 1000);
+    }
 
-                startTimer();
+    quizSocket.onopen = function() {
+        console.log('Student socket opened');
+        if (myName) {
+            quizSocket.send(JSON.stringify({
+                'type': 'student_join',
+                'content': myName
+            }));
+        }
+    };
 
-            } else if (data.type === 'update_score') {
-                const scores = data.content;
-                const myName = sessionStorage.getItem('studentName');
-                if (myName) {
-                    const myUserScore = Object.values(scores).find(student => student.name === myName);
-                    if (myUserScore) {
-                        studentScoreSpan.textContent = myUserScore.score;
+    quizSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log("Received message:", data);
 
-                        const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
-                        let rank = 1;
-                        let lastScore = -1;
-                        
-                        for (let i = 0; i < sortedStudents.length; i++) {
-                            const student = sortedStudents[i];
-                            if (student.score < lastScore) {
-                                rank = i + 1;
-                            }
-                            if (student.name === myName) {
-                                studentRankSpan.textContent = rank;
-                                break;
-                            }
-                            lastScore = student.score;
+        if (data.type === 'new_question' || data.type === 'question') {
+            currentQuestionData = data.content;
+            initialMessage.style.display = 'none';
+            
+            clearInterval(timerInterval);
+            timerMessage.textContent = "";
+            timeLeft = currentQuestionData.time_limit;
+
+            questionContent.innerHTML = '';
+            optionsContainer.innerHTML = '';
+            
+            const questionText = document.createElement('p');
+            questionText.textContent = currentQuestionData.question_text;
+            questionText.classList.add('question-text');
+            questionContent.appendChild(questionText);
+
+            if (currentQuestionData.image_url) {
+                const img = document.createElement('img');
+                img.src = currentQuestionData.image_url;
+                img.alt = "Question Image";
+                img.className = "question-image";
+                img.onerror = function() {
+                    console.error("Failed to load image at:", this.src);
+                    this.alt = "Image not found.";
+                    this.outerHTML = "<p>Image not found.</p>";
+                };
+                questionContent.appendChild(img);
+            }
+            
+            currentQuestionData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.dataset.optionValue = option;
+                button.textContent = option;
+                button.addEventListener('click', () => {
+                    const selectedOption = button.dataset.optionValue;
+
+                    quizSocket.send(JSON.stringify({
+                        'type': 'student_answer',
+                        'content': selectedOption
+                    }));
+                    
+                    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                    clearInterval(timerInterval);
+                    timerMessage.textContent = "تم إرسال إجابتك.";
+
+                    const correctAnswer = currentQuestionData.correct_answer;
+                    if (selectedOption.trim() === correctAnswer.trim()) {
+                        button.classList.add('correct');
+                    } else {
+                        button.classList.add('incorrect');
+                    }
+
+                    document.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.dataset.optionValue.trim() === correctAnswer.trim()) {
+                            btn.classList.add('correct');
                         }
+                    });
+                });
+                optionsContainer.appendChild(button);
+            });
+
+            startTimer();
+
+        } else if (data.type === 'update_score') {
+            const scores = data.content;
+            if (myName) {
+                const myUserScore = Object.values(scores).find(student => student.name === myName);
+                if (myUserScore) {
+                    studentScoreSpan.textContent = myUserScore.score;
+
+                    const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
+                    let rank = 1;
+                    let lastScore = -1;
+                    
+                    for (let i = 0; i < sortedStudents.length; i++) {
+                        const student = sortedStudents[i];
+                        if (student.score < lastScore) {
+                            rank = i + 1;
+                        }
+                        if (student.name === myName) {
+                            studentRankSpan.textContent = rank;
+                            break;
+                        }
+                        lastScore = student.score;
                     }
                 }
-            } else if (data.type === 'timer_pause') {
-                // Clear the timer and update the timeLeft
-                clearInterval(timerInterval);
-                timeLeft = data.content;
-            } else if (data.type === 'timer_resume') {
-                // Resume the timer by calling startTimer with the current timeLeft
-                startTimer();
-            } else if (data.type === 'quiz_end') {
-                questionDisplay.innerHTML = `<p>${data.content}</p>`;
-                optionsContainer.innerHTML = '';
-                clearInterval(timerInterval);
-                timerDisplay.textContent = "";
-                timerMessage.textContent = "انتهت الاسئلة!";
             }
-            MathJax.typeset();
-        };
+        } else if (data.type === 'timer_pause') {
+            clearInterval(timerInterval);
+            timeLeft = data.content;
+            timerMessage.textContent = "الانتظار لأمر المعلم.";
+        } else if (data.type === 'timer_resume') {
+            timerMessage.textContent = "";
+            startTimer();
+        } else if (data.type === 'quiz_end') {
+            questionContent.innerHTML = `<p style="font-size: 20px; color: #10b981;">انتهى الاختبار. شكرا لمشاركتك!</p>`;
+            optionsContainer.innerHTML = '';
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "";
+            timerMessage.textContent = "";
+        } else if (data.type === 'kick_user') {
+            if (data.content === myName) {
+                alert("You have been disconnected by the teacher.");
+                window.location.href = "{{ urls.courses.home }}";
+            }
+        }
+        MathJax.typeset();
+    };
 
-        quizSocket.onclose = function() {
-            console.error('Student socket closed unexpectedly');
-        };
-    </script>
+    quizSocket.onclose = function() {
+        console.error('Student socket closed unexpectedly');
+    };
+</script>
+
 </body>
 {% endblock %}
