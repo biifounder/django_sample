@@ -141,6 +141,11 @@
                 }
 
                 updateQuestionsTable();
+            } else if (data.type === 'quiz_reset') {
+                 // Reset student data when the quiz is reset
+                studentQuestions = {};
+                messageOrderCounter = 0;
+                questionsTableBody.innerHTML = '';
             }
         };
 

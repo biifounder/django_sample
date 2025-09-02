@@ -54,33 +54,32 @@ margin-top: 10px;
         border-radius: 5px;
         border-right: 4px solid #10b981;
         position: relative;
-        direction: ltr; /* Default direction */
-        text-align: right; /* Align message to the right by default */
+    }
+    
+    .sent-message-item.ltr {
+        direction: ltr;
+        text-align: left;
     }
 
     .sent-message-item.rtl {
         direction: rtl;
+        text-align: right;
         border-right: none;
         border-left: 4px solid #10b981;
-        text-align: right; /* Ensure RTL messages stay right-aligned */
-    }
-
-    .sent-message-item.ltr {
-        direction: ltr;
-        text-align: right; /* LTR messages, but still aligned right within the container */
     }
 
     .sent-message-text {
         color: #4b5563;
         font-size: 1em;
         line-height: 1.5;
-        padding-right: 30px; /* Space for the edit icon on the left (LTR default) */
-        padding-left: 0;
+        display: block;
+        padding-left: 30px; /* Space for the edit icon */
+        padding-right: 0;
     }
     
     .sent-message-item.rtl .sent-message-text {
-        padding-left: 30px; /* Space for the edit icon on the right (RTL) */
-        padding-right: 0;
+        padding-left: 0;
+        padding-right: 30px;
     }
     
     .edit-icon {
@@ -90,12 +89,12 @@ margin-top: 10px;
         transform: translateY(-50%);
         cursor: pointer;
         color: #4a90e2;
-        font-size: 1.5em; /* Larger icon */
+        font-size: 1.5em;
     }
 
     .sent-message-item.rtl .edit-icon {
         left: auto;
-        right: 10px; /* Position for RTL messages (icon on right) */
+        right: 10px;
     }
 
     .edit-icon:hover {
@@ -132,8 +131,8 @@ margin-top: 10px;
 
         <div style="margin-top: 30px;">
             <h2>أرسل للمعلم</h2>
-            <textarea id="student-question-input" placeholder="اكتب رسالتك هنا..." style="width:100%; height:80px; padding:10px; border-radius:5px;"></textarea>
-            <button id="send-question-button" style="width:100%; padding:10px; margin-top:10px; background-color:#10b981; color:white; border-radius:5px;">أرسل</button>
+            <textarea id="student-question-input" placeholder="اكتب سؤالك هنا..." style="width:100%; height:80px; padding:10px; border-radius:5px;"></textarea>
+            <button id="send-question-button" style="width:100%; padding:10px; margin-top:10px; background-color:#10b981; color:white; border-radius:5px;">ارسال السؤال</button>
         </div>
         
         <div id="messages-container" style="margin-top: 20px;">
@@ -237,7 +236,7 @@ margin-top: 10px;
         if (isArabic(message)) {
             messageItem.classList.add('rtl');
         } else {
-            messageItem.classList.add('ltr'); // Explicitly add ltr for non-Arabic messages
+            messageItem.classList.add('ltr');
         }
 
         messageItem.innerHTML = `
