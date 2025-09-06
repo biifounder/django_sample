@@ -139,8 +139,8 @@
 
         <!-- buttons with pop-up -->
         <div class="container"> 
-          <button style="width:48%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
-          <button style="width:48%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
+          <button style="width:40%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
+          <button style="width:40%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
         </div>
         <div class="overlay" id="overlay1" onclick="closePopup('popup1', 'overlay1')"></div>
         <div class="overlay" id="overlay2" onclick="closePopup('popup2', 'overlay2')"></div>
@@ -244,7 +244,7 @@
               <a style="width:30px; font-size:1px;" title="حذف" href="/delete/${unit.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
               <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
             {% endif %}
-            ${unit.title}</div>
+            ملخص ${unit.title}</div>
           {% if year == '9' %}
             <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>
           {% endif %}
@@ -270,10 +270,10 @@
                 <a style="width:50px; font-size:1px;" title="عرض الحصة" href="/live/teacher/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/live.svg' %}"></a> 
               </div>
             {% endif %} 
-            <button class="lesson" style="width:75%; float:right" 
+            <button class="lesson" style="width:85%; float:right" 
               onclick='window.location.href="/interactive/${lesson.k}"'>
               
-              <div style="font-size:25px; float:right">${lesson.title}</div>
+              <div style="font-size:25px; float:right">شرح ${lesson.title}</div>
               {% if year == '9' %}
                 <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
               {% endif %}

@@ -34,6 +34,25 @@
         .message-ltr {
             direction: ltr;
         }
+
+        /* Styling for question statistics */
+        .stats-container { margin-top: 20px; }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            background-color: #f0f4f8;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .stat-item.correct {
+            border-color: #22c55e;
+            background-color: #e7f6d5;
+        }
+        .option-text { flex: 1; text-align: right; margin-right: 15px; }
+        .answer-count { font-weight: bold; color: #007bff; }
     </style>
 </head>
 <body>
@@ -47,6 +66,11 @@
             <button id="pause-resume-button" style="display: none; width:30%">انتظر</button>
         </div>
 
+        <div id="question-stats-section" style="display: none;">
+            <h2>إحصائيات السؤال</h2>
+            <div id="stats-container" class="stats-container"></div>
+        </div>
+        
         <h1>الدرجات</h1>
         <table id="score-table" style="width:100%; border-collapse: collapse;">
             <thead>
@@ -54,6 +78,8 @@
                     <th>المركز</th>
                     <th>اسم الطالب</th>
                     <th>الدرجة</th>
+                    <th>أسئلة لم يجيب عليها</th>
+                    <th>عدد الرسائل</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,7 +95,6 @@
                 <tr>
                     <th style="width: 20%;">اسم الطالب</th>
                     <th class="message-column">آخر رسالة</th>
-                    <th style="width: 20%;">عدد الرسائل</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,6 +121,8 @@
         const totalQuestionsSpan = document.getElementById('total-questions');
         const scoreTableBody = document.querySelector('#score-table tbody');
         const questionsTableBody = document.querySelector('#questions-table tbody');
+        const statsSection = document.getElementById('question-stats-section');
+        const statsContainer = document.getElementById('stats-container');
         
         let currentQuestionIndex = 0;
         let timerInterval;
@@ -120,7 +147,7 @@
             const data = JSON.parse(e.data);
             console.log("Received message:", data);
 
-            if (data.type === 'update_score' || data.type === 'student_joined') {
+            if (data.type === 'update_score') {
                 updateScoreTable(data.content);
             } else if (data.type === 'student_question') {
                 const studentName = data.content.name;
@@ -146,6 +173,8 @@
                 studentQuestions = {};
                 messageOrderCounter = 0;
                 questionsTableBody.innerHTML = '';
+            } else if (data.type === 'question_stats') {
+                displayQuestionStats(data.content);
             }
         };
 
@@ -187,6 +216,10 @@
                     ...currentQuestion,
                     options: shuffledOptions
                 };
+                
+                // Clear previous question stats
+                statsSection.style.display = 'none';
+                statsContainer.innerHTML = '';
 
                 quizSocket.send(JSON.stringify({
                     'type': 'new_question',
@@ -228,7 +261,7 @@
 
         function updateScoreTable(scores) {
             const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
-            const totalQuestions = totalQuestionsSpan.textContent;
+            const totalQuestions = parseInt(totalQuestionsSpan.textContent);
             scoreTableBody.innerHTML = '';
             let rank = 1;
             let lastScore = -1;
@@ -237,16 +270,58 @@
                     rank = index + 1;
                 }
                 const row = document.createElement('tr');
+                const answeredQuestions = student.answered || 0;
+                const unansweredQuestions = totalQuestions - answeredQuestions;
+                const messageCount = student.message_count || 0;
+                
                 row.innerHTML = `
                     <td>${rank}</td>
                     <td>${student.name}</td>
                     <td>${student.score} / ${totalQuestions}</td>
+                    <td>${unansweredQuestions}</td>
+                    <td>${messageCount}</td>
                 `;
                 scoreTableBody.appendChild(row);
                 lastScore = student.score;
             });
         }
         
+        function displayQuestionStats(stats) {
+            statsContainer.innerHTML = '';
+            statsSection.style.display = 'block';
+
+            // Convert stats object to an array for sorting
+            const optionsArray = Object.entries(stats.counts);
+
+            // Sort array to put the correct answer first
+            optionsArray.sort(([optionA, countA], [optionB, countB]) => {
+                const isCorrectA = optionA.trim() === stats.correct_answer.trim();
+                const isCorrectB = optionB.trim() === stats.correct_answer.trim();
+                
+                if (isCorrectA && !isCorrectB) return -1;
+                if (!isCorrectA && isCorrectB) return 1;
+                
+                // For other options, sort by count descending
+                return countB - countA;
+            });
+
+            optionsArray.forEach(([option, count]) => {
+                const isCorrect = option.trim() === stats.correct_answer.trim();
+                const item = document.createElement('div');
+                item.className = 'stat-item';
+                if (isCorrect) {
+                    item.classList.add('correct');
+                }
+                
+                item.innerHTML = `
+                    <span class="option-text">${option}</span>
+                    <span class="answer-count">${count}</span>
+                `;
+                statsContainer.appendChild(item);
+            });
+            MathJax.typeset();
+        }
+
         function updateQuestionsTable() {
             questionsTableBody.innerHTML = '';
             const allStudents = Object.values(studentQuestions);
@@ -262,7 +337,6 @@
                 row.innerHTML = `
                     <td>${studentData.name}</td>
                     <td>${studentData.lastMessage}</td>
-                    <td>${studentData.messageCount}</td>
                 `;
                 questionsTableBody.appendChild(row);
             });
@@ -274,7 +348,7 @@
 
         function exportScoresToCsv() {
             const tableRows = scoreTableBody.querySelectorAll('tr');
-            let csvContent = "Rank,Student,Score\n";
+            let csvContent = "Rank,Student,Score,Unanswered,Messages\n";
             tableRows.forEach(row => {
                 const cells = row.querySelectorAll('td');
                 const rowData = Array.from(cells).map(cell => cell.textContent);

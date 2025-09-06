@@ -2,20 +2,24 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 class QuizConsumer(AsyncWebsocketConsumer):
-    # Dictionary to hold scores for each room and the current question.
-    # Structure: {'room_name': {'scores': {'user_id': {'name': 'Name', 'score': 0}}, 'current_question': {}}}
+    # Dictionary to hold scores and state for each room.
+    # Structure: {'room_name': {'scores': {}, 'current_question': {}, 'questions_sent': 0, 'answer_counts': {}}}
     room_state = {}
 
     async def connect(self):
         try:
             self.room_name = self.scope['url_route']['kwargs'].get('room_name', 'default_room')
             self.room_group_name = f'quiz_{self.room_name}'
+            self.user_id = self.scope['session'].session_key or self.scope['client'][0]
             
             # Initialize state for this room if it's the first connection.
             if self.room_name not in self.room_state:
-                self.room_state[self.room_name] = {'scores': {}, 'current_question': {}}
-            
-            self.user_id = self.scope['session'].session_key or self.scope['client'][0]
+                self.room_state[self.room_name] = {
+                    'scores': {}, 
+                    'current_question': {}, 
+                    'questions_sent': 0,
+                    'answer_counts': {}
+                }
             
             await self.channel_layer.group_add(
                 self.room_group_name,
@@ -40,7 +44,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         try:
-            print(f"Received raw data: {text_data}")
             text_data_json = json.loads(text_data)
             
             message_type = text_data_json.get('type')
@@ -48,6 +51,15 @@ class QuizConsumer(AsyncWebsocketConsumer):
             
             if message_type == 'new_question':
                 self.room_state[self.room_name]['current_question'] = message_content
+                self.room_state[self.room_name]['questions_sent'] += 1
+                
+                # Reset answered_current_question flag for all students
+                for user_id in self.room_state[self.room_name]['scores']:
+                    self.room_state[self.room_name]['scores'][user_id]['answered_current_question'] = False
+                
+                # Reset answer counts for the new question
+                self.room_state[self.room_name]['answer_counts'] = {option: 0 for option in message_content['options']}
+
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
@@ -58,22 +70,54 @@ class QuizConsumer(AsyncWebsocketConsumer):
 
             elif message_type == 'student_answer':
                 submitted_answer = message_content
-                current_question = self.room_state[self.room_name]['current_question']
+                current_question_data = self.room_state[self.room_name]['current_question']
                 
-                if current_question and submitted_answer == current_question.get('correct_answer'):
+                if current_question_data and 'correct_answer' in current_question_data:
+                    # Increment answered count
                     if self.user_id in self.room_state[self.room_name]['scores']:
-                        self.room_state[self.room_name]['scores'][self.user_id]['score'] += 1
-                        await self.channel_layer.group_send(
-                            self.room_group_name,
-                            {
-                                'type': 'update_score',
-                                'content': self.room_state[self.room_name]['scores']
+                        self.room_state[self.room_name]['scores'][self.user_id]['answered'] += 1
+
+                    # Update answer counts for this question
+                    if submitted_answer in self.room_state[self.room_name]['answer_counts']:
+                        self.room_state[self.room_name]['answer_counts'][submitted_answer] += 1
+                    
+                    if submitted_answer.strip() == current_question_data.get('correct_answer').strip():
+                        # Check if the student has already answered the current question to avoid double-scoring
+                        if self.user_id in self.room_state[self.room_name]['scores'] and not self.room_state[self.room_name]['scores'][self.user_id].get('answered_current_question'):
+                            self.room_state[self.room_name]['scores'][self.user_id]['score'] += 1
+                            self.room_state[self.room_name]['scores'][self.user_id]['answered_current_question'] = True
+                    
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'update_score',
+                            'content': self.room_state[self.room_name]['scores']
+                        }
+                    )
+                    
+                    # Send question stats to the teacher
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'question_stats',
+                            'content': {
+                                'counts': self.room_state[self.room_name]['answer_counts'],
+                                'correct_answer': current_question_data['correct_answer']
                             }
-                        )
-            
+                        }
+                    )
+
             elif message_type == 'student_join':
-                print(f"Student '{message_content}' joined the room.")
-                self.room_state[self.room_name]['scores'][self.user_id] = {'name': message_content, 'score': 0}
+                student_name = message_content
+                if self.user_id not in self.room_state[self.room_name]['scores']:
+                    self.room_state[self.room_name]['scores'][self.user_id] = {
+                        'name': student_name, 
+                        'score': 0, 
+                        'answered': 0,
+                        'message_count': 0,
+                        'answered_current_question': False
+                    }
+                
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
@@ -92,7 +136,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 )
 
             elif message_type == 'timer_pause':
-                print(f"Received timer pause signal from teacher.")
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
@@ -102,7 +145,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 )
 
             elif message_type == 'timer_resume':
-                print(f"Received timer resume signal from teacher.")
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
@@ -112,12 +154,25 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 )
             
             elif message_type == 'student_question':
-                print(f"Received question from student {message_content['name']}.")
+                # Increment message count for a student question
+                if self.user_id in self.room_state[self.room_name]['scores']:
+                    self.room_state[self.room_name]['scores'][self.user_id]['message_count'] += 1
+                
+                # Send the student question message to the teacher
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
                         'type': 'student_question',
                         'content': message_content
+                    }
+                )
+                
+                # Send an update_score message to also update the top table
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'update_score',
+                        'content': self.room_state[self.room_name]['scores']
                     }
                 )
 
@@ -132,7 +187,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 'type': 'question',
                 'content': event['content']
             }))
-            print(f"✅ Sent question to client: {event['content']['question_text']}")
         except Exception as e:
             print(f"❌ Error sending question to client: {e}")
 
@@ -145,6 +199,12 @@ class QuizConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             print(f"❌ Error sending score update: {e}")
 
+    async def question_stats(self, event):
+        try:
+            await self.send(text_data=json.dumps(event))
+        except Exception as e:
+            print(f"❌ Error sending question stats: {e}")
+    
     async def quiz_end(self, event):
         try:
             await self.send(text_data=json.dumps({
@@ -157,20 +217,17 @@ class QuizConsumer(AsyncWebsocketConsumer):
     async def timer_pause(self, event):
         try:
             await self.send(text_data=json.dumps(event))
-            print("✅ Sent timer_pause signal to client.")
         except Exception as e:
             print(f"❌ Error sending timer_pause message: {e}")
 
     async def timer_resume(self, event):
         try:
             await self.send(text_data=json.dumps(event))
-            print("✅ Sent timer_resume signal to client.")
         except Exception as e:
             print(f"❌ Error sending timer_resume message: {e}")
     
     async def student_question(self, event):
         try:
             await self.send(text_data=json.dumps(event))
-            print("✅ Sent student question to client.")
         except Exception as e:
             print(f"❌ Error sending student question: {e}")

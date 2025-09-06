@@ -7,27 +7,27 @@
 <title>صفحة الطالب</title>
 <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
 <style>
-body { font-family: sans-serif; max-width: 1600px; margin: auto; padding: 20px; }
-.question-content { min-height: 100px; padding: 20px; text-align: right; font-size: 1.5em; font-weight: bold; }
-.options-container { display: flex; flex-direction: column; }
-.option-btn {
-cursor: pointer;
-transition: background-color 0.3s ease;
-color: black;
-font-size: 1.2em;
-width: 100%;
-min-height: 40px;
-padding-right: 1.2em;
-padding-left: 1.2em;
-text-align: right;
-background: transparent;
-border: 1px solid #25252b;
-border-radius: 0.3em;
-margin-top: 10px;
-}
-.option-btn:first-child { margin-top: 0; }
-.option-btn:hover { background-color: #9d9db6; }
-.option-btn:disabled { cursor: not-allowed; }
+    body { font-family: sans-serif; max-width: 1600px; margin: auto; padding: 20px; }
+    .question-content { min-height: 100px; padding: 20px; text-align: right; font-size: 1.5em; font-weight: bold; }
+    .options-container { display: flex; flex-direction: column; }
+    .option-btn {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        color: black;
+        font-size: 1.2em;
+        width: 100%;
+        min-height: 40px;
+        padding-right: 1.2em;
+        padding-left: 1.2em;
+        text-align: right;
+        background: transparent;
+        border: 1px solid #25252b;
+        border-radius: 0.3em;
+        margin-top: 10px;
+    }
+    .option-btn:first-child { margin-top: 0; }
+    .option-btn:hover { background-color: #9d9db6; }
+    .option-btn:disabled { cursor: not-allowed; }
 
     .option-btn.correct {
         background-color: #e7f6d5 !important;
@@ -130,9 +130,9 @@ margin-top: 10px;
         <p class="mt-4">درجتك: <span id="student-score">0</span>   &nbsp;&nbsp;&nbsp;      أنت في المركز: <span id="student-rank">-</span></p>
 
         <div style="margin-top: 30px;">
-            <h2>أرسل للمعلم</h2>
+            <p style="font-size:25 ; color:blue">أرسل للمعلم</p>
             <textarea id="student-question-input" placeholder="اكتب سؤالك هنا..." style="width:100%; height:80px; padding:10px; border-radius:5px;"></textarea>
-            <button id="send-question-button" style="width:100%; padding:10px; margin-top:10px; background-color:#10b981; color:white; border-radius:5px;">ارسال السؤال</button>
+            <button id="send-question-button" style="width:30% ; background-color:rgb(209, 209, 209)" >أرسل</button>
         </div>
         
         <div id="messages-container" style="margin-top: 20px;">
@@ -393,7 +393,7 @@ margin-top: 10px;
         } else if (data.type === 'timer_pause') {
             clearInterval(timerInterval);
             timeLeft = data.content;
-            timerMessage.textContent = "الانتظار لأمر المعلم.";
+            timerMessage.textContent = "انتظر توجيه المعلم.";
         } else if (data.type === 'timer_resume') {
             timerMessage.textContent = "";
             startTimer();
