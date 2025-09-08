@@ -224,15 +224,23 @@
     scoreDisplay.textContent = `${currentScore} / ${totalQuestions}`;
 
     /**
-     * Helper function to convert a time string in "min:sec" format to total seconds.
-     * @param {string} timeString - The time string, e.g., "0:15" or "1:30".
+     * Helper function to convert a time string in "min:sec" or "hr:min:sec" format to total seconds.
+     * @param {string} timeString - The time string, e.g., "0:15" or "1:30" or "1:01:05".
      * @returns {number} The total number of seconds.
      */
     function convertTimeToSeconds(timeString) {
         const parts = timeString.split(':');
-        const minutes = parseInt(parts[0], 10);
-        const seconds = parseInt(parts[1], 10);
-        return (minutes * 60) + seconds;
+        if (parts.length === 3) {
+            const hours = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(parts[2], 10);
+            return (hours * 3600) + (minutes * 60) + seconds;
+        } else if (parts.length === 2) {
+            const minutes = parseInt(parts[0], 10);
+            const seconds = parseInt(parts[1], 10);
+            return (minutes * 60) + seconds;
+        }
+        return 0; // Return 0 for invalid formats
     }
 
     // --- YouTube API Logic ---
@@ -319,6 +327,7 @@
         qData.options.forEach(option => {
             const button = document.createElement('button');
             button.textContent = option;
+            button.setAttribute('data-option', option); // FIX: Store the original option text in a data attribute
             button.className = 'option-btn';
             button.onclick = () => handleAnswer(button, option, qData.correctAnswer, convertTimeToSeconds(qData.time));
             optionsContainer.appendChild(button);
@@ -345,13 +354,11 @@
         const allButtons = optionsContainer.querySelectorAll('button');
         allButtons.forEach(btn => btn.disabled = true);
 
-        let correctButton;
-        allButtons.forEach(btn => {
-            if (btn.textContent === correctAnswer) {
-                correctButton = btn;
-                btn.classList.add('correct');
-            }
-        });
+        // FIX: Find the correct button by its data attribute, not textContent
+        const correctButton = Array.from(allButtons).find(btn => btn.getAttribute('data-option') === correctAnswer);
+        if (correctButton) {
+            correctButton.classList.add('correct');
+        }
 
         if (selectedOption !== correctAnswer) {
             clickedButton.classList.add('incorrect');
@@ -376,14 +383,11 @@
         const allButtons = optionsContainer.querySelectorAll('button');
         allButtons.forEach(btn => btn.disabled = true);
         
-        // Show the correct answer
-        let correctButton;
-        allButtons.forEach(btn => {
-            if (btn.textContent === qData.correctAnswer) {
-                correctButton = btn;
-                btn.classList.add('correct');
-            }
-        });
+        // FIX: Find the correct button by its data attribute, not textContent
+        const correctButton = Array.from(allButtons).find(btn => btn.getAttribute('data-option') === qData.correctAnswer);
+        if (correctButton) {
+            correctButton.classList.add('correct');
+        }
         
         showMessage(`انتهى الوقت، الإجابة الصحيحة كانت: ${qData.correctAnswer}.`);
 
