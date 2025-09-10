@@ -3654,7 +3654,7 @@
   "pk": 49,
   "fields": {
     "password": "pbkdf2_sha256$720000$S2ayCZ3ZFBYrKoqZoDQn1p$/XQ8GkV5OihKEtKgN22Ljmkp7UOvCECiUGH7o7KZDWQ=",
-    "last_login": "2025-09-03T17:01:38.137Z",
+    "last_login": "2025-09-09T20:42:34.900Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4248,6 +4248,29 @@
   }
 },
 {
+  "model": "courses.user",
+  "pk": 82,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$6EG1GugxgBKBUv1O3dRyjm$Lu797OnIulGEJfut0JeE8EYqO3mBMhQcHJMDmGb3Vhk=",
+    "last_login": "2025-09-09T17:44:44.605Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-09-09T17:44:44.240Z",
+    "name": "مريم خالد ",
+    "username": null,
+    "email": "alaa1357246999@gmail.com",
+    "year": "10",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "courses.year",
   "pk": 1,
   "fields": {
@@ -4816,7 +4839,7 @@
   "fields": {
     "user": 60,
     "k": 1,
-    "percent": 32
+    "percent": 36
   }
 },
 {
@@ -4951,6 +4974,15 @@
   "fields": {
     "user": 81,
     "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 76,
+  "fields": {
+    "user": 82,
+    "k": 2,
     "percent": 0
   }
 },
@@ -5527,7 +5559,7 @@
   "fields": {
     "user": 60,
     "k": 1,
-    "percent": 32
+    "percent": 36
   }
 },
 {
@@ -5662,6 +5694,15 @@
   "fields": {
     "user": 81,
     "k": 1,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 76,
+  "fields": {
+    "user": 82,
+    "k": 2,
     "percent": 0
   }
 },
@@ -8002,7 +8043,7 @@
   "fields": {
     "user": 60,
     "k": 1,
-    "percent": 60
+    "percent": 67
   }
 },
 {
@@ -8861,6 +8902,24 @@
   }
 },
 {
+  "model": "courses.uniteval",
+  "pk": 360,
+  "fields": {
+    "user": 82,
+    "k": 11,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 361,
+  "fields": {
+    "user": 82,
+    "k": 14,
+    "percent": 0
+  }
+},
+{
   "model": "courses.lesson",
   "pk": 1,
   "fields": {
@@ -9421,7 +9480,7 @@
     "p": 13,
     "s": 4,
     "y": 4,
-    "video": "XupfLM8stXE"
+    "video": "PNtEpTdtQP8"
   }
 },
 {
@@ -9493,7 +9552,7 @@
     "p": 13,
     "s": 4,
     "y": 4,
-    "video": null
+    "video": "nfD4YDmKdX0"
   }
 },
 {
@@ -16987,7 +17046,7 @@
   "fields": {
     "user": 60,
     "k": 5,
-    "percent": 25
+    "percent": 81
   }
 },
 {
@@ -20182,6 +20241,42 @@
   "fields": {
     "user": 1,
     "k": 55,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1188,
+  "fields": {
+    "user": 82,
+    "k": 33,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1189,
+  "fields": {
+    "user": 82,
+    "k": 34,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1190,
+  "fields": {
+    "user": 82,
+    "k": 48,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1191,
+  "fields": {
+    "user": 82,
+    "k": 49,
     "percent": 0
   }
 },
@@ -83076,7 +83171,7 @@
     "user": 60,
     "k": 111,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -83637,7 +83732,7 @@
     "user": 60,
     "k": 62,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -83758,7 +83853,7 @@
     "user": 60,
     "k": 75,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -84066,7 +84161,7 @@
     "user": 60,
     "k": 110,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -84087,8 +84182,8 @@
   "fields": {
     "user": 60,
     "k": 112,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -84098,8 +84193,8 @@
   "fields": {
     "user": 60,
     "k": 113,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -84110,7 +84205,7 @@
     "user": 60,
     "k": 114,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -84120,8 +84215,8 @@
   "fields": {
     "user": 60,
     "k": 115,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -84297,7 +84392,7 @@
     "user": 60,
     "k": 132,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 1
   }
 },
@@ -107584,18 +107679,18 @@
 },
 {
   "model": "sessions.session",
-  "pk": "5jmoee32yo8t6it1sv5butxjkegqhscv",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGln-bZylpOcM1tpe4wBypDipEHeHSCmgfTPzXiLQttawdV7ClMVZaHH63SKlB7cd5Du12yzT3NZlinJX5EG7vM6Zn5fD_Tuo1Ou3VsUaBgRyWWEaOBbyaIolBMwIpRhnVUQPzluXYEzEWsOYcfBEqFm8P-IZN78:1uw0zC:Uq0XrRIzLUrJlC2e2rOLhZcDPBqbWfm8YOJCxmoZTVs",
-    "expire_date": "2025-09-23T16:14:26.457Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "5w4ps76tgcsuvifapv19j8169kjn4zq5",
   "fields": {
     "session_data": ".eJxVjMsOgjAQRf-la9MM6cOpS_d-A7l0BkFNSSisjP8uJCx0e885921arMvQrlXndhRzMY05_W4d8lPLDuSBcp9snsoyj53dFXvQam-T6Ot6uH8HA-qw1TEHILEk9QhRUx-RCNT0CgJ8I4EdsfN0ZuJOeVMlZBcDZYh6Mp8v7844Ag:1uptOE:bSqzQ_qKQ8F4UikBAdWKr2Z50C54YHN3lVHnGj5UsyY",
     "expire_date": "2025-09-06T18:54:58.551Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8799pj7bpw81r268yhrzy25mghib7ddf",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEMMDxcuu83kOGhVA0kpV0Z_12bdKHbe865LxZoW2vYRlnCnNmZATv9bpHSo7Qd5Du1W-ept3WZI98VftDBp57L83K4fweVRv3WhRRp4YTTWIwWEkA5aY1HyABoMdp09S6R0YrIJ41ANhImH0G6bB17fwCv9jbf:1uwJkd:mUX_fKB_ysNOAEF8gAxIQane7HAl0DgiZlovrB1V1jk",
+    "expire_date": "2025-09-24T12:16:39.709Z"
   }
 },
 {
