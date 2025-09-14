@@ -273,7 +273,7 @@
             <button class="lesson" style="width:85%; float:right" 
               onclick='window.location.href="/interactive/${lesson.k}"'>
               
-              <div style="font-size:25px; float:right">شرح ${lesson.title}</div>
+              <div style="font-size:25px; float:right"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"> ${lesson.title}</div>
               {% if year == '9' %}
                 <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
               {% endif %}
