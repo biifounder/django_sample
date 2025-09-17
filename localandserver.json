@@ -2868,7 +2868,7 @@
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$720000$dDxLN8aI9ruUIZ25izKO4j$Zkybr9JiMuwUMK7XmhBPJplsKgp62gOxynLeBUVXiMc=",
-    "last_login": "2025-08-29T11:58:02.774Z",
+    "last_login": "2025-09-17T13:55:13.331Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4110,7 +4110,7 @@
   "pk": 64,
   "fields": {
     "password": "pbkdf2_sha256$720000$srCAXRBn1YePt1C5Omogol$qmTinszmd62sMD2J1E3fIIQnAxkQSX5avW83IU8lZR0=",
-    "last_login": "2025-09-14T07:54:16.706Z",
+    "last_login": "2025-09-17T11:12:22.700Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4179,7 +4179,7 @@
   "pk": 71,
   "fields": {
     "password": "pbkdf2_sha256$720000$sFOrGZwrLjMrC07MDP6JkO$p1k7JswGtDGdlL5bBHQSrpqe9FL2NwIfZ+itRxnswTE=",
-    "last_login": "2025-09-13T11:38:07.517Z",
+    "last_login": "2025-09-17T16:51:25.143Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4742,6 +4742,29 @@
     "username": null,
     "email": "mahmoodahmes11@gmail.com",
     "year": "10",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 104,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$QRMv5EcSBupjjFR5XFBiq4$GmwLKwvGbv0VLqLhmLiLhOlghOnipIcAynogFQA2jp0=",
+    "last_login": "2025-09-17T17:02:57.790Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-09-17T17:02:57.424Z",
+    "name": "أريچ محمود سليمان ",
+    "username": null,
+    "email": "areejmahmoud221@gmail.com",
+    "year": "11",
     "gov": null,
     "prov": null,
     "school": null,
@@ -5498,7 +5521,7 @@
   "fields": {
     "user": 93,
     "k": 1,
-    "percent": 27
+    "percent": 35
   }
 },
 {
@@ -5579,6 +5602,15 @@
   "fields": {
     "user": 103,
     "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 90,
+  "fields": {
+    "user": 104,
+    "k": 3,
     "percent": 0
   }
 },
@@ -6335,7 +6367,7 @@
   "fields": {
     "user": 93,
     "k": 1,
-    "percent": 27
+    "percent": 35
   }
 },
 {
@@ -6416,6 +6448,15 @@
   "fields": {
     "user": 103,
     "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 90,
+  "fields": {
+    "user": 104,
+    "k": 3,
     "percent": 0
   }
 },
@@ -6595,8 +6636,8 @@
     "k": "u16",
     "p": 4,
     "y": 4,
-    "file": "0",
-    "file_url": "/media/u16/0.pdf"
+    "file": "01",
+    "file_url": "/media/u16/01.pdf"
   }
 },
 {
@@ -9767,7 +9808,7 @@
   "fields": {
     "user": 93,
     "k": 1,
-    "percent": 50
+    "percent": 65
   }
 },
 {
@@ -10370,6 +10411,24 @@
   "fields": {
     "user": 103,
     "k": 14,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 443,
+  "fields": {
+    "user": 104,
+    "k": 12,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 444,
+  "fields": {
+    "user": 104,
+    "k": 17,
     "percent": 0
   }
 },
@@ -22214,7 +22273,7 @@
   "fields": {
     "user": 93,
     "k": 4,
-    "percent": 48
+    "percent": 66
   }
 },
 {
@@ -22232,7 +22291,7 @@
   "fields": {
     "user": 93,
     "k": 6,
-    "percent": 0
+    "percent": 100
   }
 },
 {
@@ -22241,7 +22300,7 @@
   "fields": {
     "user": 93,
     "k": 7,
-    "percent": 28
+    "percent": 83
   }
 },
 {
@@ -24167,6 +24226,78 @@
   "fields": {
     "user": 1,
     "k": 60,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1456,
+  "fields": {
+    "user": 104,
+    "k": 35,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1457,
+  "fields": {
+    "user": 104,
+    "k": 36,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1458,
+  "fields": {
+    "user": 104,
+    "k": 37,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1459,
+  "fields": {
+    "user": 104,
+    "k": 45,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1460,
+  "fields": {
+    "user": 104,
+    "k": 50,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1461,
+  "fields": {
+    "user": 104,
+    "k": 51,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1462,
+  "fields": {
+    "user": 104,
+    "k": 52,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 1463,
+  "fields": {
+    "user": 104,
+    "k": 56,
     "percent": 0
   }
 },
@@ -106575,7 +106706,7 @@
     "user": 93,
     "k": 25,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106585,8 +106716,8 @@
   "fields": {
     "user": 93,
     "k": 13,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106596,8 +106727,8 @@
   "fields": {
     "user": 93,
     "k": 23,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106662,8 +106793,8 @@
   "fields": {
     "user": 93,
     "k": 18,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -106685,7 +106816,7 @@
     "user": 93,
     "k": 20,
     "pscore": 1,
-    "tscore": 1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -106706,8 +106837,8 @@
   "fields": {
     "user": 93,
     "k": 21,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -106783,8 +106914,8 @@
   "fields": {
     "user": 93,
     "k": 137,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106795,7 +106926,7 @@
     "user": 93,
     "k": 5,
     "pscore": 1,
-    "tscore": 1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -106816,8 +106947,8 @@
   "fields": {
     "user": 93,
     "k": 10,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106838,8 +106969,8 @@
   "fields": {
     "user": 93,
     "k": 12,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106937,8 +107068,8 @@
   "fields": {
     "user": 93,
     "k": 15,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106960,7 +107091,7 @@
     "user": 93,
     "k": 24,
     "pscore": 1,
-    "tscore": 1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -106970,8 +107101,8 @@
   "fields": {
     "user": 93,
     "k": 28,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -106992,8 +107123,8 @@
   "fields": {
     "user": 93,
     "k": 17,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -107014,8 +107145,8 @@
   "fields": {
     "user": 93,
     "k": 30,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107069,8 +107200,8 @@
   "fields": {
     "user": 93,
     "k": 35,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107113,8 +107244,8 @@
   "fields": {
     "user": 93,
     "k": 43,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107125,7 +107256,7 @@
     "user": 93,
     "k": 44,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107202,7 +107333,7 @@
     "user": 93,
     "k": 40,
     "pscore": 1,
-    "tscore": 1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -107399,8 +107530,8 @@
   "fields": {
     "user": 93,
     "k": 76,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107421,8 +107552,8 @@
   "fields": {
     "user": 93,
     "k": 80,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107433,7 +107564,7 @@
     "user": 93,
     "k": 82,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107443,8 +107574,8 @@
   "fields": {
     "user": 93,
     "k": 83,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107466,7 +107597,7 @@
     "user": 93,
     "k": 77,
     "pscore": 1,
-    "tscore": 1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -107487,8 +107618,8 @@
   "fields": {
     "user": 93,
     "k": 81,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107641,8 +107772,8 @@
   "fields": {
     "user": 93,
     "k": 103,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107663,8 +107794,8 @@
   "fields": {
     "user": 93,
     "k": 106,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107718,8 +107849,8 @@
   "fields": {
     "user": 93,
     "k": 116,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107762,8 +107893,8 @@
   "fields": {
     "user": 93,
     "k": 117,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107818,7 +107949,7 @@
     "user": 93,
     "k": 125,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107828,8 +107959,8 @@
   "fields": {
     "user": 93,
     "k": 126,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107840,7 +107971,7 @@
     "user": 93,
     "k": 122,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107917,7 +108048,7 @@
     "user": 93,
     "k": 130,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107950,7 +108081,7 @@
     "user": 93,
     "k": 134,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107961,7 +108092,7 @@
     "user": 93,
     "k": 135,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -107972,7 +108103,7 @@
     "user": 93,
     "k": 136,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -108004,8 +108135,8 @@
   "fields": {
     "user": 93,
     "k": 141,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -122837,6 +122968,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "pl526hop4l0z82ojrvy01exgbfvuirj9",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAURO_StWn4bcHWpXvP0PzfKRY1kFBYGe8uJCx0N5n3Zt4q8rqUuNY8xwHqokidfjvh9MzjDvDg8T7pNI3LPIjeFX3Qqm8T8ut6uH8HhWvZ1q6R3EvrcfYsoQPZLQHoyVsIIbWmNSKNIbBlUGedNxbBJfgsgdTnCwRoOIc:1uyqiQ:SBTComsbTWjlJhsko7xtRi7RPppaO8jfMF33k3l6B6I",
+    "expire_date": "2025-10-01T11:52:50.455Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "pn60tdae431a426as2kijkfbcxjjlerx",
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSG8GVy69xvIMFCpGkhKuzL-uzbpQrf3nHNfLOK21riNssQ5szOT7PS7JaRHaTvId2y3zqm3dZkT3xV-0MGvPZfn5XD_DiqO-q0RJyus0Co4JzJpC0Fqh8onBYaCoQzGeFsCIAVC4zyBFDAFyk5p9Oz9AcEeNyU:1uuYEw:YEt-OB7qArY1SBrGMKGJkDs9JGMeXDVsz0iHSbxxHFU",
@@ -122865,14 +123004,6 @@
   "fields": {
     "session_data": "e30:1uobiP:o6YYUM5zuoBdFxU-1DSUZ8fIWEKRTVClltDzFSE-0C4",
     "expire_date": "2025-09-03T05:50:29.399Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "zf4d5s6cec5fhruo6anpn05hh4mf4l5e",
-  "fields": {
-    "session_data": ".eJxVjMEOwiAQRP-FsyFdoOB69O43kIUFqRpISnsy_rtt0oMmc5r3Zt7C07oUv_Y0-4nFRYA4_XaB4jPVHfCD6r3J2OoyT0Huijxol7fG6XU93L-DQr1sazXorCloA0zIbjSAMKJVzjqGCAbPyuXEJieNhIPZAhAskElIHIP4fAG8lzdB:1uxrpY:bCFyIBnW4BWI5mTuxL3Dq8caz3Cj0ABFn92wfpCVCP4",
-    "expire_date": "2025-09-28T18:52:08.624Z"
   }
 }
 ]
