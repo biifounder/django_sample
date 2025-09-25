@@ -5,37 +5,165 @@
 <head>
     <title>حصة تفاعلية</title>
     <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <script src="https://8x8.vc/external_api.js"></script>
     <style>
-        body { font-family: sans-serif; max-width: 1200px; margin: auto; padding: 20px; }
+        /* General page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        /* New Flexbox container for the two-column layout */
+        .main-container {
+            display: flex;
+            height: 100vh; 
+            width: 100%;
+        }
+
+        /* Container for the other page components (left side) */
+        .content-container {
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 20px;
+            box-sizing: border-box;
+            direction: rtl; 
+        }
+        
+        /* Container for the video component */
+        .video-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;            
+        }
+
+        /* Jitsi wrapper without aspect ratio padding */
+        #jitsi-container-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%; /* Full height of parent */
+            background-color: black;
+            border: none;
+            margin-bottom: 20px;
+            max-height: 250px;
+        }
+
+        /* Jitsi container where the API injects the video */
+        #jitsi-teacher-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* New CSS for Side-by-Side Quiz Controls and Stats */
+        #quiz-layout-wrapper {
+            display: flex; 
+            gap: 20px;     
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .quiz-column {
+            flex: 1; 
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        
+        /* Style for the container showing the list of quiz questions */
+        #quiz-list-container {
+            width: 100%;
+            margin-top: 0; 
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            direction: rtl;
+            text-align: right;
+            
+            /* FIX: Make it fill remaining space and scroll internally */
+            flex-grow: 1; 
+            overflow-y: auto; 
+        }
+        .quiz-list-item {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+            font-size: 1.1em;
+            display: flex; 
+            align-items: center;
+        }
+        .quiz-list-item:last-child {
+            margin-bottom: 100px;
+        }
+        
+        /* The question button style */
+        .quiz-question-button {
+            font-size: 25px;
+            color:#000000;
+            background: transparent;
+            border: 1px solid #cacaca;
+            border-radius: 0.5em;   
+            display: inline-block;            
+            width: 95%;
+            margin: 0.2rem;
+            padding-right: 0.2em;        
+            padding-left: 0.2em;        
+            font-family: 'Amiri', serif;       
+            /* line-height: 0px; */
+            text-decoration: none;
+            cursor:pointer; 
+            box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+        }
+
+        .quiz-question-button:hover {
+            background-color:rgb(202, 202, 202);
+            border: 1px solid #696969;
+        }
+
+        .quiz-question-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            color: #666;
+        }
+
+        .quiz-list-question-text {
+            font-weight: bold;
+            color: white; 
+        }
+        
+        /* Existing table and style controls */
         #question-counter { font-size: 1.2em; font-weight: bold; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
         .correct-answer { color: #22c55e; font-weight: bold; }
         .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
-        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; }
         
-        /* New CSS for the questions table */
-        #questions-table th {
-            text-align: right;
-            padding: 10px;
+        /* Timer Display Style (Centered and prominent) */
+        #timer-display { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: #f97316; 
+            margin: 15px 0; 
+            text-align: center; 
         }
-        #questions-table td {
-            text-align: right;
-            padding: 8px;
-            vertical-align: top;
+        
+        /* Styles for the message column in the consolidated table */
+        .message-column { width: 30%; } 
+        .message-rtl { direction: rtl; text-align: right; }
+        .message-ltr { direction: ltr; text-align: left; }
+        
+        /* Class to hide columns from view */
+        .hidden-column {
+            display: none;
         }
-        .message-column {
-            width: 60%;
-        }
-
-        /* Added CSS for text direction */
-        .message-rtl {
-            direction: rtl;
-        }
-        .message-ltr {
-            direction: ltr;
-        }
-
-        /* Styling for question statistics */
+        
         .stats-container { margin-top: 20px; }
         .stat-item {
             display: flex;
@@ -53,58 +181,130 @@
         }
         .option-text { flex: 1; text-align: right; margin-right: 15px; }
         .answer-count { font-weight: bold; color: #007bff; }
+        
+        /* Style for the last sent message container */
+        #last-teacher-message-container {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            direction: rtl;
+            text-align: right;
+            display: none; /* Hide until a message is sent */
+        }
+        #last-teacher-message-text {
+            font-size: 1.1em;
+            color: #333;
+            margin: 0;
+            word-wrap: break-word; /* Ensure long words break */
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>حصة تفاعلية في درس: {{lesson.head}}</h1>
-        
-        <div id="quiz-controls">
-            <p>تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span></p>
+    <div class="main-container">
 
-            <button id="next-question-button" style="width:30%;">السؤال الاول</button>
-            <button id="pause-resume-button" style="display: none; width:30%">انتظر</button>
+        <div class="content-container">
+            <h1 style="direction: rtl;">حصة تفاعلية في درس: {{lesson.head}}</h1>
+            
+            <div style="margin-bottom: 20px; padding: 10px; border-radius: 5px; direction: rtl; text-align: right;">
+                <textarea id="teacher-message-input" placeholder="اكتب رسالة للطلاب هنا..." style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; resize: none;"></textarea>
+                <button id="send-teacher-message-button" style="width: 30%; padding: 8px; color: rgb(0, 0, 0); border: none; border-radius: 4px; cursor: pointer; margin-top: 5px;">إرسال</button>
+            </div>
+            
+            <div id="last-teacher-message-container">
+                <p id="last-teacher-message-text"></p>
+            </div>
+            <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:50%">حفظ الدرجات</button>
+            <table id="score-table" style="width:100%; border-collapse: collapse; direction: rtl;">
+                <thead>
+                    <tr>
+                        <th><h2>المركز</h2></th>
+                        <th><h2>اسم الطالب</h2></th>
+                        <th><h2>الدرجة</h2></th>
+                        <th class="hidden-column"><h2>أسئلة لم يجب عليها</h2></th>
+                        <th class="hidden-column"><h2>عدد الرسائل</h2></th>
+                        <th class="message-column"><h2>آخر رسالة</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            
+    
         </div>
 
-        <div id="question-stats-section" style="display: none;">
-            <h2>إحصائيات السؤال</h2>
-            <div id="stats-container" class="stats-container"></div>
-        </div>
-        
-        <h1>الدرجات</h1>
-        <table id="score-table" style="width:100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th>المركز</th>
-                    <th>اسم الطالب</th>
-                    <th>الدرجة</th>
-                    <th>أسئلة لم يجيب عليها</th>
-                    <th>عدد الرسائل</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
-        
-        <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:40%">حفظ الدرجات</button>
+        <div class="video-container">
+          <div id="jitsi-container-wrapper">
+            <div id="jitsi-teacher-container" style="height: 100%; width: 100%;"></div>  
+          </div> 
 
-        <hr style="margin-top: 30px; margin-bottom: 30px;">
-        <h1>أسئلة الطلاب</h1>
-        <table id="questions-table" style="width:100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th style="width: 20%;">اسم الطالب</th>
-                    <th class="message-column">آخر رسالة</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
+          <div id="quiz-layout-wrapper">                 
+            <div id="quiz-controls" class="quiz-column">
+                <p style="direction: rtl;">تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span></p>
+                <div id="timer-display">جاهز</div> 
+                <button id="pause-resume-button" style="width:100%">انتظر</button>
+            </div>
+    
+            <div id="question-stats-section" class="quiz-column" style="display: none;">
+                <h2>إحصائيات السؤال</h2>
+                <div id="stats-container" class="stats-container"></div>
+            </div>            
+          </div>
+          
+          <div id="quiz-list-container">
+              <h2>قائمة الأسئلة</h2>
+          </div>
+               
+        </div>
+
+
     </div>
 
     <script>
-        let questions = JSON.parse("{{questions|escapejs}}");  
+        // --- 1. INITIAL DATA SETUP ---
+        let questions = [];
+        const questionsData = "{{ questions|escapejs }}";
+        if (questionsData && questionsData.trim().length > 0) {
+            try {
+                questions = JSON.parse(questionsData);
+            } catch (e) {
+                console.error("Failed to parse 'questions' JSON:", e);
+            }
+        }
+        
+        let initialScores = {};
+        const scoreVars = ['initial_scores']; 
 
+        function parseScoreData(varName) {
+            const dataString = "{% if " + varName + " %}{{ " + varName + "|safe }}{% else %}{}{% endif %}";
+
+            if (dataString && dataString.trim().length > 2) {
+                try {
+                    let jsonToParse = dataString.trim();
+                    if (!jsonToParse.startsWith('{')) {
+                        jsonToParse = '"' + jsonToParse + '"';
+                    }
+                    return JSON.parse(jsonToParse);
+                } catch (e) {
+                    console.error(`Failed to parse '${varName}' JSON from Django context:`, e); 
+                }
+            }
+            return null;
+        }
+
+        for (const varName of scoreVars) {
+            const parsedData = parseScoreData(varName);
+            if (parsedData && Object.keys(parsedData).length > 0) {
+                initialScores = parsedData;
+                break;
+            }
+        }
+        
+        console.log('[DEBUG: SCORE DATA] Initial Scores Loaded:', initialScores);
+
+
+        // --- 2. WEBSOCKET SETUP ---
         let quizSocket;
         if (window.location.host === '127.0.0.1:8000') {
             quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
@@ -114,28 +314,51 @@
             quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
         }
         
-        const nextQuestionButton = document.getElementById('next-question-button');
+        // --- 3. DOM ELEMENTS & STATE ---
         const pauseResumeButton = document.getElementById('pause-resume-button');
         const exportScoresButton = document.getElementById('export-scores-button');
         const questionCounter = document.getElementById('question-counter');
         const totalQuestionsSpan = document.getElementById('total-questions');
+        const timerDisplay = document.getElementById('timer-display'); 
         const scoreTableBody = document.querySelector('#score-table tbody');
-        const questionsTableBody = document.querySelector('#questions-table tbody');
         const statsSection = document.getElementById('question-stats-section');
         const statsContainer = document.getElementById('stats-container');
+        const quizListContainer = document.getElementById('quiz-list-container');
+
+        // NEW: Teacher message elements
+        const teacherMessageInput = document.getElementById('teacher-message-input');
+        const sendTeacherMessageButton = document.getElementById('send-teacher-message-button');
+        const lastTeacherMessageContainer = document.getElementById('last-teacher-message-container');
+        const lastTeacherMessageText = document.getElementById('last-teacher-message-text');
         
-        let currentQuestionIndex = 0;
+        let currentQuestionIndex = 0; 
         let timerInterval;
         let timeLeft = 0;
         let isTimerRunning = false;
         let studentQuestions = {};
+        let currentScores = {}; // Global storage for the latest score data
         let messageOrderCounter = 0;
 
         totalQuestionsSpan.textContent = questions.length;
 
+        // FIX: MathJax ready callback
+        if (typeof MathJax !== 'undefined') {
+            MathJax.startup.ready.then(() => {
+                renderQuizList();
+            });
+        } else {
+            renderQuizList();
+        }
+
         quizSocket.onopen = function() {
             console.log('Teacher socket opened');
+            if (Object.keys(initialScores).length > 0) {
+                currentScores = initialScores; // Initialize global scores
+                updateScoreTable(currentScores);
+            }
         };
+
+        // --- 4. CORE FUNCTIONS ---
 
         // Function to detect Arabic characters
         function isArabic(text) {
@@ -143,12 +366,83 @@
             return arabicRegex.test(text);
         }
 
+        // FUNCTION to send a specific question based on its index
+        function sendQuestion(questionIndex) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            statsSection.style.display = 'none';
+
+            if (questionIndex >= 0 && questionIndex < questions.length) {
+                const currentQuestion = questions[questionIndex];
+                const shuffledOptions = shuffleArray([...currentQuestion.options]);
+                const questionToSend = {
+                    ...currentQuestion,
+                    options: shuffledOptions
+                };
+                
+                currentQuestionIndex = questionIndex + 1;
+                questionCounter.textContent = currentQuestionIndex;
+
+                document.querySelectorAll('.quiz-question-button').forEach(btn => {
+                    btn.disabled = false;
+                });
+                document.getElementById(`question-btn-${questionIndex}`).disabled = true;
+
+                statsContainer.innerHTML = '';
+
+                quizSocket.send(JSON.stringify({
+                    'type': 'new_question',
+                    'content': questionToSend
+                }));
+                
+                startTimer(currentQuestion.time_limit);
+                
+            } else {
+                quizSocket.send(JSON.stringify({ 'type': 'quiz_end' }));
+            }
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typeset();
+            }
+        }
+
+        // FUNCTION to display the list of questions as buttons
+        function renderQuizList() {
+            if (!questions || questions.length === 0) {
+                quizListContainer.innerHTML = '<h2>قائمة الأسئلة</h2><p>لا توجد أسئلة محملة.</p>';
+                return;
+            }
+
+            let html = '<h2>قائمة الأسئلة</h2>';
+            questions.forEach((q, index) => {
+                const buttonText = index === 0 ? `1: ${q.question_text}` : ` ${index + 1}: ${q.question_text}`;
+                html += `
+                    <div class="quiz-list-item">
+                        <button class="quiz-question-button" 
+                                id="question-btn-${index}" 
+                                data-index="${index}">
+                            ${buttonText}
+                        </button>
+                    </div>
+                `;
+            });
+            quizListContainer.innerHTML = html;
+            
+            // ATTACH EVENT LISTENERS
+            document.querySelectorAll('.quiz-question-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    sendQuestion(index);
+                });
+            });
+        }
+
         quizSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             console.log("Received message:", data);
 
             if (data.type === 'update_score') {
-                updateScoreTable(data.content);
+                currentScores = data.content; // Store the latest score data
+                updateScoreTable(currentScores);
             } else if (data.type === 'student_question') {
                 const studentName = data.content.name;
                 const questionText = data.content.question;
@@ -166,13 +460,16 @@
                     studentQuestions[studentName].messageCount++;
                     studentQuestions[studentName].lastOrder = messageOrderCounter;
                 }
+                
+                // Re-render table to display the new message using the latest score data
+                if (Object.keys(currentScores).length > 0) {
+                    updateScoreTable(currentScores);
+                }
 
-                updateQuestionsTable();
             } else if (data.type === 'quiz_reset') {
                  // Reset student data when the quiz is reset
                 studentQuestions = {};
                 messageOrderCounter = 0;
-                questionsTableBody.innerHTML = '';
             } else if (data.type === 'question_stats') {
                 displayQuestionStats(data.content);
             }
@@ -190,56 +487,26 @@
             return array;
         }
 
+        // UPDATED: startTimer to display countdown
         function startTimer(timeLimit) {
             isTimerRunning = true;
             timeLeft = timeLimit;
-            pauseResumeButton.style.display = 'inline-block';
             pauseResumeButton.textContent = 'انتظر';
+            
+            timerDisplay.textContent = timeLeft;
 
             timerInterval = setInterval(() => {
                 timeLeft--;
+                timerDisplay.textContent = timeLeft; 
+
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     isTimerRunning = false;
+                    timerDisplay.textContent = 'انتهى الوقت!'; 
                 }
             }, 1000);
         }
 
-        nextQuestionButton.addEventListener('click', function() {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-
-            if (currentQuestionIndex < questions.length) {
-                const currentQuestion = questions[currentQuestionIndex];
-                const shuffledOptions = shuffleArray([...currentQuestion.options]);
-                const questionToSend = {
-                    ...currentQuestion,
-                    options: shuffledOptions
-                };
-                
-                // Clear previous question stats
-                statsSection.style.display = 'none';
-                statsContainer.innerHTML = '';
-
-                quizSocket.send(JSON.stringify({
-                    'type': 'new_question',
-                    'content': questionToSend
-                }));
-                
-                startTimer(currentQuestion.time_limit);
-                
-                currentQuestionIndex++;
-                questionCounter.textContent = currentQuestionIndex;
-                nextQuestionButton.textContent = "السؤال التالي";
-
-            } else {
-                nextQuestionButton.disabled = true;
-                pauseResumeButton.style.display = 'none';
-                quizSocket.send(JSON.stringify({ 'type': 'quiz_end' }));
-            }
-            MathJax.typeset();
-        });
-        
         pauseResumeButton.addEventListener('click', function() {
             if (isTimerRunning) {
                 clearInterval(timerInterval);
@@ -259,12 +526,51 @@
             }
         });
 
+        // UPDATED: Teacher message sending logic to update local display
+        sendTeacherMessageButton.addEventListener('click', function() {
+            const message = teacherMessageInput.value.trim();
+            if (message) {
+                quizSocket.send(JSON.stringify({
+                    'type': 'teacher_message',
+                    'content': {
+                        'message': message
+                    }
+                }));
+                
+                // Update the last sent message display on the teacher's page
+                lastTeacherMessageText.textContent = message;
+                lastTeacherMessageContainer.style.display = 'block';
+                
+                // Set the text direction for the teacher's local display
+                if (isArabic(message)) {
+                    lastTeacherMessageText.style.direction = 'rtl';
+                    lastTeacherMessageText.style.textAlign = 'right';
+                } else {
+                    lastTeacherMessageText.style.direction = 'ltr';
+                    lastTeacherMessageText.style.textAlign = 'left';
+                }
+
+                teacherMessageInput.value = '';
+                console.log('Teacher message sent:', message);
+            } else {
+                alert('الرجاء كتابة رسالة للإرسال.');
+            }
+        });
+
+        // UPDATED: updateScoreTable to include last message column and hide two columns
         function updateScoreTable(scores) {
-            const sortedStudents = Object.values(scores).sort((a, b) => b.score - a.score);
+            // Filter out entries with no name or 'undefined' name before processing
+            const validStudents = Object.values(scores).filter(student => 
+                student.name && student.name !== 'undefined'
+            );
+            
+            const sortedStudents = validStudents.sort((a, b) => b.score - a.score);
             const totalQuestions = parseInt(totalQuestionsSpan.textContent);
             scoreTableBody.innerHTML = '';
+            
             let rank = 1;
             let lastScore = -1;
+            
             sortedStudents.forEach((student, index) => {
                 if (student.score < lastScore) {
                     rank = index + 1;
@@ -274,12 +580,18 @@
                 const unansweredQuestions = totalQuestions - answeredQuestions;
                 const messageCount = student.message_count || 0;
                 
+                // Get last message data from the global studentQuestions object
+                const studentData = studentQuestions[student.name];
+                const lastMessage = studentData ? studentData.lastMessage : '';
+                const messageClass = isArabic(lastMessage) ? 'message-rtl' : 'message-ltr'; // Apply RTL/LTR class
+                
                 row.innerHTML = `
                     <td>${rank}</td>
                     <td>${student.name}</td>
-                    <td>${student.score} / ${totalQuestions}</td>
-                    <td>${unansweredQuestions}</td>
-                    <td>${messageCount}</td>
+                    <td>${student.score || 0} / ${totalQuestions}</td>
+                    <td class="hidden-column">${unansweredQuestions}</td>
+                    <td class="hidden-column">${messageCount}</td>       
+                    <td class="${messageClass}">${lastMessage}</td> 
                 `;
                 scoreTableBody.appendChild(row);
                 lastScore = student.score;
@@ -290,10 +602,8 @@
             statsContainer.innerHTML = '';
             statsSection.style.display = 'block';
 
-            // Convert stats object to an array for sorting
             const optionsArray = Object.entries(stats.counts);
 
-            // Sort array to put the correct answer first
             optionsArray.sort(([optionA, countA], [optionB, countB]) => {
                 const isCorrectA = optionA.trim() === stats.correct_answer.trim();
                 const isCorrectB = optionB.trim() === stats.correct_answer.trim();
@@ -301,7 +611,6 @@
                 if (isCorrectA && !isCorrectB) return -1;
                 if (!isCorrectA && isCorrectB) return 1;
                 
-                // For other options, sort by count descending
                 return countB - countA;
             });
 
@@ -319,27 +628,9 @@
                 `;
                 statsContainer.appendChild(item);
             });
-            MathJax.typeset();
-        }
-
-        function updateQuestionsTable() {
-            questionsTableBody.innerHTML = '';
-            const allStudents = Object.values(studentQuestions);
-            allStudents.sort((a, b) => b.lastOrder - a.lastOrder);
-            allStudents.forEach(studentData => {
-                const row = document.createElement('tr');
-                // Apply the correct direction class based on the message content
-                if (isArabic(studentData.lastMessage)) {
-                    row.classList.add('message-rtl');
-                } else {
-                    row.classList.add('message-ltr');
-                }
-                row.innerHTML = `
-                    <td>${studentData.name}</td>
-                    <td>${studentData.lastMessage}</td>
-                `;
-                questionsTableBody.appendChild(row);
-            });
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typeset();
+            }
         }
 
         exportScoresButton.addEventListener('click', function() {
@@ -348,7 +639,8 @@
 
         function exportScoresToCsv() {
             const tableRows = scoreTableBody.querySelectorAll('tr');
-            let csvContent = "Rank,Student,Score,Unanswered,Messages\n";
+            // Updated header for CSV export
+            let csvContent = "Rank,Student,Score,Unanswered,Messages,Last_Message\n"; 
             tableRows.forEach(row => {
                 const cells = row.querySelectorAll('td');
                 const rowData = Array.from(cells).map(cell => cell.textContent);
@@ -366,6 +658,46 @@
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
         }
+
+
+        const domain = "8x8.vc";
+        const options = {
+        roomName: "vpaas-magic-cookie-a3caf903c024408ea903326f82630226/ifounderphysics",
+        parentNode: document.querySelector("#jitsi-teacher-container"),
+        configOverwrite: {
+            startWithVideoMuted: true, // disables camera
+            disableInviteFunctions: false,
+            disableDeepLinking: true,
+            disableShowroomMode: false,
+            disableChat: false,
+            disableShareFile: false,
+            disableSpeakerStats: false,
+            disableVideo: true,
+            participantsPane: { enabled: true },
+            toolbarButtons: [
+            "microphone", "raisehand", "desktop", "tileview", "select-background",
+            "mute-everyone", "security", "settings", "videoquality", "stats",
+            "shortcuts", "feedback", "download", "help", "recording", "livestreaming",
+            "etherpad", "fullscreen", "hangup", "sharedvideo", "polls", "filesharing"
+            ]
+        },
+        interfaceConfigOverwrite: {
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            SHOW_BRAND_WATERMARK: false,
+            SHOW_POWERED_BY: false,
+            SHOW_PROMOTIONAL_CLOSE_PAGE: false
+        }
+        };
+
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+
+        // Optional: prevent camera activation
+        api.executeCommand('toggleVideo'); // Double toggle to ensure it's off
+        api.executeCommand('setAudioOnly', true);
+
+        
     </script>
 </body>
 {% endblock %}

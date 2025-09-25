@@ -10,4 +10,15 @@ urlpatterns = [
     path("zcreate/<str:p>/", views.Zcreate, name='zcreate'), 
     path("zupdate/<str:k>/", views.Zupdate, name='zupdate'), 
     path("zdelete/<str:k>/", views.Zdelete, name='zdelete'), 
+
+    # zoom
+    # path("teacher/<str:meeting_id>/", views.teacher_view, name="teacher"),
+    # path("student/<str:meeting_id>/", views.student_view, name="student"),
+    # path("api/zoom-signature/", views.zoom_signature_api, name="zoom_signature_api"),
+
+    # jitsi
+    # path("teacher/", views.teacher_view, name="teacher"),
+    # path("student/", views.student_view, name="student"),
+
+
 ]

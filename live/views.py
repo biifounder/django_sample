@@ -1,46 +1,78 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from courses.views import is_teacher
 from courses.models import Lesson
-from .models import ZQuestion
-from json import dumps
+# Assuming ZQuestion is in a sub-app called '.models'
+from .models import ZQuestion 
+from json import dumps, loads 
+# We need loads for the questions_raw data if it were used, but dumps is correct for questionsJSON
+
 
 @staff_member_required
 def teacher_view(request, room_name):
     lesson = Lesson.objects.get(k=room_name)
     questions = ZQuestion.objects.filter(p=lesson)
+
     questionsJSON = []
     for question in questions:
+        # Assuming question.head is a string that needs splitting for question_text
+        question_text_parts = question.head.split('..')
+        
         options = [question.op1, question.op2]
         if question.op3:
             options.append(question.op3)
         if question.op4:
             options.append(question.op4)
+        
+        # Ensure we send the correct time field
+        time_limit = getattr(question, 'time_limit', 30) # Default to 30 if not set
+        
         questionsJSON.append({
-            'question_text': [n for n in question.head.split('..')],
+            # The template expects question_text to be a string, not a list of strings
+            'question_text': question.head, 
             'options': options,
             "correct_answer": question.op1,
             'image_url': question.file_url,
-            'time': question.time,
-            'time_limit': question.time_limit,
-            
-        }) 
+            'time': getattr(question, 'time', 0), 
+            'time_limit': time_limit,
+        })
+    
+    # --- FIX 1: Add initial_scores to context ---
+    # This is a placeholder. In a real application, you would query your
+    # database/cache here for currently logged-in students and their scores.
+    # We pass an empty but valid JSON string to prevent JS errors.
+    initial_scores = {}
+    
     context = {
         'room_name': room_name,
-        'teacher': is_teacher(request),
-        'questions': questions,
+        'teacher': True,
         'lesson': lesson,
+        # 'questions_raw': questions, # Not needed in the template now
         'questions': dumps(questionsJSON),
+        'initial_scores': dumps(initial_scores), # FIX: Pass the empty dictionary as JSON string
     }
+    
+    # Note: I've also slightly adjusted the parsing of 'question_text' and 'time_limit' 
+    # to be safer, assuming the front-end expects a string for the question text.
+    
     return render(request, 'live/teacher.html', context)
+
+
+
 
 
 def student_view(request, room_name):
     lesson = Lesson.objects.get(k=room_name)
-    return render(request, 'live/student.html', {
-        'room_name': room_name, 
+    context = {
+        'room_name': room_name,
         'lesson': lesson,
-    })
+    }
+    return render(request, 'live/student.html', context)
+
+
+
+
+
 
 @staff_member_required
 def info_fileds(request, object): 

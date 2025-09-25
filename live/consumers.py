@@ -3,13 +3,14 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class QuizConsumer(AsyncWebsocketConsumer):
     # Dictionary to hold scores and state for each room.
-    # Structure: {'room_name': {'scores': {}, 'current_question': {}, 'questions_sent': 0, 'answer_counts': {}}}
+    # Structure: {'room_name': {'scores': {}, 'current_question': {}, 'questions_sent': 0, 'answer_counts': {}, 'last_teacher_message': ''}}
     room_state = {}
 
     async def connect(self):
         try:
             self.room_name = self.scope['url_route']['kwargs'].get('room_name', 'default_room')
             self.room_group_name = f'quiz_{self.room_name}'
+            # Use session key for unique student identification, or client IP as fallback
             self.user_id = self.scope['session'].session_key or self.scope['client'][0]
             
             # Initialize state for this room if it's the first connection.
@@ -18,7 +19,8 @@ class QuizConsumer(AsyncWebsocketConsumer):
                     'scores': {}, 
                     'current_question': {}, 
                     'questions_sent': 0,
-                    'answer_counts': {}
+                    'answer_counts': {},
+                    'last_teacher_message': ''  # NEW: Store the last broadcast message
                 }
             
             await self.channel_layer.group_add(
@@ -28,6 +30,16 @@ class QuizConsumer(AsyncWebsocketConsumer):
             
             await self.accept()
             print(f"✅ WebSocket connection established for room: {self.room_group_name}")
+            
+            # NEW: Send the last teacher message to the student upon joining
+            # Check if this connection is a student connection (by checking the path or session role if available)
+            # Simple check: if not a teacher path, assume student (adjust as needed if you have a separate teacher path)
+            if 'teacher' not in self.scope['path'] and self.room_state[self.room_name]['last_teacher_message']:
+                await self.send(text_data=json.dumps({
+                    'type': 'teacher_message_broadcast',
+                    'content': self.room_state[self.room_name]['last_teacher_message']
+                }))
+                
         except Exception as e:
             print(f"❌ Error during WebSocket connection: {e}")
             await self.close()
@@ -175,11 +187,27 @@ class QuizConsumer(AsyncWebsocketConsumer):
                         'content': self.room_state[self.room_name]['scores']
                     }
                 )
+            
+            elif message_type == 'teacher_message':  # NEW: Handle teacher broadcast
+                message = message_content.get('message')
+                if message:
+                    self.room_state[self.room_name]['last_teacher_message'] = message # Store the last message
+
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'teacher_message_broadcast',
+                            'content': message
+                        }
+                    )
+
 
         except json.JSONDecodeError:
             print("❌ Error: Received invalid JSON data.")
         except Exception as e:
             print(f"❌ An unexpected error occurred in the receive method: {e}")
+
+    # Async handlers for group messages
 
     async def quiz_question(self, event):
         try:
@@ -231,3 +259,12 @@ class QuizConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps(event))
         except Exception as e:
             print(f"❌ Error sending student question: {e}")
+
+    async def teacher_message_broadcast(self, event): # NEW: Handler to send teacher message to all
+        try:
+            await self.send(text_data=json.dumps({
+                'type': 'teacher_message_broadcast',
+                'content': event['content']
+            }))
+        except Exception as e:
+            print(f"❌ Error sending teacher message: {e}")
