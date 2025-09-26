@@ -7,11 +7,13 @@ class QuizConsumer(AsyncWebsocketConsumer):
     room_state = {}
 
     async def connect(self):
+        
         try:
             self.room_name = self.scope['url_route']['kwargs'].get('room_name', 'default_room')
             self.room_group_name = f'quiz_{self.room_name}'
             # Use session key for unique student identification, or client IP as fallback
             self.user_id = self.scope['session'].session_key or self.scope['client'][0]
+            print(f"🔌 WebSocket connected for {self.user_id} in room {self.room_name}")
             
             # Initialize state for this room if it's the first connection.
             if self.room_name not in self.room_state:
@@ -129,6 +131,11 @@ class QuizConsumer(AsyncWebsocketConsumer):
                         'message_count': 0,
                         'answered_current_question': False
                     }
+                print(f"📥 student_join received from {self.user_id} with name: {student_name}")
+                print(f"📥 student_join received from {self.user_id} with name: {message_content}")
+
+
+
                 
                 await self.channel_layer.group_send(
                     self.room_group_name,
