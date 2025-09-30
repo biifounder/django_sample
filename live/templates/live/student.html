@@ -223,7 +223,7 @@
     <div id="login-form">
       <h1>أهلاً بك</h1>
       <p>للانضمام إلى الدرس، يرجى إدخال اسمك.</p>
-      <input type="text" id="student-name-input" placeholder="ادخل اسمك هنا" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+      <input type="text" id="student-name-input" placeholder="أدخل اسمك الثلاثي باللغة العربية " style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
       <button id="join-button" style="width: 100%; padding: 10px; color: rgb(0, 0, 0); border-radius: 5px; cursor: pointer;">انضم</button>
     </div>
 
@@ -246,8 +246,7 @@
 
                 <div id="question-panel">
                     <p id="initial-message">أنت متصل. في انتظار بدء الدرس.</p>
-                    <div class="question-content">
-                        </div>
+                    <div class="question-content"></div>
                     
                     <div id="options-container" class="options-container">
                         </div>
@@ -266,6 +265,8 @@
                 <p style="font-weight: bold; color: #030200; margin-bottom: 5px;">رسالة من المعلم:</p>
                 <p id="teacher-message-text" style="color: #000000; margin: 0; line-height: 1.5;"></p>
             </div>
+
+            <button id="toggle-hand-btn">✋ رفع اليد</button>
 
             <div class="message-input-area" style="margin-top: 30px;">
                 <textarea id="student-question-input" placeholder="أرسل للمعلم هنا..." ></textarea>
@@ -348,7 +349,23 @@
         } else {
             alert("Please enter your name.");
         }
-    });
+    });    
+
+    let handIsRaised = false;
+    document.getElementById('toggle-hand-btn').onclick = function() {
+        const messageType = handIsRaised ? 'hand_lower' : 'hand_raise';
+        quizSocket.send(JSON.stringify({
+            type: messageType,
+            content: myName
+        }));
+        console.log("Sending:", messageType, myName);
+
+        handIsRaised = !handIsRaised;
+        this.textContent = handIsRaised ? '✋ أنزل يدك' : '✋ رفع اليد';
+    };
+
+
+
 
     function isArabic(text) {
         const arabicRegex = /[\u0600-\u06FF]/;
@@ -497,6 +514,7 @@
         }
     };
 
+    
     quizSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
         console.log("Received message:", data);
@@ -621,6 +639,7 @@
     const options = {
         roomName: "vpaas-magic-cookie-a3caf903c024408ea903326f82630226/ifounderphysics",
         parentNode: document.querySelector("#jitsi-container"),
+        userInfo: {displayName: myName},
         configOverwrite: {
             startWithVideoMuted: true,
             disableVideo: true,
@@ -632,7 +651,7 @@
             disableSpeakerStats: true,
             disableTileView: true,
             participantsPane: { enabled: false },
-            toolbarButtons: ["microphone", "raisehand", "fullscreen", "hangup"]
+            toolbarButtons: ["microphone", "fullscreen", "hangup"]
         },
         interfaceConfigOverwrite: {
             SHOW_JITSI_WATERMARK: false,

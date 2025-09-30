@@ -13,23 +13,24 @@
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden;
+            overflow-y: auto; 
         }
         
         /* New Flexbox container for the two-column layout */
         .main-container {
             display: flex;
-            height: 100vh; 
+            min-height: 100vh; 
             width: 100%;
         }
 
         /* Container for the other page components (left side) */
         .content-container {
-            flex: 1; 
-            overflow-y: auto; 
+            flex: 1;
+            overflow-y: auto;
+            max-height: 100vh; 
             padding: 20px;
             box-sizing: border-box;
-            direction: rtl; 
+            direction: rtl;
         }
         
         /* Container for the video component */
@@ -41,18 +42,20 @@
             justify-content: flex-start;
             padding: 20px;
             box-sizing: border-box;
-            overflow: hidden;            
+            overflow-y: auto;          
         }
 
         /* Jitsi wrapper without aspect ratio padding */
         #jitsi-container-wrapper {
             position: relative;
             width: 100%;
-            height: 100%; /* Full height of parent */
+            height: 350px; /* NEW: Give it a fixed height or max-height to enable scrolling */
+            max-height: 50vh; /* NEW: Optional, but good for responsiveness. Use a value that works for your layout. */
+            overflow-y: auto; /* NEW: Add the vertical scrollbar */
+            flex-shrink: 0; /* NEW: Prevent this section from shrinking unnecessarily */
             background-color: black;
             border: none;
-            margin-bottom: 20px;
-            max-height: 500px;
+            margin-bottom: 20px;            
         }
 
         /* Jitsi container where the API injects the video */
@@ -60,6 +63,7 @@
             width: 100%;
             height: 100%;
         }
+        
 
         /* New CSS for Side-by-Side Quiz Controls and Stats */
         #quiz-layout-wrapper {
@@ -87,10 +91,7 @@
             background-color: #f9f9f9;
             direction: rtl;
             text-align: right;
-            
-            /* FIX: Make it fill remaining space and scroll internally */
-            flex-grow: 1; 
-            overflow-y: auto; 
+
         }
         .quiz-list-item {
             margin-bottom: 10px;
@@ -199,6 +200,32 @@
             margin: 0;
             word-wrap: break-word; /* Ensure long words break */
         }
+
+        /* The question button style */
+        .quiz-question-button {
+            /* ... existing styles ... */
+        }
+        /* ... other styles ... */
+        
+        /* 👇 ADD THE NEW CSS HERE 👇 */
+        .remove-student-button {
+            padding: 2px 5px; 
+            font-size: 0.8em; 
+            line-height: 2;
+            height: auto;
+            width: auto; 
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f7f7f7;
+        }
+
+        .remove-student-button:hover {
+            background-color: #e0e0e0;
+        }
+        /* 👆 END NEW CSS 👆 */
+    </style>
+</head>
     </style>
 </head>
 <body>
@@ -215,16 +242,19 @@
             <div id="last-teacher-message-container">
                 <p id="last-teacher-message-text"></p>
             </div>
+            <div id="hand-raise-area" style="margin-top: 10px;"></div>
+
             <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:50%">حفظ الدرجات</button>
             <table id="score-table" style="width:100%; border-collapse: collapse; direction: rtl;">
                 <thead>
                     <tr>
-                        <th><h2>المركز</h2></th>
-                        <th><h2>اسم الطالب</h2></th>
-                        <th><h2>الدرجة</h2></th>
-                        <th class="hidden-column"><h2>أسئلة لم يجب عليها</h2></th>
-                        <th class="hidden-column"><h2>عدد الرسائل</h2></th>
-                        <th class="message-column"><h2>آخر رسالة</h2></th>
+                        <th><p>المركز</p></th>
+                        <th><p>اسم الطالب</p></th>
+                        <th><p>الدرجة</p></th>
+                        <th class="hidden-column"><p>أسئلة لم يجب عليها</p></th>
+                        <th class="hidden-column"><p>عدد الرسائل</p></th>
+                        <th class="message-column"><p>آخر رسالة</p></th>
+                        <th><p>إزالة</p></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -246,7 +276,7 @@
                 <button id="pause-resume-button" style="width:100%">انتظر</button>
             </div>
     
-            <div id="question-stats-section" class="quiz-column" style="display: none;">
+            <div id="question-stats-section" class="quiz-column" >
                 <h2>إحصائيات السؤال</h2>
                 <div id="stats-container" class="stats-container"></div>
             </div>            
@@ -436,6 +466,7 @@
             });
         }
 
+        const raisedHands = {};
         quizSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             console.log("Received message:", data);
@@ -472,7 +503,22 @@
                 messageOrderCounter = 0;
             } else if (data.type === 'question_stats') {
                 displayQuestionStats(data.content);
-            }
+            } else if (data.type === 'hand_raise') {
+                const name = data.student;
+                if (!raisedHands[name]) {
+                    const container = document.getElementById('hand-raise-area');
+                    const div = document.createElement('div');
+                    div.textContent = `✋ ${name}`;
+                    div.className = 'hand-raise-alert';
+                    div.id = `hand-${name}`;
+                    container.appendChild(div);raisedHands[name] = true;
+                } 
+            } else if (data.type === 'hand_lower') {
+                    const name = data.student;
+                    const div = document.getElementById(`hand-${name}`);
+                    if (div) div.remove();
+                    delete raisedHands[name];
+                }
         };
 
         quizSocket.onclose = function() {
@@ -563,14 +609,19 @@
             const validStudents = Object.values(scores).filter(student => 
                 student.name && student.name !== 'undefined'
             );
-            
-            const sortedStudents = validStudents.sort((a, b) => b.score - a.score);
+
+            const sortedStudents = validStudents.slice().sort((a, b) => {
+                const aOrder = studentQuestions[a.name]?.lastOrder ?? -Infinity;
+                const bOrder = studentQuestions[b.name]?.lastOrder ?? -Infinity;
+                return bOrder - aOrder;
+            });
+
+
             const totalQuestions = parseInt(totalQuestionsSpan.textContent);
             scoreTableBody.innerHTML = '';
             
             let rank = 1;
-            let lastScore = -1;
-            
+            let lastScore = -1;            
             sortedStudents.forEach((student, index) => {
                 if (student.score < lastScore) {
                     rank = index + 1;
@@ -592,11 +643,40 @@
                     <td class="hidden-column">${unansweredQuestions}</td>
                     <td class="hidden-column">${messageCount}</td>       
                     <td class="${messageClass}">${lastMessage}</td> 
+                    <td><button class="remove-student-button" data-name="${student.name}">❌</button></td>
                 `;
                 scoreTableBody.appendChild(row);
                 lastScore = student.score;
             });
+
+            document.querySelectorAll('.remove-student-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentName = this.getAttribute('data-name');
+                    if (confirm(`هل تريد إزالة الطالب ${studentName}؟`)) {
+                        quizSocket.send(JSON.stringify({
+                            type: 'remove_student',
+                            content: studentName
+                        }));
+                    }
+                });
+            });
+
+            // ✅ Remove stale names from studentQuestions
+            Object.keys(studentQuestions).forEach(name => {
+                const stillPresent = Object.values(scores).some(student => student.name === name);
+                if (!stillPresent) {
+                    delete studentQuestions[name];
+                }
+            });
+
+
+
+
+
         }
+
+        
+
         
         function displayQuestionStats(stats) {
             statsContainer.innerHTML = '';
@@ -701,3 +781,9 @@
     </script>
 </body>
 {% endblock %}
+
+
+
+
+
+<!-- approved  -->

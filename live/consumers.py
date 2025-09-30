@@ -54,8 +54,13 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 self.room_group_name,
                 self.channel_name
             )
+            if hasattr(self, 'user_id') and self.user_id in self.room_state[self.room_name]['scores']:
+                del self.room_state[self.room_name]['scores'][self.user_id]
+
         except Exception as e:
             print(f"❌ Error during WebSocket disconnection: {e}")
+            
+        
 
     async def receive(self, text_data):
         try:
@@ -124,22 +129,38 @@ class QuizConsumer(AsyncWebsocketConsumer):
 
             elif message_type == 'student_join':
                 student_name = message_content
-                if self.user_id not in self.room_state[self.room_name]['scores']:
+
+                # ✅ Check if this name already exists in scores
+                name_already_registered = any(
+                    entry['name'] == student_name
+                    for entry in self.room_state[self.room_name]['scores'].values()
+                )
+
+                if not name_already_registered:
+                    # ✅ Register this user_id with the name
                     self.room_state[self.room_name]['scores'][self.user_id] = {
-                        'name': student_name, 
-                        'score': 0, 
+                        'name': student_name,
+                        'score': 0,
                         'answered': 0,
                         'message_count': 0,
                         'answered_current_question': False
                     }
-                
-                await self.channel_layer.group_send(
-                    self.room_group_name,
-                    {
-                        'type': 'update_score',
-                        'content': self.room_state[self.room_name]['scores']
-                    }
-                )
+
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'update_score',
+                            'content': self.room_state[self.room_name]['scores']
+                        }
+                    )
+                else:
+                    # ✅ Optional: update existing entry with new user_id
+                    # This keeps the name unique but updates the socket
+                    for uid, entry in self.room_state[self.room_name]['scores'].items():
+                        if entry['name'] == student_name:
+                            self.room_state[self.room_name]['scores'][self.user_id] = entry
+                            break
+
 
             elif message_type == 'quiz_end':
                 await self.channel_layer.group_send(
@@ -203,6 +224,46 @@ class QuizConsumer(AsyncWebsocketConsumer):
                             'content': message
                         }
                     )
+            elif message_type == 'hand_raise':
+                print(f"✋ Received hand_raise from {message_content}")
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'hand_raise',
+                        'student': message_content
+                    }
+                )
+            elif message_type == 'hand_lower':
+                print(f"✋ Received hand_lower from {message_content}")
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'hand_lower',
+                        'student': message_content
+                    }
+                )
+
+            elif message_type == 'remove_student':
+                student_name = message_content
+
+                # Find and remove all user_ids with this name
+                to_remove = [uid for uid, entry in self.room_state[self.room_name]['scores'].items()
+                            if entry['name'] == student_name]
+
+                for uid in to_remove:
+                    del self.room_state[self.room_name]['scores'][uid]
+
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'update_score',
+                        'content': self.room_state[self.room_name]['scores']
+                    }
+                )
+
+
+
+
 
 
         except json.JSONDecodeError:
@@ -271,3 +332,22 @@ class QuizConsumer(AsyncWebsocketConsumer):
             }))
         except Exception as e:
             print(f"❌ Error sending teacher message: {e}")
+    
+    async def hand_raise(self, event):
+        try:
+            await self.send(text_data=json.dumps({
+                'type': 'hand_raise',
+                'student': event['student']
+            }))
+        except Exception as e:
+            print(f"❌ Error broadcasting hand raise: {e}") 
+    async def hand_lower(self, event):
+        try:
+            await self.send(text_data=json.dumps({
+                'type': 'hand_lower',
+                'student': event['student']
+            }))                        
+        except Exception as e:
+            print(f"❌ Error broadcasting hand lower: {e}")
+        
+        
