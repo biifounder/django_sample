@@ -47,9 +47,9 @@ def HomePage(request):
                 user.name = request.POST.get('name')
                 user.email = request.POST.get('email')
                 user.year = request.POST.get('year')
-                user.gov = request.POST.get('gov')
-                user.prov = request.POST.get('prov') 
-                user.school = request.POST.get('school')                
+                # user.gov = request.POST.get('gov')
+                # user.prov = request.POST.get('prov') 
+                # user.school = request.POST.get('school')                
                 user.save()  
                 login(request, user)
                 year = Year.objects.get(head=user.year)  
@@ -197,7 +197,7 @@ def assessment_order(lesson_qs):
     l20, l21 = split_for_test(l2)
     l10, l11 = split_for_test(l1)
     l30, l31 = split_for_test(l3) 
-    return l20 + l10 + l21 + l11 + l30 + l31
+    return l20 + l10 + l30 + l21 + l11 + l31
 
 def updatePercents(lessons , user):
     def objpercent(obj, ModEval, questions, user): 
