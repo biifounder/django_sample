@@ -2776,7 +2776,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$720000$PvvIb2Ahw8E3peruztyYdT$VxPN1od92tFN1vZTJcY7ttnFOon2snItVVXykMEkaKg=",
-    "last_login": "2025-09-28T15:26:57.557Z",
+    "last_login": "2025-09-30T10:16:40.023Z",
     "is_superuser": true,
     "first_name": "",
     "last_name": "",
@@ -3144,7 +3144,7 @@
   "pk": 19,
   "fields": {
     "password": "pbkdf2_sha256$720000$Htu475xZd30clCAkU1Yb3T$9BRNXoAnA97lxRg3404TiTKgJEpIr9HTsjM13OxjkrY=",
-    "last_login": "2025-09-15T18:54:03.842Z",
+    "last_login": "2025-10-01T07:15:14.604Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5398,7 +5398,7 @@
   "pk": 142,
   "fields": {
     "password": "pbkdf2_sha256$720000$OuS4gNEU2RpUBDM8EB66M5$3AfTKvoqNQkAkt258CC3WyFYcCBL+KdSr1b/RtldlfA=",
-    "last_login": "2025-09-28T16:45:33.742Z",
+    "last_login": "2025-10-01T17:42:44.584Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5421,7 +5421,7 @@
   "pk": 144,
   "fields": {
     "password": "pbkdf2_sha256$720000$0VUaRuKb6tUXGWDLO6DO0q$eNQoqYGuf5juV30RFpm2ccen0C8Q6M9cKgFYQr9uUj4=",
-    "last_login": "2025-09-29T14:55:13.869Z",
+    "last_login": "2025-09-30T14:19:31.220Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5431,6 +5431,29 @@
     "name": "مآثر محمد ",
     "username": null,
     "email": "mathralmslhyh@gmail.com",
+    "year": "11",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "courses.user",
+  "pk": 145,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$vVeNi0cADynJOnefRQLe6h$er0wrfac/8Zp9LXIudKlNHpFMVjBLw/4z7ZmPT2wUEg=",
+    "last_login": "2025-09-30T12:27:57.542Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-09-30T12:27:57.227Z",
+    "name": "عبدارحمن عصام علي ",
+    "username": null,
+    "email": "moop9312@gmail.com",
     "year": "11",
     "gov": null,
     "prov": null,
@@ -5819,7 +5842,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 39
+    "percent": 56
   }
 },
 {
@@ -6538,6 +6561,15 @@
   "pk": 120,
   "fields": {
     "user": 144,
+    "k": 3,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 121,
+  "fields": {
+    "user": 145,
     "k": 3,
     "percent": 0
   }
@@ -6926,7 +6958,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 39
+    "percent": 56
   }
 },
 {
@@ -7650,6 +7682,15 @@
   }
 },
 {
+  "model": "courses.subjecteval",
+  "pk": 121,
+  "fields": {
+    "user": 145,
+    "k": 3,
+    "percent": 0
+  }
+},
+{
   "model": "courses.unit",
   "pk": 1,
   "fields": {
@@ -7851,6 +7892,18 @@
     "y": 2,
     "file": "0",
     "file_url": "/media/u18/0.pdf"
+  }
+},
+{
+  "model": "courses.unit",
+  "pk": 19,
+  "fields": {
+    "head": "الدوائر الكهربائية",
+    "k": "u19",
+    "p": 4,
+    "y": 4,
+    "file": "0",
+    "file_url": "/media/u19/0.pdf"
   }
 },
 {
@@ -9173,7 +9226,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 45
+    "percent": 67
   }
 },
 {
@@ -9182,7 +9235,7 @@
   "fields": {
     "user": 38,
     "k": 2,
-    "percent": 33
+    "percent": 43
   }
 },
 {
@@ -13686,6 +13739,150 @@
   }
 },
 {
+  "model": "courses.uniteval",
+  "pk": 683,
+  "fields": {
+    "user": 145,
+    "k": 12,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 684,
+  "fields": {
+    "user": 145,
+    "k": 17,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 685,
+  "fields": {
+    "user": 4,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 686,
+  "fields": {
+    "user": 5,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 687,
+  "fields": {
+    "user": 6,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 688,
+  "fields": {
+    "user": 7,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 689,
+  "fields": {
+    "user": 8,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 690,
+  "fields": {
+    "user": 10,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 691,
+  "fields": {
+    "user": 11,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 692,
+  "fields": {
+    "user": 43,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 693,
+  "fields": {
+    "user": 47,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 694,
+  "fields": {
+    "user": 96,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 695,
+  "fields": {
+    "user": 129,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 696,
+  "fields": {
+    "user": 141,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 697,
+  "fields": {
+    "user": 3,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 698,
+  "fields": {
+    "user": 1,
+    "k": 19,
+    "percent": 0
+  }
+},
+{
   "model": "courses.lesson",
   "pk": 1,
   "fields": {
@@ -14487,6 +14684,18 @@
     "s": 2,
     "y": 2,
     "video": "SIyA_BVu0_0"
+  }
+},
+{
+  "model": "courses.lesson",
+  "pk": 68,
+  "fields": {
+    "head": "التيار الكهربائي",
+    "k": "l68",
+    "p": 19,
+    "s": 4,
+    "y": 4,
+    "video": "iU9sCoE1gWQ"
   }
 },
 {
@@ -18932,7 +19141,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 41
+    "percent": 71
   }
 },
 {
@@ -18941,7 +19150,7 @@
   "fields": {
     "user": 38,
     "k": 2,
-    "percent": 40
+    "percent": 70
   }
 },
 {
@@ -18950,7 +19159,7 @@
   "fields": {
     "user": 38,
     "k": 3,
-    "percent": 58
+    "percent": 83
   }
 },
 {
@@ -18959,7 +19168,7 @@
   "fields": {
     "user": 38,
     "k": 4,
-    "percent": 48
+    "percent": 66
   }
 },
 {
@@ -18968,7 +19177,7 @@
   "fields": {
     "user": 38,
     "k": 5,
-    "percent": 69
+    "percent": 88
   }
 },
 {
@@ -18977,7 +19186,7 @@
   "fields": {
     "user": 38,
     "k": 6,
-    "percent": 33
+    "percent": 50
   }
 },
 {
@@ -18986,7 +19195,7 @@
   "fields": {
     "user": 38,
     "k": 7,
-    "percent": 44
+    "percent": 67
   }
 },
 {
@@ -18995,7 +19204,7 @@
   "fields": {
     "user": 38,
     "k": 8,
-    "percent": 22
+    "percent": 39
   }
 },
 {
@@ -19004,7 +19213,7 @@
   "fields": {
     "user": 38,
     "k": 9,
-    "percent": 69
+    "percent": 89
   }
 },
 {
@@ -19013,7 +19222,7 @@
   "fields": {
     "user": 38,
     "k": 10,
-    "percent": 58
+    "percent": 79
   }
 },
 {
@@ -35420,6 +35629,222 @@
   "fields": {
     "user": 144,
     "k": 66,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2361,
+  "fields": {
+    "user": 145,
+    "k": 35,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2362,
+  "fields": {
+    "user": 145,
+    "k": 36,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2363,
+  "fields": {
+    "user": 145,
+    "k": 37,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2364,
+  "fields": {
+    "user": 145,
+    "k": 45,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2365,
+  "fields": {
+    "user": 145,
+    "k": 50,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2366,
+  "fields": {
+    "user": 145,
+    "k": 51,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2367,
+  "fields": {
+    "user": 145,
+    "k": 52,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2368,
+  "fields": {
+    "user": 145,
+    "k": 56,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2369,
+  "fields": {
+    "user": 145,
+    "k": 63,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2370,
+  "fields": {
+    "user": 145,
+    "k": 66,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2371,
+  "fields": {
+    "user": 47,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2372,
+  "fields": {
+    "user": 96,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2373,
+  "fields": {
+    "user": 129,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2374,
+  "fields": {
+    "user": 141,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2375,
+  "fields": {
+    "user": 3,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2376,
+  "fields": {
+    "user": 4,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2377,
+  "fields": {
+    "user": 5,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2378,
+  "fields": {
+    "user": 6,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2379,
+  "fields": {
+    "user": 7,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2380,
+  "fields": {
+    "user": 8,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2381,
+  "fields": {
+    "user": 10,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2382,
+  "fields": {
+    "user": 11,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2383,
+  "fields": {
+    "user": 43,
+    "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2384,
+  "fields": {
+    "user": 1,
+    "k": 68,
     "percent": 0
   }
 },
@@ -75752,8 +76177,8 @@
   "fields": {
     "user": 38,
     "k": 9,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -75774,8 +76199,8 @@
   "fields": {
     "user": 38,
     "k": 11,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -75939,8 +76364,8 @@
   "fields": {
     "user": 38,
     "k": 28,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -75961,8 +76386,8 @@
   "fields": {
     "user": 38,
     "k": 30,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -75995,7 +76420,7 @@
     "user": 38,
     "k": 33,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76005,8 +76430,8 @@
   "fields": {
     "user": 38,
     "k": 34,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76061,7 +76486,7 @@
     "user": 38,
     "k": 36,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76082,8 +76507,8 @@
   "fields": {
     "user": 38,
     "k": 43,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76148,8 +76573,8 @@
   "fields": {
     "user": 38,
     "k": 52,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76181,8 +76606,8 @@
   "fields": {
     "user": 38,
     "k": 57,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76258,8 +76683,8 @@
   "fields": {
     "user": 38,
     "k": 63,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76302,8 +76727,8 @@
   "fields": {
     "user": 38,
     "k": 70,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76390,8 +76815,8 @@
   "fields": {
     "user": 38,
     "k": 81,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76423,8 +76848,8 @@
   "fields": {
     "user": 38,
     "k": 84,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76445,8 +76870,8 @@
   "fields": {
     "user": 38,
     "k": 88,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76544,8 +76969,8 @@
   "fields": {
     "user": 38,
     "k": 100,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76577,8 +77002,8 @@
   "fields": {
     "user": 38,
     "k": 103,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76698,8 +77123,8 @@
   "fields": {
     "user": 38,
     "k": 115,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76764,8 +77189,8 @@
   "fields": {
     "user": 38,
     "k": 126,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76775,8 +77200,8 @@
   "fields": {
     "user": 38,
     "k": 127,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76786,8 +77211,8 @@
   "fields": {
     "user": 38,
     "k": 129,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76798,7 +77223,7 @@
     "user": 38,
     "k": 130,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76875,7 +77300,7 @@
     "user": 38,
     "k": 136,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76918,7 +77343,7 @@
   "fields": {
     "user": 38,
     "k": 141,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -76930,7 +77355,7 @@
     "user": 38,
     "k": 142,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76951,8 +77376,8 @@
   "fields": {
     "user": 38,
     "k": 151,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76962,8 +77387,8 @@
   "fields": {
     "user": 38,
     "k": 154,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77061,8 +77486,8 @@
   "fields": {
     "user": 38,
     "k": 16,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77084,7 +77509,7 @@
     "user": 38,
     "k": 26,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77117,7 +77542,7 @@
     "user": 38,
     "k": 53,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77138,8 +77563,8 @@
   "fields": {
     "user": 38,
     "k": 74,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77248,8 +77673,8 @@
   "fields": {
     "user": 38,
     "k": 144,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77259,8 +77684,8 @@
   "fields": {
     "user": 38,
     "k": 145,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77490,7 +77915,7 @@
   "fields": {
     "user": 38,
     "k": 162,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -77556,8 +77981,8 @@
   "fields": {
     "user": 38,
     "k": 163,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77611,7 +78036,7 @@
   "fields": {
     "user": 38,
     "k": 174,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -77732,7 +78157,7 @@
   "fields": {
     "user": 38,
     "k": 188,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -77754,8 +78179,8 @@
   "fields": {
     "user": 38,
     "k": 185,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77820,8 +78245,8 @@
   "fields": {
     "user": 38,
     "k": 196,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78150,8 +78575,8 @@
   "fields": {
     "user": 38,
     "k": 228,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78172,8 +78597,8 @@
   "fields": {
     "user": 38,
     "k": 231,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78194,8 +78619,8 @@
   "fields": {
     "user": 38,
     "k": 233,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78260,8 +78685,8 @@
   "fields": {
     "user": 38,
     "k": 238,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78293,8 +78718,8 @@
   "fields": {
     "user": 38,
     "k": 241,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78425,7 +78850,7 @@
   "fields": {
     "user": 38,
     "k": 262,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -78458,8 +78883,8 @@
   "fields": {
     "user": 38,
     "k": 256,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78491,8 +78916,8 @@
   "fields": {
     "user": 38,
     "k": 259,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -184569,18 +184994,18 @@
 },
 {
   "model": "sessions.session",
-  "pk": "ctemaf9d0ac26uxzu10p0vs9haoe5pkc",
-  "fields": {
-    "session_data": ".eJxVjDkOwjAUBe_iGllesLEp6TmD9bfgAHKkOKkQd4dIKaB9M_NeqsC61LJ2mcvI6qysOvxuCPSQtgG-Q7tNmqa2zCPqTdE77fo6sTwvu_t3UKHXb20sgHEYLQM49iRH9okppUCCiM7YE8XkPMWMOQeXTYqCAc0wIHoh9f4A-bc4rA:1v2qGU:MK_T3XdREaX11GDI_CcTq-NLdE3EGuTf2RiP1pFFUG0",
-    "expire_date": "2025-10-12T12:12:30.649Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "dwjzg5lyy8jo0qcy53odb8lb2bijpwnp",
   "fields": {
     "session_data": ".eJztXN1u27gSfhXBVwlOq0okZckBcrP35wnqolBsufE2jrt2cvYcBH73I4mk9Y04FKX8dXdRoDUcSyKHw_n9Zqin2dfy8eH26-OxOnzdrmdXs3T2AX-7KVffq_vmwvr38v7bPl7t7x8O25u4uSU2V4_xv_fr6u43cy8Z4LY83tZPz1dZWS6K9aJSZTavFpt5uUjKJN1UZVKWKl1nhUwKqZK8SIqbqqhvXWcrOc-SVbmuVFIPeqzuqtVDtb6rjsf9_XF29Xl2l86-fJj98VgdH7b6p6fZ93q2P6SsH9hs76r6j0-7ar0tPz2mn3IV_7j_Vl8p74_b3bf6Wv39dnv_0Iy1fEzmqmg_0_ZTNJ8ij9o_VPs5bz-z7laZtDetIn1vd6vI9IXud9E-IBZ6vLwbzzwm2wuy_UNqCkqgo4Rb51H3k9rATZp8pS9LPUYENM9hbk1gfhXVPFgelvfpxwhoWnfT6TWagXCNUgJrNPlmkVVHvtQMFDd6UphD02zuwtUrsgxkKjNu0b9JL0zThtwUi7hZatSsVZC1tpskF55JmVXiFKLsr8VyNrroBMHISY47o7dEf59fPptLeksnM6NRnP9s19Vea8Hqdr9dVfp7rcrl_2ZXSa1Bd-W3b9Va_9z80f56XO0P9a0f0_rr_vHQPlb9t9zV93zftrbi8X5dHY4PZWsMrHrWv4PiGDGLgAmae2nUZ6XlUdTnh5HPUbLDCavDKIY2l6dSAVGMkJbO2CWOhPq6QHHSfxht0zuWuqPLbhBjVxaexaB8as0xc2egDrUl_LM62K35B-t-o_b6f73q_Q_rL1p_lzTKUAv1ofYvNSuS2emD8SOpyDlHshAhR4IyUqJES1hlQKIJv13uyKzbLfO02TlwWcT3bIgvQCcCfo8ROi3xxikVuAO4QTfOrDce-eRUBG9dAZl6w7Vx1qO6LgsYgWLr1Q9j8SWKpRojRcakj9rW0IRZn116P5mww7BrA5ugf3HDjgHS3a0He2TGKEEkzA4DmWqBGpz7nrt0_KwgBvxFDAs53djKhiRTK2AqPmyMrkAJ2oxfq2sXOcKZ2AyVS3OY6B7q9E3krECB0poQcwNL4ySl5sszHX56dvjJZH9_AZxGdU6j9BK2x8hojiuRuCM-c6hAjheTwwNvZId-0EotxGx2F1KPDEiMJYz6NZ_JCp6zxMG2ER89WbXVhOVroY6jOI5aPe1LP8NxTZ0eRjD-CQMFMw1qmMKMJocciEbGzhYTEgoUjRvYKX1r6pUAnNXnTv3RTWtTMDwgAcRP38wJsdkGmJkzHmFwGQLyRsLMXmh2tv64XLBbOry2ltfnhFyvzSzLxAVzkFmML6UvAOjZ3BDBqLDeaGa8e0ahNcwuhi1KQFwCGkFGYmSq8ZhhXjOMoSHXFKpnX84htphzEbYqAhG2FhwmF9MyYYUVvYwEgcuB7eYJoqtulhbiItg0VV6dZcrEqCHmChRhxtczacP4eIjEYmPiYDK3Px98jbi0I1COI7CEXdRmg7DQzZC8aU2AqIYm9RHtDATrlr-aD1Ntgh4PLxjMoZ65mfbl4AzGajf7_feR2Izw6I6JhTKQUgFO_m8Gx8SoWcKl07tkzGMmLnB5EaW1CC7rf7vy4fawe1rtTvUflzGETM9HxdQw4aDIEofFpfhAZ8WEu-MwC8KC5jPdBEMpqyeodqMs6DhMlrj6sv_IqKgNLTJiImYOm-FMnmmck69g2gUTuVC34UrKc0VhMawa_tCFlZQDBAASAgDW4Tff3soafr_f_-naQeLsXCgWIy3CPRpNA1SrMOqYokJO2pZu-qitF6kjWKkjxuicjFtSjnEdqB9MQFFVGtjhz-B97DSTXQay2OIG175RMt8oOEm7Uckmd6JELj-WfRptXe9Ka-jy83K5OZSrp_T0lJ-ukzhVxB3sdqfl8stZmXWSZAIYEJhXZQ-IiYQHtLiVfcIbkk9PoqE9yX20WzQh71YhIGRT-RViL1CQYGjmzLyhkOFIdzkJiLPLlsIdHE0kSReYrXENHhJlyQGgpIfRg2U2o2NMiyLrTUaIXGC8WnsJca5-vGVg-eOwv7mrdq411Vww5YoywiIopy9gSQVx3u0nVhm8GEHmjIRZIcXhwLbKgGWmo3cSw6BXPTty0cZ_fZ1pwj8T_6FiUkzgPQxBKx-Dkdnyglf6yzZTaq4OXuRsnb2axtxFCBAytplDSS9C8P4BgzGiRScT3MakKES-TAVwVuvBjRB1amOCCmwfQa0y2AiIvLX1KDkL0CEGBiSwr8Ff42h4BWOK06R04g9TJ0CRoIIBeOa57BniyDhsOIyIQSTPBGtVR7jwyRcb1wXGXQO_3N0Pjoju0c8xTJsQYWDaG8AHmlGhjGKhYbQNxV8ueSCsg0SCZmYEY0EjseDHsFjuqFKqYebGM5_xKRgekRR0Ac9xiY3rTbB2RJIcdOOmrc6NUEjBuXAm5_oBXMkBP06MRLtWN2tCeZPgy83MCpcNMmsEce4RdV_xiTIF4AKpnLGlT42K_tgE6y_jaa0tc_UTNWcQhEThXYDHQbkkvSyBfgdqv_AyOoINsv01gtPm04aaPigPHRzx-YF1j3OPmFYMI62BSiRacNLTijW3YIzqlvSxBKyYliLvNmiddhvYsLXDF6WMSj1dHIDYZwIDcA1VPnYHJItxvlNTIApDgrBg_thLEGEXfIRz61ZAyBpEgNRg3JneIH-Jvn7tohzSbuiTiH6KjCsqnRX51zIFDGiKO5NM9M9ERgdNNFMXB6aQQAB65mn_M9EXph1sjNcf5W-xmMtg2rb26hFHY_sgRbHONwacyIsLYgiB6kGraLL_gFiMIp2g7sOWxygwSSH0UDb7p6gyNjlOb-ALpGCGHwaBiYDPqFy-Ab1QGElnnCJQu9JJ-peMwq1DkDJmMN6OAjeOXrwjek1p7FK85efIgL8yFqcnlSQt-psUUb-UuVx-eV1wcf9wWx1GoItMriNBMaVwJCaQzEjMUwRAOrX5qhkQuXfi2IW7TWSEFgmsmcmVgi9Rqd2mB0blXlH0iEPVtzaf_ZJtShXIiMlFlMSpyLhFGZQv0mLjuQGGSZI5dxe9KfWM1AED8zysu7V0N_M18OPDdlcdo2yuaqUTscjmnIC_PoI-Wsh9GzkESbeYbaJYTkWRR8gYPLwnZA2ThnXAOWymhSvdODCzcGDmVKVJo2ReQaqnZy_rq_ze9eVQeSQVxOd9caWeHPhiL_SgBNaxW_6YELBF95NYMGNMKscVUIZtHWc43OBEYaqad4JWJ8jmTMUlBGPjGksm52614MiQAbeH8wxZxfuQlSWJMbaweUzjQQU7jMQYl2G6xwYQaboqSEkZdziq4q0QUkdoI9DCEwoQoaXVsoD2ZNbrIpJjJFDzhoAXpJkRu2iYllVvYyd0u1kp1gqTw-WSzGpdFhXw1-C5AKaSOFfhBTfMITzKcHB3JtLvf2b2OMlhAilybkbflEKEZYUdeEC6hNNEcEXAfB46iDfHLel4IPEsAbcPTOsBI01v3xp7bgjBoxuYm_06V9hdZno98dZf5wp_nSv0MOzXucJuye9zrvDlgfDfv1u9-bQlIhLD4-CIMKM5HtVaYbaR83YIJ2IxhHRSkD-e7XZgKL93aT77aIPk0IYRiyOnRNYg7_bEGOx6qNmZdFzPnK7uASLezTr4TxSNtA6TljUmvH9Rh_4EKt40APPpMFkbggZciBqMULNuocSQkHwUzzP6Cmd4JIEWQNwCJPQ-nsPt66hBxFIRfYwaGIzFeM9CMlzDI6RMgRyj6zE88WRELn_Gwt8M53T3cwQQeHF6UqfrSLw99k1P17Oo4IVIhLpE05IhsEHO2DJbHg0KzITScyhv9rRoNxEVUfvuEtvc_YoS1rGBLbpcrHaXzde2ZWioITZiMXyCZrMHvvCGMCAuQ0hlmhac2UkTf3-s25gYgq7gJMwZwLqOohFcGDH4y4oUP61KdhWda2T1ktetiRCnpyw5RTVNScwi729qKNx-xOALODDkp6GrN2gdlXZDvjGlAidkn8_mqiBt8uDWOUyDIRd7QpiKPWn0g8zVnqd4UwmOBytspozjqNm55MFJGnTXu8WU7qJbsesbF_5FiouQbZn2Mq_rTpHSLJ5_FLFqVCjly6TnGARfrac0JuR7jYiXkiFQHqN4RZ1kEypdcPQ5ti8wPQ7-Uqs3daVjrR7DAMfwpW1_wLw1fSKwbatuurM5an9yI233BCZ9c6abF0xnOI06nPTUDJjjhC6OQmlwGU4ed9qjbIby2mjKiDgSbFYODDAGnHTPPBdIcd_cZ9aLx1SZuAzAA_ImlxAYCcaaDSyfi9bErivxcw7heqapjHmb4drhnMmuSb8YOX3S6TJpLMVNEKAv9a0DNq1bKq7HBvvty6LO2Z-XuW9m7xzp8EXt1Jm6DQYidvpLwFv6TbpuLvBfTGLOmSI6kP1VuzkBZ7SIkFYOYtq0fCDGxwj8BLuA3fdkQvL6MBKGAWhFQFASTw60GoC8QSXXWI_1GEwQxVhARdlMylXCmBe-BrpW9YBsWyZXeB3Tce4980aS_BvcHvJT991qPVg-2-PrhiRoHvH4CvNSOHIGsPvkfLw9Iw2bwLxOAw450eNjztx2Ye2tmBBhhuGeJqdwbOmMipUHS_8VdqobR-YCM6FyBKcH_4qGhyR61t5qYxITS3ofHcRwRjXUfjn9H_wlJNw:1uh63X:b_snHzzEmYzukr4EdkRQzFZrwNV-sC_VaCPWCFgnB9A",
     "expire_date": "2025-08-13T12:37:15.318Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lvdkagwt9t114rrjx9r55qudydyoxi5p",
+  "fields": {
+    "session_data": ".eJztXdty2zYafhVWV_ZMopAEj7rsfZ8gzmQoibS1saVWsre7k8m7L0UAwvcTJ1KhbDXraavKJAj8-M8nUN9nX6uX54evL4d6_3Wzni1m0ewDXltWq2_19nhj_a9qe7-br3bb5_1mOT8OmYu7h_kfu3X9-LsYSyZ4qA4P7dNZGkbZMi9DxrJVWKZlFldpsSyj9TJaZumyYk22rupmvcqKJGuqdVWkTdGwJo3TMI7rdtJD_Vivnuv1Y3047LaH2eLz7DGfffkw--ulPjxv-KXvs2_tan8l7fhm81i339tv1fawebrn3x8222f-7d-bdb3jX1cPu81KDG43Uv13tgjbCR6r-_t6zS8f_-iuHla7fc2_7V723VP1f6qndsi3TYeob9vd3zMFVXvlJg7j5Da4ewmzOD9-Jqz7XnWfBd5Ius_0-Mn4J1yP19pQVvYfSyrLfEmmrjMGS4uZGNzuZo3LAMBcd0MLWIKszcfylWI-If-M-BMcAlhPbKnpvsdq7TjjVwK1Hu4lXmrX-QPVPDhScrfft1wiGHn3p-SLWXC3v9u694mrpAA1AJdEOgUiNSiBx9pZWwgusWJcaeQs-qjmq582TR4v4PEGqJroKxUKfj4vy8WmdP7iVBew60woNpj0-V9ADUC17DX78uODEOU4vSpZVrLAcRc3OkekIDAVCK5gD347D4DgHCsVYeDYwsACbSnSDKWI85aT6Zq6KadmN43G4tIasbTqHuTrRYiTDNUH6IG41Efp6oAqAhP_vzLOHErBh6dBiOLQoYY9H1FSoH8xFF2Ml95GsrgOZgpOFtloRDnlNQgG6jqKY6WvPz3V60316SX6VKbzP7f3Rv39eabmFbzMiYZ8_YpW28kjwgoiNJHm1AgIEJpsYdsG32sVfNTJSf0hMcDg_8hbTJOL3CYdw_i-c6l6OjRUjMgi664uSRxheBE7aFLRXxUS5vFaBcw4bYNE5bKXGLDoxvhA5aIR1OPo2h6wss7xM1zBY2JQgy4Ig9tCg6LrngOGffiyxROS1W2AJLCGCSrFju1_vwGxCU0Fh1mJDQzFCFvlGvAJXl9YPWrTaIJBnRsYgCLG8ttFK1IzNUSQeYVocmtKA2Aewaz6VyRnckAo5wiHH2hk8oYZ8CvhHCtAVu2ggUAc66V7PcEeGPfk52GJsHCDWAJK810IauVqUdN8uUaHAsgrEemTzUBtXPoOznSCIJZIJNQACQsUW7EKqGxFrgAIlLW8AWHQGYKG7htqcfAI41LnTE6_EOFAs0D3r7YkVs3dAmuFU0gy6Bk5YaetjvmpSwWnL9t1vT88V13KDdNNiiCEBlEQ3SJFR6uWyyQyTJqnl8sxhcLoCzjyRywEt8lhfqPSEFVovHRe1GDFHjWIElTYEkFjH1RXRDcUO3af8nrQMmwrXqzQKIUZo5TcE6XgvDJ9y6XdGrSCpWdSDuHxRkmcAHTlcXKPn0LzCUE2ZHxBhGlIXwBbZfokBkWWKmjlSm7Q8QmriFcIx5y4VqjPkwKdI6Gwg5u7u5sgnLekv2v_faqeH_ZP3w8_2u-3t7qzIkI2-VRkemp-nYq6AKlogj7WBX0hmZow9MNThQqWwfcSlH1S4Uy63cMgTCgFzi-px0GZwEu1W2M9LhtiV6KGmpWQmpWoGKZ_ZXTnMynFhaLyk7DEegrIbDCKKwF4agwn_zQMXwpgYtquq2DiVXJnxIRohUbkeXwmtwZAIkUiGWWlAGFOdtJdGlWqVBNKRwpm9OgpN9J-xhV_q5qib15AoT2gBgsX993hN6n-okyWbyiTZ7sfVBHVgCASAb-lR3L8lM6wnoeieWEuvyRBANwgnXp9wbIv3szmydgDWi0FQXJnpMaTGnIz82A-d6UePbkrTz6dgdjGbhM0IqPoUyZzr46zo4voC4IplDoWeqROBHXgZbNBW8YAdQyiDSVWGjFGYei2iUK_EYi76yQxN2AdT-zdRmTXGBC9ayQg1RVpJC0JKostevgYg1kVYPNVzk3Meyq5Mo0QxVbJ4hsZ1j1mRZhso6A5daKOomHqaGr_B3UPNh7WijtlQQdauEYxPXdoGfCiIUzSRRFBwGyToYZjylbb0gNYJxKTGyTDVfW-Rt33_6NNhrDqZaTkbAHQb4fAnIm2I5kKhuUEFVdqKC2zAkLFcwwCT8bUDaor9YxvAn0BggIkHetspNWJd7eXja52-lNFmHkVoa-6T4vxKPaki0DWLsEUEAExWBtDKRKcV6PqYbBVvR1UcGQNRNRlzeZRmhSCzq9EDTAdZkV0Mben2olekYCAFFwjWHWJmAIMG-y5cBM4ujK4bg0hKtglNQcpIIz0XoH1YZocx5irYakOAvYLcEnEFiGaTUJw12ptpjf0E_8ohTmEIqpg8hw2Lp4wtKFFMFZXiGQlMMSEfgwpkOvr0aS-Wo8U-U_FFVjQkLhk8Dhae1siyiDyxLXrFYzQVAj9r-Mk15big2hH2xA-9lhM7IhgBFlYaUvAreGkkF3iyRCg3RUQe_yoU83UWorMUij0G90K3E2mEMNIxRD1MJKYeH3Y-WG6DfuwsQxxPqPLenLn5LoRyMgd6l80k9sJUGt4_6734lADVTzuw0BTNFRhHEh8SUNzFWhJz9kL0lZYGbSSO2dAzCbyt1BIgHoxCGrVcd6rJ7Z_hkcGxCyX8oKSeFA4OCL9NGGL7YTt5hNAO6ZRHlNjCUAu1IrB3bL3E9q2_DY08Wb1UD5kt0NobHcwRAZqVdo7Of5AyCsT3I8Dc8fHtdmGXz2-d5TgXpljrku5-cR-jEKbB97KcT9B-WFQclNF74XxfE_m7ZyrFPcSX5vo2jcqawO_65lHU79AX-xkwl-P-fTGP_Tv9a5GcnzBcMgDebewzeo-I02z9qa53L1b7g3QtkzpVHp7W2lEZ9J1IjMB4QYRB_TQpG-mE8UNrsGWUOm0qkEI_GIoBJ06FuEPjm8uhQIrMVzC3RBjYF82VhSUXGwg9Pge1GE8hYQuuMk1NmaKKsukRnf3_FDv_bl1TjwkBQY7b9L1PkwnTdcA2QEeNVqhq28h7m6ot_S02f4IPgRRoXXbtjTtmOzuhk34SN9Xax_hT4x4gCabE5O9KpNhnd7unJSO-QQUFybQpGYdfb5E5PVzlH3-9Ao0RHc7RKmlaW4Sz5y3MzwGRF8fIkVfW-kaz4UaWpWJUajUltrnePz0EjqqhYB56QDDom-uPJyb8-3tEip7qk4QxBMWA0gGMAU3ylRahmzRhOU-vYBpL_eh7ohRnJCSmBHGWgH_HiL5MNKSm1Fw0EKqG2ueHOAwHixGwmEgkhUOuzoAmUx0maQnS1SpKxf9C5iM17t6qeklheuEJBSvLAQ_fkYNcMe5bo9JjgZG1MDN9iPCVqrO5dHvQZ0642vUxGtIf95r0E_XYqlecIMo59i0CxGaIeeKMfpAEpI6Db55KUZ9g0yvWgbEYauP7SczePYYfokOcBQ903sTCsUcGPZa27sE1RpU54R1-ntL0CMiJ9z8zZF8v6lho24fjpyUw6YM4p3ZDivrM8mT4MANkS5uxL20mSdR8RWiZSTyaUGiEeCkYzLKvh4zUe9-w7vfAOC8-w2_gN_Q1M0S9KhAg17ex2qGLOxaONd5SLRdL1dLuNP1p7HWF4GUwIfEpJCU308ZY7vVG6w5z_BvRnk3iTElkkQ-5-bMfLGH90jL0k-lb09ZvTCg6eRhk3synJBypgf_qPcQF_PSmstOlsCTkxyRFlteBGG4OC590imku0shnZnyNFPgfiB6-tMKT5UPwqw0giO4pkDkpeqTHHuJQc8aMudWl9kk0KcsuvgfdqVir1NCEit8DGKWbN6dcx9EdYOvSPrIcKjHEKlG2o9jwfNxhNR94cco1RQ2rf4cP6mDTFLbnuPX4C0zNNvWBgHKdDCtu5hHz7RqiCUdSLYmSGQYlsGOdVVkUELnLrpWWGHRiavHU9yjIhXFs3AIaUziofdhVUggxa_Rx_6ispx2HpIY0JhDQTnSVr2zqnGhFAzhMSCCnNjTteeFqpo-DWxn_ZshbH3LzW_A36HQoxM7ccck3PxOKIfSsFGLYPC2pxBITkVoblJsWgzRG74e6hEdyqTtEgvjqEVISG-I5LCcZlqWlM-B4u4mEDpUy_6JhVLMGpzc_FM6870kPjwzMML1ufTrg0xvpYvSRdp64ScblS5kPCD885P5av9Ou7-htcr4UrKsfG-tMtrr99aq8L216o1aq_pH3997q_5phmT63irnqdm7G8ZMHUwtP_VraqeWJ9sDmb2tavgS8olRi2CF1PdKo8-z3xS-BpzhBX9xzOlc01u7bEFMDpLvZiHfAURw6LyvTEYPWoiAgQPBMX-9Q8RXdwjilUshROUbSiGI_K4IMvIXZUZn8zj_DzvmQl54gIxj-B0UggeBPn2sL5w8Mc2F39yUGLsvLlagsJey8A9f4wDJAU_mN52sqTeHOvErbCcx_3aKQOaFCLL-MiVqtW2kIrXuCfLmUwaPg7JP6no_zmSGONPfuykFLfO-AF2O9L9_vB3pZUNSaCyNchz7fgvo3NTR6EKA8N7hKC_lF9afELNMho4ea5qecDoktGPSTWD7vSHyJodsUK6w6sMsf6znAm_L9f8yke9XjZwvorO9G3T6jSja0VddYE8dHFgnsm77YTbsSjPkNdDsy-UiYE1DkmNq1Wl4OQMKNkPfGXX8GQIqhWRAX_3AfMovgIxyUYp_AwSh8r-l0alsTAX0ybvyxngJbtM9dSrgJ-viqCtt70_y8oqNRZF8HkbFn1EY2rA77_7ho-Qf_bbp85wKOamfM09pbr-kgxX1vfeUxDr8tlro4usM38sQBH358eXH_wD1LOu8:1v3Xm6:V9shXEGXmgiY_8RFopIxT4dQkXONmc40d3vQ8DxnSRY",
+    "expire_date": "2025-10-14T10:40:02.952Z"
   }
 },
 {
