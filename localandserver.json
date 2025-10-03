@@ -2772,6 +2772,366 @@
   }
 },
 {
+  "model": "live.zquestion",
+  "pk": 160,
+  "fields": {
+    "head": "(قصير 1) يمثل ميل المنحنى في التمثيل البياني (السرعة - الزمن) ـــــــــ. ",
+    "op1": "التسارع ",
+    "op2": " \r\nالسرعة ",
+    "op3": " \r\nالانحدار ",
+    "op4": " \r\nالمسافة",
+    "options": "التسارع .. \r\nالسرعة .. \r\nالانحدار .. \r\nالمسافة",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "30",
+    "k": "z160",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 161,
+  "fields": {
+    "head": "(2022) يوضح التمثيل البياني( السرعة - الزمن ) التالي حركة سيارة على طول طريق مستقيم خلال (\\( 10 \\ \\mathrm{s} \\)). ادرسه جيدا ثم احسب مقدار تسارع السيارة. ",
+    "op1": "\\(2 \\ \\mathrm{m/s^{2}}\\) ",
+    "op2": "\\(200 \\ \\mathrm{m/s^{2}}\\) ",
+    "op3": "\\(100 \\ \\mathrm{m/s^{2}}\\) ",
+    "op4": "\\(0.2 \\ \\mathrm{m/s^{2}}\\)",
+    "options": "\\(2 \\ \\mathrm{m/s^{2}}\\) ..\r\n\\(200 \\ \\mathrm{m/s^{2}}\\) ..\r\n\\(100 \\ \\mathrm{m/s^{2}}\\) ..\r\n\\(0.2 \\ \\mathrm{m/s^{2}}\\) ",
+    "file": "32",
+    "file_url": "/media/u2/32.png",
+    "time": "0",
+    "time_limit": "80",
+    "k": "z161",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 162,
+  "fields": {
+    "head": "(كتاب) يُظهر التمثيل البياني (السرعة/الزمن) أدناه سرعة سيارة أثناء حركتها. .. \r\nاحسب تسارع السيارة بين النقطتين (أ) و (ب) على التمثيل البياني.",
+    "op1": "\\(1 \\ \\mathrm{1 m/s^{2}}\\) ",
+    "op2": "\\(225 \\ \\mathrm{1 m/s^{2}}\\) ",
+    "op3": "\\(0.1 \\ \\mathrm{1 m/s^{2}}\\) ",
+    "op4": "\\(112.5 \\ \\mathrm{1 m/s^{2}}\\)",
+    "options": "\\(1 \\ \\mathrm{1 m/s^{2}}\\) ..\r\n\\(225 \\ \\mathrm{1 m/s^{2}}\\) ..\r\n\\(0.1 \\ \\mathrm{1 m/s^{2}}\\) ..\r\n\\(112.5 \\ \\mathrm{1 m/s^{2}}\\) ",
+    "file": "92",
+    "file_url": "/media/u2/92.png",
+    "time": "0",
+    "time_limit": "80",
+    "k": "z162",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 163,
+  "fields": {
+    "head": "(2024) ادرس التمثيل البياني التالي ثم اختر رمز الفترة الزمنية التي تمثل أن سرعة السيارة تتناقص بمقدار ثابت.   ",
+    "op1": "C ",
+    "op2": " \r\nB ",
+    "op3": " \r\nA ",
+    "op4": " \r\nA,B",
+    "options": "C .. \r\nB .. \r\nA .. \r\nA,B",
+    "file": "2",
+    "file_url": "/media/u2/2.png",
+    "time": "0",
+    "time_limit": "50",
+    "k": "z163",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 164,
+  "fields": {
+    "head": "(كتاب) تُبيّن الرسوم أدناه أربعة تمثيلات بيانية (السرعة/الزمن). .. \r\nدوّن رموز التمثيلات البيانية ما يُمثّل جسما يقطع المسافة نفسها في فترات زمنية متساوية. ",
+    "op1": "أ ",
+    "op2": "ب ",
+    "op3": " \r\nج ",
+    "op4": " \r\nد",
+    "options": "أ ..\r\nب .. \r\nج .. \r\nد",
+    "file": "91",
+    "file_url": "/media/u2/91.png",
+    "time": "0",
+    "time_limit": "60",
+    "k": "z164",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 165,
+  "fields": {
+    "head": "(2021)  يوضح التمثيل البياني( السرعة - الزمن ) التالي حركة سيارة على طول طريق مستقيم خلال  (\\( 18 \\ \\mathrm{s} \\)). .. \r\nاستنتج المسافة التي قطعتها السيارة خلال (\\( 10 \\ \\mathrm{s} \\) ).  ",
+    "op1": "\\(200 \\ \\mathrm{m}\\) ",
+    "op2": "\\(2 \\ \\mathrm{m}\\) ",
+    "op3": "\\(0.5 \\ \\mathrm{m}\\) ",
+    "op4": "\\(5 \\ \\mathrm{m}\\)",
+    "options": "\\(200 \\ \\mathrm{m}\\) ..\r\n\\(2 \\ \\mathrm{m}\\) ..\r\n\\(0.5 \\ \\mathrm{m}\\) ..\r\n\\(5 \\ \\mathrm{m}\\)",
+    "file": "39",
+    "file_url": "/media/u2/39.png",
+    "time": "0",
+    "time_limit": "80",
+    "k": "z165",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 166,
+  "fields": {
+    "head": "(كتاب) يُظهر التمثيل البياني (السرعة/الزمن) أدناه سرعة سيارة أثناء حركتها. .. \r\nب. استخدم التمثيل البياني لحساب المسافة التي تقطعها السيارة بين النقطتين (ب) و (ج).",
+    "op1": "\\(525 \\ \\mathrm{m}\\) ",
+    "op2": "\\(35 \\ \\mathrm{m}\\) ",
+    "op3": "\\(15 \\ \\mathrm{m}\\) ",
+    "op4": "\\(0 \\ \\mathrm{m}\\)",
+    "options": "\\(525 \\ \\mathrm{m}\\) ..\r\n\\(35 \\ \\mathrm{m}\\) ..\r\n\\(15 \\ \\mathrm{m}\\) ..\r\n\\(0 \\ \\mathrm{m}\\) ",
+    "file": "92",
+    "file_url": "/media/u2/92.png",
+    "time": "0",
+    "time_limit": "80",
+    "k": "z166",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 167,
+  "fields": {
+    "head": "(2024) يوضح الرسم البياني التالي منحنى (السرعة - الزمن) لدراجة متحركة. احسب المسافة الكلية التي قطعتها الدراجة من الزمن ( 0 إلى \\( 10 \\ \\mathrm{s} \\)) .",
+    "op1": "\\( 24 \\ \\mathrm{m} \\) ",
+    "op2": "\\( 18 \\ \\mathrm{m} \\) ",
+    "op3": "\\( 10 \\ \\mathrm{m} \\) ",
+    "op4": "\\( 30 \\ \\mathrm{m} \\)",
+    "options": "\\( 24 \\ \\mathrm{m} \\) ..\r\n\\( 18 \\ \\mathrm{m} \\) ..\r\n\\( 10 \\ \\mathrm{m} \\) ..\r\n\\( 30 \\ \\mathrm{m} \\)",
+    "file": "6",
+    "file_url": "/media/u2/6.png",
+    "time": "0",
+    "time_limit": "120",
+    "k": "z167",
+    "p": 12
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 168,
+  "fields": {
+    "head": "ما هو نوع القوة المشار إليها بالرقم (2) في الشكل التالي؟ ",
+    "op1": "الدفع ",
+    "op2": " \r\nمقاومة الهواء ",
+    "op3": " \r\nالتلامس العمودية ",
+    "op4": " \r\nالجاذبية",
+    "options": "الدفع .. \r\nمقاومة الهواء .. \r\nالتلامس العمودية .. \r\nالجاذبية",
+    "file": "1",
+    "file_url": "/media/u20/1.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z168",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 169,
+  "fields": {
+    "head": "مقاومة الهواء يشار إليها بالرقم ـــــــــــــ في الشكل التالي. ",
+    "op1": "4 ",
+    "op2": "2 ",
+    "op3": "3 ",
+    "op4": " \r\n1",
+    "options": "4 ..\r\n2 ..\r\n3 .. \r\n1",
+    "file": "1",
+    "file_url": "/media/u20/1.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z169",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 170,
+  "fields": {
+    "head": "أي الأسهم التالية يمثل قوة التلامس العمودية؟ ",
+    "op1": "2 ",
+    "op2": " \r\n1 ",
+    "op3": " \r\n4 ",
+    "op4": " \r\n3",
+    "options": "2 .. \r\n1 .. \r\n4 .. \r\n3",
+    "file": "2",
+    "file_url": "/media/u20/2.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z170",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 171,
+  "fields": {
+    "head": "أي الأسهم التالية يمثل قوة الاحتكاك؟ ",
+    "op1": "4 ",
+    "op2": " \r\n1 ",
+    "op3": " \r\n2 ",
+    "op4": " \r\n3",
+    "options": "4 .. \r\n1 .. \r\n2 .. \r\n3",
+    "file": "2",
+    "file_url": "/media/u20/2.png",
+    "time": "0",
+    "time_limit": "30",
+    "k": "z171",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 172,
+  "fields": {
+    "head": "ما هو تأثير القوة على حركة السيارة في الشكل التالي؟ ",
+    "op1": "تتباطأ ",
+    "op2": " \r\nتزداد سرعتها ",
+    "op3": "تنعطف يمينا ",
+    "op4": " \r\nتنعطف يسارا\r",
+    "options": "تتباطأ .. \r\nتزداد سرعتها ..\r\nتنعطف يمينا .. \r\nتنعطف يسارا\r\n",
+    "file": "3",
+    "file_url": "/media/u20/3.png",
+    "time": "0",
+    "time_limit": "35",
+    "k": "z172",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 173,
+  "fields": {
+    "head": "ما هو تأثير القوة على حركة الكرة في الشكل التالي؟ ",
+    "op1": "تسقط بمسار مقوس ",
+    "op2": " \r\nتسقط عموديا ",
+    "op3": " \r\nتتباطأ ",
+    "op4": " \r\nتتسارع",
+    "options": "تسقط بمسار مقوس .. \r\nتسقط عموديا .. \r\nتتباطأ .. \r\nتتسارع",
+    "file": "4",
+    "file_url": "/media/u20/4.png",
+    "time": "0",
+    "time_limit": "35",
+    "k": "z173",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 174,
+  "fields": {
+    "head": "احسب محصلة القوى في الشكل التالي. ",
+    "op1": "4N يمينا ",
+    "op2": " \r\n4N يسارا ",
+    "op3": " \r\n28N يمينا ",
+    "op4": " \r\n28N يسارا",
+    "options": "4N يمينا .. \r\n4N يسارا .. \r\n28N يمينا .. \r\n28N يسارا",
+    "file": "5",
+    "file_url": "/media/u20/5.png",
+    "time": "0",
+    "time_limit": "40",
+    "k": "z174",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 175,
+  "fields": {
+    "head": "احسب محصلة القوى في الشكل التالي. ",
+    "op1": "20N لأسفل ",
+    "op2": " \r\n20N لأعلى ",
+    "op3": " \r\n0N ",
+    "op4": " \r\n100N في جميع الاتجاهات",
+    "options": "20N لأسفل .. \r\n20N لأعلى .. \r\n0N .. \r\n100N في جميع الاتجاهات",
+    "file": "6",
+    "file_url": "/media/u20/6.png",
+    "time": "0",
+    "time_limit": "40",
+    "k": "z175",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 176,
+  "fields": {
+    "head": "احسب محصلة القوى في الشكل التالي. ",
+    "op1": "30N يسارا ",
+    "op2": " \r\n70N يسارا ",
+    "op3": " \r\n40N يمينا ",
+    "op4": " \r\n150N يسارا",
+    "options": "30N يسارا .. \r\n70N يسارا .. \r\n40N يمينا .. \r\n150N يسارا",
+    "file": "7",
+    "file_url": "/media/u20/7.png",
+    "time": "0",
+    "time_limit": "40",
+    "k": "z176",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 177,
+  "fields": {
+    "head": "احسب القوة اللازمة لإكساب كتلة مقدارها (\\( 20 \\ \\mathrm{kg} \\)) تسارعاً مقداره (\\( 0.72 \\ \\mathrm{m/s^{2}} \\)).",
+    "op1": "\\( 14.4 \\ \\mathrm{N} \\) ",
+    "op2": "\\( 27.7 \\ \\mathrm{N} \\) ",
+    "op3": "\\( 3.6 \\ \\mathrm{N} \\) ",
+    "op4": "\\( 56.2 \\ \\mathrm{N} \\)",
+    "options": "\\( 14.4 \\ \\mathrm{N} \\) ..\r\n\\( 27.7 \\ \\mathrm{N} \\) ..\r\n\\( 3.6 \\ \\mathrm{N} \\) ..\r\n\\( 56.2 \\ \\mathrm{N} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "60",
+    "k": "z177",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 178,
+  "fields": {
+    "head": "احسب تسارع سيارة كتلتها (\\( 450 \\ \\mathrm{kg} \\)) يتم التأثير عليها بمحصلة قوى مقدارها (\\( 1575 \\ \\mathrm{N} \\)).",
+    "op1": "\\( 3.5 \\ \\mathrm{m/s^{2}} \\) ",
+    "op2": "\\( 2.8 \\ \\mathrm{m/s^{2}} \\) ",
+    "op3": "\\( 3.5 \\ \\mathrm{N} \\) ",
+    "op4": "\\( 2.8 \\ \\mathrm{N} \\)",
+    "options": "\\( 3.5 \\ \\mathrm{m/s^{2}} \\) ..\r\n\\( 2.8 \\ \\mathrm{m/s^{2}} \\) ..\r\n\\( 3.5 \\ \\mathrm{N} \\) ..\r\n\\( 2.8 \\ \\mathrm{N} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "60",
+    "k": "z178",
+    "p": 69
+  }
+},
+{
+  "model": "live.zquestion",
+  "pk": 179,
+  "fields": {
+    "head": "تتمثل إحدى الطرق لإيجاد كتلة جسم ما في التأثير عليه بقوة وحساب تسارعه. تدفع مركبة فضائية بقوة (\\( 200 \\ \\mathrm{N} \\))، وتتسارع بمقدار (\\( 0.12 \\ \\mathrm{m/s^{2}} \\)). ما كتلة المركبة الفضائية؟",
+    "op1": "\\( 16667 \\ \\mathrm{kg} \\) ",
+    "op2": "\\( 24 \\ \\mathrm{kg} \\) ",
+    "op3": "\\( 16667 \\ \\mathrm{N} \\) ",
+    "op4": "\\( 24 \\ \\mathrm{N} \\)",
+    "options": "\\( 16667 \\ \\mathrm{kg} \\) ..\r\n\\( 24 \\ \\mathrm{kg} \\) ..\r\n\\( 16667 \\ \\mathrm{N} \\) ..\r\n\\( 24 \\ \\mathrm{N} \\)",
+    "file": null,
+    "file_url": null,
+    "time": "0",
+    "time_limit": "60",
+    "k": "z179",
+    "p": 69
+  }
+},
+{
   "model": "courses.user",
   "pk": 1,
   "fields": {
@@ -4478,7 +4838,7 @@
   "pk": 91,
   "fields": {
     "password": "pbkdf2_sha256$720000$WgrTFjU5UNn4mMkbbPnDOF$NrrD5uA5qwOWNH+MsUFMISDGHw6Y3E1ZGbnAf9AtuGw=",
-    "last_login": "2025-09-20T07:46:04.175Z",
+    "last_login": "2025-10-03T12:16:33.344Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4754,7 +5114,7 @@
   "pk": 105,
   "fields": {
     "password": "pbkdf2_sha256$720000$oXEsmhX0YEhPOyf5jn074M$BDeoUOFI5f8ItDqoBZOUFXduHnYun9lDkSCKBWspZMo=",
-    "last_login": "2025-09-19T06:21:40.172Z",
+    "last_login": "2025-10-03T07:18:25.468Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4800,7 +5160,7 @@
   "pk": 108,
   "fields": {
     "password": "pbkdf2_sha256$720000$Pz5WetEbswzM3XkA984OLc$lplVqeaCfSYX6AbwCJ6bFAsb2ClHtbX3jWTxm+X1zto=",
-    "last_login": "2025-09-24T02:01:34.405Z",
+    "last_login": "2025-10-02T14:35:21.214Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5214,7 +5574,7 @@
   "pk": 131,
   "fields": {
     "password": "pbkdf2_sha256$720000$bJAVGSikU9nScEOJtREX0d$3Rpot3ZXW73y0BSyMQkqZb0eOIlT1NWKAs9jfHqSrPY=",
-    "last_login": "2025-09-27T09:04:05.920Z",
+    "last_login": "2025-10-03T17:13:16.462Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5842,7 +6202,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 56
+    "percent": 65
   }
 },
 {
@@ -6472,7 +6832,7 @@
   "fields": {
     "user": 130,
     "k": 1,
-    "percent": 21
+    "percent": 28
   }
 },
 {
@@ -6481,7 +6841,7 @@
   "fields": {
     "user": 131,
     "k": 1,
-    "percent": 0
+    "percent": 1
   }
 },
 {
@@ -6958,7 +7318,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 56
+    "percent": 65
   }
 },
 {
@@ -7588,7 +7948,7 @@
   "fields": {
     "user": 130,
     "k": 1,
-    "percent": 21
+    "percent": 28
   }
 },
 {
@@ -7597,7 +7957,7 @@
   "fields": {
     "user": 131,
     "k": 1,
-    "percent": 0
+    "percent": 1
   }
 },
 {
@@ -7904,6 +8264,18 @@
     "y": 4,
     "file": "0",
     "file_url": "/media/u19/0.pdf"
+  }
+},
+{
+  "model": "courses.unit",
+  "pk": 20,
+  "fields": {
+    "head": "تأثيرات القوى",
+    "k": "u20",
+    "p": 2,
+    "y": 2,
+    "file": "0",
+    "file_url": "/media/u20/0.pdf"
   }
 },
 {
@@ -9226,7 +9598,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 67
+    "percent": 80
   }
 },
 {
@@ -9235,7 +9607,7 @@
   "fields": {
     "user": 38,
     "k": 2,
-    "percent": 43
+    "percent": 48
   }
 },
 {
@@ -13033,7 +13405,7 @@
   "fields": {
     "user": 130,
     "k": 1,
-    "percent": 35
+    "percent": 49
   }
 },
 {
@@ -13123,7 +13495,7 @@
   "fields": {
     "user": 131,
     "k": 1,
-    "percent": 0
+    "percent": 1
   }
 },
 {
@@ -13879,6 +14251,240 @@
   "fields": {
     "user": 1,
     "k": 19,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 699,
+  "fields": {
+    "user": 1,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 700,
+  "fields": {
+    "user": 15,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 701,
+  "fields": {
+    "user": 19,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 702,
+  "fields": {
+    "user": 20,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 703,
+  "fields": {
+    "user": 21,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 704,
+  "fields": {
+    "user": 25,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 705,
+  "fields": {
+    "user": 26,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 706,
+  "fields": {
+    "user": 28,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 707,
+  "fields": {
+    "user": 32,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 708,
+  "fields": {
+    "user": 35,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 709,
+  "fields": {
+    "user": 36,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 710,
+  "fields": {
+    "user": 42,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 711,
+  "fields": {
+    "user": 53,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 712,
+  "fields": {
+    "user": 68,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 713,
+  "fields": {
+    "user": 69,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 714,
+  "fields": {
+    "user": 82,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 715,
+  "fields": {
+    "user": 89,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 716,
+  "fields": {
+    "user": 97,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 717,
+  "fields": {
+    "user": 98,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 718,
+  "fields": {
+    "user": 99,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 719,
+  "fields": {
+    "user": 103,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 720,
+  "fields": {
+    "user": 105,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 721,
+  "fields": {
+    "user": 115,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 722,
+  "fields": {
+    "user": 123,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 723,
+  "fields": {
+    "user": 125,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 724,
+  "fields": {
+    "user": 132,
+    "k": 20,
     "percent": 0
   }
 },
@@ -14696,6 +15302,18 @@
     "s": 4,
     "y": 4,
     "video": "iU9sCoE1gWQ"
+  }
+},
+{
+  "model": "courses.lesson",
+  "pk": 69,
+  "fields": {
+    "head": "تأثير محصلة القوى",
+    "k": "l69",
+    "p": 20,
+    "s": 2,
+    "y": 2,
+    "video": null
   }
 },
 {
@@ -19141,7 +19759,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 71
+    "percent": 88
   }
 },
 {
@@ -19150,7 +19768,7 @@
   "fields": {
     "user": 38,
     "k": 2,
-    "percent": 70
+    "percent": 85
   }
 },
 {
@@ -19159,7 +19777,7 @@
   "fields": {
     "user": 38,
     "k": 3,
-    "percent": 83
+    "percent": 92
   }
 },
 {
@@ -19168,7 +19786,7 @@
   "fields": {
     "user": 38,
     "k": 4,
-    "percent": 66
+    "percent": 83
   }
 },
 {
@@ -19177,7 +19795,7 @@
   "fields": {
     "user": 38,
     "k": 5,
-    "percent": 88
+    "percent": 100
   }
 },
 {
@@ -19186,7 +19804,7 @@
   "fields": {
     "user": 38,
     "k": 6,
-    "percent": 50
+    "percent": 67
   }
 },
 {
@@ -19195,7 +19813,7 @@
   "fields": {
     "user": 38,
     "k": 7,
-    "percent": 67
+    "percent": 83
   }
 },
 {
@@ -19213,7 +19831,7 @@
   "fields": {
     "user": 38,
     "k": 9,
-    "percent": 89
+    "percent": 97
   }
 },
 {
@@ -19222,7 +19840,7 @@
   "fields": {
     "user": 38,
     "k": 10,
-    "percent": 79
+    "percent": 92
   }
 },
 {
@@ -32308,7 +32926,7 @@
   "fields": {
     "user": 130,
     "k": 1,
-    "percent": 47
+    "percent": 65
   }
 },
 {
@@ -32317,7 +32935,7 @@
   "fields": {
     "user": 130,
     "k": 2,
-    "percent": 30
+    "percent": 35
   }
 },
 {
@@ -32326,7 +32944,7 @@
   "fields": {
     "user": 130,
     "k": 3,
-    "percent": 25
+    "percent": 42
   }
 },
 {
@@ -32335,7 +32953,7 @@
   "fields": {
     "user": 130,
     "k": 4,
-    "percent": 31
+    "percent": 45
   }
 },
 {
@@ -32344,7 +32962,7 @@
   "fields": {
     "user": 130,
     "k": 5,
-    "percent": 19
+    "percent": 31
   }
 },
 {
@@ -32353,7 +32971,7 @@
   "fields": {
     "user": 130,
     "k": 6,
-    "percent": 17
+    "percent": 33
   }
 },
 {
@@ -32362,7 +32980,7 @@
   "fields": {
     "user": 130,
     "k": 7,
-    "percent": 50
+    "percent": 72
   }
 },
 {
@@ -32371,7 +32989,7 @@
   "fields": {
     "user": 130,
     "k": 8,
-    "percent": 50
+    "percent": 61
   }
 },
 {
@@ -32596,7 +33214,7 @@
   "fields": {
     "user": 131,
     "k": 1,
-    "percent": 0
+    "percent": 12
   }
 },
 {
@@ -35845,6 +36463,240 @@
   "fields": {
     "user": 1,
     "k": 68,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2385,
+  "fields": {
+    "user": 1,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2386,
+  "fields": {
+    "user": 15,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2387,
+  "fields": {
+    "user": 19,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2388,
+  "fields": {
+    "user": 20,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2389,
+  "fields": {
+    "user": 21,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2390,
+  "fields": {
+    "user": 25,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2391,
+  "fields": {
+    "user": 26,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2392,
+  "fields": {
+    "user": 28,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2393,
+  "fields": {
+    "user": 32,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2394,
+  "fields": {
+    "user": 35,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2395,
+  "fields": {
+    "user": 36,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2396,
+  "fields": {
+    "user": 42,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2397,
+  "fields": {
+    "user": 53,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2398,
+  "fields": {
+    "user": 68,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2399,
+  "fields": {
+    "user": 69,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2400,
+  "fields": {
+    "user": 82,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2401,
+  "fields": {
+    "user": 89,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2402,
+  "fields": {
+    "user": 97,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2403,
+  "fields": {
+    "user": 98,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2404,
+  "fields": {
+    "user": 99,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2405,
+  "fields": {
+    "user": 103,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2406,
+  "fields": {
+    "user": 105,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2407,
+  "fields": {
+    "user": 115,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2408,
+  "fields": {
+    "user": 123,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2409,
+  "fields": {
+    "user": 125,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2410,
+  "fields": {
+    "user": 132,
+    "k": 69,
     "percent": 0
   }
 },
@@ -76221,8 +77073,8 @@
   "fields": {
     "user": 38,
     "k": 13,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76320,8 +77172,8 @@
   "fields": {
     "user": 38,
     "k": 23,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76342,8 +77194,8 @@
   "fields": {
     "user": 38,
     "k": 25,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76441,8 +77293,8 @@
   "fields": {
     "user": 38,
     "k": 35,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76518,8 +77370,8 @@
   "fields": {
     "user": 38,
     "k": 44,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76628,8 +77480,8 @@
   "fields": {
     "user": 38,
     "k": 59,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76640,7 +77492,7 @@
     "user": 38,
     "k": 60,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76672,8 +77524,8 @@
   "fields": {
     "user": 38,
     "k": 55,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76749,8 +77601,8 @@
   "fields": {
     "user": 38,
     "k": 72,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76793,8 +77645,8 @@
   "fields": {
     "user": 38,
     "k": 78,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76936,8 +77788,8 @@
   "fields": {
     "user": 38,
     "k": 95,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -76992,7 +77844,7 @@
     "user": 38,
     "k": 102,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77112,8 +77964,8 @@
   "fields": {
     "user": 38,
     "k": 117,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77233,8 +78085,8 @@
   "fields": {
     "user": 38,
     "k": 124,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77256,7 +78108,7 @@
     "user": 38,
     "k": 131,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77332,8 +78184,8 @@
   "fields": {
     "user": 38,
     "k": 140,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77531,7 +78383,7 @@
     "user": 38,
     "k": 41,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77585,8 +78437,8 @@
   "fields": {
     "user": 38,
     "k": 79,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -77871,7 +78723,7 @@
   "fields": {
     "user": 38,
     "k": 146,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -77882,8 +78734,8 @@
   "fields": {
     "user": 38,
     "k": 152,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78036,8 +78888,8 @@
   "fields": {
     "user": 38,
     "k": 174,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78135,8 +78987,8 @@
   "fields": {
     "user": 38,
     "k": 186,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78157,8 +79009,8 @@
   "fields": {
     "user": 38,
     "k": 188,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78531,8 +79383,8 @@
   "fields": {
     "user": 38,
     "k": 223,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78795,8 +79647,8 @@
   "fields": {
     "user": 38,
     "k": 249,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157500,8 +158352,8 @@
   "fields": {
     "user": 130,
     "k": 7,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157599,8 +158451,8 @@
   "fields": {
     "user": 130,
     "k": 58,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157709,8 +158561,8 @@
   "fields": {
     "user": 130,
     "k": 76,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157819,8 +158671,8 @@
   "fields": {
     "user": 130,
     "k": 14,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157830,8 +158682,8 @@
   "fields": {
     "user": 130,
     "k": 36,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157874,8 +158726,8 @@
   "fields": {
     "user": 130,
     "k": 94,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -157918,8 +158770,8 @@
   "fields": {
     "user": 130,
     "k": 28,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158028,8 +158880,8 @@
   "fields": {
     "user": 130,
     "k": 110,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158039,7 +158891,7 @@
   "fields": {
     "user": 130,
     "k": 111,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -158083,8 +158935,8 @@
   "fields": {
     "user": 130,
     "k": 117,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158105,8 +158957,8 @@
   "fields": {
     "user": 130,
     "k": 30,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158116,8 +158968,8 @@
   "fields": {
     "user": 130,
     "k": 42,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158149,7 +159001,7 @@
   "fields": {
     "user": 130,
     "k": 121,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -158424,8 +159276,8 @@
   "fields": {
     "user": 130,
     "k": 4,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158512,8 +159364,8 @@
   "fields": {
     "user": 130,
     "k": 26,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158523,8 +159375,8 @@
   "fields": {
     "user": 130,
     "k": 37,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158787,8 +159639,8 @@
   "fields": {
     "user": 130,
     "k": 100,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158886,8 +159738,8 @@
   "fields": {
     "user": 130,
     "k": 131,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158919,8 +159771,8 @@
   "fields": {
     "user": 130,
     "k": 130,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158930,8 +159782,8 @@
   "fields": {
     "user": 130,
     "k": 132,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -158963,8 +159815,8 @@
   "fields": {
     "user": 130,
     "k": 136,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -160294,8 +161146,8 @@
   "fields": {
     "user": 131,
     "k": 6,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -160415,8 +161267,8 @@
   "fields": {
     "user": 131,
     "k": 60,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -160459,7 +161311,7 @@
   "fields": {
     "user": 131,
     "k": 65,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -160470,7 +161322,7 @@
   "fields": {
     "user": 131,
     "k": 68,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -160734,7 +161586,7 @@
   "fields": {
     "user": 131,
     "k": 102,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -160899,7 +161751,7 @@
   "fields": {
     "user": 131,
     "k": 118,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -160987,7 +161839,7 @@
   "fields": {
     "user": 131,
     "k": 127,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -160998,7 +161850,7 @@
   "fields": {
     "user": 131,
     "k": 133,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -161427,7 +162279,7 @@
   "fields": {
     "user": 131,
     "k": 53,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -161449,7 +162301,7 @@
   "fields": {
     "user": 131,
     "k": 64,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -181929,7 +182781,7 @@
   "model": "courses.qdubl",
   "pk": 262,
   "fields": {
-    "head": "(2024) ادرس التمثيل البياني التالي ثم اختر رمز الفترة الزمنية التي تمثل أن سرعة السيارة تناقص بمقدار ثابت.   ",
+    "head": "(2024) ادرس التمثيل البياني التالي ثم اختر رمز الفترة الزمنية التي تمثل أن سرعة السيارة تتناقص بمقدار ثابت.   ",
     "op1": "C ",
     "op2": " \r\nB ",
     "op3": " \r\nA",
@@ -183943,7 +184795,7 @@
   "model": "courses.qdubl",
   "pk": 374,
   "fields": {
-    "head": "(قصير 1) (قصير 1) الشكل البياني التالي يصف تغير سرعة سيارة أثناء رحلتها مرورًا بمدينة صغيرة على الطريق. ادرس الشكل جيدًا ثم احسب المسافة التي تقطعها السيارة من لحظة دخولها المدينة وحتى خروجها منها.",
+    "head": "(قصير 1) الشكل البياني التالي يصف تغير سرعة سيارة أثناء رحلتها مرورًا بمدينة صغيرة على الطريق. ادرس الشكل جيدًا ثم احسب المسافة التي تقطعها السيارة من لحظة دخولها المدينة وحتى خروجها منها.",
     "op1": "\\(300 \\ \\mathrm{m}\\) ",
     "op2": "\\(550 \\ \\mathrm{m}\\) ",
     "op3": "\\(484 \\ \\mathrm{m}\\) ",
@@ -185002,14 +185854,6 @@
 },
 {
   "model": "sessions.session",
-  "pk": "lvdkagwt9t114rrjx9r55qudydyoxi5p",
-  "fields": {
-    "session_data": ".eJztXdty2zYafhVWV_ZMopAEj7rsfZ8gzmQoibS1saVWsre7k8m7L0UAwvcTJ1KhbDXraavKJAj8-M8nUN9nX6uX54evL4d6_3Wzni1m0ewDXltWq2_19nhj_a9qe7-br3bb5_1mOT8OmYu7h_kfu3X9-LsYSyZ4qA4P7dNZGkbZMi9DxrJVWKZlFldpsSyj9TJaZumyYk22rupmvcqKJGuqdVWkTdGwJo3TMI7rdtJD_Vivnuv1Y3047LaH2eLz7DGfffkw--ulPjxv-KXvs2_tan8l7fhm81i339tv1fawebrn3x8222f-7d-bdb3jX1cPu81KDG43Uv13tgjbCR6r-_t6zS8f_-iuHla7fc2_7V723VP1f6qndsi3TYeob9vd3zMFVXvlJg7j5Da4ewmzOD9-Jqz7XnWfBd5Ius_0-Mn4J1yP19pQVvYfSyrLfEmmrjMGS4uZGNzuZo3LAMBcd0MLWIKszcfylWI-If-M-BMcAlhPbKnpvsdq7TjjVwK1Hu4lXmrX-QPVPDhScrfft1wiGHn3p-SLWXC3v9u694mrpAA1AJdEOgUiNSiBx9pZWwgusWJcaeQs-qjmq582TR4v4PEGqJroKxUKfj4vy8WmdP7iVBew60woNpj0-V9ADUC17DX78uODEOU4vSpZVrLAcRc3OkekIDAVCK5gD347D4DgHCsVYeDYwsACbSnSDKWI85aT6Zq6KadmN43G4tIasbTqHuTrRYiTDNUH6IG41Efp6oAqAhP_vzLOHErBh6dBiOLQoYY9H1FSoH8xFF2Ml95GsrgOZgpOFtloRDnlNQgG6jqKY6WvPz3V60316SX6VKbzP7f3Rv39eabmFbzMiYZ8_YpW28kjwgoiNJHm1AgIEJpsYdsG32sVfNTJSf0hMcDg_8hbTJOL3CYdw_i-c6l6OjRUjMgi664uSRxheBE7aFLRXxUS5vFaBcw4bYNE5bKXGLDoxvhA5aIR1OPo2h6wss7xM1zBY2JQgy4Ig9tCg6LrngOGffiyxROS1W2AJLCGCSrFju1_vwGxCU0Fh1mJDQzFCFvlGvAJXl9YPWrTaIJBnRsYgCLG8ttFK1IzNUSQeYVocmtKA2Aewaz6VyRnckAo5wiHH2hk8oYZ8CvhHCtAVu2ggUAc66V7PcEeGPfk52GJsHCDWAJK810IauVqUdN8uUaHAsgrEemTzUBtXPoOznSCIJZIJNQACQsUW7EKqGxFrgAIlLW8AWHQGYKG7htqcfAI41LnTE6_EOFAs0D3r7YkVs3dAmuFU0gy6Bk5YaetjvmpSwWnL9t1vT88V13KDdNNiiCEBlEQ3SJFR6uWyyQyTJqnl8sxhcLoCzjyRywEt8lhfqPSEFVovHRe1GDFHjWIElTYEkFjH1RXRDcUO3af8nrQMmwrXqzQKIUZo5TcE6XgvDJ9y6XdGrSCpWdSDuHxRkmcAHTlcXKPn0LzCUE2ZHxBhGlIXwBbZfokBkWWKmjlSm7Q8QmriFcIx5y4VqjPkwKdI6Gwg5u7u5sgnLekv2v_faqeH_ZP3w8_2u-3t7qzIkI2-VRkemp-nYq6AKlogj7WBX0hmZow9MNThQqWwfcSlH1S4Uy63cMgTCgFzi-px0GZwEu1W2M9LhtiV6KGmpWQmpWoGKZ_ZXTnMynFhaLyk7DEegrIbDCKKwF4agwn_zQMXwpgYtquq2DiVXJnxIRohUbkeXwmtwZAIkUiGWWlAGFOdtJdGlWqVBNKRwpm9OgpN9J-xhV_q5qib15AoT2gBgsX993hN6n-okyWbyiTZ7sfVBHVgCASAb-lR3L8lM6wnoeieWEuvyRBANwgnXp9wbIv3szmydgDWi0FQXJnpMaTGnIz82A-d6UePbkrTz6dgdjGbhM0IqPoUyZzr46zo4voC4IplDoWeqROBHXgZbNBW8YAdQyiDSVWGjFGYei2iUK_EYi76yQxN2AdT-zdRmTXGBC9ayQg1RVpJC0JKostevgYg1kVYPNVzk3Meyq5Mo0QxVbJ4hsZ1j1mRZhso6A5daKOomHqaGr_B3UPNh7WijtlQQdauEYxPXdoGfCiIUzSRRFBwGyToYZjylbb0gNYJxKTGyTDVfW-Rt33_6NNhrDqZaTkbAHQb4fAnIm2I5kKhuUEFVdqKC2zAkLFcwwCT8bUDaor9YxvAn0BggIkHetspNWJd7eXja52-lNFmHkVoa-6T4vxKPaki0DWLsEUEAExWBtDKRKcV6PqYbBVvR1UcGQNRNRlzeZRmhSCzq9EDTAdZkV0Mben2olekYCAFFwjWHWJmAIMG-y5cBM4ujK4bg0hKtglNQcpIIz0XoH1YZocx5irYakOAvYLcEnEFiGaTUJw12ptpjf0E_8ohTmEIqpg8hw2Lp4wtKFFMFZXiGQlMMSEfgwpkOvr0aS-Wo8U-U_FFVjQkLhk8Dhae1siyiDyxLXrFYzQVAj9r-Mk15big2hH2xA-9lhM7IhgBFlYaUvAreGkkF3iyRCg3RUQe_yoU83UWorMUij0G90K3E2mEMNIxRD1MJKYeH3Y-WG6DfuwsQxxPqPLenLn5LoRyMgd6l80k9sJUGt4_6734lADVTzuw0BTNFRhHEh8SUNzFWhJz9kL0lZYGbSSO2dAzCbyt1BIgHoxCGrVcd6rJ7Z_hkcGxCyX8oKSeFA4OCL9NGGL7YTt5hNAO6ZRHlNjCUAu1IrB3bL3E9q2_DY08Wb1UD5kt0NobHcwRAZqVdo7Of5AyCsT3I8Dc8fHtdmGXz2-d5TgXpljrku5-cR-jEKbB97KcT9B-WFQclNF74XxfE_m7ZyrFPcSX5vo2jcqawO_65lHU79AX-xkwl-P-fTGP_Tv9a5GcnzBcMgDebewzeo-I02z9qa53L1b7g3QtkzpVHp7W2lEZ9J1IjMB4QYRB_TQpG-mE8UNrsGWUOm0qkEI_GIoBJ06FuEPjm8uhQIrMVzC3RBjYF82VhSUXGwg9Pge1GE8hYQuuMk1NmaKKsukRnf3_FDv_bl1TjwkBQY7b9L1PkwnTdcA2QEeNVqhq28h7m6ot_S02f4IPgRRoXXbtjTtmOzuhk34SN9Xax_hT4x4gCabE5O9KpNhnd7unJSO-QQUFybQpGYdfb5E5PVzlH3-9Ao0RHc7RKmlaW4Sz5y3MzwGRF8fIkVfW-kaz4UaWpWJUajUltrnePz0EjqqhYB56QDDom-uPJyb8-3tEip7qk4QxBMWA0gGMAU3ylRahmzRhOU-vYBpL_eh7ohRnJCSmBHGWgH_HiL5MNKSm1Fw0EKqG2ueHOAwHixGwmEgkhUOuzoAmUx0maQnS1SpKxf9C5iM17t6qeklheuEJBSvLAQ_fkYNcMe5bo9JjgZG1MDN9iPCVqrO5dHvQZ0642vUxGtIf95r0E_XYqlecIMo59i0CxGaIeeKMfpAEpI6Db55KUZ9g0yvWgbEYauP7SczePYYfokOcBQ903sTCsUcGPZa27sE1RpU54R1-ntL0CMiJ9z8zZF8v6lho24fjpyUw6YM4p3ZDivrM8mT4MANkS5uxL20mSdR8RWiZSTyaUGiEeCkYzLKvh4zUe9-w7vfAOC8-w2_gN_Q1M0S9KhAg17ex2qGLOxaONd5SLRdL1dLuNP1p7HWF4GUwIfEpJCU308ZY7vVG6w5z_BvRnk3iTElkkQ-5-bMfLGH90jL0k-lb09ZvTCg6eRhk3synJBypgf_qPcQF_PSmstOlsCTkxyRFlteBGG4OC590imku0shnZnyNFPgfiB6-tMKT5UPwqw0giO4pkDkpeqTHHuJQc8aMudWl9kk0KcsuvgfdqVir1NCEit8DGKWbN6dcx9EdYOvSPrIcKjHEKlG2o9jwfNxhNR94cco1RQ2rf4cP6mDTFLbnuPX4C0zNNvWBgHKdDCtu5hHz7RqiCUdSLYmSGQYlsGOdVVkUELnLrpWWGHRiavHU9yjIhXFs3AIaUziofdhVUggxa_Rx_6ispx2HpIY0JhDQTnSVr2zqnGhFAzhMSCCnNjTteeFqpo-DWxn_ZshbH3LzW_A36HQoxM7ccck3PxOKIfSsFGLYPC2pxBITkVoblJsWgzRG74e6hEdyqTtEgvjqEVISG-I5LCcZlqWlM-B4u4mEDpUy_6JhVLMGpzc_FM6870kPjwzMML1ufTrg0xvpYvSRdp64ScblS5kPCD885P5av9Ou7-htcr4UrKsfG-tMtrr99aq8L216o1aq_pH3997q_5phmT63irnqdm7G8ZMHUwtP_VraqeWJ9sDmb2tavgS8olRi2CF1PdKo8-z3xS-BpzhBX9xzOlc01u7bEFMDpLvZiHfAURw6LyvTEYPWoiAgQPBMX-9Q8RXdwjilUshROUbSiGI_K4IMvIXZUZn8zj_DzvmQl54gIxj-B0UggeBPn2sL5w8Mc2F39yUGLsvLlagsJey8A9f4wDJAU_mN52sqTeHOvErbCcx_3aKQOaFCLL-MiVqtW2kIrXuCfLmUwaPg7JP6no_zmSGONPfuykFLfO-AF2O9L9_vB3pZUNSaCyNchz7fgvo3NTR6EKA8N7hKC_lF9afELNMho4ea5qecDoktGPSTWD7vSHyJodsUK6w6sMsf6znAm_L9f8yke9XjZwvorO9G3T6jSja0VddYE8dHFgnsm77YTbsSjPkNdDsy-UiYE1DkmNq1Wl4OQMKNkPfGXX8GQIqhWRAX_3AfMovgIxyUYp_AwSh8r-l0alsTAX0ybvyxngJbtM9dSrgJ-viqCtt70_y8oqNRZF8HkbFn1EY2rA77_7ho-Qf_bbp85wKOamfM09pbr-kgxX1vfeUxDr8tlro4usM38sQBH358eXH_wD1LOu8:1v3Xm6:V9shXEGXmgiY_8RFopIxT4dQkXONmc40d3vQ8DxnSRY",
-    "expire_date": "2025-10-14T10:40:02.952Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "m0afghyz9xx1123mx2wgxyz7ml6vyv0s",
   "fields": {
     "session_data": "e30:1uobhx:qlPaXAdQlEYsK0F4aZv4unAJC7wpP2c5pgv2EvVlALs",
@@ -185022,6 +185866,14 @@
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSG8GVy69xvIMFCpGkhKuzL-uzbpQrf3nHNfLOK21riNssQ5szOT7PS7JaRHaTvId2y3zqm3dZkT3xV-0MGvPZfn5XD_DiqO-q0RJyus0Co4JzJpC0Fqh8onBYaCoQzGeFsCIAVC4zyBFDAFyk5p9Oz9AcEeNyU:1uuYEw:YEt-OB7qArY1SBrGMKGJkDs9JGMeXDVsz0iHSbxxHFU",
     "expire_date": "2025-09-19T15:20:38.611Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "pzcpv21nt3lst3ybopag407k9vc382sn",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFMebt07zeQgQGpGkhKuzL-uzbpQrf3nHNfLOC21rCNvISZ2JkBO_1uEdMjtx3QHdut89TbusyR7wo_6ODXTvl5Ody_g4qjfmufChVQ1sk8KY9FuejJxESRQGk_uSIzlgwgtTBRF4NWgZXCShSJwLP3B_p8OAg:1v4H5S:ps3ol1Yxc_FIgQaCkwc0gy4Z4_Krq2y-psQewHCuZ_A",
+    "expire_date": "2025-10-16T11:03:02.514Z"
   }
 },
 {

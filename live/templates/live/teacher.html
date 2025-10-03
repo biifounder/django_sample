@@ -5,7 +5,6 @@
 <head>
     <title>حصة تفاعلية</title>
     <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
-    <script src="https://8x8.vc/external_api.js"></script>
     <style>
         /* General page styling */
         body, html {
@@ -33,8 +32,8 @@
             direction: rtl;
         }
         
-        /* Container for the video component */
-        .video-container {
+        /* Container for the video component (now general side panel) */
+        .quiz-container {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -43,43 +42,7 @@
             padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;          
-        }
-
-        /* Jitsi wrapper without aspect ratio padding */
-        #jitsi-container-wrapper {
-            position: relative;
-            width: 100%;
-            height: 350px; /* NEW: Give it a fixed height or max-height to enable scrolling */
-            max-height: 50vh; /* NEW: Optional, but good for responsiveness. Use a value that works for your layout. */
-            overflow-y: auto; /* NEW: Add the vertical scrollbar */
-            flex-shrink: 0; /* NEW: Prevent this section from shrinking unnecessarily */
-            background-color: black;
-            border: none;
-            margin-bottom: 20px;            
-        }
-
-        /* Jitsi container where the API injects the video */
-        #jitsi-teacher-container {
-            width: 100%;
-            height: 100%;
-        }
-        
-
-        /* New CSS for Side-by-Side Quiz Controls and Stats */
-        #quiz-layout-wrapper {
-            display: flex; 
-            gap: 20px;     
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .quiz-column {
-            flex: 1; 
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
+        }       
         
         /* Style for the container showing the list of quiz questions */
         #quiz-list-container {
@@ -200,32 +163,7 @@
             margin: 0;
             word-wrap: break-word; /* Ensure long words break */
         }
-
-        /* The question button style */
-        .quiz-question-button {
-            /* ... existing styles ... */
-        }
-        /* ... other styles ... */
         
-        /* 👇 ADD THE NEW CSS HERE 👇 */
-        .remove-student-button {
-            padding: 2px 5px; 
-            font-size: 0.8em; 
-            line-height: 2;
-            height: auto;
-            width: auto; 
-            cursor: pointer;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            background-color: #f7f7f7;
-        }
-
-        .remove-student-button:hover {
-            background-color: #e0e0e0;
-        }
-        /* 👆 END NEW CSS 👆 */
-    </style>
-</head>
     </style>
 </head>
 <body>
@@ -242,8 +180,16 @@
             <div id="last-teacher-message-container">
                 <p id="last-teacher-message-text"></p>
             </div>
-            <div id="hand-raise-area" style="margin-top: 10px;"></div>
 
+            <div id="drop-zone" style="border: 2px dashed #ccc; padding: 20px; text-align: center; margin-top: 20px;">
+                🖼️ اسحب صورة السؤال هنا أو انقر لاختيارها
+                <input type="file" id="image-upload" accept="image/*" style="display: none;">
+            </div>
+            <input type="number" id="image-question-timer" placeholder="مدة السؤال بالثواني" style="width: 100px; margin-top: 10px;">
+            <button id="send-image-question-button">📤 إرسال سؤال صورة</button>
+                 
+            
+            <div id="hand-raise-area" style="margin-top: 10px;"></div>
             <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:50%">حفظ الدرجات</button>
             <table id="score-table" style="width:100%; border-collapse: collapse; direction: rtl;">
                 <thead>
@@ -254,33 +200,23 @@
                         <th class="hidden-column"><p>أسئلة لم يجب عليها</p></th>
                         <th class="hidden-column"><p>عدد الرسائل</p></th>
                         <th class="message-column"><p>آخر رسالة</p></th>
-                        <th><p>إزالة</p></th>
-                    </tr>
+                        </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
             
-    
         </div>
 
-        <div class="video-container">
-          <div id="jitsi-container-wrapper">
-            <div id="jitsi-teacher-container" style="height: 100%; width: 100%;"></div>  
-          </div> 
-
-          <div id="quiz-layout-wrapper">                 
-            <div id="quiz-controls" class="quiz-column">
-                <p style="direction: rtl;">تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span></p>
-                <div id="timer-display">جاهز</div> 
-                <button id="pause-resume-button" style="width:100%">انتظر</button>
-            </div>
+        <div class="quiz-container">
+            <p style="direction: rtl;">تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span>
+            <span id="timer-display"></span> 
+            <button id="pause-resume-button" style="width:30%">توقف</button></p>
+            
     
-            <div id="question-stats-section" class="quiz-column" >
-                <h2>إحصائيات السؤال</h2>
-                <div id="stats-container" class="stats-container"></div>
-            </div>            
-          </div>
+            <div id="stats-container" class="stats-container"></div>
+                        
+          
           
           <div id="quiz-list-container">
               <h2>قائمة الأسئلة</h2>
@@ -343,6 +279,9 @@
             const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
             quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
         }
+
+        // Removed Mic/Mute event listeners
+
         
         // --- 3. DOM ELEMENTS & STATE ---
         const pauseResumeButton = document.getElementById('pause-resume-button');
@@ -351,11 +290,10 @@
         const totalQuestionsSpan = document.getElementById('total-questions');
         const timerDisplay = document.getElementById('timer-display'); 
         const scoreTableBody = document.querySelector('#score-table tbody');
-        const statsSection = document.getElementById('question-stats-section');
         const statsContainer = document.getElementById('stats-container');
         const quizListContainer = document.getElementById('quiz-list-container');
 
-        // NEW: Teacher message elements
+        // Teacher message elements
         const teacherMessageInput = document.getElementById('teacher-message-input');
         const sendTeacherMessageButton = document.getElementById('send-teacher-message-button');
         const lastTeacherMessageContainer = document.getElementById('last-teacher-message-container');
@@ -400,7 +338,6 @@
         function sendQuestion(questionIndex) {
             clearInterval(timerInterval);
             isTimerRunning = false;
-            statsSection.style.display = 'none';
 
             if (questionIndex >= 0 && questionIndex < questions.length) {
                 const currentQuestion = questions[questionIndex];
@@ -518,7 +455,63 @@
                     const div = document.getElementById(`hand-${name}`);
                     if (div) div.remove();
                     delete raisedHands[name];
+            } else if (data.type === 'student_math_steps') {
+                const studentName = data.content.name;
+                const steps = data.content.steps;
+
+                const container = document.getElementById('hand-raise-area');
+
+                // Remove previous steps from this student
+                const oldWrapper = document.getElementById(`math-steps-${studentName}`);
+                if (oldWrapper) {
+                    oldWrapper.remove();
                 }
+
+                // Create new wrapper
+                const wrapper = document.createElement('div');
+                wrapper.id = `math-steps-${studentName}`; // ✅ Unique ID per student
+
+
+                
+                
+                wrapper.style.marginTop = '15px';
+                wrapper.style.padding = '10px';
+                wrapper.style.border = '1px solid #ccc';
+                wrapper.style.borderRadius = '5px';
+                wrapper.style.backgroundColor = '#f0f4f8';
+                wrapper.style.direction = 'ltr';
+                wrapper.style.textAlign = 'left';
+
+                const header = document.createElement('div');
+                header.style.display = 'flex';
+                header.style.justifyContent = 'space-between';
+                header.style.alignItems = 'center';
+                header.style.marginBottom = '10px';
+
+                const title = document.createElement('p');
+                title.textContent = `📐 ${studentName}:`;
+                title.style.fontWeight = 'bold';
+
+                   header.appendChild(title);
+                wrapper.appendChild(header);
+
+
+                steps.forEach(step => {
+                    const mjx = document.createElement('div');
+                    mjx.innerHTML = `\\(${step}\\)`;
+                    mjx.style.fontSize = '20px';
+                    mjx.style.marginBottom = '8px';
+                    wrapper.appendChild(mjx);
+                });
+
+                container.appendChild(wrapper);
+                if (typeof MathJax !== 'undefined') {
+                    MathJax.typeset();
+                }
+            }
+
+
+
         };
 
         quizSocket.onclose = function() {
@@ -537,7 +530,7 @@
         function startTimer(timeLimit) {
             isTimerRunning = true;
             timeLeft = timeLimit;
-            pauseResumeButton.textContent = 'انتظر';
+            pauseResumeButton.textContent = 'توقف';
             
             timerDisplay.textContent = timeLeft;
 
@@ -548,7 +541,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     isTimerRunning = false;
-                    timerDisplay.textContent = 'انتهى الوقت!'; 
+                    timerDisplay.textContent = '0'; 
                 }
             }, 1000);
         }
@@ -603,7 +596,7 @@
             }
         });
 
-        // UPDATED: updateScoreTable to include last message column and hide two columns
+        // UPDATED: updateScoreTable to remove the 'Remove' column/button
         function updateScoreTable(scores) {
             // Filter out entries with no name or 'undefined' name before processing
             const validStudents = Object.values(scores).filter(student => 
@@ -643,44 +636,25 @@
                     <td class="hidden-column">${unansweredQuestions}</td>
                     <td class="hidden-column">${messageCount}</td>       
                     <td class="${messageClass}">${lastMessage}</td> 
-                    <td><button class="remove-student-button" data-name="${student.name}">❌</button></td>
-                `;
+                    `;
                 scoreTableBody.appendChild(row);
                 lastScore = student.score;
             });
 
-            document.querySelectorAll('.remove-student-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const studentName = this.getAttribute('data-name');
-                    if (confirm(`هل تريد إزالة الطالب ${studentName}؟`)) {
-                        quizSocket.send(JSON.stringify({
-                            type: 'remove_student',
-                            content: studentName
-                        }));
-                    }
-                });
-            });
+            // Removed 'remove-student-button' event listener and related logic
 
-            // ✅ Remove stale names from studentQuestions
+            // Remove stale names from studentQuestions
             Object.keys(studentQuestions).forEach(name => {
                 const stillPresent = Object.values(scores).some(student => student.name === name);
                 if (!stillPresent) {
                     delete studentQuestions[name];
                 }
             });
-
-
-
-
-
         }
-
-        
 
         
         function displayQuestionStats(stats) {
             statsContainer.innerHTML = '';
-            statsSection.style.display = 'block';
 
             const optionsArray = Object.entries(stats.counts);
 
@@ -739,51 +713,95 @@
             URL.revokeObjectURL(url);
         }
 
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image-upload');
+        let uploadedFile = null;
 
-        const domain = "8x8.vc";
-        const options = {
-        roomName: "vpaas-magic-cookie-a3caf903c024408ea903326f82630226/ifounderphysics",
-        parentNode: document.querySelector("#jitsi-teacher-container"),
-        configOverwrite: {
-            startWithVideoMuted: true, // disables camera
-            disableInviteFunctions: false,
-            disableDeepLinking: true,
-            disableShowroomMode: false,
-            disableChat: false,
-            disableShareFile: false,
-            disableSpeakerStats: false,
-            disableVideo: true,
-            participantsPane: { enabled: true },
-            toolbarButtons: [
-            "microphone", "raisehand", "desktop", "tileview", "select-background",
-            "mute-everyone", "security", "settings", "videoquality", "stats",
-            "shortcuts", "feedback", "download", "help", "recording", "livestreaming",
-            "etherpad", "fullscreen", "hangup", "sharedvideo", "polls", "filesharing"
-            ]
-        },
-        interfaceConfigOverwrite: {
-            SHOW_JITSI_WATERMARK: false,
-            SHOW_WATERMARK_FOR_GUESTS: false,
-            SHOW_BRAND_WATERMARK: false,
-            SHOW_POWERED_BY: false,
-            SHOW_PROMOTIONAL_CLOSE_PAGE: false
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '#f0f0f0';
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '';
+        });
+
+        dropZone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '';
+
+            const items = e.dataTransfer.items;
+            if (items) {
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    if (item.kind === 'file') {
+                        const file = item.getAsFile();
+                        if (file && file.type.startsWith('image/')) {
+                            uploadedFile = file;
+                            dropZone.textContent = `📎 تم تحميل: ${file.name}`;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            alert("لم يتم التعرف على صورة صالحة. يرجى سحب ملف صورة أو استخدام زر التحميل.");
+        });
+
+        document.getElementById('send-image-question-button').addEventListener('click', async () => {
+        const timeLimit = parseInt(document.getElementById('image-question-timer').value) || 60;
+
+        if (!uploadedFile) {
+            alert("يرجى تحميل صورة أولاً.");
+            return;
         }
-        };
 
-        const api = new JitsiMeetExternalAPI(domain, options);
+        const formData = new FormData();
+        formData.append('image', uploadedFile);
+
+        try {
+            const response = await fetch('/live/upload-question-image/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const responseText = await response.text();
+            const data = JSON.parse(responseText);
+            const imageUrl = data.image_url;
+
+            quizSocket.send(JSON.stringify({
+                type: 'image_question',
+                content: {
+                    image_url: imageUrl,
+                    time_limit: timeLimit
+                }
+            }));
+
+            dropZone.textContent = "🖼️ اسحب صورة السؤال هنا أو انقر لاختيارها";
+            uploadedFile = null;
+        } catch (error) {
+            console.error("❌ فشل رفع الصورة:", error);
+        }
+    });
 
 
-        // Optional: prevent camera activation
-        api.executeCommand('toggleVideo'); // Double toggle to ensure it's off
-        api.executeCommand('setAudioOnly', true);
 
-        
+
+
     </script>
-</body>
 {% endblock %}
 
 
 
 
 
-<!-- approved  -->
+<!-- rearrange math pannels -->
+ <!-- rearrange math pannels -->
+  <!-- rearrange math pannels -->
+   

@@ -5,7 +5,9 @@
 <head>
     <title>صفحة الطالب</title>
     <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
-    <script src="https://8x8.vc/external_api.js"></script>
+    
+    <script type="module" src="https://unpkg.com/mathlive?module"></script>
+    
     <style>
         /* General page styling */
         body, html {
@@ -14,7 +16,6 @@
             height: 100%;
             width: 100%;
             overflow-y: auto; 
-            overflow-x: hidden;
         }
 
         /* 🎯 KEY CHANGE: SWITCH TO SINGLE-COLUMN LAYOUT */
@@ -26,8 +27,8 @@
             width: 100%;
         }
 
-        /* TOP SECTION: The Video/Question display area */
-        .video-container {
+        /* TOP SECTION: The Quiz/Question display area */
+        .quiz-container {
             width: 100%; 
             display: flex;
             flex-direction: column;
@@ -42,31 +43,28 @@
         
         /* BOTTOM SECTION: Score and Chat (The content container) */
         .content-container {
-            width: 100%; /* Changed from 50% to 100% to match full-width container */
+            width: 100%; 
             overflow-y: visible; 
             padding: 20px;
             box-sizing: border-box;
             direction: rtl; 
             order: 2; 
-            /* Remove align-items: center; here, use margin auto on children instead */
         }
 
-        /* Display Wrapper - Controls Overlap and FLEXIBILITY */
+        /* Display Wrapper - Controls Quiz Panel Size */
         #display-wrapper {
             position: relative; 
             width: 95%;
             max-width: 800px; 
-            min-height: 450px; /* Enforce minimum height for video area */
+            min-height: 450px; 
             height: auto; 
             background-color: black;
             border-radius: 8px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            /* Margin bottom ensures separation from the content below */
             margin-bottom: 20px; 
         }
 
-        /* Jitsi iframe wrapper and Question Panel need to be statically positioned now */
-        #jitsi-container-wrapper,
+        /* Question Panel styling */
         #question-panel {
             position: relative; 
             top: auto;
@@ -74,33 +72,12 @@
             width: 100%;
             box-sizing: border-box;
             overflow-y: auto; 
-            min-height: 450px; /* Ensure space reservation */
-        }
-
-        /* Set a fixed height for the video to maintain aspect ratio */
-        #jitsi-container-wrapper {
-            padding-top: 0; 
-        }
-
-        /* Jitsi iframe styling to fit its container */
-        #jitsi-iframe {
-            position: relative; 
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 450px; /* Keep fixed height for stability */
-            display: block;
-            border: none;
-        }
-        
-        /* Question Panel Styling */
-        #question-panel {
+            min-height: 450px; 
             display: none; 
             background-color: #ffffff;
             padding: 20px;
             text-align: right;
             direction: rtl;
-            min-height: 450px; /* Ensure it covers the video space */
         }
 
         /* Additional style adjustments for mobile view to ensure full width */
@@ -115,36 +92,75 @@
         .message-input-area {
             width: 100%;
             max-width: 600px; 
-            margin-left: auto; /* Center the box */
-            margin-right: auto; /* Center the box */
-            text-align: center; /* Center the contents (like the button) */
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
         }
 
         .message-input-area textarea {
-             /* Ensure textarea takes full width within its centered parent */
             width: 100%; 
             height:80px; 
             padding:10px; 
             border-radius:5px;
-            box-sizing: border-box; /* Include padding/border in the width calculation */
-            text-align: right; /* Keep the input text RTL */
-        }
+            box-sizing: border-box;
+            text-align: right;
+        }       
         
-        /* Centering the Send button */
-        #send-question-button {
+        /* === Math Editor Styles === */
+        #math-editor-section math-field {
+            width: 100%;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 50px;
+            direction: ltr; /* 📐 LTR for the Math Input */
+            text-align: left; 
+        }
+        #math-steps-container {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            direction: ltr; 
+            text-align: left;
+        }
+        .math-step-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            direction: ltr; 
+        }
+        .math-step-wrapper math-field {
+            font-size: 24px; 
+            flex-grow: 1; /* Keep flex-grow for flexibility */
+            margin-right: 10px;
+            direction: ltr; /* 📐 FORCE LTR for the Step Display */
+            text-align: left;
+            width: 85%; /* 🎯 Set field width to 80% */
+            max-width: 85%; /* Ensure it doesn't grow past 80% */
+        }
+        .math-step-wrapper button {
+            font-size: 18px;
+            padding: 5px 8px;
+            margin: 0;
+            cursor: pointer;
+            line-height: 1;
+            width: 10%; /* 🎯 Set button width to 20% */
+            max-width: 10%;
+        }
+        #export-math-button {
+            font-size: 16px;
+            padding: 6px 12px;
+            margin-top: 10px;
+            cursor: pointer;
             width: 100%;
             max-width: 300px;
-            padding: 10px;
-            background-color: rgb(209, 209, 209);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block; /* Make it block to use margin auto */
-            margin-left: auto; /* Center the button */
-            margin-right: auto; /* Center the button */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
+        /* ========================== */
         
-        /* ... Existing styles for options, score, and messages ... */
+        /* Quiz/messaging styles */
         .question-content { min-height: 100px; padding: 0; text-align: right; font-size: 1.5em; font-weight: bold; }
         .options-container { display: flex; flex-direction: column; }
         .option-btn {
@@ -215,7 +231,6 @@
         .edit-icon:hover {
             color: #0056b3;
         }
-
     </style>
 </head>
 <body>
@@ -235,17 +250,23 @@
             <h1 class="mt-4">درجتك: <span id="student-score">0</span>   &nbsp;&nbsp;&nbsp;      أنت في المركز: <span id="student-rank">-</span></h1>
         </div>
 
-        <div class="video-container">
+        <div class="content-container">              
+            <div id="teacher-message-display" style="padding: 15px; border: 1px solid #1e1653; border-radius: 5px; margin-bottom: 20px; direction: rtl; text-align: right;" class="message-input-area">
+                <p style="font-weight: bold; color: #1500fc; margin-bottom: 5px;">المعلم:                
+                <span id="teacher-message-text" style="color: #000000; margin: 0; line-height: 1.5;"></span></p>
+                
+                <textarea id="student-question-input" placeholder="أرسل للمعلم هنا..." ></textarea>
+                <div id="messages-container" class="message-input-area" style="margin-top: 20px;"></div>
+            </div> 
+            
+        </div>
+
+        <div class="quiz-container">
             
             <div id="display-wrapper">
 
-                <div id="jitsi-container-wrapper">
-                    <div id="jitsi-container" style="height: 100%; width: 100%;"></div>
-  
-                </div>
-
                 <div id="question-panel">
-                    <p id="initial-message">أنت متصل. في انتظار بدء الدرس.</p>
+                    <p id="initial-message">الأسئلة تظهر هنا، انتظر توجيه المعلم.</p>
                     <div class="question-content"></div>
                     
                     <div id="options-container" class="options-container">
@@ -253,44 +274,98 @@
                     
                     <div id="timer-display"></div>
                     <div id="timer-message"></div>
+
+                    <div id="math-editor-section" class="message-input-area" style="margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px; direction: rtl; text-align: right;">
+                        <h2 style="text-align: center;">محرر المعادلات</h2>
+                        <p style="text-align: right;">اكتب خطوة واضغط <strong>Enter</strong> لإضافتها. يمكنك التعديل أو الحذف.</p>
+                        <div id="math-steps-container"></div>
+                        <math-field id="mathfield" virtual-keyboard-mode="manual"></math-field>                        
+                        <button id="export-math-button">📤 تصدير جميع الخطوات</button>
+                    </div>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="content-container">           
-            
-            <div id="teacher-message-display" style="display: none; padding: 15px; border: 1px solid #1e1653; border-radius: 5px; margin-bottom: 20px; direction: rtl; text-align: right;" class="message-input-area">
-                <p style="font-weight: bold; color: #030200; margin-bottom: 5px;">رسالة من المعلم:</p>
-                <p id="teacher-message-text" style="color: #000000; margin: 0; line-height: 1.5;"></p>
-            </div>
 
-            <button id="toggle-hand-btn">✋ رفع اليد</button>
-
-            <div class="message-input-area" style="margin-top: 30px;">
-                <textarea id="student-question-input" placeholder="أرسل للمعلم هنا..." ></textarea>
-                <button id="send-question-button" >أرسل</button>
-            </div>
-            
-            <div id="messages-container" class="message-input-area" style="margin-top: 20px;"></div>
-        </div>
         
     </div>
 </div>
 
+<script type="module">
+    // --- Math Editor Logic (Isolated in module script) ---
+    
+    function initMathEditor() {
+        const mathfield = document.getElementById('mathfield');
+        const stepsContainer = document.getElementById('math-steps-container');
+        const exportButton = document.getElementById('export-math-button');
+
+        if (!mathfield || !stepsContainer || !exportButton) return;
+        if (!(mathfield instanceof HTMLElement)) return; 
+
+        mathfield.addEventListener('beforeinput', (e) => {
+            if (e.inputType === 'insertLineBreak') {
+                e.preventDefault(); // Stop MathLive from inserting a line break                
+                const currentValue = mathfield.value;                
+                if (currentValue.trim() !== '') {
+                    addStep(currentValue);
+                    mathfield.value = ''; // Clear the field after adding the step
+                }                
+                mathfield.focus();
+            }
+        });
+        
+        exportButton.addEventListener('click', () => {
+            const allSteps = Array.from(stepsContainer.querySelectorAll('math-field'))
+                .map(field => field.value);
+
+            quizSocket.send(JSON.stringify({
+                type: 'student_math_steps',
+                content: {
+                    name: myName,
+                    steps: allSteps
+                }
+            }));
+
+            alert("تم إرسال الخطوات إلى المعلم.");
+        });
+
+
+
+        function addStep(value) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'math-step-wrapper';
+
+            const stepField = document.createElement('math-field');
+            stepField.value = value;
+            stepField.setAttribute('style', 'font-size: 24px;');
+            stepField.setAttribute('direction', 'ltr'); 
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '❌';
+            deleteBtn.onclick = () => wrapper.remove();
+
+            wrapper.appendChild(stepField);
+            wrapper.appendChild(deleteBtn);
+            stepsContainer.appendChild(wrapper);
+        }
+    }
+    
+    window.initMathEditor = initMathEditor; // Expose to the non-module script
+    
+</script>
+
 <script>
+    // --- Main Quiz/Chat Logic (Non-module script) ---
     const storedName = sessionStorage.getItem('studentName');
     let myName = storedName || '';
-
     const loginForm = document.getElementById('login-form');
     const mainContent = document.getElementById('main-content');
     const studentNameInput = document.getElementById('student-name-input');
     const joinButton = document.getElementById('join-button');
     
-    // ELEMENTS FOR OVERLAP CONTROL
     const displayWrapper = document.getElementById('display-wrapper');
-    const jitsiWrapper = document.getElementById('jitsi-container-wrapper');
     const questionPanel = document.getElementById('question-panel');
     const initialMessage = document.getElementById('initial-message');
     
@@ -303,10 +378,8 @@
     const timerMessage = document.getElementById('timer-message');
 
     const studentQuestionInput = document.getElementById('student-question-input');
-    const sendQuestionButton = document.getElementById('send-question-button');
     const messagesContainer = document.getElementById('messages-container');
 
-    // Teacher message display elements
     const teacherMessageDisplay = document.getElementById('teacher-message-display');
     const teacherMessageText = document.getElementById('teacher-message-text');
     
@@ -328,6 +401,12 @@
         loginForm.style.display = 'none';
         mainContent.style.display = 'block'; 
         studentNameDisplay.textContent = myName;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            customElements.whenDefined('math-field').then(() => {
+                window.initMathEditor && window.initMathEditor();
+            });
+        });
     } else {
         loginForm.style.display = 'block';
         mainContent.style.display = 'none';
@@ -341,6 +420,11 @@
             loginForm.style.display = 'none';
             mainContent.style.display = 'block'; 
             studentNameDisplay.textContent = myName;
+            
+            customElements.whenDefined('math-field').then(() => {
+                window.initMathEditor && window.initMathEditor();
+            });
+
 
             quizSocket.send(JSON.stringify({
                 'type': 'student_join',
@@ -350,22 +434,6 @@
             alert("Please enter your name.");
         }
     });    
-
-    let handIsRaised = false;
-    document.getElementById('toggle-hand-btn').onclick = function() {
-        const messageType = handIsRaised ? 'hand_lower' : 'hand_raise';
-        quizSocket.send(JSON.stringify({
-            type: messageType,
-            content: myName
-        }));
-        console.log("Sending:", messageType, myName);
-
-        handIsRaised = !handIsRaised;
-        this.textContent = handIsRaised ? '✋ أنزل يدك' : '✋ رفع اليد';
-    };
-
-
-
 
     function isArabic(text) {
         const arabicRegex = /[\u0600-\u06FF]/;
@@ -390,12 +458,10 @@
         }
     }
 
-    // Function to display the teacher's broadcast message (FIXED: message persists)
     function displayTeacherMessage(message) {
         teacherMessageText.textContent = message;
         teacherMessageDisplay.style.display = 'block';
         
-        // Adjust text direction based on content
         if (isArabic(message)) {
             teacherMessageText.style.direction = 'rtl';
             teacherMessageText.style.textAlign = 'right';
@@ -403,8 +469,6 @@
             teacherMessageText.style.direction = 'ltr';
             teacherMessageText.style.textAlign = 'left';
         }
-
-        // The message will now stay visible until a new message is received.
     }
 
     function displaySentMessage(message) {
@@ -434,8 +498,6 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    sendQuestionButton.addEventListener('click', sendQuestion);
-
     studentQuestionInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -443,31 +505,29 @@
         }
     });
     
-    // Ensures the displayWrapper height matches the reserved space
     function showVideo() {
         clearTimeout(feedbackTimer);
-        jitsiWrapper.style.display = 'block';
-        questionPanel.style.display = 'none';
-        
-        // Set displayWrapper height to match the fixed video height
+        questionPanel.style.display = 'block'; 
+        initialMessage.style.display = 'block'; 
+
+        questionContent.innerHTML = ''; 
+        optionsContainer.innerHTML = ''; 
+        timerDisplay.textContent = "";
+        timerMessage.textContent = "";
+
         displayWrapper.style.height = '450px'; 
         
         currentQuestionData = null;
     }
     
-    // Sets the displayWrapper height to fit the question panel content
     function showQuestionPanel() {
-        jitsiWrapper.style.display = 'none';
         questionPanel.style.display = 'block';
         initialMessage.style.display = 'none';
         
-        // Temporarily set height to auto to measure content
         displayWrapper.style.height = 'auto';
         
-        // Set displayWrapper height to match the measured height of the questionPanel content
         const contentHeight = questionPanel.scrollHeight;
         
-        // Ensure the minimum height is maintained
         if (contentHeight < 450) {
             displayWrapper.style.height = '450px';
         } else {
@@ -475,7 +535,6 @@
         }
     }
 
-    // Function to start or resume the timer using the global timeLeft
     function startTimer() {
         if (timerInterval) {
             clearInterval(timerInterval);
@@ -521,16 +580,16 @@
 
         if (data.type === 'new_question' || data.type === 'question') {
             
-            // Populate content FIRST
             currentQuestionData = data.content;
             clearInterval(timerInterval);
             timerMessage.textContent = "";
-            timeLeft = currentQuestionData.time_limit; // Reset timeLeft for new question
+            timeLeft = currentQuestionData.time_limit;
             questionContent.innerHTML = '';
             optionsContainer.innerHTML = '';
             
             const questionText = document.createElement('p');
             questionText.textContent = currentQuestionData.question_text;
+
             questionText.classList.add('question-text');
             questionContent.appendChild(questionText);
 
@@ -560,6 +619,7 @@
                         'type': 'student_answer',
                         'content': selectedOption
                     }));
+
                     
                     document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
                     clearInterval(timerInterval);
@@ -582,23 +642,22 @@
                 optionsContainer.appendChild(button);
             });
             
-            // SHOW THE PANEL and adjust height AFTER content is loaded
             showQuestionPanel(); 
             clearTimeout(feedbackTimer); 
-            startTimer(); // Start the timer from the new question's limit
+            startTimer(); 
+
             MathJax.typeset(); 
 
         } else if (data.type === 'update_score') {
-            // ... (Score update logic)
+            studentScoreSpan.textContent = data.content.score || 0;
+            studentRankSpan.textContent = data.content.rank || '-';
         } else if (data.type === 'timer_pause') {
-            // ⭐ FIX: Stop the student's local timer
             clearInterval(timerInterval);
-            timeLeft = data.content; // Update remaining time
-            timerDisplay.textContent = `${timeLeft}s (مُتوقف)`; // Inform student
+            timeLeft = data.content;
+            timerDisplay.textContent = `${timeLeft}s (مُتوقف)`;
             timerMessage.textContent = "تم إيقاف الوقت مؤقتاً بواسطة المعلم.";
 
         } else if (data.type === 'timer_resume') {
-            // ⭐ FIX: Restart the student's local timer from the current timeLeft
             if (currentQuestionData) { 
                 startTimer();
                 timerMessage.textContent = "";
@@ -611,7 +670,6 @@
             timerDisplay.textContent = "";
             timerMessage.textContent = "";
             
-            // Re-adjust height for the final message, ensuring minimum 450px
             const contentHeight = questionPanel.scrollHeight;
             if (contentHeight < 450) {
                  displayWrapper.style.height = '450px';
@@ -620,58 +678,28 @@
             }
             
             feedbackTimer = setTimeout(showVideo, 5000); 
-            
+       
         } else if (data.type === 'teacher_message_broadcast') { 
             displayTeacherMessage(data.content);
-        } else if (data.type === 'kick_user') {
-            // ... (Kick user logic)
         }
+
         MathJax.typeset();
     };
 
     quizSocket.onclose = function() {
         console.error('Student socket closed unexpectedly');
     };
-
-
-
-    const domain = "8x8.vc";
-    const options = {
-        roomName: "vpaas-magic-cookie-a3caf903c024408ea903326f82630226/ifounderphysics",
-        parentNode: document.querySelector("#jitsi-container"),
-        userInfo: {displayName: myName},
-        configOverwrite: {
-            startWithVideoMuted: true,
-            disableVideo: true,
-            disableInviteFunctions: true,
-            disableDeepLinking: true,
-            disableShowroomMode: true,
-            disableChat: true,
-            disableShareFile: true,
-            disableSpeakerStats: true,
-            disableTileView: true,
-            participantsPane: { enabled: false },
-            toolbarButtons: ["microphone", "fullscreen", "hangup"]
-        },
-        interfaceConfigOverwrite: {
-            SHOW_JITSI_WATERMARK: false,
-            SHOW_WATERMARK_FOR_GUESTS: false,
-            SHOW_BRAND_WATERMARK: false,
-            SHOW_POWERED_BY: false,
-            SHOW_PROMOTIONAL_CLOSE_PAGE: false,
-            DISABLE_REMOTE_VIDEO_THUMBNAILS: true,
-            TILE_VIEW_ENABLED: false,
-            FILM_STRIP_ONLY: false,
-            DISABLE_FOCUS_INDICATOR: true
-        }
-    };
-
-
-    const api = new JitsiMeetExternalAPI(domain, options);
     
-    // Initial display state: Video is visible, Question Panel is hidden
     showVideo(); 
 </script>
 
 </body>
 {% endblock %}
+
+
+
+
+
+<!-- # send question picture/
+# send question picture/
+# send question picture/ -->

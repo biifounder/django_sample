@@ -13,7 +13,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
             self.room_name = self.scope['url_route']['kwargs'].get('room_name', 'default_room')
             self.room_group_name = f'quiz_{self.room_name}'
             # Use session key for unique student identification, or client IP as fallback
-            # self.user_id = self.scope['session'].session_key or self.scope['client'][0]
             self.user_id = self.scope['session'].session_key or str(uuid.uuid4())
             print(f"🔌 WebSocket connected for {self.user_id} in room {self.room_name}")
             
@@ -24,7 +23,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
                     'current_question': {}, 
                     'questions_sent': 0,
                     'answer_counts': {},
-                    'last_teacher_message': ''  # NEW: Store the last broadcast message
+                    'last_teacher_message': ''
                 }
             
             await self.channel_layer.group_add(
@@ -34,9 +33,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
             
             await self.accept()
             
-            # NEW: Send the last teacher message to the student upon joining
-            # Check if this connection is a student connection (by checking the path or session role if available)
-            # Simple check: if not a teacher path, assume student (adjust as needed if you have a separate teacher path)
+            # Send the last teacher message to the student upon joining
             if 'teacher' not in self.scope['path'] and self.room_state[self.room_name]['last_teacher_message']:
                 await self.send(text_data=json.dumps({
                     'type': 'teacher_message_broadcast',
@@ -54,9 +51,8 @@ class QuizConsumer(AsyncWebsocketConsumer):
                 self.room_group_name,
                 self.channel_name
             )
-            if hasattr(self, 'user_id') and self.user_id in self.room_state[self.room_name]['scores']:
-                del self.room_state[self.room_name]['scores'][self.user_id]
-
+            # Removed logic to automatically delete student scores on disconnect to keep scores stable
+            
         except Exception as e:
             print(f"❌ Error during WebSocket disconnection: {e}")
             
@@ -130,14 +126,14 @@ class QuizConsumer(AsyncWebsocketConsumer):
             elif message_type == 'student_join':
                 student_name = message_content
 
-                # ✅ Check if this name already exists in scores
+                # Check if this name already exists in scores
                 name_already_registered = any(
                     entry['name'] == student_name
                     for entry in self.room_state[self.room_name]['scores'].values()
                 )
 
                 if not name_already_registered:
-                    # ✅ Register this user_id with the name
+                    # Register this user_id with the name
                     self.room_state[self.room_name]['scores'][self.user_id] = {
                         'name': student_name,
                         'score': 0,
@@ -154,13 +150,15 @@ class QuizConsumer(AsyncWebsocketConsumer):
                         }
                     )
                 else:
-                    # ✅ Optional: update existing entry with new user_id
-                    # This keeps the name unique but updates the socket
-                    for uid, entry in self.room_state[self.room_name]['scores'].items():
-                        if entry['name'] == student_name:
+                    # Optional: update existing entry with new user_id
+                    for uid, entry in list(self.room_state[self.room_name]['scores'].items()): # Iterate over copy for safe deletion
+                        if entry['name'] == student_name and uid != self.user_id:
+                            # If a student with the same name connects again (likely same user with new ID),
+                            # keep the data and link it to the new user_id, deleting the old entry if present
                             self.room_state[self.room_name]['scores'][self.user_id] = entry
+                            if uid in self.room_state[self.room_name]['scores']:
+                                del self.room_state[self.room_name]['scores'][uid]
                             break
-
 
             elif message_type == 'quiz_end':
                 await self.channel_layer.group_send(
@@ -212,7 +210,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
                     }
                 )
             
-            elif message_type == 'teacher_message':  # NEW: Handle teacher broadcast
+            elif message_type == 'teacher_message':
                 message = message_content.get('message')
                 if message:
                     self.room_state[self.room_name]['last_teacher_message'] = message # Store the last message
@@ -251,13 +249,47 @@ class QuizConsumer(AsyncWebsocketConsumer):
                             if entry['name'] == student_name]
 
                 for uid in to_remove:
-                    del self.room_state[self.room_name]['scores'][uid]
+                    if uid in self.room_state[self.room_name]['scores']:
+                         del self.room_state[self.room_name]['scores'][uid]
 
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
                         'type': 'update_score',
                         'content': self.room_state[self.room_name]['scores']
+                    }
+                )
+
+            elif message_type == 'student_math_steps':
+                student_name = message_content.get('name')
+                steps = message_content.get('steps', [])
+
+                # Broadcast to all connected teacher clients
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'broadcast_math_steps',
+                        'name': student_name,
+                        'steps': steps
+                    }
+                )
+
+            elif message_type == 'image_question':
+                image_url = message_content.get('image_url')
+                time_limit = message_content.get('time_limit', 60)
+
+                self.room_state[self.room_name]['current_question'] = {
+                    'image_url': image_url,
+                    'time_limit': time_limit,
+                    'correct_answer': '',
+                    'options': []
+                }
+
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'quiz_question',
+                        'content': self.room_state[self.room_name]['current_question']
                     }
                 )
 
@@ -284,9 +316,35 @@ class QuizConsumer(AsyncWebsocketConsumer):
 
     async def update_score(self, event):
         try:
+            # Calculate rank and include it for the student's personal view
+            scores = event['content']
+            sorted_students = sorted(scores.values(), key=lambda x: x['score'], reverse=True)
+            
+            # Find the rank of the current user
+            rank = 1
+            last_score = -1
+            student_rank = '-'
+            student_score = 0
+            
+            for index, student in enumerate(sorted_students):
+                if student['score'] < last_score:
+                    rank = index + 1
+                
+                if student.get('name') == self.room_state[self.room_name]['scores'].get(self.user_id, {}).get('name'):
+                    student_rank = rank
+                    student_score = student['score']
+                    break
+                
+                last_score = student['score']
+
+
             await self.send(text_data=json.dumps({
                 'type': 'update_score',
-                'content': event['content']
+                'content': {
+                    **event['content'], 
+                    'score': student_score, # For student view
+                    'rank': student_rank    # For student view
+                }
             }))
         except Exception as e:
             print(f"❌ Error sending score update: {e}")
@@ -324,7 +382,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             print(f"❌ Error sending student question: {e}")
 
-    async def teacher_message_broadcast(self, event): # NEW: Handler to send teacher message to all
+    async def teacher_message_broadcast(self, event):
         try:
             await self.send(text_data=json.dumps({
                 'type': 'teacher_message_broadcast',
@@ -341,6 +399,7 @@ class QuizConsumer(AsyncWebsocketConsumer):
             }))
         except Exception as e:
             print(f"❌ Error broadcasting hand raise: {e}") 
+            
     async def hand_lower(self, event):
         try:
             await self.send(text_data=json.dumps({
@@ -349,5 +408,18 @@ class QuizConsumer(AsyncWebsocketConsumer):
             }))                        
         except Exception as e:
             print(f"❌ Error broadcasting hand lower: {e}")
-        
-        
+
+    async def broadcast_math_steps(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'student_math_steps',
+            'content': {
+                'name': event['name'],
+                'steps': event['steps']
+            }
+        }))
+
+            
+
+# <!-- rearrange math pannels -->
+# <!-- rearrange math pannels -->
+# <!-- rearrange math pannels -->

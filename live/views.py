@@ -156,3 +156,19 @@ def Zlist(request, k):
         questions += [q]   
     context = {'teacher': is_teacher(request), 'questions':questions, 'k':k, 's':lesson.p.p.k , 'head':lesson.head}
     return render (request,'live/zlist.html', context)
+
+
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.core.files.storage import default_storage
+
+@csrf_exempt
+def upload_question_image(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        filename = default_storage.save(f'question_images/{image.name}', image)
+        image_url = default_storage.url(filename)
+        return JsonResponse({'image_url': image_url})
+    return JsonResponse({'error': 'No image provided'}, status=400)

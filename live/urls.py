@@ -10,6 +10,8 @@ urlpatterns = [
     path("zcreate/<str:p>/", views.Zcreate, name='zcreate'), 
     path("zupdate/<str:k>/", views.Zupdate, name='zupdate'), 
     path("zdelete/<str:k>/", views.Zdelete, name='zdelete'), 
+    path('upload-question-image/', views.upload_question_image, name='upload_question_image'),
+
 
     # zoom
     # path("teacher/<str:meeting_id>/", views.teacher_view, name="teacher"),
