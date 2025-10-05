@@ -4263,7 +4263,7 @@
   "pk": 53,
   "fields": {
     "password": "pbkdf2_sha256$720000$q7CxeZHNdShg5kZngeWpJv$v98XwG4XtD83fnsGRTfnHq9WiKLTrrknOn71TNf6Jw0=",
-    "last_login": "2025-09-20T11:20:23.424Z",
+    "last_login": "2025-10-05T19:09:37.411Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4493,7 +4493,7 @@
   "pk": 69,
   "fields": {
     "password": "pbkdf2_sha256$720000$TvGNKrAEsaMMDffxylgsJs$GNcnfYGZ4S2uTvOgJG0tVo4zMKtpINosnVSVHWl9qB8=",
-    "last_login": "2025-09-06T08:47:17.318Z",
+    "last_login": "2025-10-05T15:07:16.777Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -4654,7 +4654,7 @@
   "pk": 77,
   "fields": {
     "password": "pbkdf2_sha256$720000$NIeY1HPw3zpNZiAJb7k4p5$rEtZlv2N94/dxeHeV71wLFdTtBPKW6xFBgn8NWMUBVM=",
-    "last_login": "2025-09-06T17:52:57.829Z",
+    "last_login": "2025-10-05T13:01:12.226Z",
     "is_superuser": false,
     "first_name": "",
     "last_name": "",
@@ -5938,6 +5938,29 @@
   }
 },
 {
+  "model": "courses.user",
+  "pk": 154,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$LVX29uTjAq8PqFEsRTOwrX$6oZ+FkjZeAB3c96H5nZgmMTzzwZmNVkWYnoCJKyrFz0=",
+    "last_login": "2025-10-05T12:15:37.037Z",
+    "is_superuser": false,
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-05T12:15:36.721Z",
+    "name": "احمد حسن رمضان ",
+    "username": null,
+    "email": "ahmedhassan263197700@gmail.com",
+    "year": "10",
+    "gov": null,
+    "prov": null,
+    "school": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "courses.year",
   "pk": 1,
   "fields": {
@@ -6317,7 +6340,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 71
+    "percent": 77
   }
 },
 {
@@ -6848,7 +6871,7 @@
   "fields": {
     "user": 117,
     "k": 1,
-    "percent": 11
+    "percent": 51
   }
 },
 {
@@ -7090,6 +7113,15 @@
   "pk": 126,
   "fields": {
     "user": 153,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.yeareval",
+  "pk": 127,
+  "fields": {
+    "user": 154,
     "k": 2,
     "percent": 0
   }
@@ -7478,7 +7510,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 71
+    "percent": 77
   }
 },
 {
@@ -8009,7 +8041,7 @@
   "fields": {
     "user": 117,
     "k": 1,
-    "percent": 11
+    "percent": 51
   }
 },
 {
@@ -8251,6 +8283,15 @@
   "pk": 126,
   "fields": {
     "user": 153,
+    "k": 2,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.subjecteval",
+  "pk": 127,
+  "fields": {
+    "user": 154,
     "k": 2,
     "percent": 0
   }
@@ -9803,7 +9844,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 87
+    "percent": 90
   }
 },
 {
@@ -9812,7 +9853,7 @@
   "fields": {
     "user": 38,
     "k": 2,
-    "percent": 53
+    "percent": 61
   }
 },
 {
@@ -12890,7 +12931,7 @@
   "fields": {
     "user": 117,
     "k": 1,
-    "percent": 20
+    "percent": 72
   }
 },
 {
@@ -12899,7 +12940,7 @@
   "fields": {
     "user": 117,
     "k": 2,
-    "percent": 0
+    "percent": 27
   }
 },
 {
@@ -14946,6 +14987,42 @@
   }
 },
 {
+  "model": "courses.uniteval",
+  "pk": 753,
+  "fields": {
+    "user": 154,
+    "k": 11,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 754,
+  "fields": {
+    "user": 154,
+    "k": 14,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 755,
+  "fields": {
+    "user": 154,
+    "k": 18,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.uniteval",
+  "pk": 756,
+  "fields": {
+    "user": 154,
+    "k": 20,
+    "percent": 0
+  }
+},
+{
   "model": "courses.lesson",
   "pk": 1,
   "fields": {
@@ -15783,6 +15860,30 @@
     "s": 1,
     "y": 1,
     "video": "Jf7K2WbvHqQ"
+  }
+},
+{
+  "model": "courses.lesson",
+  "pk": 71,
+  "fields": {
+    "head": "معادلة للتيار الكهربائي",
+    "k": "l71",
+    "p": 19,
+    "s": 4,
+    "y": 4,
+    "video": "7zscWuQ7lE4"
+  }
+},
+{
+  "model": "courses.lesson",
+  "pk": 72,
+  "fields": {
+    "head": "جمع الكميات المتجهة",
+    "k": "l72",
+    "p": 17,
+    "s": 3,
+    "y": 3,
+    "video": "VMk4Yr7MOiE"
   }
 },
 {
@@ -20228,7 +20329,7 @@
   "fields": {
     "user": 38,
     "k": 1,
-    "percent": 94
+    "percent": 100
   }
 },
 {
@@ -20255,7 +20356,7 @@
   "fields": {
     "user": 38,
     "k": 4,
-    "percent": 93
+    "percent": 97
   }
 },
 {
@@ -20273,7 +20374,7 @@
   "fields": {
     "user": 38,
     "k": 6,
-    "percent": 83
+    "percent": 100
   }
 },
 {
@@ -20282,7 +20383,7 @@
   "fields": {
     "user": 38,
     "k": 7,
-    "percent": 94
+    "percent": 100
   }
 },
 {
@@ -20291,7 +20392,7 @@
   "fields": {
     "user": 38,
     "k": 8,
-    "percent": 44
+    "percent": 50
   }
 },
 {
@@ -20300,7 +20401,7 @@
   "fields": {
     "user": 38,
     "k": 9,
-    "percent": 94
+    "percent": 100
   }
 },
 {
@@ -20309,7 +20410,7 @@
   "fields": {
     "user": 38,
     "k": 10,
-    "percent": 96
+    "percent": 100
   }
 },
 {
@@ -20318,7 +20419,7 @@
   "fields": {
     "user": 38,
     "k": 11,
-    "percent": 12
+    "percent": 24
   }
 },
 {
@@ -20327,7 +20428,7 @@
   "fields": {
     "user": 38,
     "k": 12,
-    "percent": 10
+    "percent": 21
   }
 },
 {
@@ -31028,7 +31129,7 @@
   "fields": {
     "user": 117,
     "k": 1,
-    "percent": 94
+    "percent": 100
   }
 },
 {
@@ -31037,7 +31138,7 @@
   "fields": {
     "user": 117,
     "k": 2,
-    "percent": 35
+    "percent": 100
   }
 },
 {
@@ -31046,7 +31147,7 @@
   "fields": {
     "user": 117,
     "k": 3,
-    "percent": 17
+    "percent": 58
   }
 },
 {
@@ -31055,7 +31156,7 @@
   "fields": {
     "user": 117,
     "k": 4,
-    "percent": 7
+    "percent": 72
   }
 },
 {
@@ -31064,7 +31165,7 @@
   "fields": {
     "user": 117,
     "k": 5,
-    "percent": 0
+    "percent": 69
   }
 },
 {
@@ -31073,7 +31174,7 @@
   "fields": {
     "user": 117,
     "k": 6,
-    "percent": 0
+    "percent": 67
   }
 },
 {
@@ -31082,7 +31183,7 @@
   "fields": {
     "user": 117,
     "k": 7,
-    "percent": 0
+    "percent": 39
   }
 },
 {
@@ -31091,7 +31192,7 @@
   "fields": {
     "user": 117,
     "k": 8,
-    "percent": 0
+    "percent": 61
   }
 },
 {
@@ -31100,7 +31201,7 @@
   "fields": {
     "user": 117,
     "k": 9,
-    "percent": 0
+    "percent": 44
   }
 },
 {
@@ -31109,7 +31210,7 @@
   "fields": {
     "user": 117,
     "k": 10,
-    "percent": 0
+    "percent": 25
   }
 },
 {
@@ -31118,7 +31219,7 @@
   "fields": {
     "user": 117,
     "k": 11,
-    "percent": 0
+    "percent": 29
   }
 },
 {
@@ -31127,7 +31228,7 @@
   "fields": {
     "user": 117,
     "k": 12,
-    "percent": 0
+    "percent": 12
   }
 },
 {
@@ -38471,6 +38572,519 @@
   "fields": {
     "user": 1,
     "k": 70,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2556,
+  "fields": {
+    "user": 154,
+    "k": 33,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2557,
+  "fields": {
+    "user": 154,
+    "k": 34,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2558,
+  "fields": {
+    "user": 154,
+    "k": 48,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2559,
+  "fields": {
+    "user": 154,
+    "k": 49,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2560,
+  "fields": {
+    "user": 154,
+    "k": 57,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2561,
+  "fields": {
+    "user": 154,
+    "k": 61,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2562,
+  "fields": {
+    "user": 154,
+    "k": 62,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2563,
+  "fields": {
+    "user": 154,
+    "k": 67,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2564,
+  "fields": {
+    "user": 154,
+    "k": 69,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2565,
+  "fields": {
+    "user": 43,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2566,
+  "fields": {
+    "user": 47,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2567,
+  "fields": {
+    "user": 96,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2568,
+  "fields": {
+    "user": 129,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2569,
+  "fields": {
+    "user": 141,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2570,
+  "fields": {
+    "user": 1,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2571,
+  "fields": {
+    "user": 9,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2572,
+  "fields": {
+    "user": 22,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2573,
+  "fields": {
+    "user": 27,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2574,
+  "fields": {
+    "user": 31,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2575,
+  "fields": {
+    "user": 33,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2576,
+  "fields": {
+    "user": 41,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2577,
+  "fields": {
+    "user": 44,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2578,
+  "fields": {
+    "user": 46,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2579,
+  "fields": {
+    "user": 48,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2580,
+  "fields": {
+    "user": 49,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2581,
+  "fields": {
+    "user": 50,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2582,
+  "fields": {
+    "user": 54,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2583,
+  "fields": {
+    "user": 56,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2584,
+  "fields": {
+    "user": 58,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2585,
+  "fields": {
+    "user": 72,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2586,
+  "fields": {
+    "user": 73,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2587,
+  "fields": {
+    "user": 74,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2588,
+  "fields": {
+    "user": 75,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2589,
+  "fields": {
+    "user": 76,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2590,
+  "fields": {
+    "user": 77,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2591,
+  "fields": {
+    "user": 78,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2592,
+  "fields": {
+    "user": 79,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2593,
+  "fields": {
+    "user": 90,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2594,
+  "fields": {
+    "user": 101,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2595,
+  "fields": {
+    "user": 102,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2596,
+  "fields": {
+    "user": 104,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2597,
+  "fields": {
+    "user": 109,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2598,
+  "fields": {
+    "user": 127,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2599,
+  "fields": {
+    "user": 137,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2600,
+  "fields": {
+    "user": 144,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2601,
+  "fields": {
+    "user": 145,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2602,
+  "fields": {
+    "user": 151,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2603,
+  "fields": {
+    "user": 152,
+    "k": 72,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2604,
+  "fields": {
+    "user": 3,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2605,
+  "fields": {
+    "user": 4,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2606,
+  "fields": {
+    "user": 5,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2607,
+  "fields": {
+    "user": 6,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2608,
+  "fields": {
+    "user": 7,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2609,
+  "fields": {
+    "user": 8,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2610,
+  "fields": {
+    "user": 10,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2611,
+  "fields": {
+    "user": 11,
+    "k": 71,
+    "percent": 0
+  }
+},
+{
+  "model": "courses.lessoneval",
+  "pk": 2612,
+  "fields": {
+    "user": 1,
+    "k": 71,
     "percent": 0
   }
 },
@@ -78891,8 +79505,8 @@
   "fields": {
     "user": 38,
     "k": 19,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -78902,8 +79516,8 @@
   "fields": {
     "user": 38,
     "k": 20,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -78924,8 +79538,8 @@
   "fields": {
     "user": 38,
     "k": 22,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -79100,8 +79714,8 @@
   "fields": {
     "user": 38,
     "k": 39,
-    "pscore": 1,
-    "tscore": 1,
+    "pscore": -1,
+    "tscore": 0,
     "flag": 0
   }
 },
@@ -79166,8 +79780,8 @@
   "fields": {
     "user": 38,
     "k": 49,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -79332,7 +79946,7 @@
     "user": 38,
     "k": 66,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -79408,8 +80022,8 @@
   "fields": {
     "user": 38,
     "k": 76,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -79728,7 +80342,7 @@
     "user": 38,
     "k": 116,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -79782,8 +80396,8 @@
   "fields": {
     "user": 38,
     "k": 120,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -79936,8 +80550,8 @@
   "fields": {
     "user": 38,
     "k": 138,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80343,7 +80957,7 @@
   "fields": {
     "user": 38,
     "k": 157,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -80497,8 +81111,8 @@
   "fields": {
     "user": 38,
     "k": 146,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80574,8 +81188,8 @@
   "fields": {
     "user": 38,
     "k": 166,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80596,8 +81210,8 @@
   "fields": {
     "user": 38,
     "k": 169,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80772,8 +81386,8 @@
   "fields": {
     "user": 38,
     "k": 187,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80849,8 +81463,8 @@
   "fields": {
     "user": 38,
     "k": 194,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80882,7 +81496,7 @@
   "fields": {
     "user": 38,
     "k": 199,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -80937,8 +81551,8 @@
   "fields": {
     "user": 38,
     "k": 204,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -80981,7 +81595,7 @@
   "fields": {
     "user": 38,
     "k": 206,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -81091,8 +81705,8 @@
   "fields": {
     "user": 38,
     "k": 216,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -81179,8 +81793,8 @@
   "fields": {
     "user": 38,
     "k": 225,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -81190,7 +81804,7 @@
   "fields": {
     "user": 38,
     "k": 226,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -81234,7 +81848,7 @@
   "fields": {
     "user": 38,
     "k": 232,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -81410,8 +82024,8 @@
   "fields": {
     "user": 38,
     "k": 248,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -81432,8 +82046,8 @@
   "fields": {
     "user": 38,
     "k": 251,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -81498,8 +82112,8 @@
   "fields": {
     "user": 38,
     "k": 254,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140480,8 +141094,8 @@
   "fields": {
     "user": 117,
     "k": 6,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140491,8 +141105,8 @@
   "fields": {
     "user": 117,
     "k": 7,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140502,8 +141116,8 @@
   "fields": {
     "user": 117,
     "k": 9,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140524,7 +141138,7 @@
   "fields": {
     "user": 117,
     "k": 13,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -140546,8 +141160,8 @@
   "fields": {
     "user": 117,
     "k": 34,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140557,7 +141171,7 @@
   "fields": {
     "user": 117,
     "k": 35,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -140569,7 +141183,7 @@
     "user": 117,
     "k": 14,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140590,8 +141204,8 @@
   "fields": {
     "user": 117,
     "k": 38,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140601,8 +141215,8 @@
   "fields": {
     "user": 117,
     "k": 18,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140612,8 +141226,8 @@
   "fields": {
     "user": 117,
     "k": 28,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140623,8 +141237,8 @@
   "fields": {
     "user": 117,
     "k": 20,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140678,8 +141292,8 @@
   "fields": {
     "user": 117,
     "k": 42,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140689,8 +141303,8 @@
   "fields": {
     "user": 117,
     "k": 95,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140700,8 +141314,8 @@
   "fields": {
     "user": 117,
     "k": 27,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140711,7 +141325,7 @@
   "fields": {
     "user": 117,
     "k": 22,
-    "pscore": 1,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -140766,8 +141380,8 @@
   "fields": {
     "user": 117,
     "k": 10,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140833,7 +141447,7 @@
     "user": 117,
     "k": 1,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140843,8 +141457,8 @@
   "fields": {
     "user": 117,
     "k": 2,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140876,8 +141490,8 @@
   "fields": {
     "user": 117,
     "k": 261,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140887,8 +141501,8 @@
   "fields": {
     "user": 117,
     "k": 8,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140920,8 +141534,8 @@
   "fields": {
     "user": 117,
     "k": 24,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140931,8 +141545,8 @@
   "fields": {
     "user": 117,
     "k": 44,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140953,8 +141567,8 @@
   "fields": {
     "user": 117,
     "k": 17,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140975,8 +141589,8 @@
   "fields": {
     "user": 117,
     "k": 52,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140986,8 +141600,8 @@
   "fields": {
     "user": 117,
     "k": 54,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -140997,8 +141611,8 @@
   "fields": {
     "user": 117,
     "k": 55,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141041,8 +141655,8 @@
   "fields": {
     "user": 117,
     "k": 62,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141052,8 +141666,8 @@
   "fields": {
     "user": 117,
     "k": 63,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141085,8 +141699,8 @@
   "fields": {
     "user": 117,
     "k": 70,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141096,8 +141710,8 @@
   "fields": {
     "user": 117,
     "k": 72,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141118,8 +141732,8 @@
   "fields": {
     "user": 117,
     "k": 76,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141184,8 +141798,8 @@
   "fields": {
     "user": 117,
     "k": 83,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141195,8 +141809,8 @@
   "fields": {
     "user": 117,
     "k": 85,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141206,8 +141820,8 @@
   "fields": {
     "user": 117,
     "k": 86,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141217,8 +141831,8 @@
   "fields": {
     "user": 117,
     "k": 40,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141272,8 +141886,8 @@
   "fields": {
     "user": 117,
     "k": 80,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141283,8 +141897,8 @@
   "fields": {
     "user": 117,
     "k": 87,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141305,8 +141919,8 @@
   "fields": {
     "user": 117,
     "k": 59,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141338,8 +141952,8 @@
   "fields": {
     "user": 117,
     "k": 88,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141360,8 +141974,8 @@
   "fields": {
     "user": 117,
     "k": 92,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141415,8 +142029,8 @@
   "fields": {
     "user": 117,
     "k": 75,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141426,8 +142040,8 @@
   "fields": {
     "user": 117,
     "k": 98,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141437,8 +142051,8 @@
   "fields": {
     "user": 117,
     "k": 99,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141448,8 +142062,8 @@
   "fields": {
     "user": 117,
     "k": 101,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141459,8 +142073,8 @@
   "fields": {
     "user": 117,
     "k": 74,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141470,8 +142084,8 @@
   "fields": {
     "user": 117,
     "k": 77,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141492,8 +142106,8 @@
   "fields": {
     "user": 117,
     "k": 81,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141525,8 +142139,8 @@
   "fields": {
     "user": 117,
     "k": 103,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141536,8 +142150,8 @@
   "fields": {
     "user": 117,
     "k": 105,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141547,8 +142161,8 @@
   "fields": {
     "user": 117,
     "k": 106,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141558,8 +142172,8 @@
   "fields": {
     "user": 117,
     "k": 107,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141569,8 +142183,8 @@
   "fields": {
     "user": 117,
     "k": 110,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141580,8 +142194,8 @@
   "fields": {
     "user": 117,
     "k": 111,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141591,8 +142205,8 @@
   "fields": {
     "user": 117,
     "k": 114,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141602,8 +142216,8 @@
   "fields": {
     "user": 117,
     "k": 115,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141613,8 +142227,8 @@
   "fields": {
     "user": 117,
     "k": 96,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141624,8 +142238,8 @@
   "fields": {
     "user": 117,
     "k": 100,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141646,8 +142260,8 @@
   "fields": {
     "user": 117,
     "k": 117,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141668,8 +142282,8 @@
   "fields": {
     "user": 117,
     "k": 119,
-    "pscore": -1,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141679,8 +142293,8 @@
   "fields": {
     "user": 117,
     "k": 120,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141701,8 +142315,8 @@
   "fields": {
     "user": 117,
     "k": 126,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141723,8 +142337,8 @@
   "fields": {
     "user": 117,
     "k": 109,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141734,8 +142348,8 @@
   "fields": {
     "user": 117,
     "k": 112,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141745,8 +142359,8 @@
   "fields": {
     "user": 117,
     "k": 113,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141778,8 +142392,8 @@
   "fields": {
     "user": 117,
     "k": 134,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141789,8 +142403,8 @@
   "fields": {
     "user": 117,
     "k": 135,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141811,8 +142425,8 @@
   "fields": {
     "user": 117,
     "k": 122,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141833,8 +142447,8 @@
   "fields": {
     "user": 117,
     "k": 124,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141877,8 +142491,8 @@
   "fields": {
     "user": 117,
     "k": 129,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141899,8 +142513,8 @@
   "fields": {
     "user": 117,
     "k": 132,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141921,8 +142535,8 @@
   "fields": {
     "user": 117,
     "k": 144,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141932,8 +142546,8 @@
   "fields": {
     "user": 117,
     "k": 147,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141943,8 +142557,8 @@
   "fields": {
     "user": 117,
     "k": 136,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141954,8 +142568,8 @@
   "fields": {
     "user": 117,
     "k": 138,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -141976,8 +142590,8 @@
   "fields": {
     "user": 117,
     "k": 141,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142031,7 +142645,7 @@
   "fields": {
     "user": 117,
     "k": 156,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -142075,7 +142689,7 @@
   "fields": {
     "user": 117,
     "k": 162,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -142086,8 +142700,8 @@
   "fields": {
     "user": 117,
     "k": 176,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142174,8 +142788,8 @@
   "fields": {
     "user": 117,
     "k": 200,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142196,8 +142810,8 @@
   "fields": {
     "user": 117,
     "k": 215,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142229,8 +142843,8 @@
   "fields": {
     "user": 117,
     "k": 166,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142240,8 +142854,8 @@
   "fields": {
     "user": 117,
     "k": 216,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142273,8 +142887,8 @@
   "fields": {
     "user": 117,
     "k": 171,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142284,7 +142898,7 @@
   "fields": {
     "user": 117,
     "k": 160,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -142350,8 +142964,8 @@
   "fields": {
     "user": 117,
     "k": 170,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142416,8 +143030,8 @@
   "fields": {
     "user": 117,
     "k": 177,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142449,8 +143063,8 @@
   "fields": {
     "user": 117,
     "k": 229,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142460,8 +143074,8 @@
   "fields": {
     "user": 117,
     "k": 179,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142493,8 +143107,8 @@
   "fields": {
     "user": 117,
     "k": 232,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142526,8 +143140,8 @@
   "fields": {
     "user": 117,
     "k": 237,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142548,8 +143162,8 @@
   "fields": {
     "user": 117,
     "k": 169,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142592,8 +143206,8 @@
   "fields": {
     "user": 117,
     "k": 247,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142626,7 +143240,7 @@
     "user": 117,
     "k": 143,
     "pscore": 1,
-    "tscore": 0,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142658,8 +143272,8 @@
   "fields": {
     "user": 117,
     "k": 175,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142680,8 +143294,8 @@
   "fields": {
     "user": 117,
     "k": 192,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142702,7 +143316,7 @@
   "fields": {
     "user": 117,
     "k": 199,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -142713,8 +143327,8 @@
   "fields": {
     "user": 117,
     "k": 163,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142757,8 +143371,8 @@
   "fields": {
     "user": 117,
     "k": 205,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142790,8 +143404,8 @@
   "fields": {
     "user": 117,
     "k": 184,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142845,8 +143459,8 @@
   "fields": {
     "user": 117,
     "k": 225,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142856,8 +143470,8 @@
   "fields": {
     "user": 117,
     "k": 191,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142889,8 +143503,8 @@
   "fields": {
     "user": 117,
     "k": 204,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -142966,7 +143580,7 @@
   "fields": {
     "user": 117,
     "k": 213,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -142977,8 +143591,8 @@
   "fields": {
     "user": 117,
     "k": 218,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143010,8 +143624,8 @@
   "fields": {
     "user": 117,
     "k": 224,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143032,8 +143646,8 @@
   "fields": {
     "user": 117,
     "k": 235,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143076,8 +143690,8 @@
   "fields": {
     "user": 117,
     "k": 242,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143120,8 +143734,8 @@
   "fields": {
     "user": 117,
     "k": 246,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143142,7 +143756,7 @@
   "fields": {
     "user": 117,
     "k": 249,
-    "pscore": 0,
+    "pscore": -1,
     "tscore": 0,
     "flag": 0
   }
@@ -143208,8 +143822,8 @@
   "fields": {
     "user": 117,
     "k": 256,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143252,8 +143866,8 @@
   "fields": {
     "user": 117,
     "k": 262,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -143274,8 +143888,8 @@
   "fields": {
     "user": 117,
     "k": 265,
-    "pscore": 0,
-    "tscore": 0,
+    "pscore": 1,
+    "tscore": 1,
     "flag": 0
   }
 },
@@ -193214,6 +193828,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "66aq5l7u66g7a3mde7liodgqc262a1le",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllZ_01Jzxkie3eNA8iR4qRC3B0ipYD2zcx7iTFtax23zss4kTgLEKffLSd8cNsB3VO7zRLnti5TlrsiD9rldSZ-Xg7376CmXr91gaGws9F6UhoAXTTKsvGWKQIQ-Ky1CQNhAB8gO11cRkJSg43ICOL9AcO6N3M:1v5RaH:VqSSKQ4_tnGkY7uIC6sEm4rCjtjEoOXB1haOASnmc4o",
+    "expire_date": "2025-10-19T16:27:41.382Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "8799pj7bpw81r268yhrzy25mghib7ddf",
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSEMMDxcuu83kOGhVA0kpV0Z_12bdKHbe865LxZoW2vYRlnCnNmZATv9bpHSo7Qd5Du1W-ept3WZI98VftDBp57L83K4fweVRv3WhRRp4YTTWIwWEkA5aY1HyABoMdp09S6R0YrIJ41ANhImH0G6bB17fwCv9jbf:1uwJkd:mUX_fKB_ysNOAEF8gAxIQane7HAl0DgiZlovrB1V1jk",
@@ -193242,14 +193864,6 @@
   "fields": {
     "session_data": "e30:1uobhx:qlPaXAdQlEYsK0F4aZv4unAJC7wpP2c5pgv2EvVlALs",
     "expire_date": "2025-09-03T05:50:01.760Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "oglixbey1567ymk8p0mil379oibpvuvv",
-  "fields": {
-    "session_data": ".eJxVjDEOwjAMRe-SGUWtgylhZOcMUezYpIASqWknxN1ppQ6wvvf-f5sQlzmHpckUxmQupjeHX0aRn1I2kR6x3KvlWuZpJLsldrfN3mqS13Vv_w5ybHldI52FAFCPntnBgF47YegBRBUTYBxOiChKxE4pOeFuZUrOeeDozecL91U4wQ:1v5LyO:YKQ7NiM4WTueu1PkNzLyrI7mS4-ZKcrBglDwcCI9qY4",
-    "expire_date": "2025-10-19T10:28:12.798Z"
   }
 },
 {
