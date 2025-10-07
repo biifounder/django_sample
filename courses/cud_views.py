@@ -182,8 +182,54 @@ def Delete(request, k):
 # _________________________________________ 
 
 
+# def Qlist(request, k):    
+#     lesson = Lesson.objects.get(k=k)
+#     questions = []
+#     for question in Question.objects.filter(p=lesson) :   
+#         qD = {'q':question, 'head':[n for n in question.head.split('..')]}
+#         if '__' in question.op1 : 
+#             qD['op1'] = [n for n in question.op1.split('__')]  
+#         else: 
+#             qD['op1'] = [question.op1]
+#         if question.hint : 
+#             qD['hint'] = [n for n in question.hint.split('..')]  
+#         questions += [qD]   
+#         for d in QDubl.objects.filter(p=question): 
+#             tmp = {'q':d, 'head':[n for n in d.head.split('..')]}
+#             if '__' in d.op1 : 
+#                 tmp['op1'] = [n for n in d.op1.split('__')] 
+#             else: 
+#                 tmp['op1'] = [d.op1]
+#             if d.hint and d.hint != None and d.hint != '00' and d.hint != 'None': 
+#                 tmp['hint'] = [n for n in d.hint.split('..')]  
+#             questions += [tmp] 
+#     context = {'teacher': is_teacher(request), 'questions':questions, 'head':lesson.head, 'k':k, 'p':lesson.k, 's':lesson.p.p.k}
+#     return render (request,'courses/qlist.html', context)
+
+
+
+from .models import Year, Subject, Unit, Lesson, Question, QDubl 
+
 def Qlist(request, k):    
     lesson = Lesson.objects.get(k=k)
+    current_unit = lesson.p  # الوحدة التي ينتمي إليها الدرس الحالي
+    current_subject = current_unit.p # المادة التي تنتمي إليها الوحدة الحالية
+    
+    # ------------------ منطق الشريط الجانبي المعدّل (الوحدة والدرس فقط) ------------------
+    # جلب جميع الوحدات التابعة للمادة الحالية
+    units = Unit.objects.filter(p=current_subject)
+    sidebar_data = []
+
+    for unit in units:
+        unit_data = {
+            'unit': unit,
+            # جلب جميع الدروس التابعة لهذه الوحدة
+            'lessons': Lesson.objects.filter(p=unit) 
+        }
+        sidebar_data.append(unit_data)
+    # -----------------------------------------------------------------------------
+
+    # منطق جلب الأسئلة الأصلي (يبقى كما هو)
     questions = []
     for question in Question.objects.filter(p=lesson) :   
         qD = {'q':question, 'head':[n for n in question.head.split('..')]}
@@ -203,10 +249,20 @@ def Qlist(request, k):
             if d.hint and d.hint != None and d.hint != '00' and d.hint != 'None': 
                 tmp['hint'] = [n for n in d.hint.split('..')]  
             questions += [tmp] 
-    context = {'teacher': is_teacher(request), 'questions':questions, 'head':lesson.head, 'k':k, 'p':lesson.k, 's':lesson.p.p.k}
+    
+    context = {
+        'teacher': is_teacher(request), 
+        'questions': questions, 
+        'head': lesson.head, 
+        'k': k, 
+        'p': lesson.k, 
+        's': lesson.p.p.k,
+        # تمرير بيانات الشريط الجانبي الجديدة
+        'sidebar_data': sidebar_data, 
+        'current_lesson_k': k, 
+        'current_unit_k': current_unit.k, # لتحديد الوحدة الحالية وتمييزها
+    }
     return render (request,'courses/qlist.html', context)
-
-
 
 def Solve(request): 
     context = {'teacher':is_teacher(request)}
