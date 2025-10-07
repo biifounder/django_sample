@@ -1,0 +1,369 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>حصة تفاعلية</title>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+    <style>
+        body { font-family: sans-serif; max-width: 1200px; margin: auto; padding: 20px; }
+        #question-counter { font-size: 1.2em; font-weight: bold; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        .correct-answer { color: #22c55e; font-weight: bold; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; }
+
+        #questions-table th, #questions-table td {
+            text-align: right;
+            padding: 10px;
+        }
+        .message-column { width: 60%; }
+        .message-rtl { direction: rtl; }
+        .message-ltr { direction: ltr; }
+
+        .stats-container { margin-top: 20px; }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            background-color: #f0f4f8;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .stat-item.correct {
+            border-color: #22c55e;
+            background-color: #e7f6d5;
+        }
+        .option-text { flex: 1; text-align: right; margin-right: 15px; }
+        .answer-count { font-weight: bold; color: #007bff; }
+
+        #canvasWrapper {
+            position: relative;
+            margin-top: 40px;
+        }
+        #pdfCanvas, #annotationCanvas {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: block;
+        }
+        #annotationCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حصة تفاعلية في درس: {{lesson.head}}</h1>
+        {{questions}}
+
+        <!-- Zoom iframe (optional) -->
+        <iframe src="http://localhost:5173" allow="microphone" title="Zoom Meeting" style="width:100%; height:500px; border:1px solid #ccc; border-radius:8px;"></iframe>
+
+        <!-- PDF viewer and annotation canvas -->
+        <div id="canvasWrapper">
+            <canvas id="pdfCanvas" width="800" height="1000"></canvas>
+            <canvas id="annotationCanvas" width="800" height="1000"></canvas>
+        </div>
+
+        <!-- Quiz controls and tables -->
+        <div id="quiz-controls">
+            <p>تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span></p>
+            <button id="next-question-button" style="width:30%;">السؤال الاول</button>
+            <button id="pause-resume-button" style="display: none; width:30%">انتظر</button>
+        </div>
+
+        <div id="question-stats-section" style="display: none;">
+            <h2>إحصائيات السؤال</h2>
+            <div id="stats-container" class="stats-container"></div>
+        </div>
+
+        <h1>الدرجات</h1>
+        <table id="score-table" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>المركز</th>
+                    <th>اسم الطالب</th>
+                    <th>الدرجة</th>
+                    <th>أسئلة لم يجيب عليها</th>
+                    <th>عدد الرسائل</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:40%">حفظ الدرجات</button>
+
+        <hr style="margin-top: 30px; margin-bottom: 30px;">
+        <h1>أسئلة الطلاب</h1>
+        <table id="questions-table" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">اسم الطالب</th>
+                    <th class="message-column">آخر رسالة</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        let questions = JSON.parse("{{questions|escapejs}}");
+        console.log("Loaded questions:", questions);
+        let quizSocket;
+        if (window.location.host === '127.0.0.1:8000') {
+            quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+        } else {
+            const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
+        }
+
+        const nextQuestionButton = document.getElementById('next-question-button');
+        const pauseResumeButton = document.getElementById('pause-resume-button');
+        const exportScoresButton = document.getElementById('export-scores-button');
+        const questionCounter = document.getElementById('question-counter');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const scoreTableBody = document.querySelector('#score-table tbody');
+        const questionsTableBody = document.querySelector('#questions-table tbody');
+        const statsSection = document.getElementById('question-stats-section');
+        const statsContainer = document.getElementById('stats-container');
+
+        let currentQuestionIndex = 0;
+        let timerInterval;
+        let timeLeft = 0;
+        let isTimerRunning = false;
+        let studentQuestions = {};
+        let messageOrderCounter = 0;
+
+        totalQuestionsSpan.textContent = questions.length;
+
+        quizSocket.onopen = () => console.log('Teacher socket opened');
+        quizSocket.onclose = () => console.error('Teacher socket closed unexpectedly');
+
+        quizSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            if (data.type === 'update_score') updateScoreTable(data.content);
+            else if (data.type === 'student_question') {
+                const studentName = data.content.name;
+                const questionText = data.content.question;
+                messageOrderCounter++;
+                if (!studentQuestions[studentName]) {
+                    studentQuestions[studentName] = {
+                        name: studentName,
+                        lastMessage: questionText,
+                        messageCount: 1,
+                        lastOrder: messageOrderCounter
+                    };
+                } else {
+                    studentQuestions[studentName].lastMessage = questionText;
+                    studentQuestions[studentName].messageCount++;
+                    studentQuestions[studentName].lastOrder = messageOrderCounter;
+                }
+                updateQuestionsTable();
+            } else if (data.type === 'quiz_reset') {
+                studentQuestions = {};
+                messageOrderCounter = 0;
+                questionsTableBody.innerHTML = '';
+            } else if (data.type === 'question_stats') {
+                displayQuestionStats(data.content);
+            }
+        };
+
+        function isArabic(text) {
+            return /[\u0600-\u06FF]/.test(text);
+        }
+
+        function updateScoreTable(scores) {
+            const sorted = Object.values(scores).sort((a, b) => b.score - a.score);
+            const total = parseInt(totalQuestionsSpan.textContent);
+            scoreTableBody.innerHTML = '';
+            let rank = 1, lastScore = -1;
+            sorted.forEach((s, i) => {
+                if (s.score < lastScore) rank = i + 1;
+                const unanswered = total - (s.answered || 0);
+                scoreTableBody.innerHTML += `
+                    <tr>
+                        <td>${rank}</td>
+                        <td>${s.name}</td>
+                        <td>${s.score} / ${total}</td>
+                        <td>${unanswered}</td>
+                        <td>${s.message_count || 0}</td>
+                    </tr>`;
+                lastScore = s.score;
+            });
+        }
+
+        function displayQuestionStats(stats) {
+            statsContainer.innerHTML = '';
+            statsSection.style.display = 'block';
+            const optionsArray = Object.entries(stats.counts);
+            optionsArray.sort(([a], [b]) => {
+                const correct = stats.correct_answer.trim();
+                return (b === correct) - (a === correct);
+            });
+            optionsArray.forEach(([option, count]) => {
+                const isCorrect = option.trim() === stats.correct_answer.trim();
+                const item = document.createElement('div');
+                item.className = 'stat-item' + (isCorrect ? ' correct' : '');
+                item.innerHTML = `
+                    <span class="option-text">${option}</span>
+                    <span class="answer-count">${count}</span>
+                `;
+                statsContainer.appendChild(item);
+            });
+            MathJax.typeset();
+        }
+
+        function updateQuestionsTable() {
+            questionsTableBody.innerHTML = '';
+            const allStudents = Object.values(studentQuestions).sort((a, b) => b.lastOrder - a.lastOrder);
+            allStudents.forEach(student => {
+                const row = document.createElement('tr');
+                row.className = isArabic(student.lastMessage) ? 'message-rtl' : 'message-ltr';
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.lastMessage}</td>
+                `;
+                questionsTableBody.appendChild(row);
+            });
+        }
+
+        exportScoresButton.addEventListener('click', () => exportScoresToCsv());
+
+        function exportScoresToCsv() {
+            const rows = scoreTableBody.querySelectorAll('tr');
+            let csv = "Rank,Student,Score,Unanswered,Messages\n";
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const data = Array.from(cells).map(cell => cell.textContent);
+                csv += data.join(',') + "\n";
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            const name = exportScoresButton.getAttribute('data-lesson-name');
+            link.download = `${name}_scores.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        nextQuestionButton.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            if (currentQuestionIndex < questions.length) {
+                const q = questions[currentQuestionIndex];
+                const shuffled = shuffleArray([...q.options]);
+                const toSend = { ...q, options: shuffled };
+                statsSection.style.display = 'none';
+                statsContainer.innerHTML = '';
+                quizSocket.send(JSON.stringify({ type: 'new_question', content: toSend }));
+                startTimer(q.time_limit);
+                currentQuestionIndex++;
+                questionCounter.textContent = currentQuestionIndex;
+                nextQuestionButton.textContent = "السؤال التالي";
+            } else {
+                nextQuestionButton.disabled = true;
+                pauseResumeButton.style.display = 'none';
+                quizSocket.send(JSON.stringify({ type: 'quiz_end' }));
+            }
+            MathJax.typeset();
+        });
+
+        pauseResumeButton.addEventListener('click', () => {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                pauseResumeButton.textContent = 'استمر';
+                quizSocket.send(JSON.stringify({ type: 'timer_pause', content: timeLeft }));
+            } else {
+                startTimer(timeLeft);
+                isTimerRunning = true;
+                pauseResumeButton.textContent = 'انتظر';
+                quizSocket.send(JSON.stringify({ type: 'timer_resume' }));
+            }
+        });
+
+        function startTimer(limit) {
+            isTimerRunning = true;
+            timeLeft = limit;
+            pauseResumeButton.style.display = 'inline-block';
+            pauseResumeButton.textContent = 'انتظر';
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                }
+            }, 1000);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // PDF.js rendering
+        console.log("Rendering PDF on teacher page");
+        const pdfCanvas = document.getElementById("pdfCanvas");
+        const pdfCtx = pdfCanvas.getContext("2d");
+        const annotationCanvas = document.getElementById("annotationCanvas");
+        const annotationCtx = annotationCanvas.getContext("2d");
+
+        pdfjsLib.getDocument("/media/u1/0.pdf").promise.then(pdf => {
+            pdf.getPage(1).then(page => {
+                const viewport = page.getViewport({ scale: 1.5 });
+                pdfCanvas.width = viewport.width;
+                pdfCanvas.height = viewport.height;
+                annotationCanvas.width = viewport.width;
+                annotationCanvas.height = viewport.height;
+                page.render({ canvasContext: pdfCtx, viewport });
+            });
+        });
+
+        // Drawing logic
+        let drawing = false;
+        let lastX = 0, lastY = 0;
+
+        annotationCanvas.addEventListener("mousedown", e => {
+            drawing = true;
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+            annotationCtx.beginPath();
+            annotationCtx.moveTo(lastX, lastY);
+        });
+
+        annotationCanvas.addEventListener("mousemove", e => {
+            if (!drawing) return;
+            const newX = e.offsetX;
+            const newY = e.offsetY;
+            annotationCtx.lineTo(newX, newY);
+            annotationCtx.stroke();
+            quizSocket.send(JSON.stringify({
+                type: "draw",
+                content: { fromX: lastX, fromY: lastY, toX: newX, toY: newY }
+            }));
+            lastX = newX;
+            lastY = newY;
+        });
+
+        annotationCanvas.addEventListener("mouseup", () => drawing = false);
+        annotationCanvas.addEventListener("mouseleave", () => drawing = false);
+
+        annotationCtx.strokeStyle = "red";
+        annotationCtx.lineWidth = 2;
+    </script>
+</body>
+{% endblock %}
