@@ -1,0 +1,407 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block content %}
+
+
+
+<html>
+
+<head>  
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <!-- Google Font -->
+    <link  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+    <style>   
+
+    .question {
+      padding-right: 1rem;
+      padding-top: 1rem;
+      margin-bottom: 1.25em;
+      font-family: 'Amiri', serif;
+      color: red;
+    }
+
+    .option, .reveal, .flag, .submit, .key {
+      color: black;
+      font-size: 1em;
+      width: 95%;
+      min-height: 40px; 
+      padding-right: 1.2em;
+      padding-left: 1.2em;
+      text-align: center;
+      background: transparent;
+      border: 1px solid #25252b;
+      border-radius: 0.3em;
+    }
+    .reveal {
+      width: 20%; 
+    }
+    .flag {
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .submit {
+      width: 42%; 
+    }
+    .option:hover, .reveal:hover, .flag:hover, .submit:hover, .key:hover, a:hover {
+      background-color: #9d9db6;
+    }
+    a:link{
+      width:30px; 
+      font-size:5px
+    }
+    .hide {
+        display: none;
+    }
+    .incorrect {
+        background-color: #ffdde0;
+        border-color: #d32f2f;
+    }
+    .correct {
+        background-color: #e7f6d5;
+        border-color: #689f38;
+    }
+    .selected {
+      background-color: #969696;
+      border-color: #000000;
+    }
+    .flagged {
+      background-color: rgb(134, 104, 243);
+    }    
+    .answered {
+      background-color: #c3bff8;
+    }
+    .bulb {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    </style>
+</head>
+
+<body>
+  <div class = container>
+    {% if purpose == 'pract' %}  
+      <p style="color:blue; font-size:30">تدريب</p>
+      {% if not auth %}
+        <p style="text-align:right">يتم عرض عدد محدود من الأسئلة في النسخة التجريبية</p>
+      {% endif %}
+    {% elif purpose == 'test' %}
+      <p style="color:blue; font-size:30px">تقييم</p>
+      <p style="color:blue; font-size:30px">استعن بالله ولا تعجز</p>
+      <p style="color:rgb(247, 0, 0); font-size:15px">لا تنس ضغط زر إرسال الإجابات أسفل الصفحة حتى لا تحتسب درجتك صفرا</p>
+    {% else %}
+      <p style="color:blue; font-size:30">نتيجة الاختبار</p>
+    {% endif %}
+    {% if purpose == 'pract' %}  
+      <div class="box">
+        <select required id="qsource" style="width:30%"><option value="">جميع مصادر الأسئلة</option></select> 
+        <select required id="qkind" style="width:30%"><option value="">حميع أنواع الأسئلة</option></select> 
+        <select required id="qrecord" style="width:30%"><option value="">جميع الأسئلة في سجلك</option></select> 
+      </div>
+    {% endif %}  
+    <div class="box hide" style="width:10%; text-align:center;" id="scontainer"></div>
+    <div id="container"></div>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="submitted" id="submitted">     
+      <hr>      
+      {% if purpose == 'test' %}
+        <button style="background-color:rgb(134, 134, 134); " class="submit" type="submit" id="submit" onclick="JavaScript:return Done()">إرسال الإجابات</button>        
+      {% else %}
+        <button class="submit" style="width:90%; background-color:rgb(167, 167, 167)" type="submit" onclick="Done()">احفظ إجاباتي في السجل</button>        
+      {% endif %}
+    </form>
+  </div>
+
+
+
+
+</body>
+
+<script>
+  let purpose = '{{purpose}}';
+  let allQuestions = JSON.parse("{{questions|escapejs}}");  
+
+
+  if (purpose === 'pract'){
+    qSource = document.getElementById('qsource');
+      for(var s of ['أسئلة كتب الوزارة' , 'أسئلة الامتحانات الرسمية' ,'أسئلة إثرائية وامتحانات تجريبية',]){
+        qSource.options[qSource.options.length] = new Option(s, s)
+      }
+    
+    qSource.addEventListener('change', qSelected); 
+
+    qKind = document.getElementById('qkind');
+      for(var s of ['أسئلة المعرفة','أسئلة الفهم', 'مسائل', 'تمثيلات بيانية', 'مقارنات', 'إثباتات']){
+        qKind.options[qKind.options.length] = new Option(s, s)
+      }
+    qKind.addEventListener('change', qSelected); 
+
+    qRecord = document.getElementById('qrecord');
+      for(var s of ['الأسئلة الخطأ','الأسئلة المحجوزة', 'أسئلة لم يتم حلها بعد']){
+        qrecord.options[qrecord.options.length] = new Option(s, s)
+      }
+    qRecord.addEventListener('change', qSelected); 
+
+    function qSelected() {
+      let qsourceMap = {
+        book:'أسئلة كتب الوزارة',
+        exam:'أسئلة الامتحانات الرسمية',
+        other:'أسئلة إثرائية وامتحانات تجريبية'
+      }
+      let qkindMap = {
+        know:'أسئلة المعرفة',
+        understand:'أسئلة الفهم',
+        problem:'مسائل',
+        graph:'تمثيلات بيانية',
+        compare:'مقارنات',
+        proove:'إثباتات'
+      }
+      questions = [];
+      for (z of allQuestions){                           
+        if ((!qSource.value || qSource.value === qsourceMap[z.source]) && 
+            (!qKind.value || qKind.value === qkindMap[z.kind]) &&
+            (!qrecord.value || ((qRecord.value == 'الأسئلة الخطأ' && z.score == -1) || (qRecord.value == 'الأسئلة المحجوزة' && z.flag == 1) || (qRecord.value == 'أسئلة لم يتم حلها بعد' && z.score == 0)))            
+          ){
+          questions.push(z)
+        }
+      }  
+      var qL = questions.length;    
+      initial(questions)
+    };
+  }
+  
+  let quizContainer = document.getElementById("container");
+  let scoreContainer = document.getElementById("scontainer");
+  let answers = document.getElementsByClassName("answer");    
+  let ansimgs = document.getElementsByClassName("ansimg");
+  let hints = document.getElementsByClassName("hint");  
+  let videos = document.getElementsByClassName("video"); 
+  let plays = document.getElementsByClassName("play"); 
+  let flags = document.getElementsByClassName("flag");  
+  let reveals = document.getElementsByClassName("reveal");
+  let submitted = document.getElementById("submitted");
+  let qL = allQuestions.length; 
+  let score = 0; 
+
+  function QuestionCreator() {    
+    var j = -1;
+    for (let i of questions) {  
+      j += 1; 
+      let div = document.createElement("div");  
+      div.classList.add("qcontainer"); 
+      div.style.textAlign = "center";
+      div.innerHTML += `<hr>`;               
+      let question_DIV = document.createElement("p");  
+      question_DIV.style.textAlign = "right";
+      question_DIV.classList.add("question");   
+      if (purpose === 'pract'){
+        
+      }          
+      question_DIV.innerHTML = `<button class='flag' style="width:60px; float:right; height:50px" title="حجز للعرض لاحقا" value=${j} onclick="flagQues(this)">${j+1}</button>`+i.question;
+      if (i.file) {
+        question_DIV.innerHTML += `<div style="text-align:center"><img style="width:100%" src="${i.file}"><div/>`
+      }
+      div.appendChild(question_DIV);    
+      div.innerHTML += `<button class="reveal hide" style="width:50%" onclick="showAnswer(${j})">انظر الإجابة وقيم إجابتك</button>`;
+      var n = -1; 
+      for (var op of i.options){
+        n += 1; 
+        if (i.answer){
+          div.innerHTML += `<button class="option" style="width:10%" choice=${n} value=${j} onclick="checker(this)">${op}</button>`;
+        } else {
+          div.innerHTML += `<button class="option" choice=${n} value=${j} onclick="checker(this)">${op}</button>`;
+        }                          
+      }  
+      div.innerHTML += `<div class="answer hide" style="text-align:right; padding-right: 5em;"><p>${i.answer}</p></div>
+                        <div class="ansimg hide" style="text-align:center"><img style="width:100%" src="${i.ansimg}"><div/>`
+      let hint_DIV = document.createElement("div");  
+      hint_DIV.classList.add("hint", "hide"); 
+      hint_DIV.style.textAlign = "right";
+      hint_DIV.innerHTML += `<p style="color:blue; font-size:20px" >إرشادات (أو خطوات الحل):</p>`;
+      for (h of i.hint){
+        hint_DIV.innerHTML += String.raw`<p>${h}</p>`;
+      }
+      div.appendChild(hint_DIV); 
+      div.innerHTML += `<button class="video hide" style="width:50%; font-size:20px" onclick="watchVideo(${j})"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"> شاهد هذا المقطع لمزيد من التوضيح</button>`;
+      div.innerHTML += `<div class="play hide"><iframe width="680px" height="393px" src="${i.video}" allowfullscreen ></iframe></div>`
+      quizContainer.appendChild(div); 
+    }  
+    MathJax.typeset();
+  }
+
+  function showAnswer(j) {
+    question = questions[j];
+    if (question.answer){
+      answers[j].classList.remove("hide"); 
+      if (question.ansimg){
+        ansimgs[j].classList.remove("hide"); 
+      }
+    }
+    if (purpose === 'pract'){
+      if (question.hint){
+        hints[j].classList.remove("hide"); 
+      }     
+      if (question.video){
+        videos[j].classList.remove("hide"); 
+      }       
+    }  
+  }
+
+  function watchVideo(j) { 
+    plays[j].classList.toggle('hide');
+  }
+
+  function checker(userOption) { 
+    let j = userOption.value; 
+    let question = questions[j];
+    let choice = userOption.getAttribute('choice');     
+    let correct = question.correct;
+    let options = document.querySelectorAll(`.option[value="${j}"]`);
+    if (!question.choice){      
+      if (purpose === 'test'){
+        userOption.classList.add('selected')
+      } else {           
+        if (choice === correct) {
+          userOption.classList.add('correct')
+        } else {          
+          userOption.classList.add('incorrect')
+          options.forEach((element) => {
+            if (element.getAttribute('choice') === correct){
+              element.classList.add("correct");
+            }        
+          });              
+        }
+        options.forEach((element) => {
+          element.disabled = true; 
+        });
+      }            
+      question.choice = choice;
+    } else {
+      if (choice === question.choice){
+        userOption.classList.remove('selected')       
+        question.choice = '';
+      } else {
+        options.forEach((element) => {
+          element.classList.remove("selected");
+        });
+      userOption.classList.add('selected')
+      question.choice = choice;
+      }
+    }
+    if (purpose === 'pract'){
+      showAnswer(j)
+    } 
+  }
+
+  function flagQues(flagOption) {    
+    j = parseInt(flagOption.value) 
+    question = questions[j]
+    question.flagged = 1;
+    if (question.flag === 0) {
+      question.flag = 1
+      flagOption.classList.add("flagged");
+    } else {
+      question.flag = 0;
+      flagOption.classList.remove("flagged");
+    }      
+  } 
+
+  function initial(questions) {
+    qL = questions.length;    
+    if (qL > 0) {   
+      quizContainer.innerHTML = ""; 
+      QuestionCreator();
+      for(var j=0; j < qL; j++){
+        var question = questions[j];
+        if (question.flag === 1){
+            flags[j].classList.add("flagged"); 
+        }
+        if (question.answer){
+          reveals[j].classList.remove("hide")
+        }
+      }     
+      if (purpose === 'result'){   
+        for(var j=0; j < qL; j++){  
+          var question = questions[j];
+          
+          var options = document.querySelectorAll(`.option[value="${j}"]`);  
+          if (question.choice === question.correct){
+            score += 1
+          }          
+          if (question.answer) {
+            reveals[j].classList.add("hide");             
+            answers[j].classList.remove("hide"); 
+            ansimgs[j].classList.remove("hide");
+            hints[j].classList.remove("hide");
+            videos[j].classList.remove("hide");
+          }          
+          options.forEach((element) => {
+            element.disabled = true; 
+            if (element.getAttribute('choice') === question.correct){
+              element.classList.add("correct");  
+            } else if (element.getAttribute('choice') === question.choice){
+              element.classList.add("incorrect");
+            }       
+          });
+        }
+        let div = document.createElement("div");  
+        div.innerHTML += `${score} <hr>  ${qL}`; 
+        fr = score/qL;  
+        if (fr >= 0.9){
+          div.style.color = 'blue';
+        } else if (fr > 0.499){
+          div.style.color = 'green';
+        } else {
+          div.style.color = 'red';
+        }
+        scoreContainer.appendChild(div);
+        scoreContainer.style.fontSize='30px';
+        scoreContainer.classList.remove('hide'); 
+        
+      }
+    } else {
+      alert('لا توجد أسئلة بالمواصفات المخصصة في الوقت الحالي')
+      quizContainer.innerHTML = ""; 
+    }         
+  }
+
+  window.onload = () => {
+    questions = allQuestions;
+    initial(questions);  
+  };
+
+  function Done() {
+    if (purpose == 'test'){
+      let unAnswered = [] ;
+      for(var j=0; j < qL; j++){
+        if (questions[j].choice === '') {
+          unAnswered.push(j+1);             
+        }; 
+      } 
+      if (unAnswered.length > 0) {
+        alert("الأسئلة التالية لم يتم حلها بعد: " + unAnswered);
+        return (false);
+      } 
+    }
+    let output = []; 
+    for (j=0; j<qL; j++){
+      if (purpose != 'result'){
+        output.push(questions[j].choice);
+      }              
+      output.push(questions[j].flag);       
+    }
+    submitted.value = output
+    return (true);
+  }
+
+
+  
+</script>
+</html>
+
+{% endblock content %}

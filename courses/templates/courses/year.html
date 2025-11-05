@@ -1,0 +1,106 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <title>{{yname}}</title>  
+  <style>
+    .hide {
+            display: none;
+        }
+  </style>
+</head>
+
+<body>    
+
+  <div class="container">
+    <div style="font-size:50px; color:blue; float:center">      
+      {% if teacher %}
+        <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=year.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+        <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=year.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
+      {% endif %}        
+      الصف ال{{yhead}}
+    </div>
+    {% if year.head == '9' %}
+      <div style="font-size:30px; float:center">
+        {% if ypercent < 50 %}
+          <span style="color:black">% {{ypercent}} ضعيف</span>
+        {% elif ypercent < 70 %}
+          <span style="color:red">% {{ypercent}} متوسط</span>
+        {% elif ypercent < 80 %}
+          <span style="color:green">% {{ypercent}} جيد</span>
+        {% elif ypercent < 90 %}
+          <span style="color:blue">% {{ypercent}} جيد جدا</span>
+        {% elif ypercent < 101 %}
+          <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
+        {% endif %}  
+        <span>   &nbsp &nbsp &nbsp  أنت في المركز {{user_rank}}</span>  
+      </div>     
+    {% endif %}     
+
+    {% if year.head == '9' %}
+      <div class="container"> 
+        <button style="color:rgb(99, 22, 242)" onclick="showoutstanding()">لوحة التميز</button>       
+      </div>
+      <div class="box hide" id="outstanding" style="width:90%; padding-right:0.5rem; color:rgb(99, 22, 242); max-height:400px; background-color: rgb(240, 240, 240); overflow:auto; text-align:right; border:1px solid #414141;">
+        {% for out in outstandings %}
+          <p> <span>{{out.rank}}% - {{out.name}}</span> <br/>
+            <!-- <span style="font-size:15px; color:black"> مدرسة {{out.school}} - ولاية {{out.prov}} - محافظة {{out.gov}}</span></p> -->
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- <button style="color:rgb(0, 8, 255)" onclick="window.open('https://drive.google.com/drive/folders/176foHPbbXAH79PMQ5_m5D5q7mvvIOcBX?usp=sharing', '_blank')">الحصص والمسجلة والامتحانات والملخصات الكاملة</button> -->
+
+
+    
+
+    {% if subjects %}
+        {% for subject in subjects %} 
+          <button onclick='window.location.href="{% url 'subject' k=subject.k %}"'>
+              <div style="font-size:35px; float:right"">
+                {{subject.head}}
+              </div>
+              {% if year.head == '9' %}
+                <div style="font-size:25px; float:left">
+                  {% if subject.spercent < 50 %}
+                    <span style="color:black">% {{subject.spercent}} ضعيف</span>
+                  {% elif subject.spercent < 70 %}
+                    <span style="color:red">% {{subject.spercent}} متوسط</span>
+                  {% elif subject.spercent < 80 %}
+                    <span style="color:green">% {{subject.spercent}} جيد</span>
+                  {% elif subject.spercent < 90 %}
+                    <span style="color:blue">% {{subject.spercent}} جيد جدا</span>
+                  {% elif subject.spercent < 101 %}
+                    <span style="color:rgb(150, 0, 150)">% {{ypercent}} ممتاز</span>   
+                  {% endif %}    
+                </div>
+              {% endif %}
+          </button>
+        {% endfor %}   
+    {% else %} 
+      <p>لم تتم إضافة مواد بعد لهذا الصف الدراسي</p>
+    {% endif %}
+  </div>
+
+
+  {% if teacher %}      
+    <div class="container">
+      <br><hr>
+      <button style="background-color:#dfdfdf" onclick='window.location.href="{% url 'create' p=year.k %}"'>إضافة مادة </button>
+    </div>
+  {% endif %}
+
+
+</body>
+
+<script>
+  let Outstanding = document.getElementById("outstanding"); 
+  function showoutstanding(){    
+    Outstanding.classList.toggle('hide');        
+  }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <title>{{head}}</title> 
+    <h1>قائمة الأسئلة في حصة:  {{head}}</h1>
+    <a style="color: white;background-color:#000000; width:400px" href="{% url 'subject' k=s %}">عودة للمادة</a><br>
+    <button style="width:400px" onclick='window.open("{% url 'solve' %}")'>تشفير</button> 
+
+    <style>
+      body {
+            background-color:white;  
+        }
+      .box {
+          background-color:rgb(243, 243, 243); 
+        }
+
+      p {
+        font-size: 20px;
+        }     
+
+      .hide {
+            display: none;
+        } 
+    </style>
+  </head>  
+    <div class="container">
+
+
+      {% for q in questions %}
+
+        <div style="text-align:right">         
+          <a style="width:30px; font-size:1px" title="حذف" href="{% url 'zdelete' k=q.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
+          <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'zupdate' k=q.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
+          مدة عرضه {{q.time_limit}} - يظهر عند {{q.time}}
+          <div style="padding-right:1rem; font-size:20px; color:red"> 
+            {% for n in q.head %}                              
+              {{n}} <br>
+            {% endfor %}
+          </div>
+         
+          {% if q.file %}<div style="text-align:center"><img style="width:90%;" src="{{ q.file }}"></div>{% endif %} 
+
+          <div style="padding-right: 1rem;"> 
+            {% if q.op2 %}
+              1. {{q.op1}} <br>
+              {% if q.op2 %} 2. {{q.op2}} <br>{% endif %}  
+              {% if q.op3 %} 3. {{q.op3}} <br>{% endif %}    
+              {% if q.op4 %} 4. {{q.op4}} <br>{% endif %}  
+            {% else %}
+              {% for op in q.op1 %}
+                {{op}} <br>
+              {% endfor %}
+            {% endif %}
+
+          </div>          
+        </div>  
+        <hr>
+      {% endfor %}
+
+      <div style="text-align:center;">
+        <a style="background-color:#d8d8d8; width:400px" href="{% url 'zcreate' p=k %}">إضافة سؤال</a>
+      </div>
+      <br>
+    </div>
+
+
+{% endblock %}
+
+
+

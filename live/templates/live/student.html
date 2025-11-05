@@ -1,0 +1,705 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>صفحة الطالب</title>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    
+    <script type="module" src="https://unpkg.com/mathlive?module"></script>
+    
+    <style>
+        /* General page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto; 
+        }
+
+        /* 🎯 KEY CHANGE: SWITCH TO SINGLE-COLUMN LAYOUT */
+        .main-container {
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            height: auto; 
+            min-height: 100vh; 
+            width: 100%;
+        }
+
+        /* TOP SECTION: The Quiz/Question display area */
+        .quiz-container {
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: flex-start;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative; 
+            height: auto;
+            order: 1; 
+        }
+        
+        /* BOTTOM SECTION: Score and Chat (The content container) */
+        .content-container {
+            width: 100%; 
+            overflow-y: visible; 
+            padding: 20px;
+            box-sizing: border-box;
+            direction: rtl; 
+            order: 2; 
+        }
+
+        /* Display Wrapper - Controls Quiz Panel Size */
+        #display-wrapper {
+            position: relative; 
+            width: 95%;
+            max-width: 800px; 
+            min-height: 450px; 
+            height: auto; 
+            background-color: black;
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 20px; 
+        }
+
+        /* Question Panel styling */
+        #question-panel {
+            position: relative; 
+            top: auto;
+            left: auto;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-y: auto; 
+            min-height: 450px; 
+            display: none; 
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        /* Additional style adjustments for mobile view to ensure full width */
+        #login-form {
+            width: 100%;
+            max-width: 400px; 
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        /* New styles for centering the message input/button area */
+        .message-input-area {
+            width: 100%;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .message-input-area textarea {
+            width: 100%; 
+            height:80px; 
+            padding:10px; 
+            border-radius:5px;
+            box-sizing: border-box;
+            text-align: right;
+        }       
+        
+        /* === Math Editor Styles === */
+        #math-editor-section math-field {
+            width: 100%;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 50px;
+            direction: ltr; /* 📐 LTR for the Math Input */
+            text-align: left; 
+        }
+        #math-steps-container {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            direction: ltr; 
+            text-align: left;
+        }
+        .math-step-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            direction: ltr; 
+        }
+        .math-step-wrapper math-field {
+            font-size: 24px; 
+            flex-grow: 1; /* Keep flex-grow for flexibility */
+            margin-right: 10px;
+            direction: ltr; /* 📐 FORCE LTR for the Step Display */
+            text-align: left;
+            width: 85%; /* 🎯 Set field width to 80% */
+            max-width: 85%; /* Ensure it doesn't grow past 80% */
+        }
+        .math-step-wrapper button {
+            font-size: 18px;
+            padding: 5px 8px;
+            margin: 0;
+            cursor: pointer;
+            line-height: 1;
+            width: 10%; /* 🎯 Set button width to 20% */
+            max-width: 10%;
+        }
+        #export-math-button {
+            font-size: 16px;
+            padding: 6px 12px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* ========================== */
+        
+        /* Quiz/messaging styles */
+        .question-content { min-height: 100px; padding: 0; text-align: right; font-size: 1.5em; font-weight: bold; }
+        .options-container { display: flex; flex-direction: column; }
+        .option-btn {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: black;
+            font-size: 1.2em;
+            width: 100%;
+            min-height: 40px;
+            padding: 10px 1.2em;
+            text-align: right;
+            background: transparent;
+            border: 1px solid #25252b;
+            border-radius: 0.3em;
+            margin-top: 10px;
+        }
+        .option-btn:first-child { margin-top: 10px; }
+        .option-btn:hover:not(:disabled) { background-color: #9d9db6; }
+        .option-btn:disabled { cursor: not-allowed; }
+        .option-btn.correct { background-color: #e7f6d5 !important; border-color: #689f38 !important; }
+        .option-btn.incorrect { background-color: #ffdde0 !important; border-color: #d32f2f !important; }
+        .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        .question-text { color: #000000; font-size: 1.2em; font-weight: bold;}
+        #timer-display { font-size: 2em; font-weight: bold; color: #f97316; margin: 15px 0; text-align: center; }
+        #timer-message { margin-top: 10px; color: #0207a3; text-align: center; font-size:20px ; font-family: 'Amiri', serif;}
+        .sent-message-item {
+            background-color: #f0f4f8;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-right: 4px solid #10b981;
+            position: relative;
+        }
+        .sent-message-item.ltr { direction: ltr; text-align: left; }
+        .sent-message-item.rtl {
+            direction: rtl;
+            text-align: right;
+            border-right: none;
+            border-left: 4px solid #10b981;
+        }
+        .sent-message-text {
+            color: #4b5563;
+            font-size: 1em;
+            line-height: 1.5;
+            display: block;
+            padding-left: 30px; 
+            padding-right: 0;
+        }
+        .sent-message-item.rtl .sent-message-text {
+            padding-left: 0;
+            padding-right: 30px;
+        }
+        .edit-icon {
+            position: absolute;
+            top: 50%;
+            left: 10px; 
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #4a90e2;
+            font-size: 1.5em;
+        }
+        .sent-message-item.rtl .edit-icon {
+            left: auto;
+            right: 10px;
+        }
+        .edit-icon:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div id="login-form">
+      <h1>أهلاً بك</h1>
+      <p>للانضمام إلى الدرس، يرجى إدخال اسمك.</p>
+      <input type="text" id="student-name-input" placeholder="أدخل اسمك الثلاثي باللغة العربية " style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+      <button id="join-button" style="width: 100%; padding: 10px; color: rgb(0, 0, 0); border-radius: 5px; cursor: pointer;">انضم</button>
+    </div>
+
+    <div id="main-content" style="display: none; width: 100%;">
+        
+        <div style="text-align: center; direction: rtl; padding: 20px 0;">
+            <h1 style="font-size:40px">درس: {{lesson.head}}</h1>
+            <h1>مرحبا <span id="student-name-display"></span></h1>
+            <h1 class="mt-4">درجتك: <span id="student-score">0</span>   &nbsp;&nbsp;&nbsp;      أنت في المركز: <span id="student-rank">-</span></h1>
+        </div>
+
+        <div class="content-container">              
+            <div id="teacher-message-display" style="padding: 15px; border: 1px solid #1e1653; border-radius: 5px; margin-bottom: 20px; direction: rtl; text-align: right;" class="message-input-area">
+                <p style="font-weight: bold; color: #1500fc; margin-bottom: 5px;">المعلم:                
+                <span id="teacher-message-text" style="color: #000000; margin: 0; line-height: 1.5;"></span></p>
+                
+                <textarea id="student-question-input" placeholder="أرسل للمعلم هنا..." ></textarea>
+                <div id="messages-container" class="message-input-area" style="margin-top: 20px;"></div>
+            </div> 
+            
+        </div>
+
+        <div class="quiz-container">
+            
+            <div id="display-wrapper">
+
+                <div id="question-panel">
+                    <p id="initial-message">الأسئلة تظهر هنا، انتظر توجيه المعلم.</p>
+                    <div class="question-content"></div>
+                    
+                    <div id="options-container" class="options-container">
+                        </div>
+                    
+                    <div id="timer-display"></div>
+                    <div id="timer-message"></div>
+
+                    <div id="math-editor-section" class="message-input-area" style="margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px; direction: rtl; text-align: right;">
+                        <h2 style="text-align: center;">محرر المعادلات</h2>
+                        <p style="text-align: right;">اكتب خطوة واضغط <strong>Enter</strong> لإضافتها. يمكنك التعديل أو الحذف.</p>
+                        <div id="math-steps-container"></div>
+                        <math-field id="mathfield" virtual-keyboard-mode="manual"></math-field>                        
+                        <button id="export-math-button">📤 تصدير جميع الخطوات</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        
+    </div>
+</div>
+
+<script type="module">
+    // --- Math Editor Logic (Isolated in module script) ---
+    
+    function initMathEditor() {
+        const mathfield = document.getElementById('mathfield');
+        const stepsContainer = document.getElementById('math-steps-container');
+        const exportButton = document.getElementById('export-math-button');
+
+        if (!mathfield || !stepsContainer || !exportButton) return;
+        if (!(mathfield instanceof HTMLElement)) return; 
+
+        mathfield.addEventListener('beforeinput', (e) => {
+            if (e.inputType === 'insertLineBreak') {
+                e.preventDefault(); // Stop MathLive from inserting a line break                
+                const currentValue = mathfield.value;                
+                if (currentValue.trim() !== '') {
+                    addStep(currentValue);
+                    mathfield.value = ''; // Clear the field after adding the step
+                }                
+                mathfield.focus();
+            }
+        });
+        
+        exportButton.addEventListener('click', () => {
+            const allSteps = Array.from(stepsContainer.querySelectorAll('math-field'))
+                .map(field => field.value);
+
+            quizSocket.send(JSON.stringify({
+                type: 'student_math_steps',
+                content: {
+                    name: myName,
+                    steps: allSteps
+                }
+            }));
+
+            alert("تم إرسال الخطوات إلى المعلم.");
+        });
+
+
+
+        function addStep(value) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'math-step-wrapper';
+
+            const stepField = document.createElement('math-field');
+            stepField.value = value;
+            stepField.setAttribute('style', 'font-size: 24px;');
+            stepField.setAttribute('direction', 'ltr'); 
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '❌';
+            deleteBtn.onclick = () => wrapper.remove();
+
+            wrapper.appendChild(stepField);
+            wrapper.appendChild(deleteBtn);
+            stepsContainer.appendChild(wrapper);
+        }
+    }
+    
+    window.initMathEditor = initMathEditor; // Expose to the non-module script
+    
+</script>
+
+<script>
+    // --- Main Quiz/Chat Logic (Non-module script) ---
+    const storedName = sessionStorage.getItem('studentName');
+    let myName = storedName || '';
+    const loginForm = document.getElementById('login-form');
+    const mainContent = document.getElementById('main-content');
+    const studentNameInput = document.getElementById('student-name-input');
+    const joinButton = document.getElementById('join-button');
+    
+    const displayWrapper = document.getElementById('display-wrapper');
+    const questionPanel = document.getElementById('question-panel');
+    const initialMessage = document.getElementById('initial-message');
+    
+    const questionContent = document.querySelector('#question-panel .question-content');
+    const optionsContainer = document.getElementById('options-container');
+    const studentScoreSpan = document.getElementById('student-score');
+    const studentRankSpan = document.getElementById('student-rank');
+    const studentNameDisplay = document.getElementById('student-name-display');
+    const timerDisplay = document.getElementById('timer-display');
+    const timerMessage = document.getElementById('timer-message');
+
+    const studentQuestionInput = document.getElementById('student-question-input');
+    const messagesContainer = document.getElementById('messages-container');
+
+    const teacherMessageDisplay = document.getElementById('teacher-message-display');
+    const teacherMessageText = document.getElementById('teacher-message-text');
+    
+    let quizSocket;
+    if (window.location.protocol === 'http:' && window.location.host.includes('127.0.0.1')) {
+        quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+    } else {
+        const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
+    }
+    
+    let timerInterval;
+    let timeLeft;
+    let currentQuestionData = null;
+    let feedbackTimer; 
+
+    if (myName) {
+        loginForm.style.display = 'none';
+        mainContent.style.display = 'block'; 
+        studentNameDisplay.textContent = myName;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            customElements.whenDefined('math-field').then(() => {
+                window.initMathEditor && window.initMathEditor();
+            });
+        });
+    } else {
+        loginForm.style.display = 'block';
+        mainContent.style.display = 'none';
+    }
+    
+    joinButton.addEventListener('click', () => {
+        const studentName = studentNameInput.value.trim();
+        if (studentName) {
+            myName = studentName;
+            sessionStorage.setItem('studentName', myName);
+            loginForm.style.display = 'none';
+            mainContent.style.display = 'block'; 
+            studentNameDisplay.textContent = myName;
+            
+            customElements.whenDefined('math-field').then(() => {
+                window.initMathEditor && window.initMathEditor();
+            });
+
+
+            quizSocket.send(JSON.stringify({
+                'type': 'student_join',
+                'content': myName
+            }));
+        } else {
+            alert("Please enter your name.");
+        }
+    });    
+
+    function isArabic(text) {
+        const arabicRegex = /[\u0600-\u06FF]/;
+        return arabicRegex.test(text);
+    }
+
+    function sendQuestion() {
+        const studentQuestion = studentQuestionInput.value.trim();
+        if (studentQuestion) {
+            quizSocket.send(JSON.stringify({
+                'type': 'student_question',
+                'content': {
+                    'name': myName,
+                    'question': studentQuestion
+                }
+            }));
+            
+            displaySentMessage(studentQuestion);
+            studentQuestionInput.value = '';
+        } else {
+            alert("Please enter a question.");
+        }
+    }
+
+    function displayTeacherMessage(message) {
+        teacherMessageText.textContent = message;
+        teacherMessageDisplay.style.display = 'block';
+        
+        if (isArabic(message)) {
+            teacherMessageText.style.direction = 'rtl';
+            teacherMessageText.style.textAlign = 'right';
+        } else {
+            teacherMessageText.style.direction = 'ltr';
+            teacherMessageText.style.textAlign = 'left';
+        }
+    }
+
+    function displaySentMessage(message) {
+        messagesContainer.innerHTML = '';
+        
+        const messageItem = document.createElement('div');
+        messageItem.className = 'sent-message-item';
+        
+        if (isArabic(message)) {
+            messageItem.classList.add('rtl');
+        } else {
+            messageItem.classList.add('ltr');
+        }
+
+        messageItem.innerHTML = `
+            <span class="edit-icon">&#9998;</span>
+            <p class="sent-message-text">${message}</p>
+        `;
+
+        const editIcon = messageItem.querySelector('.edit-icon');
+        editIcon.addEventListener('click', () => {
+            studentQuestionInput.value = message;
+            studentQuestionInput.focus();
+        });
+
+        messagesContainer.appendChild(messageItem);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    studentQuestionInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendQuestion();
+        }
+    });
+    
+    function showVideo() {
+        clearTimeout(feedbackTimer);
+        questionPanel.style.display = 'block'; 
+        initialMessage.style.display = 'block'; 
+
+        questionContent.innerHTML = ''; 
+        optionsContainer.innerHTML = ''; 
+        timerDisplay.textContent = "";
+        timerMessage.textContent = "";
+
+        displayWrapper.style.height = '450px'; 
+        
+        currentQuestionData = null;
+    }
+    
+    function showQuestionPanel() {
+        questionPanel.style.display = 'block';
+        initialMessage.style.display = 'none';
+        
+        displayWrapper.style.height = 'auto';
+        
+        const contentHeight = questionPanel.scrollHeight;
+        
+        if (contentHeight < 450) {
+            displayWrapper.style.height = '450px';
+        } else {
+            displayWrapper.style.height = contentHeight + 'px';
+        }
+    }
+
+    function startTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+        timerDisplay.textContent = `${timeLeft}s`;
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = `${timeLeft}s`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                timerMessage.textContent = "انتهى الوقت. الإجابة الصحيحة معروضة لمدة قصيرة.";
+
+                if (currentQuestionData) {
+                    const correctAnswer = currentQuestionData.correct_answer;
+                    document.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.dataset.optionValue.trim() === correctAnswer.trim()) {
+                            btn.classList.add('correct');
+                        }
+                    });
+                }
+                
+                feedbackTimer = setTimeout(showVideo, 5000); 
+            }
+        }, 1000);
+    }
+
+    quizSocket.onopen = function() {
+        console.log('Student socket opened');
+        if (myName) {
+            quizSocket.send(JSON.stringify({
+                'type': 'student_join',
+                'content': myName
+            }));
+        }
+    };
+
+    
+    quizSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log("Received message:", data);
+
+        if (data.type === 'new_question' || data.type === 'question') {
+            
+            currentQuestionData = data.content;
+            clearInterval(timerInterval);
+            timerMessage.textContent = "";
+            timeLeft = currentQuestionData.time_limit;
+            questionContent.innerHTML = '';
+            optionsContainer.innerHTML = '';
+            
+            const questionText = document.createElement('p');
+            questionText.textContent = currentQuestionData.question_text;
+
+            questionText.classList.add('question-text');
+            questionContent.appendChild(questionText);
+
+            if (currentQuestionData.image_url) {
+                const img = document.createElement('img');
+                img.src = currentQuestionData.image_url;
+                img.alt = "Question Image";
+                img.className = "question-image";
+                img.onerror = function() {
+                    console.error("Failed to load image at:", this.src);
+                    this.alt = "Image not found.";
+                    this.outerHTML = "<p>Image not found.</p>";
+                };
+                questionContent.appendChild(img);
+            }
+            
+            currentQuestionData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.dataset.optionValue = option;
+                button.textContent = option;
+                button.addEventListener('click', function() {
+                    const selectedOption = this.dataset.optionValue;
+                    const correctAnswer = currentQuestionData.correct_answer;
+
+                    quizSocket.send(JSON.stringify({
+                        'type': 'student_answer',
+                        'content': selectedOption
+                    }));
+
+                    
+                    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                    clearInterval(timerInterval);
+                    timerMessage.textContent = "تم إرسال إجابتك. الإجابة الصحيحة معروضة لمدة قصيرة.";
+
+                    if (selectedOption.trim() === correctAnswer.trim()) {
+                        this.classList.add('correct');
+                    } else {
+                        this.classList.add('incorrect');
+                    }
+
+                    document.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.dataset.optionValue.trim() === correctAnswer.trim()) {
+                            btn.classList.add('correct');
+                        }
+                    });
+                    
+                    feedbackTimer = setTimeout(showVideo, 5000); 
+                });
+                optionsContainer.appendChild(button);
+            });
+            
+            showQuestionPanel(); 
+            clearTimeout(feedbackTimer); 
+            startTimer(); 
+
+            MathJax.typeset(); 
+
+        } else if (data.type === 'update_score') {
+            studentScoreSpan.textContent = data.content.score || 0;
+            studentRankSpan.textContent = data.content.rank || '-';
+        } else if (data.type === 'timer_pause') {
+            clearInterval(timerInterval);
+            timeLeft = data.content;
+            timerDisplay.textContent = `${timeLeft}s (مُتوقف)`;
+            timerMessage.textContent = "تم إيقاف الوقت مؤقتاً بواسطة المعلم.";
+
+        } else if (data.type === 'timer_resume') {
+            if (currentQuestionData) { 
+                startTimer();
+                timerMessage.textContent = "";
+            }
+        } else if (data.type === 'quiz_end') {
+            showQuestionPanel(); 
+            questionContent.innerHTML = `<p style="font-size: 20px; color: #10b981;">انتهى الاختبار. شكرا لمشاركتك!</p>`;
+            optionsContainer.innerHTML = '';
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "";
+            timerMessage.textContent = "";
+            
+            const contentHeight = questionPanel.scrollHeight;
+            if (contentHeight < 450) {
+                 displayWrapper.style.height = '450px';
+            } else {
+                 displayWrapper.style.height = contentHeight + 'px';
+            }
+            
+            feedbackTimer = setTimeout(showVideo, 5000); 
+       
+        } else if (data.type === 'teacher_message_broadcast') { 
+            displayTeacherMessage(data.content);
+        }
+
+        MathJax.typeset();
+    };
+
+    quizSocket.onclose = function() {
+        console.error('Student socket closed unexpectedly');
+    };
+    
+    showVideo(); 
+</script>
+
+</body>
+{% endblock %}
+
+
+
+
+
+<!-- # send question picture/
+# send question picture/
+# send question picture/ -->

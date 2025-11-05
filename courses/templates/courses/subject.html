@@ -1,0 +1,376 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <title>{{sname}}</title>  
+  <style>
+    .hide {
+        display: none;
+    }
+
+    .selected {
+      background-color: #858484;
+      border-color: #000000;
+    }
+
+    .unit {
+      background-color: #dad9d9;
+    }
+
+    /* Button styling */
+        /* Popup styling */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; /* Expanded width */
+            background-color: rgb(240, 240, 240);
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        /* Overlay styling */
+        .overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Dropdown container styling */
+        .dropdown-container {
+            display: flex;
+            gap: 15px; /* Space between dropdowns */
+            margin-top: 10px;
+        }
+
+        /* Dropdown styling */
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        /* Buttons styling */
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        /* Display area styling */
+        .selected-option-display {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+          position: relative;
+          margin: 5% auto;
+          width: 80%;
+          height: 93%;
+          background: #fff;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+        }
+        .close {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          cursor: pointer;
+        }
+        iframe {
+          border: none;
+        }
+        #fileFrame {
+          flex: 1 1 100%;
+        }
+
+  </style>
+</head>
+
+<body>  
+  <div class="container">
+      <div style="font-size:50px; color:blue; float:center">      
+        {% if teacher %}
+            <a style="width:30px; font-size:1px;" title="حذف" href="{% url 'delete' k=k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+            <a style="width:30px; font-size:1px;" title="تعديل" href="{% url 'update' k=k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
+        {% endif %}        
+        {{shead}}
+      </div>      
+      {% if year == '9' %}
+        <div style="font-size:30px; float:center">
+          {% if spercent < 50 %}
+            <span style="color:black">% {{spercent}} ضعيف</span>
+          {% elif spercent < 70 %}
+            <span style="color:red">% {{spercent}} متوسط</span>
+          {% elif spercent < 80 %}
+            <span style="color:green">% {{spercent}} جيد</span>
+          {% elif spercent < 90 %}
+            <span style="color:blue">% {{spercent}} جيد جدا</span>
+          {% elif spercent < 101 %}
+            <span style="color:rgb(150, 0, 150)">% {{spercent}} ممتاز</span>   
+          {% endif %}    
+        </div>  
+
+        <!-- buttons with pop-up -->
+        <div class="container"> 
+          <button style="width:40%" onclick="openPopup('popup1', 'overlay1')">تدريب</button>       
+          <button style="width:40%" onclick="openPopup('popup2', 'overlay2')">اختبار</button>
+        </div>
+        <div class="overlay" id="overlay1" onclick="closePopup('popup1', 'overlay1')"></div>
+        <div class="overlay" id="overlay2" onclick="closePopup('popup2', 'overlay2')"></div>
+
+        <!-- First Popup with two dropdown lists -->
+        <div class="popup" id="popup1">
+          <h3 style="color:blue">اختر الدروس التي تريد التدريب فيها</h3> 
+          للتدريب على درس واحد: اختر نفس الدرس في القائمتين     
+          <div class="dropdown-container">
+              <select id="dropdown1-1" onchange="filterSecondDropdown('dropdown1-1', 'dropdown1-2')">
+                  <option value="">ابتداء من</option>
+              </select>
+              <select id="dropdown1-2">
+                  <option value="">إلى</option>
+              </select>
+          </div>
+
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="selectedlessons" id="selectedlessons1">
+            <div class="popup-buttons">              
+                <button onclick="approveSelection('dropdown1-1', 'dropdown1-2', 'selected-option-display1', 'popup1', 'overlay1', 'selectedlessons1', 'pract')">استمرار</button>
+                <button onclick="closePopup('popup1', 'overlay1')">إلغاء</button>
+            </div>          
+          </form>
+          
+
+
+        </div>
+
+        <!-- Second Popup with two dropdown lists -->
+        <div class="popup" id="popup2">
+          <h3 style="color:blue">اختر الدروس التي تريد الاختبار فيها</h3>
+          للاختبار في درس واحد: اختر نفس الدرس في القائمتين 
+          <div class="dropdown-container">
+              <select id="dropdown2-1" onchange="filterSecondDropdown('dropdown2-1', 'dropdown2-2')">
+                  <option value="">ابتداء من</option>
+              </select>
+              <select id="dropdown2-2">
+                  <option value="">إلى</option>
+              </select>
+          </div>
+          <p style="color:red">إذا تم عرض الامتحان ولم تكمله حتى تقوم بإرسال النتيجة ستحتسب درجتك صفرا.</p>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="selectedlessons" id="selectedlessons2">
+            <div class="popup-buttons">
+                <button onclick="approveSelection('dropdown2-1', 'dropdown2-2', 'selected-option-display2', 'popup2', 'overlay2', 'selectedlessons2', 'test')">تأكيد</button>
+                <button onclick="closePopup('popup2', 'overlay2')">تراجع</button>            
+            </div>
+          </form>
+        </div>
+      {% endif %}
+      <hr>
+      {% if units %}
+        <h1>المحتويات</h1>
+        <div id="contentcontainer"></div>
+      {% else %} 
+        <p>لم تتم إضافة محتويات بعد لهذه المادة</p>
+      {% endif %}
+
+      {% if teacher %}            
+        <button style="background-color:#d3d2d2" onclick='window.location.href="{% url 'create' p=k %}"'>إضافة وحدة </button>
+        <br><br>
+      {% endif %}
+
+    </div>
+  </div>
+</body>
+
+
+<script>
+    let units = JSON.parse("{{units|escapejs}}");  
+    let contentContainer = document.getElementById("contentcontainer");
+    let Units = document.getElementsByClassName("unit"); 
+    let Lessons = document.getElementsByClassName("lesson"); 
+    let Contents = document.getElementsByClassName("content"); 
+    let Videos = document.getElementsByClassName("video"); 
+    var color = 'black' 
+    var grade = 'ضعيف'
+
+    function colorGrade (percent){
+      if (percent < 50){color = 'black'; grade = 'ضعيف'} 
+      else if (percent < 70){color = 'red'; grade = 'متوسط'} 
+      else if (percent < 80){color = 'green'; grade = 'جيد'} 
+      else if (percent < 90){color = 'blue'; grade = 'جيد جدا'}
+      else if (percent < 101){color = 'rgb(150, 0, 150)'; grade = 'ممتاز'} 
+      return [color , grade]
+    }
+
+
+    var i = -1; 
+    var j = -1 
+    for (let unit of units) {  
+        i += 1; 
+        [color , grade] = colorGrade (unit.upercent)
+        let div = document.createElement("div");
+        div.innerHTML = `<button class='unit' style="width:100%; float@right" onclick="openModal('${unit.file_url}')">          
+          <div style="font-size:30px; float:right"">
+            {% if teacher %}
+              <a style="width:30px; font-size:1px;" title="حذف" href="/delete/${unit.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+              <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${unit.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>        
+            {% endif %}
+            ملخص ${unit.title}</div>
+          {% if year == '9' %}
+            <div style="font-size:25px; float:left"><span style="color:${color}">% ${unit.upercent} ${grade}</span></div></button>
+          {% endif %}
+          <div id="combinedModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <iframe id="fileFrame" src="" allowfullscreen></iframe>
+            </div>
+          </div>` ;  
+        let lesson_DIV = document.createElement("div");  
+        lesson_DIV.classList.add("lessonlist", style="width:90%;" , value=i);        
+        lesson_DIV.innerHTML = ``; 
+        for (let lesson of unit.lessons){ 
+            j += 1;   
+            [color , grade] = colorGrade (lesson.lpercent) 
+            lesson_DIV.innerHTML += `
+            {% if teacher %}
+              <div style="font-size:25px; float:right"">
+                <a style="width:30px; font-size:1px;" title="حذف" href="/delete/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>            
+                <a style="width:30px; font-size:1px;" title="تعديل" href="/update/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>                  
+                <a style="width:30px; font-size:1px;" title="أسئلة الدرس" href="/qlist/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/qlist.svg' %}"></a>  
+                <a style="width:30px; font-size:1px;" title="أسئلة الحصة" href="/live/zlist/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/zlist.svg' %}"></a>   
+                <a style="width:50px; font-size:1px;" title="عرض الحصة" href="/live/teacher/${lesson.k}"><img style="width:30px" src="{% static 'admin/img/live.svg' %}"></a> 
+              </div>
+            {% endif %} 
+            <button class="lesson" style="width:85%; float:right" 
+              onclick='window.location.href="/interactive/${lesson.k}"'>
+              
+              <div style="font-size:25px; float:right"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"> ${lesson.title}</div>
+              {% if year == '9' %}
+                <div style="font-size:20px; float:left"><span style="color:${color}">% ${lesson.lpercent} ${grade}</span></div></button>
+              {% endif %}
+              ` ; 
+        }
+        div.appendChild(lesson_DIV); 
+        div.innerHTML += `{% if teacher %}
+                            <button style="background-color:#dfdfdf; width:50%" onclick='window.location.href="/create/${unit.k}"'>إضافة درس </button>
+                          {% endif %}`;
+        
+        contentContainer.appendChild(div);
+        
+    }
+
+
+    const lessons = units.flatMap(unit => unit.lessons);
+
+    function populateDropdowns() {
+        const dropdownIds = ["dropdown1-1", "dropdown1-2", "dropdown2-1", "dropdown2-2"];
+        dropdownIds.forEach(dropdownId => {
+            const dropdown = document.getElementById(dropdownId);
+            lessons.forEach(lesson => {
+                const option = document.createElement("option");
+                option.value = lesson.k;
+                option.text = lesson.title;
+                dropdown.appendChild(option);
+            });
+        });
+    }
+
+    function filterSecondDropdown(firstDropdownId, secondDropdownId) {
+        const firstDropdown = document.getElementById(firstDropdownId);
+        const secondDropdown = document.getElementById(secondDropdownId);
+
+        const startIdx = firstDropdown.selectedIndex - 1;
+        if (startIdx < 0) return;
+
+        secondDropdown.innerHTML = "<option value=''>إلى</option>";
+
+        for (let i = startIdx; i < lessons.length; i++) {
+            const option = document.createElement("option");
+            option.value = lessons[i].k;
+            option.text = lessons[i].title;
+            secondDropdown.appendChild(option);
+        }
+    }
+
+    
+
+    function approveSelection(dropdownId1, dropdownId2, displayId, popupId, overlayId, selectedLessonsId, purpose) {
+        let selectedLessons = document.getElementById(selectedLessonsId);
+        const dropdown1 = document.getElementById(dropdownId1);
+        const dropdown2 = document.getElementById(dropdownId2);
+
+        const startIdx = dropdown1.selectedIndex - 1;
+        const endIdx = dropdown2.selectedIndex - 1 + startIdx;
+
+        if (startIdx >= 0 && endIdx >= startIdx) {
+            const selectedValues = lessons.slice(startIdx, endIdx + 1).map(lesson => lesson.k); 
+            selectedLessons.value = selectedValues+','+purpose                  
+        }
+
+        closePopup(popupId, overlayId); 
+        return (true);
+    }
+
+    function openPopup(popupId, overlayId) {
+        document.getElementById(popupId).style.display = "block";
+        document.getElementById(overlayId).style.display = "block";
+    }
+
+    function closePopup(popupId, overlayId) {
+        document.getElementById(popupId).style.display = "none";
+        document.getElementById(overlayId).style.display = "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", populateDropdowns);
+
+    function openModal(fileUrl) {
+      document.getElementById('fileFrame').src = fileUrl;
+      document.getElementById('combinedModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('combinedModal').style.display = 'none';
+      document.getElementById('fileFrame').src = '';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('combinedModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+
+  
+</script>
+
+{% endblock %}

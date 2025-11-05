@@ -1,0 +1,15 @@
+{% extends 'courses/main.html' %}
+
+{% block content %}
+
+
+<h1 style="color:black">{{head}} </h1>
+<div class="container">
+    <a style="width:10rem" href="{{request.META.HTTP_REFERER}}">تراجع</a>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button style="width:10rem" type="submit"> أكد الحذف</button>
+    </form>
+</div>
+
+{% endblock content %}

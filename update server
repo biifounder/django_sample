@@ -1,0 +1,61 @@
+
+https://139-162-254-40.ip.linodeusercontent.com/
+
+
+
+_____________
+on the local:
+''''''''''''' 
+python manage.py dumpdata > local.json
+
+
+ssh root@139.162.254.40
+
+_____________
+on the server:
+'''''''''''''
+
+python manage.py dumpdata --exclude auth.permission --exclude contenttypes --indent 2 > server.json
+
+python manage.py dumpdata courses.User courses.YearEval courses.SubjectEval courses.UnitEval courses.LessonEval courses.QEval --exclude auth.permission --exclude contenttypes --indent 2 > eval.json
+
+
+_____________
+on the local:
+''''''''''''' 
+scp root@139.162.254.40:/var/www/django_app/django_sample/server.json /home/bahaa/Desktop/django_sample/
+scp root@139.162.254.40:/var/www/django_app/django_sample/eval.json /home/bahaa/Desktop/django_sample/
+
+python manage.py loaddata eval.json
+
+add_and_clean_Evals()
+update_weights_and_percents()
+
+python manage.py dumpdata --exclude auth.permission --exclude contenttypes --indent 2 > localandserver.json
+
+
+secure settings.py 
+STATIC_ROOT
+
+
+git add . ; git commit -m "a" ; git push
+
+_____________
+on the server:
+'''''''''''''
+rm eval.json server.json
+git pull
+
+python manage.py shell
+from django.contrib.contenttypes.models import ContentType
+ContentType.objects.all().delete()  # Delete all content types
+
+
+python manage.py loaddata localandserver.json
+
+sudo systemctl restart gunicorn ; sudo systemctl restart nginx
+
+
+
+
+

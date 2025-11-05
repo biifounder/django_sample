@@ -1,0 +1,148 @@
+{% extends 'courses/main.html' %}
+
+{% block content %}
+
+{% if teacher %}
+<!DOCTYPE html>
+<html>
+  <title>إضافة أو تعديل</title>
+  <style>
+    .container, .box {
+            text-align:center;
+            max-width: 50rem;   
+            min-width: 30rem;   
+            margin: auto;             
+            align-items: center;
+        }
+    input, textarea {
+      width:90%;
+    }; 
+    select {
+      width:30%;
+    }
+  </style>
+  
+  <name>
+
+    
+    <div class="box" style="width:25rem; background-color: rgb(232, 232, 232)">
+      <h1 style="color:black">{{head}} </h1>
+     
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+
+          {% if c == 'q' %}
+            {% if object %}
+              <select style="width:30%" name="source" id="qsource"><option value="{{object.source}}">{{object.source}}</option></select>      
+              <select style="width:30%" name="kind" id="qkind"><option value="{{object.kind}}">{{object.kind}}</option></select>   
+              <select style="width:30%" name="level" id="qlevel"><option value="{{object.level}}">{{object.level}}</option></select><br>
+              <textarea type="textarea" rows="4" cols="100" name="head" >{{object.head}}</textarea><br>
+            {% else %}
+              <select required style="width:30%"  name="source" id="qsource"><option value="">مصدر السؤال</option></select> 
+              <select required style="width:30%"  name="kind" id="qkind"><option value="">نوع السؤال</option></select> 
+              <select required style="width:30%"  name="level" id="qlevel"><option value="">مستوى السؤال</option></select> <br>
+              <textarea required type="textarea" rows="4" cols="100" name="head" placeholder="رأس السؤال" ></textarea> <br> 
+            {% endif %}
+          {% elif c == 'd' or c == 'z' %}             
+            {% if object %}
+              <textarea type="textarea" rows="4" cols="100" name="head" >{{object.head}}</textarea><br>                    
+            {% else %}
+              <textarea required type="textarea" rows="4" cols="100" name="head" placeholder="رأس السؤال" ></textarea><br>             
+            {% endif %}
+          {% else %}
+            {% if object %}
+              <input type="text" value="{{object.head}}" name="head"><br>              
+            {% else %}
+              <input required type="text" name="head" placeholder="العنوان"><br>
+            {% endif %}
+          {% endif %}
+
+          {% if c == 'd' or c == 'q' or c == 'z' %}                      
+            <div>
+                {% if object.file %}
+                  صورة سؤال <input style="width:15%; " type="text" name="file" value="{{object.file}}">
+                  <img style="width:10%; " src="{{ object.file_url }}">
+                {% else %}
+                  صورة سؤال <input style="width: 15%;" type="text" name="file">
+                {% endif %}
+                {% if c == 'z' %}   
+                  {% if object.time %}
+                    التوقيت <input style="width: 15%;" type="text" name="time" value="{{object.time}}">
+                    المدة <input style="width: 15%;" type="text" name="time_limit" value="{{object.time_limit}}">
+                  {% else %}
+                    التوقيت <input style="width: 15%;" type="text" name="time" placeholder="1:00">
+                    المدة <input style="width: 15%;" type="text" name="time_limit" placeholder="30">
+                  {% endif %}
+                {% endif %}
+           
+                {% if c == 'd' or c == 'q' %}
+                  {% if object.ansimg %}
+                    صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg" value="{{object.ansimg}}">
+                    <img style="width: 10%;" src="{{ object.ansimg_url }}">
+                  {% else %}
+                    صورة إجابة <input style="width:15%;" type="text" id="ansimg" name="ansimg">
+                  {% endif %}
+                {% endif %}
+            </div>  
+
+          {% elif c == 'u' %}    
+            {% if object.file %} 
+              ملف شرح <input style="width:11%" type="text" name="file" value="{{object.file}}"><br>
+            {% else %}
+              ملف شرح <input style="width:10%" type="text" name="file">          
+            {% endif %} 
+          {% endif %}
+
+          {% if c == 'd' or c == 'q' or c == 'z' %}
+            {% if object %}
+              <textarea type="textarea" rows="4" cols="100" name="options">{{object.options}}</textarea><br>
+            {% else %}
+              <textarea required type="textarea" rows="4" cols="100" name="options" placeholder="الإجابة أو الخيارات"></textarea><br>
+            {% endif %} 
+
+            {% if c == 'd' or c == 'q' %}
+              {% if object.hint %}
+                <textarea type="textarea" rows="4" cols="100" name="hint">{{object.hint}}</textarea><br>   
+              {% else %}
+                <textarea type="textarea" rows="4" cols="100" name="hint" placeholder="التوجيهات"></textarea> <br>
+              {% endif %}
+            {% endif %}
+
+          {% endif %}
+
+          {% if c == 'q' or c == 'l' %}
+            {% if object.video %}
+              <input type="text" value='{{object.video}}' name="video">
+            {% else %}
+              <input type="text" name="video" placeholder="رابط الفيديو">
+            {% endif %}
+          {% endif %}
+          {% endif %}
+
+          <button style="width:155px" type="submit">تأكيد</button>
+          <a style="width:100px" href="{{request.META.HTTP_REFERER}}">إلغاء</a>
+
+      </form>
+    </div>
+  </name>
+
+  <script>
+      var c = '{{c}}';
+      if (c == 'q' ) {
+        qSource = document.getElementById('qsource');
+        for(var s of ['book','exam','other']){
+          qSource.options[qSource.options.length] = new Option(s, s)
+        }
+        qKind = document.getElementById('qkind');
+        for(var s of ['know', 'understand', 'problem', 'graph', 'compare', 'proof']){
+          qKind.options[qKind.options.length] = new Option(s, s)
+        }
+        qLevel = document.getElementById('qlevel');
+        for(var s of ['1','2','3']){
+          qLevel.options[qLevel.options.length] = new Option(s, s)
+        }
+      }
+   </script>
+</html>
+
+{% endblock content %}

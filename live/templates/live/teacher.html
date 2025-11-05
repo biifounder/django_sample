@@ -1,0 +1,807 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>حصة تفاعلية</title>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* General page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto; 
+        }
+        
+        /* New Flexbox container for the two-column layout */
+        .main-container {
+            display: flex;
+            min-height: 100vh; 
+            width: 100%;
+        }
+
+        /* Container for the other page components (left side) */
+        .content-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 100vh; 
+            padding: 20px;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+        
+        /* Container for the video component (now general side panel) */
+        .quiz-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;          
+        }       
+        
+        /* Style for the container showing the list of quiz questions */
+        #quiz-list-container {
+            width: 100%;
+            margin-top: 0; 
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            direction: rtl;
+            text-align: right;
+
+        }
+        .quiz-list-item {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+            font-size: 1.1em;
+            display: flex; 
+            align-items: center;
+        }
+        .quiz-list-item:last-child {
+            margin-bottom: 100px;
+        }
+        
+        /* The question button style */
+        .quiz-question-button {
+            font-size: 25px;
+            color:#000000;
+            background: transparent;
+            border: 1px solid #cacaca;
+            border-radius: 0.5em;   
+            display: inline-block;            
+            width: 95%;
+            margin: 0.2rem;
+            padding-right: 0.2em;        
+            padding-left: 0.2em;        
+            font-family: 'Amiri', serif;       
+            /* line-height: 0px; */
+            text-decoration: none;
+            cursor:pointer; 
+            box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+        }
+
+        .quiz-question-button:hover {
+            background-color:rgb(202, 202, 202);
+            border: 1px solid #696969;
+        }
+
+        .quiz-question-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            color: #666;
+        }
+
+        .quiz-list-question-text {
+            font-weight: bold;
+            color: white; 
+        }
+        
+        /* Existing table and style controls */
+        #question-counter { font-size: 1.2em; font-weight: bold; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        .correct-answer { color: #22c55e; font-weight: bold; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        
+        /* Timer Display Style (Centered and prominent) */
+        #timer-display { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: #f97316; 
+            margin: 15px 0; 
+            text-align: center; 
+        }
+        
+        /* Styles for the message column in the consolidated table */
+        .message-column { width: 30%; } 
+        .message-rtl { direction: rtl; text-align: right; }
+        .message-ltr { direction: ltr; text-align: left; }
+        
+        /* Class to hide columns from view */
+        .hidden-column {
+            display: none;
+        }
+        
+        .stats-container { margin-top: 20px; }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            background-color: #f0f4f8;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .stat-item.correct {
+            border-color: #22c55e;
+            background-color: #e7f6d5;
+        }
+        .option-text { flex: 1; text-align: right; margin-right: 15px; }
+        .answer-count { font-weight: bold; color: #007bff; }
+        
+        /* Style for the last sent message container */
+        #last-teacher-message-container {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            direction: rtl;
+            text-align: right;
+            display: none; /* Hide until a message is sent */
+        }
+        #last-teacher-message-text {
+            font-size: 1.1em;
+            color: #333;
+            margin: 0;
+            word-wrap: break-word; /* Ensure long words break */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="main-container">
+
+        <div class="content-container">
+            <h1 style="direction: rtl;">حصة تفاعلية في درس: {{lesson.head}}</h1>
+            
+            <div style="margin-bottom: 20px; padding: 10px; border-radius: 5px; direction: rtl; text-align: right;">
+                <textarea id="teacher-message-input" placeholder="اكتب رسالة للطلاب هنا..." style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; resize: none;"></textarea>
+                <button id="send-teacher-message-button" style="width: 30%; padding: 8px; color: rgb(0, 0, 0); border: none; border-radius: 4px; cursor: pointer; margin-top: 5px;">إرسال</button>
+            </div>
+            
+            <div id="last-teacher-message-container">
+                <p id="last-teacher-message-text"></p>
+            </div>
+
+            <div id="drop-zone" style="border: 2px dashed #ccc; padding: 20px; text-align: center; margin-top: 20px;">
+                🖼️ اسحب صورة السؤال هنا أو انقر لاختيارها
+                <input type="file" id="image-upload" accept="image/*" style="display: none;">
+            </div>
+            <input type="number" id="image-question-timer" placeholder="مدة السؤال بالثواني" style="width: 100px; margin-top: 10px;">
+            <button id="send-image-question-button">📤 إرسال سؤال صورة</button>
+                 
+            
+            <div id="hand-raise-area" style="margin-top: 10px;"></div>
+            <button id="export-scores-button" data-lesson-name="{{ lesson.head }}" style="background-color: rgb(189, 189, 189); width:50%">حفظ الدرجات</button>
+            <table id="score-table" style="width:100%; border-collapse: collapse; direction: rtl;">
+                <thead>
+                    <tr>
+                        <th><p>المركز</p></th>
+                        <th><p>اسم الطالب</p></th>
+                        <th><p>الدرجة</p></th>
+                        <th class="hidden-column"><p>أسئلة لم يجب عليها</p></th>
+                        <th class="hidden-column"><p>عدد الرسائل</p></th>
+                        <th class="message-column"><p>آخر رسالة</p></th>
+                        </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div class="quiz-container">
+            <p style="direction: rtl;">تقدم الاختبار: <span id="question-counter">0</span> / <span id="total-questions"></span>
+            <span id="timer-display"></span> 
+            <button id="pause-resume-button" style="width:30%">توقف</button></p>
+            
+    
+            <div id="stats-container" class="stats-container"></div>
+                        
+          
+          
+          <div id="quiz-list-container">
+              <h2>قائمة الأسئلة</h2>
+          </div>
+               
+        </div>
+
+
+    </div>
+
+    <script>
+        // --- 1. INITIAL DATA SETUP ---
+        let questions = [];
+        const questionsData = "{{ questions|escapejs }}";
+        if (questionsData && questionsData.trim().length > 0) {
+            try {
+                questions = JSON.parse(questionsData);
+            } catch (e) {
+                console.error("Failed to parse 'questions' JSON:", e);
+            }
+        }
+        
+        let initialScores = {};
+        const scoreVars = ['initial_scores']; 
+
+        function parseScoreData(varName) {
+            const dataString = "{% if " + varName + " %}{{ " + varName + "|safe }}{% else %}{}{% endif %}";
+
+            if (dataString && dataString.trim().length > 2) {
+                try {
+                    let jsonToParse = dataString.trim();
+                    if (!jsonToParse.startsWith('{')) {
+                        jsonToParse = '"' + jsonToParse + '"';
+                    }
+                    return JSON.parse(jsonToParse);
+                } catch (e) {
+                    console.error(`Failed to parse '${varName}' JSON from Django context:`, e); 
+                }
+            }
+            return null;
+        }
+
+        for (const varName of scoreVars) {
+            const parsedData = parseScoreData(varName);
+            if (parsedData && Object.keys(parsedData).length > 0) {
+                initialScores = parsedData;
+                break;
+            }
+        }
+        
+        console.log('[DEBUG: SCORE DATA] Initial Scores Loaded:', initialScores);
+
+
+        // --- 2. WEBSOCKET SETUP ---
+        let quizSocket;
+        if (window.location.host === '127.0.0.1:8000') {
+            quizSocket = new WebSocket('ws://' + window.location.host + '/ws/quiz/' + '{{ room_name }}' + '/');
+        } else {
+            const SERVER_URL = '139-162-254-40.ip.linodeusercontent.com';
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            quizSocket = new WebSocket(`${wsProtocol}://${SERVER_URL}/ws/quiz/{{ room_name }}/`);
+        }
+
+        // Removed Mic/Mute event listeners
+
+        
+        // --- 3. DOM ELEMENTS & STATE ---
+        const pauseResumeButton = document.getElementById('pause-resume-button');
+        const exportScoresButton = document.getElementById('export-scores-button');
+        const questionCounter = document.getElementById('question-counter');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const timerDisplay = document.getElementById('timer-display'); 
+        const scoreTableBody = document.querySelector('#score-table tbody');
+        const statsContainer = document.getElementById('stats-container');
+        const quizListContainer = document.getElementById('quiz-list-container');
+
+        // Teacher message elements
+        const teacherMessageInput = document.getElementById('teacher-message-input');
+        const sendTeacherMessageButton = document.getElementById('send-teacher-message-button');
+        const lastTeacherMessageContainer = document.getElementById('last-teacher-message-container');
+        const lastTeacherMessageText = document.getElementById('last-teacher-message-text');
+        
+        let currentQuestionIndex = 0; 
+        let timerInterval;
+        let timeLeft = 0;
+        let isTimerRunning = false;
+        let studentQuestions = {};
+        let currentScores = {}; // Global storage for the latest score data
+        let messageOrderCounter = 0;
+
+        totalQuestionsSpan.textContent = questions.length;
+
+        // FIX: MathJax ready callback
+        if (typeof MathJax !== 'undefined') {
+            MathJax.startup.ready.then(() => {
+                renderQuizList();
+            });
+        } else {
+            renderQuizList();
+        }
+
+        quizSocket.onopen = function() {
+            console.log('Teacher socket opened');
+            if (Object.keys(initialScores).length > 0) {
+                currentScores = initialScores; // Initialize global scores
+                updateScoreTable(currentScores);
+            }
+        };
+
+        // --- 4. CORE FUNCTIONS ---
+
+        // Function to detect Arabic characters
+        function isArabic(text) {
+            const arabicRegex = /[\u0600-\u06FF]/;
+            return arabicRegex.test(text);
+        }
+
+        // FUNCTION to send a specific question based on its index
+        function sendQuestion(questionIndex) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+
+            if (questionIndex >= 0 && questionIndex < questions.length) {
+                const currentQuestion = questions[questionIndex];
+                const shuffledOptions = shuffleArray([...currentQuestion.options]);
+                const questionToSend = {
+                    ...currentQuestion,
+                    options: shuffledOptions
+                };
+                
+                currentQuestionIndex = questionIndex + 1;
+                questionCounter.textContent = currentQuestionIndex;
+
+                document.querySelectorAll('.quiz-question-button').forEach(btn => {
+                    btn.disabled = false;
+                });
+                document.getElementById(`question-btn-${questionIndex}`).disabled = true;
+
+                statsContainer.innerHTML = '';
+
+                quizSocket.send(JSON.stringify({
+                    'type': 'new_question',
+                    'content': questionToSend
+                }));
+                
+                startTimer(currentQuestion.time_limit);
+                
+            } else {
+                quizSocket.send(JSON.stringify({ 'type': 'quiz_end' }));
+            }
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typeset();
+            }
+        }
+
+        // FUNCTION to display the list of questions as buttons
+        function renderQuizList() {
+            if (!questions || questions.length === 0) {
+                quizListContainer.innerHTML = '<h2>قائمة الأسئلة</h2><p>لا توجد أسئلة محملة.</p>';
+                return;
+            }
+
+            let html = '<h2>قائمة الأسئلة</h2>';
+            questions.forEach((q, index) => {
+                const buttonText = index === 0 ? `1: ${q.question_text}` : ` ${index + 1}: ${q.question_text}`;
+                html += `
+                    <div class="quiz-list-item">
+                        <button class="quiz-question-button" 
+                                id="question-btn-${index}" 
+                                data-index="${index}">
+                            ${buttonText}
+                        </button>
+                    </div>
+                `;
+            });
+            quizListContainer.innerHTML = html;
+            
+            // ATTACH EVENT LISTENERS
+            document.querySelectorAll('.quiz-question-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    sendQuestion(index);
+                });
+            });
+        }
+
+        const raisedHands = {};
+        quizSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log("Received message:", data);
+
+            if (data.type === 'update_score') {
+                currentScores = data.content; // Store the latest score data
+                updateScoreTable(currentScores);
+            } else if (data.type === 'student_question') {
+                const studentName = data.content.name;
+                const questionText = data.content.question;
+
+                messageOrderCounter++;
+                if (!studentQuestions[studentName]) {
+                    studentQuestions[studentName] = {
+                        name: studentName,
+                        lastMessage: questionText,
+                        messageCount: 1,
+                        lastOrder: messageOrderCounter
+                    };
+                } else {
+                    studentQuestions[studentName].lastMessage = questionText;
+                    studentQuestions[studentName].messageCount++;
+                    studentQuestions[studentName].lastOrder = messageOrderCounter;
+                }
+                
+                // Re-render table to display the new message using the latest score data
+                if (Object.keys(currentScores).length > 0) {
+                    updateScoreTable(currentScores);
+                }
+
+            } else if (data.type === 'quiz_reset') {
+                 // Reset student data when the quiz is reset
+                studentQuestions = {};
+                messageOrderCounter = 0;
+            } else if (data.type === 'question_stats') {
+                displayQuestionStats(data.content);
+            } else if (data.type === 'hand_raise') {
+                const name = data.student;
+                if (!raisedHands[name]) {
+                    const container = document.getElementById('hand-raise-area');
+                    const div = document.createElement('div');
+                    div.textContent = `✋ ${name}`;
+                    div.className = 'hand-raise-alert';
+                    div.id = `hand-${name}`;
+                    container.appendChild(div);raisedHands[name] = true;
+                } 
+            } else if (data.type === 'hand_lower') {
+                    const name = data.student;
+                    const div = document.getElementById(`hand-${name}`);
+                    if (div) div.remove();
+                    delete raisedHands[name];
+            } else if (data.type === 'student_math_steps') {
+                const studentName = data.content.name;
+                const steps = data.content.steps;
+
+                const container = document.getElementById('hand-raise-area');
+
+                // Remove previous steps from this student
+                const oldWrapper = document.getElementById(`math-steps-${studentName}`);
+                if (oldWrapper) {
+                    oldWrapper.remove();
+                }
+
+                // Create new wrapper
+                const wrapper = document.createElement('div');
+                wrapper.id = `math-steps-${studentName}`; // ✅ Unique ID per student
+
+
+                
+                
+                wrapper.style.marginTop = '15px';
+                wrapper.style.padding = '10px';
+                wrapper.style.border = '1px solid #ccc';
+                wrapper.style.borderRadius = '5px';
+                wrapper.style.backgroundColor = '#f0f4f8';
+                wrapper.style.direction = 'ltr';
+                wrapper.style.textAlign = 'left';
+
+                const header = document.createElement('div');
+                header.style.display = 'flex';
+                header.style.justifyContent = 'space-between';
+                header.style.alignItems = 'center';
+                header.style.marginBottom = '10px';
+
+                const title = document.createElement('p');
+                title.textContent = `📐 ${studentName}:`;
+                title.style.fontWeight = 'bold';
+
+                   header.appendChild(title);
+                wrapper.appendChild(header);
+
+
+                steps.forEach(step => {
+                    const mjx = document.createElement('div');
+                    mjx.innerHTML = `\\(${step}\\)`;
+                    mjx.style.fontSize = '20px';
+                    mjx.style.marginBottom = '8px';
+                    wrapper.appendChild(mjx);
+                });
+
+                container.appendChild(wrapper);
+                if (typeof MathJax !== 'undefined') {
+                    MathJax.typeset();
+                }
+            }
+
+
+
+        };
+
+        quizSocket.onclose = function() {
+            console.error('Teacher socket closed unexpectedly');
+        };
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // UPDATED: startTimer to display countdown
+        function startTimer(timeLimit) {
+            isTimerRunning = true;
+            timeLeft = timeLimit;
+            pauseResumeButton.textContent = 'توقف';
+            
+            timerDisplay.textContent = timeLeft;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft; 
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    timerDisplay.textContent = '0'; 
+                }
+            }, 1000);
+        }
+
+        pauseResumeButton.addEventListener('click', function() {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                pauseResumeButton.textContent = 'استمر';
+                quizSocket.send(JSON.stringify({
+                    'type': 'timer_pause',
+                    'content': timeLeft
+                }));
+            } else {
+                startTimer(timeLeft);
+                isTimerRunning = true;
+                pauseResumeButton.textContent = 'انتظر';
+                quizSocket.send(JSON.stringify({
+                    'type': 'timer_resume'
+                }));
+            }
+        });
+
+        // UPDATED: Teacher message sending logic to update local display
+        sendTeacherMessageButton.addEventListener('click', function() {
+            const message = teacherMessageInput.value.trim();
+            if (message) {
+                quizSocket.send(JSON.stringify({
+                    'type': 'teacher_message',
+                    'content': {
+                        'message': message
+                    }
+                }));
+                
+                // Update the last sent message display on the teacher's page
+                lastTeacherMessageText.textContent = message;
+                lastTeacherMessageContainer.style.display = 'block';
+                
+                // Set the text direction for the teacher's local display
+                if (isArabic(message)) {
+                    lastTeacherMessageText.style.direction = 'rtl';
+                    lastTeacherMessageText.style.textAlign = 'right';
+                } else {
+                    lastTeacherMessageText.style.direction = 'ltr';
+                    lastTeacherMessageText.style.textAlign = 'left';
+                }
+
+                teacherMessageInput.value = '';
+                console.log('Teacher message sent:', message);
+            } else {
+                alert('الرجاء كتابة رسالة للإرسال.');
+            }
+        });
+
+        // UPDATED: updateScoreTable to remove the 'Remove' column/button
+        function updateScoreTable(scores) {
+            // Filter out entries with no name or 'undefined' name before processing
+            const validStudents = Object.values(scores).filter(student => 
+                student.name && student.name !== 'undefined'
+            );
+
+            const sortedStudents = validStudents.slice().sort((a, b) => {
+                const aOrder = studentQuestions[a.name]?.lastOrder ?? -Infinity;
+                const bOrder = studentQuestions[b.name]?.lastOrder ?? -Infinity;
+                return bOrder - aOrder;
+            });
+
+
+            const totalQuestions = parseInt(totalQuestionsSpan.textContent);
+            scoreTableBody.innerHTML = '';
+            
+            let rank = 1;
+            let lastScore = -1;            
+            sortedStudents.forEach((student, index) => {
+                if (student.score < lastScore) {
+                    rank = index + 1;
+                }
+                const row = document.createElement('tr');
+                const answeredQuestions = student.answered || 0;
+                const unansweredQuestions = totalQuestions - answeredQuestions;
+                const messageCount = student.message_count || 0;
+                
+                // Get last message data from the global studentQuestions object
+                const studentData = studentQuestions[student.name];
+                const lastMessage = studentData ? studentData.lastMessage : '';
+                const messageClass = isArabic(lastMessage) ? 'message-rtl' : 'message-ltr'; // Apply RTL/LTR class
+                
+                row.innerHTML = `
+                    <td>${rank}</td>
+                    <td>${student.name}</td>
+                    <td>${student.score || 0} / ${totalQuestions}</td>
+                    <td class="hidden-column">${unansweredQuestions}</td>
+                    <td class="hidden-column">${messageCount}</td>       
+                    <td class="${messageClass}">${lastMessage}</td> 
+                    `;
+                scoreTableBody.appendChild(row);
+                lastScore = student.score;
+            });
+
+            // Removed 'remove-student-button' event listener and related logic
+
+            // Remove stale names from studentQuestions
+            Object.keys(studentQuestions).forEach(name => {
+                const stillPresent = Object.values(scores).some(student => student.name === name);
+                if (!stillPresent) {
+                    delete studentQuestions[name];
+                }
+            });
+        }
+
+        
+        function displayQuestionStats(stats) {
+            statsContainer.innerHTML = '';
+
+            const optionsArray = Object.entries(stats.counts);
+
+            optionsArray.sort(([optionA, countA], [optionB, countB]) => {
+                const isCorrectA = optionA.trim() === stats.correct_answer.trim();
+                const isCorrectB = optionB.trim() === stats.correct_answer.trim();
+                
+                if (isCorrectA && !isCorrectB) return -1;
+                if (!isCorrectA && isCorrectB) return 1;
+                
+                return countB - countA;
+            });
+
+            optionsArray.forEach(([option, count]) => {
+                const isCorrect = option.trim() === stats.correct_answer.trim();
+                const item = document.createElement('div');
+                item.className = 'stat-item';
+                if (isCorrect) {
+                    item.classList.add('correct');
+                }
+                
+                item.innerHTML = `
+                    <span class="option-text">${option}</span>
+                    <span class="answer-count">${count}</span>
+                `;
+                statsContainer.appendChild(item);
+            });
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typeset();
+            }
+        }
+
+        exportScoresButton.addEventListener('click', function() {
+            exportScoresToCsv();
+        });
+
+        function exportScoresToCsv() {
+            const tableRows = scoreTableBody.querySelectorAll('tr');
+            // Updated header for CSV export
+            let csvContent = "Rank,Student,Score,Unanswered,Messages,Last_Message\n"; 
+            tableRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowData = Array.from(cells).map(cell => cell.textContent);
+                csvContent += rowData.join(',') + "\n";
+            });
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            const lessonName = document.getElementById('export-scores-button').getAttribute('data-lesson-name');
+            link.setAttribute("download", `${lessonName}_scores.csv`);
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image-upload');
+        let uploadedFile = null;
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '#f0f0f0';
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '';
+        });
+
+        dropZone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '';
+
+            const items = e.dataTransfer.items;
+            if (items) {
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    if (item.kind === 'file') {
+                        const file = item.getAsFile();
+                        if (file && file.type.startsWith('image/')) {
+                            uploadedFile = file;
+                            dropZone.textContent = `📎 تم تحميل: ${file.name}`;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            alert("لم يتم التعرف على صورة صالحة. يرجى سحب ملف صورة أو استخدام زر التحميل.");
+        });
+
+        document.getElementById('send-image-question-button').addEventListener('click', async () => {
+        const timeLimit = parseInt(document.getElementById('image-question-timer').value) || 60;
+
+        if (!uploadedFile) {
+            alert("يرجى تحميل صورة أولاً.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', uploadedFile);
+
+        try {
+            const response = await fetch('/live/upload-question-image/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const responseText = await response.text();
+            const data = JSON.parse(responseText);
+            const imageUrl = data.image_url;
+
+            quizSocket.send(JSON.stringify({
+                type: 'image_question',
+                content: {
+                    image_url: imageUrl,
+                    time_limit: timeLimit
+                }
+            }));
+
+            dropZone.textContent = "🖼️ اسحب صورة السؤال هنا أو انقر لاختيارها";
+            uploadedFile = null;
+        } catch (error) {
+            console.error("❌ فشل رفع الصورة:", error);
+        }
+    });
+
+
+
+
+
+    </script>
+{% endblock %}
+
+
+
+
+
+<!-- rearrange math pannels -->
+ <!-- rearrange math pannels -->
+  <!-- rearrange math pannels -->
+   

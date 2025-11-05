@@ -1,0 +1,254 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block content %}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <title>{{head}}</title> 
+    
+    <style>
+      /* ------------------------------------- */
+      /* 1. تنسيقات الـ Layout الأساسية (Flexbox) */
+      /* ------------------------------------- */
+      body {
+        margin: 0;
+        background-color:white;  
+      }
+      .page-wrapper {
+        display: flex; 
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: 300px; 
+        color: #ecf0f1; 
+        padding: 10px;
+        position: fixed; 
+        height: 100%;
+        overflow-y: auto; 
+        direction: rtl; 
+        z-index: 100;
+      }
+      .main-content {
+        margin-right: 250px; 
+        padding: 20px;
+        flex-grow: 1;
+        direction: rtl;
+      }
+
+      /* ------------------------------------- */
+      /* 2. تنسيقات الشريط الجانبي */
+      /* ------------------------------------- */
+      .sidebar-title {
+        font-size: 1em;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        text-align: center;
+      }
+
+      /* تنسيق زر الوحدة */
+      .unit-btn { 
+        color: #000000; 
+        width: 100%;
+        text-align: right;
+        padding: 10px 10px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        transition: background-color 0.3s;
+        display: block;
+        border-radius: 4px; 
+        font-size: 20px;
+        margin-top: 5px; 
+      }
+      .unit-btn:hover {
+        filter: brightness(0.9);
+      }
+      .unit-btn.active {
+          filter: brightness(1.1); 
+          border-bottom: 2px solid #333;
+      }
+
+
+      /* محتوى الدروس القابل للطي (محتوى الوحدة) */
+      .sidebar-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out; 
+        padding-right: 15px; 
+      }
+      
+      /* تنسيق زر الدرس (وهو رابط) */
+      .lesson-link { 
+        padding: 8px 5px; 
+        display: block; 
+        color: #000000; 
+        text-decoration: none;
+        transition: background-color 0.1s; 
+        border-radius: 4px;
+        font-size: 5px;
+        margin-top: 2px;
+      }
+      .lesson-link:hover {
+        background-color: #bbbbbb;
+      }
+      
+      /* تمييز الدرس الحالي - تم التعديل ليكون أزرق وواضح */
+      .current-lesson {
+        color: rgb(0, 17, 253) !important;
+      }
+
+      /* تنسيقات العناصر الأصلية */
+      .box { background-color:rgb(243, 243, 243); }
+      p { font-size: 20px; }     
+      .hide { display: none !important; } 
+    </style>
+  </head>  
+
+    <div class="page-wrapper">
+      
+      <aside class="sidebar">        
+        {% for u_data in sidebar_data %}
+          <button class="unit-btn" onclick="toggleSidebarContent(this)">
+            {{ u_data.unit.head }}
+          </button>
+          
+          <div class="sidebar-content">
+            {% for lesson in u_data.lessons %}
+              <a href="{% url 'qlist' k=lesson.k %}" 
+                 class="lesson-link {% if lesson.k == current_lesson_k %}current-lesson{% endif %}">
+                 {{ lesson.head }}
+              </a>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+      </aside>
+
+      <div class="main-content">
+        <h1>قائمة الأسئلة في درس {{head}}</h1>
+        <a style="color: white;background-color:#000000; width:400px" href="{% url 'subject' k=s %}">عودة للمادة</a><br>
+        <button style="width:400px" onclick='window.open("{% url 'solve' %}")'>تشفير</button> 
+        <div style="text-align:center;">
+          <a style="background-color:#d8d8d8; width:400px" href="{% url 'create' p=k %}">إضافة سؤال</a>
+        </div>
+        <br>
+
+        <div class="container">
+          {% for q in questions %}
+            {% if q.q.y %} 
+            <div style="text-align:center;">
+              <a style="background-color:#d8d8d8; width:400px" href="{% url 'create' p=p %}">إضافة سؤال</a>
+            </div>
+            {% endif %}
+
+            <div style="text-align:right">         
+              <a style="width:30px; font-size:1px" title="حذف" href="{% url 'delete' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/delete.svg' %}"></a>
+              <a style="width:30px; font-size:1px" title="تعديل" href="{% url 'update' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/edit.svg' %}"></a>
+              <a style="width:30px; font-size:1px" title="نسخ" href="{% url 'dublicate' k=q.q.k %}"><img style="width:30px" src="{% static 'admin/img/duplicate.svg' %}"></a>
+              {% if q.q.y %}               
+                {% if q.q.video %}<a style="width:35px; font-size:1px" target="blank" title="شرح فيديو" href="{{q.q.video}}"><img style="width:30px" src="{% static 'admin/img/video.svg' %}"></a>{% endif %}
+                ({{q.q.level}}) 
+              {% endif %} 
+              <br>
+              <div style="padding-right:1rem; font-size:20px; color:red"> 
+                {% for n in q.head %}                              
+                  {{n}} <br>
+                {% endfor %}
+              </div>
+            
+              {% if q.q.file %}<div style="text-align:center"><img style="width:100%;" src="{{ q.q.file_url }}"></div>{% endif %} 
+
+              <div style="padding-right: 1rem;"> 
+                {% if q.q.op2 %}
+                  1. {{q.q.op1}} <br>
+                  {% if q.q.op2 %} 2. {{q.q.op2}} <br>{% endif %}  
+                  {% if q.q.op3 %} 3. {{q.q.op3}} <br>{% endif %}    
+                  {% if q.q.op4 %} 4. {{q.q.op4}} <br>{% endif %}  
+                {% else %}
+                  {% for op in q.op1 %}
+                    {{op}} <br>
+                  {% endfor %}
+                {% endif %}
+
+                {% if q.q.ansimg %}<div style="text-align:center"><img style="width:100%;" src="{{ q.q.ansimg_url }}"></div>{% endif %} 
+
+              </div>          
+              {% if q.hint %}
+                <div style="color:rgb(1, 1, 185); font-size:20px">توجيهات الحل:</div> 
+                <div style="padding-right: 1rem;">
+                  {% for h in q.hint %}      
+                    {% if '!' in h %}
+                      <span style="color:blue">{{h}}</span>  <br>
+                    {% else %}
+                      {{h}} <br>
+                    {% endif %}                      
+                    
+                  {% endfor %}                
+                </div> 
+              {% endif %} 
+            </div>  
+            <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
+  <script>
+    function toggleSidebarContent(button) {
+      let content = button.nextElementSibling;      
+      button.classList.toggle('active');
+
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+         let parent = button.parentNode;
+         let siblingsContents = parent.querySelectorAll(':scope > .sidebar-content');
+        
+         siblingsContents.forEach(siblingContent => {
+             if (siblingContent !== content && siblingContent.style.maxHeight) {
+                 siblingContent.style.maxHeight = null;
+                 if (siblingContent.previousElementSibling) {
+                     siblingContent.previousElementSibling.classList.remove('active');
+                 }
+             }
+         });
+        
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentLesson = document.querySelector('.current-lesson');
+        if (currentLesson) {
+            // نجد العنصر الأب الأقرب الذي يحمل فئة 'sidebar-content' (الذي يحتوي الدروس)
+            let unitContent = currentLesson.closest('.sidebar-content');
+            
+            if (unitContent) {
+                 // نجد الزر الذي يسبق حاوية المحتوى مباشرة
+                 let unitButton = unitContent.previousElementSibling; 
+                 
+                 // فتح محتوى الوحدة
+                 unitContent.style.maxHeight = unitContent.scrollHeight + "px";
+                 
+                 // تمييز زر الوحدة كـ "مفتوح"
+                 if (unitButton && unitButton.tagName === 'BUTTON') {
+                    unitButton.classList.add('active'); 
+                 }
+            }
+        }
+    });
+
+    // بقية الـ JS الأصلي
+    let watchvideo = document.getElementById("watchvideo"); 
+    function watchVideo() { 
+        watchvideo.classList.toggle('hide');
+    }
+
+    function mustLogin() {
+      alert("الاختبار والتقييم والتوجيه ميزات غير متاحة في الإصدار التجريبي");
+    }
+  </script>
+
+{% endblock %}

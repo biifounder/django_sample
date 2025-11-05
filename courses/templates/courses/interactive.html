@@ -1,0 +1,417 @@
+{% extends 'courses/main.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js"></script>
+    <title>شرح تفاعلي</title>    
+    <!-- Use Tailwind CSS for a clean, modern look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'amiri', sans-serif;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+        }
+
+        .centered-container {
+            max-width: 35rem; /* Or whatever width you want the container to be */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        #youtube-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .overlay-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .question-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color:rgb(244, 244, 244);  
+            border: 2px solid #4b5563;
+            max-width: 35rem; /* MODIFIED: Set to match the video container's width */
+            width: 100%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .overlay-active .question-box {
+            transform: scale(1);
+        }
+
+        /* Styles from student.html */
+        #question-display { 
+            min-height: 100px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: black;
+        }
+        .options-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 20px; 
+        }
+        .option-btn {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: black;
+            font-size: 1em;
+            width: 95%;
+            min-height: 40px; 
+            padding-right: 1.2em;
+            padding-left: 1.2em;
+            text-align: center;
+            background: transparent;
+            border: 1px solid #25252b;
+            border-radius: 0.3em;
+        }
+        .option-btn:hover { background-color: #9d9db6; }
+        .option-btn:disabled { cursor: not-allowed; }
+
+        /* The styles below use !important to ensure they take precedence */
+        .option-btn.correct {
+            background-color: #e7f6d5 !important;
+            border-color: #689f38 !important;
+        }
+
+        .option-btn.incorrect {
+            background-color: #ffdde0 !important;
+            border-color: #d32f2f !important;
+        }
+
+        .message { padding: 8px; margin-bottom: 5px; border-radius: 4px; }
+        .question-image { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; }
+        .question-text { color: #ef4444; }
+        
+        #timer-display { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: #f40000; 
+            margin: 15px 0; 
+            text-align: center; 
+        }
+        #timer-message { 
+            margin-top: 10px; 
+            color: #0207a3; 
+            text-align: center; 
+            font-size:20px ; 
+            font-family: 'Amiri', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+<div class="centered-container">
+    <h1 style="font-size:30px; text-align: center;">الشرح التفاعلي لدرس: {{head}}</h1>
+    <br>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <!-- Placeholder for the YouTube player -->
+            <div id="youtube-player"></div>
+
+            <!-- Overlay for questions -->
+            <div id="question-overlay" class="overlay">
+                <div id="question-box" class="question-box">
+                    <div id="question-display">
+                        <p id="question-text" class="question-text"></p>
+                        <img id="question-image" class="hidden w-auto h-auto mb-6 rounded-lg" alt="Question Image">
+                    </div>
+                    <div id="options-container" class="options-container">
+                        <!-- Answer buttons will be generated here by JavaScript -->
+                    </div>
+                    <!-- Timer element moved here, right below the choices -->
+                    <div id="countdown-timer" class="text-xl font-bold text-red-600 mt-6"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Score display -->
+        <div class="p-4 bg-gray-800 text-white flex justify-between items-center rounded-b-xl">
+            <div class="text-sm font-semibold">
+                <span class="mr-2">تقييمك:</span>
+                <span id="score" class="text-green-400 text-lg">0</span>
+            </div>
+            <div id="message-box" class="text-sm text-gray-400">استيراد الفيديو...</div>
+        </div>
+    </div>
+    <a style="color: white;background-color:#000000; width:400px" href="{% url 'subject' k=s %}">عودة للمادة</a>
+</div>
+
+<script>
+    // The `questions` data is now dynamically loaded from the Django template.
+    let questions = JSON.parse("{{questions|escapejs}}");  
+
+    // --- DOM Elements ---
+    const questionOverlay = document.getElementById('question-overlay');
+    const questionDisplay = document.getElementById('question-display');
+    const questionText = document.getElementById('question-text');
+    const questionImage = document.getElementById('question-image');
+    const optionsContainer = document.getElementById('options-container');
+    const scoreDisplay = document.getElementById('score');
+    const messageBox = document.getElementById('message-box');
+    const countdownTimer = document.getElementById('countdown-timer'); // New timer element
+
+    // --- State Variables ---
+    let player;
+    let currentScore = 0;
+    const totalQuestions = questions.length; // New: Get the total number of questions
+    let questionsAnswered = new Set();
+    let isQuestionActive = false;
+    let timeUpdateInterval;
+    let countdownInterval; // New countdown timer interval
+
+    // Initialize score display
+    scoreDisplay.textContent = `${currentScore} / ${totalQuestions}`;
+
+    /**
+     * Helper function to convert a time string in "min:sec" or "hr:min:sec" format to total seconds.
+     * @param {string} timeString - The time string, e.g., "0:15" or "1:30" or "1:01:05".
+     * @returns {number} The total number of seconds.
+     */
+    function convertTimeToSeconds(timeString) {
+        const parts = timeString.split(':');
+        if (parts.length === 3) {
+            const hours = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(parts[2], 10);
+            return (hours * 3600) + (minutes * 60) + seconds;
+        } else if (parts.length === 2) {
+            const minutes = parseInt(parts[0], 10);
+            const seconds = parseInt(parts[1], 10);
+            return (minutes * 60) + seconds;
+        }
+        return 0; // Return 0 for invalid formats
+    }
+
+    // --- YouTube API Logic ---
+    // Load the IFrame Player API code asynchronously.
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // The API will call this function when the player is ready.
+    window.onYouTubeIframeAPIReady = function() {
+        player = new YT.Player('youtube-player', {
+            videoId: '{{video}}', // You must replace this with your own YouTube video ID
+            playerVars: {
+                'playsinline': 1,
+                'rel': 0, // prevents related videos from showing at the end
+                'showinfo': 0, // hides video title and uploader info
+                'controls': 1 // show video controls
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        showMessage("الفيديو جاهز للعرض. اضغط على التشغيل للبدء.");
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING && !isQuestionActive) {
+            // Start checking the time only when the video is playing
+            timeUpdateInterval = setInterval(checkVideoTime, 1000); // Check every second
+            showMessage("مشاهدة الفيديو...");
+        } else {
+            // Stop checking when the video is paused or ended
+            clearInterval(timeUpdateInterval);
+        }
+    }
+    
+    function checkVideoTime() {
+        if (player) {
+            const currentTime = Math.floor(player.getCurrentTime());
+            const questionData = questions.find(q => convertTimeToSeconds(q.time) === currentTime);
+
+            if (questionData && !questionsAnswered.has(currentTime)) {
+                // Check if the video is in fullscreen mode.
+                if (document.fullscreenElement) {
+                    // If it is, exit fullscreen before showing the question.
+                    document.exitFullscreen();
+                }
+                
+                player.pauseVideo();
+                isQuestionActive = true;
+                showQuestion(questionData);
+            }
+        }
+    }
+
+    // --- Question & Answer Logic ---
+    function showQuestion(qData) {
+        questionOverlay.classList.add('overlay-active');
+        
+        // Clear question display
+        questionDisplay.innerHTML = '';
+
+        // Display question text
+        const questionTextElement = document.createElement('p');
+        questionTextElement.textContent = qData.question;
+        questionTextElement.classList.add('question-text');
+        questionDisplay.appendChild(questionTextElement);
+        
+        if (qData.imageUrl) {
+            const questionImageElement = document.createElement('img');
+            questionImageElement.src = qData.imageUrl;
+            questionImageElement.classList.add('question-image');
+            questionImageElement.alt = 'Question Image';
+            questionDisplay.appendChild(questionImageElement);
+        }
+
+        optionsContainer.innerHTML = '';
+        
+        qData.options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.setAttribute('data-option', option); // FIX: Store the original option text in a data attribute
+            button.className = 'option-btn';
+            button.onclick = () => handleAnswer(button, option, qData.correctAnswer, convertTimeToSeconds(qData.time));
+            optionsContainer.appendChild(button);
+        });
+
+        // Start the countdown timer
+        let timeLeft = qData.time_limit;
+        countdownTimer.textContent = timeLeft;
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdownTimer.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                handleTimeout(qData);
+            }
+        }, 1000);
+        MathJax.typeset();
+    }
+
+    function handleAnswer(clickedButton, selectedOption, correctAnswer, timeStamp) {
+        // Stop the timer as soon as an answer is selected
+        clearInterval(countdownInterval);
+
+        const allButtons = optionsContainer.querySelectorAll('button');
+        allButtons.forEach(btn => btn.disabled = true);
+
+        // FIX: Find the correct button by its data attribute, not textContent
+        const correctButton = Array.from(allButtons).find(btn => btn.getAttribute('data-option') === correctAnswer);
+        if (correctButton) {
+            correctButton.classList.add('correct');
+        }
+
+        if (selectedOption !== correctAnswer) {
+            clickedButton.classList.add('incorrect');
+        } else {
+            currentScore++;
+        }
+        
+        // Update the score display to show the fraction
+        scoreDisplay.textContent = `${currentScore} / ${totalQuestions}`;
+        
+        questionsAnswered.add(timeStamp);
+        
+        showMessage(selectedOption === correctAnswer ? "صحيح! عمل رائع!" : `غير صحيح. الإجابة الصحيحة كانت: ${correctAnswer}.`);
+
+        setTimeout(() => {
+            hideQuestion();
+            allButtons.forEach(btn => btn.disabled = false);
+        }, 1500);
+    }
+
+    function handleTimeout(qData) {
+        const allButtons = optionsContainer.querySelectorAll('button');
+        allButtons.forEach(btn => btn.disabled = true);
+        
+        // FIX: Find the correct button by its data attribute, not textContent
+        const correctButton = Array.from(allButtons).find(btn => btn.getAttribute('data-option') === qData.correctAnswer);
+        if (correctButton) {
+            correctButton.classList.add('correct');
+        }
+        
+        showMessage(`انتهى الوقت، الإجابة الصحيحة كانت: ${qData.correctAnswer}.`);
+
+        // Hide the question after a short delay
+        setTimeout(() => {
+            hideQuestion();
+            allButtons.forEach(btn => btn.disabled = false);
+        }, 2500); // 2.5 seconds to show the correct answer
+    }
+
+    function hideQuestion() {
+        questionOverlay.classList.remove('overlay-active');
+        isQuestionActive = false;
+        if (player && player.getPlayerState() !== YT.PlayerState.ENDED) {
+            player.playVideo();
+        }
+        showMessage("مشاهدة الفيديو...");
+    }
+    
+    function showMessage(msg) {
+        messageBox.textContent = msg;
+    }
+    
+</script>
+
+</body>
+{% endblock %}

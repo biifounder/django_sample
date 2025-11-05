@@ -1,0 +1,14 @@
+
+django_sample/settings.py
+django_sample/__pycache__/settings.cpython-312.pyc
+courses/migrations/0001_initial.py
+db.sqlite3
+/django_sample
+backup_eval.json
+backup_local.json
+backup_server.json
+courses/backup_server.json
+courses/migrations/0003_lesson_w_outcome_w_unit_w.py
+/courses/migrations
+db.sqlite3-journal
+

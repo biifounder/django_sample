@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+        body {
+            font-family: 'Amiri', serif;      
+            text-align:center;  
+            background-color:rgb(244, 244, 244);  
+        }
+
+        .container, .box {
+            text-align:center;
+            max-width: 30rem;   
+            min-width: 20rem;   
+            margin: auto;             
+            align-items: center;
+        }
+
+        .box {
+            border: 2px solid #898888;    
+            border-radius: 0.5em;         
+            background-color:#ebe9e9;
+        }
+
+        button, a:link, a:visited {
+            font-size: 25px;
+            color:#000000;
+            background: transparent;
+            border: 1px solid #cacaca;
+            border-radius: 0.5em;   
+            display: inline-block;            
+            width: 19%;
+            margin: 0.2rem;
+            padding-right: 1em;        
+            padding-left: 1em;        
+            font-family: 'Amiri', serif;       
+            text-decoration: none;
+            cursor:pointer; 
+            box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+        }
+
+        button:hover, a:hover {
+            background-color:rgb(202, 202, 202);
+            border: 1px solid #696969;
+        }    
+
+        .hide {
+            display: none;
+        }
+
+  </style>
+
+
+</head>
+
+<body>
+    
+    <div class = 'box'>
+        <p>تشفير الصيغ وحل المعادلات</p>
+        <textarea type="textarea" rows="5" cols="50" name="" id="input" placeholder="solve:   v = x*y/z = 2*3/4 = J  OR v = x*y/z = 2*3/4 =
+convert: 0.409713 m^3 = mL, m^3 = 409713 mL, 409713 mL = m^3, mL = 0.409713 m^3
+Expression: v = x*y/z , 3e-2   "></textarea>
+        <button onclick="QU()">وحدات</button>
+        <button onclick="convert()">تحويل</button>
+        <button onclick="Expression('D')">صيغة</button>        
+        <button onclick="Calc()">الحل</button>        
+        <div id="disp"></div>        
+        <textarea type="textarea" rows="15" cols="50" name="" id="output"></textarea>
+    </div>
+
+
+
+    <script>
+        function Display(disps){
+            for (let disp of disps){ 
+                let Disp = document.getElementById("disp");
+                let div = document.createElement("div");
+                div.innerHTML += `${disp}` 
+                Disp.appendChild(div);
+                MathJax.typesetPromise([Disp]);
+            }
+        }
+
+        function exptex(text) {
+            text = text.replace(/([\-+]?\d*\.?\d+)[eE]([\-+]?\d+)/g, '$1 \\times 10^{$2}');
+            text = text.replace(/\^(-?\d+)/g, '^{\$1}');
+            return text;
+        }
+
+        function pytex(formula) {
+            // converts python formula to tex formula in the same line
+            formula = formula.replace(/sqrt/g, '\\sqrt').replace(/3\.14/g, 'pi').replace(/\*/g, ' \\times ').replace(/pi/g, '\\pi')
+                            .replace(/phi/g, '\\phi').replace(/rho/g, '\\rho').replace(/ohm/g, '\\Omega').replace(/del/g, '\\Delta')
+                            .replace(/pm/g, '\\pm').replace(/circ/g, '\\circ').replace(/%/g, '\\%').replace(/\\mathrm\{%\}/g, '\\%')
+                            .replace('e+','e').replace('e0','e').replace('e-0','e-');
+            formula = formula.replace(/(\d+(\.\d+)?e[+-]?\d+)/gi, match => {return match.replace('e', ' \\times 10^{') + '}';});
+            let forms = formula.split('=');
+            forms.forEach(function(form) {
+                if (form.includes('/')) {
+                    let newForm = '\\dfrac{' + form.replace('/', '}{').trim() + '}';
+                    formula = formula.replace(form, newForm);
+                }
+            });
+
+            formula = '\\( ' + formula + ' \\)';
+            return formula;
+        }
+
+        // ----------------------------------------------------------------------------------------
+        function QU(input) {
+            let formula = document.getElementById('input').value;
+            let qus = formula.trim().split(',');
+            let allqus = []; 
+            for (let qu of qus) {
+                const match = qu.trim().match(/^([+-]?[\d.]+(?:e[+-]?\d+)?)\s+(.+)$/i);
+                let [_, q, u] = match;
+                u = exptex(u).trim();
+                allqus.push('\\( ' + q.trim() + ' \\ \\mathrm{' + u + '} \\) ..')
+            } 
+            document.getElementById('output').value = allqus.join('\n');
+            Display([allqus])
+        }
+
+        // ----------------------------------------------------------------------------------------
+        function Expression(m) {
+            let formula = document.getElementById('input').value;
+            let steps = formula.trim().split(',');
+            let allsteps = [];
+            for (let step of steps) {
+                form = pytex(step.trim())
+                if (m === 'D'){
+                    form = form.replace('\\(','\\[').replace('\\)','\\]').replace('\\dfrac','\\frac')
+                }
+                allsteps.push(form);
+            }
+            document.getElementById('output').value = allsteps.join('\n');
+            Display(allsteps)
+        }
+
+
+        const d = {
+            'km_m': 1000, 'm_dm': 10, 'm_cm': 100, 'm_mm': 1000, 'km_cm':100000,
+            'day_h': 24, 'day_min':1440,  'h_min': 60, 'h_s': 3600, 'min_s': 60, 's_ms': 1000,
+            'L_mL': 1000, 'L_cm^3': 1000, 'cm^3_mL':1, 'm^3_L': 1000, 'm^3_cm^3': 1000000, 'm^3_dm^3': 1000, 'cm_mm':10, 'L_dm^3':1,
+            'dm^3_cm^3': 1000, 'dm^3_mL': 1000, 'm^3_mL': 1000000,
+            'kg_g': 1000, 'g_mg': 1000, 'm^2_cm^2': 10000, 
+            'g/cm^3_kg/m^3':1000, 'g/mL_kg/m^3':1000, 
+            
+        }
+
+        function fix(n, r) {
+            r = Math.max(parseInt(r), 0);
+            let s = n.toFixed(r);
+            // Remove trailing zeros and dot
+            return s.includes('.') ? s.replace(/\.?0+$/, '') : s;
+        }
+
+        function give_options(f, v) {
+            let fz = f.toString().length-1;
+            let vd = v.toString().split(".")[1]?.length || 0;
+            let n1 = fix(parseFloat(v) * f, vd - fz);
+            n2 = fix(parseFloat(v) / f, vd + fz);
+            n3 = fix(parseFloat(v) * f * 10, vd - fz - 1);
+            n4 = fix(parseFloat(v) / f / 10, vd + fz + 1);
+            return [n1, n2, n3, n4];
+        }
+
+
+
+        function convert() {
+            const entry = document.getElementById("input");
+            const output = document.getElementById("output");
+            output.value = ""; // Clear previous output
+
+            const text = entry.value.trim();
+
+            if (!text.includes('=')) {
+                output.value = "Invalid format. Use 'value unit = unit' format.\n";
+                return;
+            }
+
+            const [left, right] = text.split('=').map(s => s.trim());
+            const uL = left.split(/\s+/);
+            const uR = right.split(/\s+/);
+
+            try {
+                let v, u1, u2, problem, rule, form, problemDisplay, n1, n2, n3, n4;
+
+                if (uL.length === 2) {
+                    [v, u1] = uL;
+                    u2 = uR[0];
+                    problem = `\\( ${text.replace(u1, ` \\ \\mathrm{${u1}}`).replace(u2, ` . . . \\ \\mathrm{${u2}}`)} \\)`;
+                } else {
+                    [v, u1] = uR;
+                    u2 = uL[0];
+                    problem = `\\( ${text.replace(u1, ` \\ \\mathrm{${u1}}`).replace(u2, ` . . . \\ \\mathrm{${u2}}`).replace('=', '=\\')} \\)`;
+                }
+
+                output.value += `${problem}\n\n`;
+
+                problemDisplay = problem.replace('\\(', '\\[').replace('\\)', '\\]');
+
+                let uu = `${u1}_${u2}`;
+                if (d[uu]) {
+                    let f = d[uu];
+                    rule = problemDisplay.replace(v, '1').replace('. . .', f);
+                    [n1, n2, n3, n4] = give_options(f, v);
+                    form = `\\[ \\frac{${v} \\times ${f}}{1} = ${n1} \\ \\mathrm{${u2}} \\]`;
+                } else {
+                    uu = `${u2}_${u1}`;
+                    if (d[uu]) {
+                        let f = d[uu];
+                        rule = problemDisplay.replace(v, f).replace('. . .', '1');
+                        [n2, n1, n4, n3] = give_options(f, v);
+                        form = `\\[ \\frac{${v} \\times 1}{${f}} = ${n1} \\ \\mathrm{${u2}} \\]`;
+                    } else {
+                        output.value += `Conversion not supported between ${u1} and ${u2}\n`;
+                        return;
+                    }
+                }
+
+                const result = [
+                    `\\(${n1}  \\ \\mathrm{${u2}}\\) ..`,
+                    `\\(${n2}  \\ \\mathrm{${u2}}\\) ..`,
+                    `\\(${n3}  \\ \\mathrm{${u2}}\\) ..`,
+                    `\\(${n4}  \\ \\mathrm{${u2}}\\)`,
+                    '\n', 
+                    problemDisplay,
+                    rule,
+                    'بالضرب التبادلي:',
+                    form
+                ].join('\n');
+
+                output.value += result;
+            } catch (e) {
+                output.value += `Error: ${e.message}\n`;
+            }
+        }
+
+
+        function Calc() {
+            const input = document.getElementById("input").value;
+            const output = document.getElementById("output");
+            output.innerHTML = "";
+
+            const splitted = input.split("=");
+            let allOptions = [];
+
+            const form = splitted[splitted.length - 2].trim();
+            let variables = form.replace(/[\*\+\/\-\(\)]/g, " ").split(" ").filter(Boolean);
+            variables = variables.map(v => parseFloat(v));
+
+            let r = Math.max(...variables.map(v => (v.toString().split(".")[1] || "").length));
+            if (r === 0) r = 2;
+            while (variables.length < 3) variables.push(1);
+
+            const [x, y, z] = variables;
+            const corr = eval(form);
+            let options = [fix(corr, r)];
+
+            const addins = [
+                fix(x * y * z, r),
+                fix(x / y / z, r),
+                fix(x * y / z, r),
+                fix(x / y * z, r),
+                fix(y * x / z, r),
+                fix(y / x * z, r),
+            ];
+
+            const randoms = [];
+            for (let n of [10, 20, 30, 40]) {
+                randoms.push(fix(corr / n, r + 1));
+                randoms.push(fix(corr * n, Math.max(r - 1, 0)));
+            }
+
+            shuffleArray(addins);
+            shuffleArray(randoms);
+
+            for (let ad of [...addins, ...randoms]) {
+                if (!options.includes(ad)) {
+                options.push(ad);
+                }
+            }
+
+            let unit = splitted[splitted.length-1].trim().trim();
+            if (unit){
+                unit = unit.replace(/\^(-?\d+)/g, "^{$1}");
+                unit = unit.includes("%") ? " \\%" : ` \\ \\mathrm{${unit}}`;
+            }
+            
+
+            let exprs = splitted.slice(0, -1).join(" = ").trim();
+            const displayed = options.slice(0, 4);
+
+            allOptions.push(...displayed);
+            allOptions = allOptions.slice(0, 4).map(op => `\\(${op}${unit}\\) ..`);            
+
+            let renderedExpr = typeof pytex === "function" ? pytex(exprs) : exprs;
+            renderedExpr = renderedExpr.replace('\\(','').replace('\\)','')
+
+            const displayExpr = `\\[ ${renderedExpr} = ${fix(corr, r)}${unit} \\]`;
+            Display([displayExpr]);
+
+            allOptions = [displayExpr].concat(allOptions);
+            document.getElementById('output').value = allOptions.join('\n');
+        }
+
+        function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        }
+
+
+    </script>
+</body>
+</html>
